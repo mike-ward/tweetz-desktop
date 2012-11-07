@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="tweetz5.Controls.ComposeTweet"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="200 ">
+    <StackPanel Style="{StaticResource ComposeTweet}">
+        <TextBlock Style="{StaticResource ComposeTweetTitleBlock}">What's Happening</TextBlock>
+        <TextBox Height="150"></TextBox>
+        <StackPanel Orientation="Horizontal">
+            <Button>Shorten</Button>
+            <Button>Send</Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

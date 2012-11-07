@@ -1,0 +1,111 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:tweetz5.Controls"
+             xmlns:model="clr-namespace:tweetz5.Model"
+             x:Class="tweetz5.Timeline"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+    <UserControl.Resources>
+        <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <model:Timelines />
+    </UserControl.DataContext>
+    <Grid>
+        <ScrollViewer>
+            <ItemsControl x:Name="TimelineItems"
+                          ItemsSource="{Binding Timeline}"
+                          Style="{StaticResource TimelineStyle}"
+                          ItemContainerStyle="{StaticResource TweetItemStyle}">
+                <ItemsControl.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform />
+                    </TransformGroup>
+                </ItemsControl.RenderTransform>
+                <ItemsControl.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.SizeChanged">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TimelineItems"
+                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="-50" />
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ItemsControl.Triggers>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DataTemplate.Resources>
+                        	<Storyboard x:Key="ItemAnimation"
+                        		AutoReverse="False">
+                        		<DoubleAnimationUsingKeyFrames Storyboard.TargetName="MyGrid"
+                        			Storyboard.TargetProperty="(UIElement.Opacity)">
+                        			<EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                        			<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1" />
+                        		</DoubleAnimationUsingKeyFrames>
+                        	</Storyboard>
+                        </DataTemplate.Resources>
+
+                        <Grid x:Name="MyGrid"
+                              Background="{Binding TweetType, Converter={StaticResource tweetTypeConverter}}"
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                            	<ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
+                            	<ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                            	<RowDefinition />
+                            	<RowDefinition />
+                            	<RowDefinition />
+                            	<RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Rectangle Grid.Column="0"
+                                       Style="{StaticResource TweetImageStyle}">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <StackPanel Grid.Column="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                    	<ColumnDefinition Width="*" />
+                                    	<ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Style="{StaticResource TweetNameStyle}"
+                                               Text="{Binding Name}" />
+                                    <TextBlock Grid.Column="1"
+                                               Style="{StaticResource TweetTimeStyle}"
+                                               Text="{Binding TimeAgo}" />
+                                </Grid>
+                                <controls:TextBlockMarkup Grid.Row="1"
+                                                          Grid.Column="1"
+                                                          Markup="{Binding MarkupText}"
+                                                          Style="{StaticResource TweetStyle}" />
+                            </StackPanel>
+                            <Separator Grid.Row="2"
+                                       Grid.ColumnSpan="2"
+                                       Style="{StaticResource TweetSeparatorTop}" />
+                            <Separator Grid.Row="3"
+                                       Grid.ColumnSpan="2"
+                                       Style="{StaticResource TweetSeparatorBottom}" />
+                        </Grid>
+
+                        <DataTemplate.Triggers>
+                        	<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        		<BeginStoryboard Storyboard="{StaticResource ItemAnimation}" />
+                        	</EventTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
