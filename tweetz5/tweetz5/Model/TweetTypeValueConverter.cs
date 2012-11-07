@@ -13,11 +13,9 @@ namespace tweetz5.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (((string)value).Contains("m"))
-            {
-                return new SolidColorBrush(Color.FromRgb(33, 55, 33));
-            }
-            return DependencyProperty.UnsetValue;
+            return ((string)value).Contains("m") 
+                ? new SolidColorBrush(Color.FromRgb(33, 55, 33)) 
+                : DependencyProperty.UnsetValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
