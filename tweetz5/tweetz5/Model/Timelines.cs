@@ -10,7 +10,14 @@ using System.Windows;
 
 namespace tweetz5.Model
 {
-    public class Timelines : INotifyPropertyChanged
+    public interface ITimelines
+    {
+        void HomeTimeline();
+        void MentionsTimeline();
+        void UpdateTimeStamps();
+    }
+
+    public class Timelines : ITimelines, INotifyPropertyChanged
     {
         public ObservableCollection<Tweet> Timeline { get; set; }
         private readonly ObservableCollection<Tweet> _unified = new ObservableCollection<Tweet>();
