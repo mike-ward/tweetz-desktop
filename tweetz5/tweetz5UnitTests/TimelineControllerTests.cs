@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
+
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -11,6 +13,12 @@ namespace tweetz5UnitTests
     [TestClass]
     public class TimelineControllerTests
     {
+        [TestCleanup]
+        public void Cleanup()
+        {
+            SysTimer.ImplementationOverride = null;
+        }
+
         [TestMethod]
         public void ConstructingControllerStartsTimelines()
         {
@@ -19,7 +27,7 @@ namespace tweetz5UnitTests
             var queue = new Queue<ITimer>();
             queue.Enqueue(checkTimelines.Object);
             queue.Enqueue(updateTimelines.Object);
-            SysTimer.Override = queue.Dequeue;
+            SysTimer.ImplementationOverride = queue.Dequeue;
 
             var timelines = new Mock<ITimelines>();
             var controller = new TimelineController(timelines.Object);

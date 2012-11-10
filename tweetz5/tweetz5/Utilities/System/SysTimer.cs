@@ -42,11 +42,11 @@ namespace tweetz5.Utilities.System
             }
         }
 
-        public static Func<ITimer> Override { get; set; }
+        public static Func<ITimer> ImplementationOverride { get; set; }
 
         public static ITimer Factory()
         {
-            return  (Override != null) ? Override() : new SysTimer();
+            return  (ImplementationOverride != null) ? ImplementationOverride() : new SysTimer();
         }
 
         public void Dispose()
