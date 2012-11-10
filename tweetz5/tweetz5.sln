@@ -5,9 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5", "tweetz5\tweetz5.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5tests", "Tweetz5Tests\tweetz5tests.csproj", "{E8BEE548-1A36-43F5-9EE0-22F31FD8CEDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5UnitTests", "tweetz5UnitTests\tweetz5UnitTests.csproj", "{0DC800FD-087B-465A-ACA6-C8E4CEF78029}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://blueonionsoftware.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -17,6 +19,9 @@ Global
 		SccProjectUniqueName2 = Tweetz5Tests\\Tweetz5Tests.csproj
 		SccProjectName2 = Tweetz5Tests
 		SccLocalPath2 = Tweetz5Tests
+		SccProjectUniqueName3 = tweetz5UnitTests\\tweetz5UnitTests.csproj
+		SccProjectName3 = tweetz5UnitTests
+		SccLocalPath3 = tweetz5UnitTests
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +36,10 @@ Global
 		{E8BEE548-1A36-43F5-9EE0-22F31FD8CEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8BEE548-1A36-43F5-9EE0-22F31FD8CEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8BEE548-1A36-43F5-9EE0-22F31FD8CEDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DC800FD-087B-465A-ACA6-C8E4CEF78029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DC800FD-087B-465A-ACA6-C8E4CEF78029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DC800FD-087B-465A-ACA6-C8E4CEF78029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DC800FD-087B-465A-ACA6-C8E4CEF78029}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
