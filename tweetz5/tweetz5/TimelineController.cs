@@ -1,11 +1,12 @@
 ﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
 
+using System;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
 
 namespace tweetz5
 {
-    public class TimelineController
+    public class TimelineController : IDisposable
     {
         private readonly ITimelines _timelinesModel;
         private ITimer _checkTimelines;
@@ -14,12 +15,11 @@ namespace tweetz5
         public TimelineController(ITimelines timelinesModel)
         {
             _timelinesModel = timelinesModel;
-            StartTimelines();
         }
 
-        private void StartTimelines()
+        public void StartTimelines()
         {
-            _checkTimelines = MyTimer.Factory();
+            _checkTimelines = SysTimer.Factory();
             _checkTimelines.Interval = 100;
             _checkTimelines.Elapsed += (s, e) =>
             {
@@ -29,10 +29,37 @@ namespace tweetz5
             };
             _checkTimelines.Start();
 
-            _updateTimeStamps = MyTimer.Factory();
+            _updateTimeStamps = SysTimer.Factory();
             _updateTimeStamps.Interval = 30000;
             _updateTimeStamps.Elapsed += (s, e) => _timelinesModel.UpdateTimeStamps();
             _updateTimeStamps.Start();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private bool _disposed;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed) return;
+            _disposed = true;
+            if (disposing)
+            {
+                if (_checkTimelines != null)
+                {
+                    _checkTimelines.Dispose();
+                    _checkTimelines = null;
+                }
+                if (_updateTimeStamps != null)
+                {
+                    _updateTimeStamps.Dispose();
+                    _updateTimeStamps = null;
+                }
+            }
         }
     }
 }

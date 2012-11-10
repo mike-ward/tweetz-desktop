@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5", "tweetz5\tweetz5.csproj", "{2A7FFB62-91CD-4498-9F2D-8830B8B597C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweetz5Tests", "Tweetz5Tests\Tweetz5Tests.csproj", "{E8BEE548-1A36-43F5-9EE0-22F31FD8CEDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5tests", "Tweetz5Tests\tweetz5tests.csproj", "{E8BEE548-1A36-43F5-9EE0-22F31FD8CEDF}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution

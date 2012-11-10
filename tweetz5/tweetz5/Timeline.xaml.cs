@@ -5,8 +5,6 @@ using tweetz5.Model;
 
 namespace tweetz5
 {
-    // ReSharper disable NotAccessedField.Local
-
     public partial class Timeline
     {
         private readonly TimelineController _controller;
@@ -15,6 +13,8 @@ namespace tweetz5
         {
             InitializeComponent();
             _controller = new TimelineController((Timelines) DataContext);
+            _controller.StartTimelines();
+            Unloaded += (sender, args) => _controller.Dispose();
         }
     }
 }
