@@ -30,7 +30,7 @@ namespace tweetz5.Model
             AccessTokenSecret = "zaBS7G3f8n0F6zxGwNJEmlU4zg1P6VgL5cPyEgShI";
         }
 
-        protected string UrlEncode(string value)
+        public static string UrlEncode(string value)
         {
             var result = new StringBuilder();
             const string unreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
@@ -45,8 +45,7 @@ namespace tweetz5.Model
 
         public static string Nonce()
         {
-            return Convert.ToBase64String(Encoding.ASCII.GetBytes(
-                DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture)));
+            return Guid.NewGuid().ToString();
         }
 
         public static string TimeStamp()

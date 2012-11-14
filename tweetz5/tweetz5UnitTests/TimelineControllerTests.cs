@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using tweetz5;
@@ -44,7 +45,7 @@ namespace tweetz5UnitTests
             updateTimelines.VerifySet(u => u.Interval = 30000);
             updateTimelines.Verify(u => u.Start());
             timelines.Verify(t => t.UpdateTimeStamps());
-            Assert.IsNotNull(controller);
+            controller.Should().NotBeNull();
         }
     }
 }
