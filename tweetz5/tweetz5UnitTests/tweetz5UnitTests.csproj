@@ -63,6 +63,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Model\OAuthTests.cs" />
+    <Compile Include="Model\TweetTests.cs" />
     <Compile Include="TimelineControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
