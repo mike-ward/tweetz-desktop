@@ -70,6 +70,7 @@
     <Compile Include="Model\Tweet.cs" />
     <Compile Include="Model\TweetTypeValueConverter.cs" />
     <Compile Include="Model\Twitter.cs" />
+    <Compile Include="Model\WebRequestWrapper.cs" />
     <Compile Include="Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
