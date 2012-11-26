@@ -12,7 +12,7 @@ namespace tweetz5.Model
 {
     public class Twitter
     {
-        private static WebRequest WebRequest(string url, IEnumerable<string[]> parameters)
+        private static IWebRequest WebRequest(string url, IEnumerable<string[]> parameters)
         {
             var nonce = OAuth.Nonce();
             var timestamp = OAuth.TimeStamp();
@@ -21,7 +21,7 @@ namespace tweetz5.Model
             var authorizeHeader = oauth.AuthorizationHeader(nonce, timestamp, signature);
             var fullUrl = url + "?" + string.Join("&", parameters.Select(p => string.Format("{0}={1}", p[0], p[1])));
 
-            var request = System.Net.WebRequest.Create(new Uri(fullUrl));
+            var request = WebRequestWrapper.Create(new Uri(fullUrl));
             request.Headers.Add("Authorization", authorizeHeader);
             return request;
         }
