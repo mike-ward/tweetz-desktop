@@ -20,6 +20,7 @@ namespace tweetz5.Model
     public class Timelines : ITimelines, INotifyPropertyChanged
     {
         public ObservableCollection<Tweet> Timeline { get; set; }
+        public Action<Action> DispatchInvokerOverride { get; set; }
         private readonly ObservableCollection<Tweet> _unified = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _home = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _mentions = new ObservableCollection<Tweet>();
@@ -126,13 +127,19 @@ namespace tweetz5.Model
             return time.ToString("MMM d");
         }
 
+        private void DispatchInvoker(Action callback)
+        {
+            var invoker = DispatchInvokerOverride ?? Application.Current.Dispatcher.Invoke;
+            invoker(callback);
+        }
+
         public void HomeTimeline()
         {
             var twitter = new Twitter();
             var statuses = twitter.HomeTimeline();
             if (statuses.Length > 0)
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                DispatchInvoker(() =>
                 {
                     UpdateTimeline(_home, statuses, "h");
                     UpdateTimeline(_unified, statuses, "h");
@@ -146,7 +153,7 @@ namespace tweetz5.Model
             var statuses = twitter.MentionsTimeline();
             if (statuses.Length > 0)
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                DispatchInvoker(() =>
                 {
                     UpdateTimeline(_mentions, statuses, "m");
                     UpdateTimeline(_unified, statuses, "m");
@@ -156,7 +163,7 @@ namespace tweetz5.Model
 
         public void UpdateTimeStamps()
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            DispatchInvoker(() =>
             {
                 foreach (var tweet in Timeline)
                 {
