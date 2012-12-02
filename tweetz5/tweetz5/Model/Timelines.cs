@@ -54,13 +54,15 @@ namespace tweetz5.Model
                     var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
                         CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
+                    var theStatus = status.RetweeetedtStatus ?? status;
+
                     timeline.Add(new Tweet
                     {
                         StatusId = status.Id,
-                        Name = status.User.Name,
-                        ProfileImageUrl = status.User.ProfileImageUrl,
-                        Text = status.Text,
-                        MarkupText = MarkupText(status.Text, status.Entities),
+                        Name = theStatus.User.Name,
+                        ProfileImageUrl = theStatus.User.ProfileImageUrl,
+                        Text = theStatus.Text,
+                        MarkupText = MarkupText(theStatus.Text, theStatus.Entities),
                         CreatedAt = createdAt,
                         TimeAgo = TimeAgo(createdAt),
                         TweetType = tweetType

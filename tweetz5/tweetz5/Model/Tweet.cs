@@ -64,6 +64,9 @@ namespace tweetz5.Model
         [DataMember(Name="entities")]
         public Entities Entities { get; set; }
 
+        [DataMember(Name="retweeted_status")]
+        public Status RetweeetedtStatus { get; set; }
+
         public static Status[] ParseJson(string json)
         {
             using (var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)))

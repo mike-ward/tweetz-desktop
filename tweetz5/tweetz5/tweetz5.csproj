@@ -40,6 +40,9 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>twitter.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -69,7 +72,7 @@
     <Compile Include="Model\Timelines.cs" />
     <Compile Include="Model\Tweet.cs" />
     <Compile Include="Model\TweetTypeValueConverter.cs" />
-    <Compile Include="Model\Twitter.cs" />
+    <Compile Include="Controls\Twitter.cs" />
     <Compile Include="Model\WebRequestWrapper.cs" />
     <Compile Include="Model\WebResponseWrapper.cs" />
     <Compile Include="Timeline.xaml.cs">
@@ -131,7 +134,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="twitter.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
