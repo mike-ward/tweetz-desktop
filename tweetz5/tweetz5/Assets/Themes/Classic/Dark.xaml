@@ -64,6 +64,17 @@
         <Setter Property="TextWrapping"
                 Value="Wrap" />
     </Style>
+    <Style x:Key="TweetRetweetedByStyle"
+           TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment"
+                Value="Right"/>
+        <Setter Property="FontStyle"
+                Value="Italic"/>
+        <Setter Property="Foreground"
+                Value="#888888"/>
+        <Setter Property="FontSize"
+                Value="10"/>
+    </Style>
     <Style x:Key="TweetSeparatorTop"
            TargetType="Separator">
         <Setter Property="Background"

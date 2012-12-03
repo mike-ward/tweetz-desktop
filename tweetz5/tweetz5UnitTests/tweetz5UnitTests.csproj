@@ -45,9 +45,12 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -63,10 +66,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Model\OAuthTests.cs" />
+    <Compile Include="Model\StringValueVisibilityConverterTests.cs" />
     <Compile Include="Model\TweetTests.cs" />
     <Compile Include="Model\TimelinesTests.cs" />
     <Compile Include="Model\TwitterTests.cs" />
-    <Compile Include="TimelineControllerTests.cs" />
+    <Compile Include="Controls\TimelineControllerTests.cs" />
+    <Compile Include="Model\TweetTypeValueConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

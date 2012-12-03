@@ -69,16 +69,17 @@
     </Compile>
     <Compile Include="Controls\TextBlockMarkup.cs" />
     <Compile Include="Model\OAuth.cs" />
+    <Compile Include="Model\StringValueVisibilityConverter.cs" />
     <Compile Include="Model\Timelines.cs" />
     <Compile Include="Model\Tweet.cs" />
     <Compile Include="Model\TweetTypeValueConverter.cs" />
     <Compile Include="Controls\Twitter.cs" />
     <Compile Include="Model\WebRequestWrapper.cs" />
     <Compile Include="Model\WebResponseWrapper.cs" />
-    <Compile Include="Timeline.xaml.cs">
+    <Compile Include="Controls\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TimelineController.cs">
+    <Compile Include="Controls\TimelineController.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\System\SysTimer.cs" />
@@ -102,7 +103,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Timeline.xaml">
+    <Page Include="Controls\Timeline.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

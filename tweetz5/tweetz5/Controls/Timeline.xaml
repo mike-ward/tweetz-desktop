@@ -5,12 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:tweetz5.Controls"
              xmlns:model="clr-namespace:tweetz5.Model"
-             x:Class="tweetz5.Timeline"
+             x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
     <UserControl.Resources>
         <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
+        <model:StringValueVisibilityConverter x:Key="stringValueVisibilityConverter" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <model:Timelines />
@@ -89,6 +90,14 @@
                                                           Grid.Column="1"
                                                           Markup="{Binding MarkupText}"
                                                           Style="{StaticResource TweetStyle}" />
+
+                                <TextBlock Grid.Row="1" 
+                                           Grid.Column="1"
+                                           Style="{StaticResource TweetRetweetedByStyle}"
+                                           Visibility="{Binding RetweetedBy, Converter={StaticResource stringValueVisibilityConverter}}">
+                                    <Run>Retweeted by </Run>
+                                    <Run Text="{Binding RetweetedBy}"></Run>
+                                </TextBlock>
                             </StackPanel>
                             <Separator Grid.Row="2"
                                        Grid.ColumnSpan="2"

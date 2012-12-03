@@ -4,7 +4,7 @@ using System;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
 
-namespace tweetz5
+namespace tweetz5.Controls
 {
     public class TimelineController : IDisposable
     {

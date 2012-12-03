@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using tweetz5;
+using tweetz5.Controls;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
 

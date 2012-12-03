@@ -3,7 +3,7 @@
 using System;
 using tweetz5.Model;
 
-namespace tweetz5
+namespace tweetz5.Controls
 {
     public partial class Timeline
     {

@@ -20,6 +20,7 @@ namespace tweetz5.Model
         public string MarkupText { get; set; }
         public DateTime CreatedAt { get; set; }
         public string TweetType { get; set; }
+        public string RetweetedBy { get; set; }
 
         public string TimeAgo
         {
