@@ -95,7 +95,7 @@
                                            Grid.Column="1"
                                            Style="{StaticResource TweetRetweetedByStyle}"
                                            Visibility="{Binding RetweetedBy, Converter={StaticResource stringValueVisibilityConverter}}">
-                                    <Run>Retweeted by </Run>
+                                    <Run>RT </Run>
                                     <Run Text="{Binding RetweetedBy}"></Run>
                                 </TextBlock>
                             </StackPanel>

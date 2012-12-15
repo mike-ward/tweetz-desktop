@@ -89,29 +89,48 @@ namespace tweetz5.Model
         {
             var markupItems = new List<MarkupItem>();
 
-            markupItems.AddRange(entities.Urls.Select(url => new MarkupItem
+            if (entities.Urls != null)
             {
-                Markup = string.Format("<a{0}>", url.Url),
-                Start = url.Indices[0],
-                End = url.Indices[1]
-            }));
+                markupItems.AddRange(entities.Urls.Select(url => new MarkupItem
+                {
+                    Markup = string.Format("<a{0}>", url.Url),
+                    Start = url.Indices[0],
+                    End = url.Indices[1]
+                }));
+            }
 
-            markupItems.AddRange(entities.Mentions.Select(mention => new MarkupItem
+            if (entities.Mentions != null)
             {
-                Markup = string.Format("<m@{0}>", mention.ScreenName),
-                Start = mention.Indices[0],
-                End = mention.Indices[1]
-            }));
+                markupItems.AddRange(entities.Mentions.Select(mention => new MarkupItem
+                {
+                    Markup = string.Format("<m@{0}>", mention.ScreenName),
+                    Start = mention.Indices[0],
+                    End = mention.Indices[1]
+                }));
+            }
 
-            markupItems.AddRange(entities.HashTags.Select(hashtag => new MarkupItem
+            if (entities.HashTags != null)
             {
-                Markup = string.Format("<h#{0}>", hashtag.Text),
-                Start = hashtag.Indices[0],
-                End = hashtag.Indices[1]
-            }));
+                markupItems.AddRange(entities.HashTags.Select(hashtag => new MarkupItem
+                {
+                    Markup = string.Format("<h#{0}>", hashtag.Text),
+                    Start = hashtag.Indices[0],
+                    End = hashtag.Indices[1]
+                }));
+            }
+
+            if (entities.Media != null)
+            {
+                markupItems.AddRange(entities.Media.Select(media => new MarkupItem
+                {
+                    Markup = string.Format("<a{0}>", media.Url),
+                    Start = media.Indices[0],
+                    End = media.Indices[1]
+                }));
+            }
 
             // Sort list so largest start item is first. Filling in the items
-            // the "back" of the text string preserves the indicies.
+            // from the "back" of the text string preserves the indicies.
             markupItems.Sort((l, r) => r.Start - l.Start);
 
             return markupItems

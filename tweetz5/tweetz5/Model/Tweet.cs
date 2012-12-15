@@ -102,6 +102,9 @@ namespace tweetz5.Model
 
         [DataMember(Name = "hashtags")]
         public HashTagEntity[] HashTags { get; set; }
+
+        [DataMember(Name = "media")]
+        public Media[] Media { get; set; }
     }
 
     [DataContract]
@@ -110,7 +113,7 @@ namespace tweetz5.Model
         [DataMember(Name = "url")]
         public string Url { get; set; }
 
-        [DataMember(Name = "diplay_url")]
+        [DataMember(Name = "display_url")]
         public string DisplayUrl { get; set; }
 
         [DataMember(Name = "expanded_url")]
@@ -141,6 +144,25 @@ namespace tweetz5.Model
     {
         [DataMember(Name = "text")]
         public string Text { get; set; }
+
+        [DataMember(Name = "indices")]
+        public int[] Indices { get; set; }
+    }
+
+    [DataContract]
+    public class Media
+    {
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
+
+        [DataMember(Name = "display_url")]
+        public string DisplayUrl { get; set; }
+
+        [DataMember(Name = "expanded_url")]
+        public string ExpandedUrl { get; set; }
+
+        [DataMember(Name = "media_url")]
+        public string MediaUrl { get; set; }
 
         [DataMember(Name = "indices")]
         public int[] Indices { get; set; }
