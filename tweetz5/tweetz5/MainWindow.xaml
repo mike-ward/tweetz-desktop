@@ -5,10 +5,13 @@
         x:Class="tweetz5.MainWindow"
         Title="tweetz" 
         Height="1070" 
+        MinHeight="200"
         Width="200"
+        MinWidth="200"
         ResizeMode="NoResize"
         WindowStyle="None"
         ShowInTaskbar="False"
+    SizeChanged="OnSizeChanged"
         Style="{StaticResource WindowStyle}"
         MouseLeftButtonDown="DragMoveWindow">
     <Border
@@ -19,8 +22,10 @@
     			       Foreground="#bbbbbb" 
     			       Background="#333344"
     			       Padding="5,0,0,1"/>
-            <local:Timeline Panel.ZIndex="-1"
-                            Height="1053" />
+            <local:Timeline x:Name="_timeline"
+                            Panel.ZIndex="-1"
+                            Height="1051" />
+            <Thumb DragDelta="ThumbOnDragDelta" />
         </StackPanel>
     </Border>
 </Window>
