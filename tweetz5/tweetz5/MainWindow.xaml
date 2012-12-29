@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:tweetz5.Controls" 
         x:Class="tweetz5.MainWindow"
         Title="tweetz" 
-        Height="1070" 
+        Height="900" 
         MinHeight="200"
         Width="200"
         MinWidth="200"
@@ -24,8 +24,9 @@
     			       Padding="5,0,0,1"/>
             <local:Timeline x:Name="_timeline"
                             Panel.ZIndex="-1"
-                            Height="1051" />
-            <Thumb DragDelta="ThumbOnDragDelta" />
+                            Height="1050" />
+            <Thumb DragDelta="ThumbOnDragDelta"
+                   Style="{StaticResource SizeThumbStyle}"/>
         </StackPanel>
     </Border>
 </Window>

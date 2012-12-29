@@ -67,13 +67,13 @@
     <Style x:Key="TweetRetweetedByStyle"
            TargetType="TextBlock">
         <Setter Property="HorizontalAlignment"
-                Value="Right"/>
+                Value="Right" />
         <Setter Property="FontStyle"
-                Value="Italic"/>
+                Value="Italic" />
         <Setter Property="Foreground"
-                Value="#888888"/>
+                Value="#888888" />
         <Setter Property="FontSize"
-                Value="10"/>
+                Value="10" />
     </Style>
     <Style x:Key="TweetSeparatorTop"
            TargetType="Separator">
@@ -111,17 +111,20 @@
     </Style>
 
     <!-- Compose -->
-    
+
     <Style x:Key="ComposeTweet"
            TargetType="StackPanel">
-        <Setter Property="Background" Value="#484848" />
+        <Setter Property="Background"
+                Value="#484848" />
     </Style>
     <Style x:Key="ComposeTweetTitleBlock"
            TargetType="TextBlock">
-        <Setter Property="Foreground" Value="#bbbbbb" />
-        <Setter Property="Margin" Value="2 4 0 4" />
+        <Setter Property="Foreground"
+                Value="#bbbbbb" />
+        <Setter Property="Margin"
+                Value="2 4 0 4" />
     </Style>
-    
+
     <!-- Scrollbar -->
     <SolidColorBrush x:Key="StandardBorderBrush"
                      Color="#585858"></SolidColorBrush>
@@ -482,6 +485,39 @@
                         Value="{StaticResource HorizontalScrollBar}" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SizeThumbStyle"
+           TargetType="{x:Type Thumb}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Rectangle 
+                            Name="thumb"
+                             Height="5"
+                             Stroke="Black"
+                             StrokeThickness="0.5">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="Black" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="true">
+                            <Setter TargetName="thumb"
+                                    Property="Fill"
+                                    Value="{StaticResource HoverBrush}"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsDragging"
+                                 Value="True">
+                            <Setter TargetName="thumb"
+                                    Property="Fill"
+                                    Value="{StaticResource PressedBrush}"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

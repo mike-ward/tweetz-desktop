@@ -25,7 +25,7 @@ namespace tweetz5
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _timeline.Height = e.NewSize.Height - 19;
+            _timeline.Height = e.NewSize.Height - 20;
         }
     }
 }
