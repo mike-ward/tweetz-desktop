@@ -2,18 +2,21 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:tweetz5.Controls" 
+        xmlns:p="clr-namespace:tweetz5.Properties"
         x:Class="tweetz5.MainWindow"
         Title="tweetz" 
-        Height="900" 
         MinHeight="200"
         Width="200"
         MinWidth="200"
         ResizeMode="NoResize"
         WindowStyle="None"
         ShowInTaskbar="False"
-    SizeChanged="OnSizeChanged"
+        SizeChanged="OnSizeChanged"
         Style="{StaticResource WindowStyle}"
-        MouseLeftButtonDown="DragMoveWindow">
+        MouseLeftButtonDown="DragMoveWindow"
+        Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
+        Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
+        Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
     <Border
         BorderBrush="Black"
         BorderThickness="1">

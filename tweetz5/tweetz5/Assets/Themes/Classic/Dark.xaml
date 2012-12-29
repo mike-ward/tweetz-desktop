@@ -495,10 +495,10 @@
                     <Rectangle 
                             Name="thumb"
                              Height="5"
-                             Stroke="Black"
+                             Stroke="#333344"
                              StrokeThickness="0.5">
                         <Rectangle.Fill>
-                            <SolidColorBrush Color="Black" />
+                            <SolidColorBrush Color="#333344" />
                         </Rectangle.Fill>
                     </Rectangle>
                     <ControlTemplate.Triggers>
