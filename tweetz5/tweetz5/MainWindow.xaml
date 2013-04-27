@@ -1,10 +1,9 @@
-﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:tweetz5.Controls" 
+        xmlns:local="clr-namespace:tweetz5.Controls"
         xmlns:p="clr-namespace:tweetz5.Properties"
         x:Class="tweetz5.MainWindow"
-        Title="tweetz" 
+        Title="tweetz"
         MinHeight="200"
         Width="200"
         MinWidth="200"
@@ -17,19 +16,19 @@
         Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
         Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
-    <Border
-        BorderBrush="Black"
-        BorderThickness="1">
+    <Border BorderBrush="Black"
+            BorderThickness="1">
         <StackPanel>
-            <TextBlock Text="tweetz" 
-    			       Foreground="#bbbbbb" 
-    			       Background="#333344"
-    			       Padding="5,0,0,1"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Style="{StaticResource WindowLabelStyle}" Width="170">tweetz</Label>
+                <Button Click="ComposeOnClick">[c]</Button>
+            </StackPanel>
             <local:Timeline x:Name="_timeline"
                             Panel.ZIndex="-1"
                             Height="1050" />
+            <local:ComposeTweet x:Name="_compose" Visibility="Hidden" />
             <Thumb DragDelta="ThumbOnDragDelta"
-                   Style="{StaticResource SizeThumbStyle}"/>
+                   Style="{StaticResource SizeThumbStyle}" />
         </StackPanel>
     </Border>
 </Window>

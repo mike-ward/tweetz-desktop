@@ -5,13 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="200 ">
+             d:DesignWidth="200"
+             Focusable="True"
+             GotFocus="OnGotFocus">
     <StackPanel Style="{StaticResource ComposeTweet}">
         <TextBlock Style="{StaticResource ComposeTweetTitleBlock}">What's Happening</TextBlock>
-        <TextBox Height="150"></TextBox>
-        <StackPanel Orientation="Horizontal">
-            <Button>Shorten</Button>
-            <Button>Send</Button>
+        <TextBox x:Name="_textBox" 
+                 AcceptsReturn="True" 
+                 TextWrapping="Wrap"
+                 Style="{StaticResource ComposeTweetTextBox}" />
+        <StackPanel Orientation="Horizontal"
+                    Style="{StaticResource ComposeTweetButtonPanel}">
+            <Button Style="{StaticResource ComposeTweetButton}">Shorten</Button>
+            <Button Style="{StaticResource ComposeTweetButton}">Send</Button>
         </StackPanel>
     </StackPanel>
 </UserControl>

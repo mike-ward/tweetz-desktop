@@ -25,7 +25,19 @@ namespace tweetz5
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _timeline.Height = e.NewSize.Height - 20;
+            var composeHeight = _compose.Visibility == Visibility.Visible ? _compose.ActualHeight : 0;
+            _timeline.Height = e.NewSize.Height - composeHeight - 20;
+        }
+
+        private void ComposeOnClick(object sender, RoutedEventArgs e)
+        {
+            _compose.Visibility = (_compose.Visibility == Visibility.Hidden) 
+                ? Visibility.Visible 
+                : Visibility.Hidden;
+
+            var sizeChangedInfo = new SizeChangedInfo(this, new Size(Width, Height), false, true);
+            OnRenderSizeChanged(sizeChangedInfo);
+            _compose.Focus();
         }
     }
 }

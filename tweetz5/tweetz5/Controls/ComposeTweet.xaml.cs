@@ -1,28 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
+
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace tweetz5.Controls
 {
-    /// <summary>
-    /// Interaction logic for ComposeTweet.xaml
-    /// </summary>
-    public partial class ComposeTweet : UserControl
+    public partial class ComposeTweet
     {
         public ComposeTweet()
         {
             InitializeComponent();
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            _textBox.Focus();
         }
     }
 }

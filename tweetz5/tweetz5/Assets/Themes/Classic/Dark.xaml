@@ -9,6 +9,15 @@
         <Setter Property="FontSize"
                 Value="11" />
     </Style>
+    <Style x:Key="WindowLabelStyle"
+           TargetType="Label">
+        <Setter Property="Foreground"
+                Value="#bbbbbb"/>
+        <Setter Property="Background"
+                Value="#333344"/>
+        <Setter Property="Padding"
+                Value="5,0,0,1"/>
+    </Style>
     <Style x:Key="TimelineStyle"
            TargetType="ItemsControl">
         <Setter Property="Foreground"
@@ -116,13 +125,42 @@
            TargetType="StackPanel">
         <Setter Property="Background"
                 Value="#484848" />
+        <Setter Property="Margin"
+                Value="4"/>
     </Style>
     <Style x:Key="ComposeTweetTitleBlock"
            TargetType="TextBlock">
         <Setter Property="Foreground"
                 Value="#bbbbbb" />
         <Setter Property="Margin"
-                Value="2 4 0 4" />
+                Value="7 4 0 4" />
+    </Style>
+    <Style x:Key="ComposeTweetTextBox"
+           TargetType="TextBox">
+        <Setter Property="Height"
+                Value="65" />
+        <Setter Property="Foreground"
+                Value="#dddddd" />
+        <Setter Property="Background"
+                Value="#585858" />
+        <Setter Property="BorderThickness"
+                Value="0"/>
+        <Setter Property="Margin"
+                Value="7 0 7 5" />
+        <Setter Property="Padding"
+                Value="3"/>
+    </Style>
+    <Style x:Key="ComposeTweetButtonPanel"
+           TargetType="StackPanel">
+        <Setter Property="Margin"
+                Value="7 0 7 5" />
+    </Style>
+    <Style x:Key="ComposeTweetButton"
+           TargetType="Button">
+        <Setter Property="Padding"
+                Value="7 2"/>
+        <Setter Property="Margin"
+                Value="0 0 7 0"/>
     </Style>
 
     <!-- Scrollbar -->
