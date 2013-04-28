@@ -20,8 +20,9 @@
             BorderThickness="1">
         <StackPanel>
             <StackPanel x:Name="_topbar"
+                        Style="{StaticResource TopBarStyle}"
                         Orientation="Horizontal">
-                <Label Style="{StaticResource WindowLabelStyle}"
+                <Label Style="{StaticResource TopBarLabelStyle}"
                        Width="130">tweetz</Label>
                 <Button Style="{StaticResource ComposeButton}"
                         Click="ComposeOnClick">compose</Button>

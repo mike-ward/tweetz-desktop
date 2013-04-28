@@ -7,7 +7,7 @@
              d:DesignHeight="300"
              d:DesignWidth="200"
              Focusable="True"
-             Height="130"
+             Height="120"
              Width="200"
              GotFocus="OnGotFocus">
     <StackPanel Style="{StaticResource ComposeTweet}">
