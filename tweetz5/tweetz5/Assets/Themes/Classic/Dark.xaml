@@ -558,4 +558,36 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Button"
+           x:Key="ComposeButton">
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Foreground"
+                Value="White" />
+        <Setter Property="FontWeight"
+                Value="Normal" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                            CornerRadius="5"
+                            Background="#FF415360">
+                        <ContentPresenter x:Name="ButtonContentPresenter"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextAlignment"
+                                            Value="Center" />
+                                    <Setter Property="Padding"
+                                            Value="5,0,5,0" />
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>

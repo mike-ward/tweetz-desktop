@@ -7,6 +7,8 @@
              d:DesignHeight="300"
              d:DesignWidth="200"
              Focusable="True"
+             Height="130"
+             Width="200"
              GotFocus="OnGotFocus">
     <StackPanel Style="{StaticResource ComposeTweet}">
         <TextBlock Style="{StaticResource ComposeTweetTitleBlock}">What's Happening</TextBlock>

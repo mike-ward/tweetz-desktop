@@ -19,15 +19,20 @@
     <Border BorderBrush="Black"
             BorderThickness="1">
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Style="{StaticResource WindowLabelStyle}" Width="170">tweetz</Label>
-                <Button Click="ComposeOnClick">[c]</Button>
+            <StackPanel x:Name="_topbar"
+                        Orientation="Horizontal">
+                <Label Style="{StaticResource WindowLabelStyle}"
+                       Width="130">tweetz</Label>
+                <Button Style="{StaticResource ComposeButton}"
+                        Click="ComposeOnClick">compose</Button>
             </StackPanel>
             <local:Timeline x:Name="_timeline"
                             Panel.ZIndex="-1"
-                            Height="1050" />
-            <local:ComposeTweet x:Name="_compose" Visibility="Hidden" />
-            <Thumb DragDelta="ThumbOnDragDelta"
+                            Height="400" />
+            <local:ComposeTweet x:Name="_compose"
+                                Visibility="Collapsed" />
+            <Thumb x:Name="_resizeBar"
+                   DragDelta="ThumbOnDragDelta"
                    Style="{StaticResource SizeThumbStyle}" />
         </StackPanel>
     </Border>
