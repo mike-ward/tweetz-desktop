@@ -19,21 +19,24 @@
     <Border BorderBrush="Black"
             BorderThickness="1">
         <StackPanel>
-            <StackPanel x:Name="_topbar"
-                        Style="{StaticResource TopBarStyle}"
-                        Orientation="Horizontal">
+            <DockPanel x:Name="_topbar"
+                       Style="{StaticResource TopBarStyle}">
                 <Label Style="{StaticResource TopBarLabelStyle}"
-                       Width="117">tweetz</Label>
-                <Button Style="{StaticResource ComposeButton}"
-                        Click="ComposeOnClick">compose</Button>
-                <Button Style="{StaticResource SettingsButton}">&#x2699;</Button>
-            </StackPanel>
+                       DockPanel.Dock="Left">tweetz</Label>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            DockPanel.Dock="Right">
+                    <Button Style="{StaticResource ComposeButton}"
+                            Click="ComposeOnClick">compose</Button>
+                    <Button Style="{StaticResource SettingsButton}">&#x2699;</Button>
+                </StackPanel>
+            </DockPanel>
             <local:Timeline x:Name="_timeline"
                             Panel.ZIndex="-1"
                             Height="400" />
             <local:ComposeTweet x:Name="_compose"
                                 Visibility="Visible"
-                                IsVisibleChanged="OnIsVisibleChanged"/>
+                                IsVisibleChanged="OnIsVisibleChanged" />
             <Thumb x:Name="_resizeBar"
                    DragDelta="ThumbOnDragDelta"
                    Style="{StaticResource SizeThumbStyle}" />

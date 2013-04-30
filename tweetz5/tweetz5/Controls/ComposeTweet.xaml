@@ -22,13 +22,18 @@
                  Style="{StaticResource ComposeTweetTextBox}"
                  KeyUp="OnKeyUp"
                  IsVisibleChanged="OnIsVisibleChanged"/>
-        <StackPanel Style="{StaticResource ComposeTweetButtonPanel}">
+        <DockPanel>
             <TextBlock x:Name="_counter"
+                       DockPanel.Dock="Left"
                        Style="{StaticResource ComposeCharCounter}"
                        Text="{Binding ElementName=_textBox, Path=Text.Length}"
                        Foreground="{Binding ElementName=_textBox, Path=Text.Length, Converter={StaticResource converter}}" />
-            <Button Style="{StaticResource ComposeTweetButton}">Shorten</Button>
-            <Button Style="{StaticResource ComposeTweetButton}">Send</Button>
-        </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right">
+                <Button Style="{StaticResource ComposeTweetButton}">Shorten</Button>
+                <Button Style="{StaticResource ComposeTweetButton}">Send</Button>
+            </StackPanel>
+        </DockPanel>
     </StackPanel>
 </UserControl>

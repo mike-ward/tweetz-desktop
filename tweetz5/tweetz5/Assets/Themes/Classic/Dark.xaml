@@ -11,7 +11,7 @@
     </Style>
 
     <Style x:Key="TopBarStyle"
-           TargetType="StackPanel">
+           TargetType="DockPanel">
         <Setter Property="Background"
                 Value="#333344" />
     </Style>
@@ -33,7 +33,7 @@
         <Setter Property="FontWeight"
                 Value="Normal" />
         <Setter Property="Margin"
-                Value="0 0 5 0" />
+                Value="5 0 0 0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -71,7 +71,7 @@
         <Setter Property="FontWeight"
                 Value="Normal" />
         <Setter Property="Margin"
-                Value="0 0 5 0" />
+                Value="5 0 3 0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -228,13 +228,6 @@
         <Setter Property="Padding"
                 Value="3" />
     </Style>
-    <Style x:Key="ComposeTweetButtonPanel"
-           TargetType="StackPanel">
-        <Setter Property="Orientation"
-                Value="Horizontal" />
-        <Setter Property="HorizontalAlignment"
-                Value="Right" />
-    </Style>
     <Style x:Key="ComposeTweetButton"
            TargetType="Button">
         <Setter Property="Cursor"
@@ -278,7 +271,7 @@
         <Setter Property="Foreground"
                 Value="#cccccc" />
         <Setter Property="Margin"
-                Value="10 0 40 0" />
+                Value="10 0 0 0" />
         <Setter Property="FontSize"
                 Value="14" />
     </Style>
@@ -663,13 +656,13 @@
                                  Value="true">
                             <Setter TargetName="thumb"
                                     Property="Fill"
-                                    Value="{StaticResource HoverBrush}"></Setter>
+                                    Value="{StaticResource HoverBrush}"/>
                         </Trigger>
                         <Trigger Property="IsDragging"
                                  Value="True">
                             <Setter TargetName="thumb"
                                     Property="Fill"
-                                    Value="{StaticResource PressedBrush}"></Setter>
+                                    Value="{StaticResource PressedBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
