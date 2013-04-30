@@ -6,29 +6,14 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace tweetz5.Controls
 {
     public partial class ComposeTweet
     {
-        private readonly DispatcherTimer _timer = new DispatcherTimer();
-
         public ComposeTweet()
         {
             InitializeComponent();
-            _timer.Interval = new TimeSpan(1);
-            _timer.Tick += (sender, args) =>
-            {
-                _timer.Stop();
-                _textBox.Focus();
-                _textBox.SelectionStart = _textBox.SelectionStart = _textBox.Text.Length;
-            };
-        }
-
-        private void OnGotFocus(object sender, RoutedEventArgs e)
-        {
-            _timer.Start();
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
@@ -37,6 +22,15 @@ namespace tweetz5.Controls
             {
                 _textBox.Clear();
                 Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (_textBox.IsVisible)
+            {
+                _textBox.Focus();
+                _textBox.SelectionStart = _textBox.SelectionStart = _textBox.Text.Length;
             }
         }
     }

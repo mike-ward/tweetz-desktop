@@ -10,8 +10,7 @@
              d:DesignWidth="200"
              Focusable="True"
              Height="135"
-             Width="200"
-             GotFocus="OnGotFocus">
+             Width="200">
     <UserControl.Resources>
         <c:LengthToColorConverter x:Key="converter" />
     </UserControl.Resources>
@@ -21,7 +20,8 @@
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
                  Style="{StaticResource ComposeTweetTextBox}"
-                 KeyUp="OnKeyUp" />
+                 KeyUp="OnKeyUp"
+                 IsVisibleChanged="OnIsVisibleChanged"/>
         <StackPanel Style="{StaticResource ComposeTweetButtonPanel}">
             <TextBlock x:Name="_counter"
                        Style="{StaticResource ComposeCharCounter}"
