@@ -23,15 +23,17 @@
                         Style="{StaticResource TopBarStyle}"
                         Orientation="Horizontal">
                 <Label Style="{StaticResource TopBarLabelStyle}"
-                       Width="130">tweetz</Label>
+                       Width="117">tweetz</Label>
                 <Button Style="{StaticResource ComposeButton}"
                         Click="ComposeOnClick">compose</Button>
+                <Button Style="{StaticResource SettingsButton}">&#x2699;</Button>
             </StackPanel>
             <local:Timeline x:Name="_timeline"
                             Panel.ZIndex="-1"
                             Height="400" />
             <local:ComposeTweet x:Name="_compose"
-                                Visibility="Collapsed" />
+                                Visibility="Visible"
+                                IsVisibleChanged="OnIsVisibleChanged"/>
             <Thumb x:Name="_resizeBar"
                    DragDelta="ThumbOnDragDelta"
                    Style="{StaticResource SizeThumbStyle}" />

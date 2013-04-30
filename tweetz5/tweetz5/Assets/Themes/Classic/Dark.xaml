@@ -32,6 +32,8 @@
                 Value="#cccccc" />
         <Setter Property="FontWeight"
                 Value="Normal" />
+        <Setter Property="Margin"
+                Value="0 0 5 0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -48,9 +50,43 @@
                                     <Setter Property="Padding"
                                             Value="5 0 5 0" />
                                     <Setter Property="LineStackingStrategy"
-                                            Value="BlockLineHeight"/>
+                                            Value="BlockLineHeight" />
                                     <Setter Property="LineHeight"
-                                            Value="10"/>
+                                            Value="10" />
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button"
+           x:Key="SettingsButton">
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Foreground"
+                Value="#cccccc" />
+        <Setter Property="FontWeight"
+                Value="Normal" />
+        <Setter Property="Margin"
+                Value="0 0 5 0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                            CornerRadius="5"
+                            Background="#FF415360">
+                        <ContentPresenter x:Name="ButtonContentPresenter"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextAlignment"
+                                            Value="Center" />
+                                    <Setter Property="Padding"
+                                            Value="5 0 5 0" />
                                 </Style>
                             </ContentPresenter.Resources>
                         </ContentPresenter>
@@ -180,7 +216,7 @@
     <Style x:Key="ComposeTweetTextBox"
            TargetType="TextBox">
         <Setter Property="Height"
-                Value="65" />
+                Value="80" />
         <Setter Property="Foreground"
                 Value="#dddddd" />
         <Setter Property="Background"
@@ -194,19 +230,21 @@
     </Style>
     <Style x:Key="ComposeTweetButtonPanel"
            TargetType="StackPanel">
-        <Setter Property="Margin"
-                Value="7 0 7 5" />
+        <Setter Property="Orientation"
+                Value="Horizontal" />
+        <Setter Property="HorizontalAlignment"
+                Value="Right" />
     </Style>
     <Style x:Key="ComposeTweetButton"
            TargetType="Button">
         <Setter Property="Cursor"
                 Value="Hand" />
         <Setter Property="Foreground"
-                Value="White" />
+                Value="#cccccc" />
         <Setter Property="FontWeight"
                 Value="Normal" />
         <Setter Property="Margin"
-                Value="0 0 9 0" />
+                Value="0 0 7 0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -229,6 +267,20 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="ComposeCharCounter"
+           TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment"
+                Value="Stretch" />
+        <Setter Property="TextAlignment"
+                Value="Left" />
+        <Setter Property="Foreground"
+                Value="#cccccc" />
+        <Setter Property="Margin"
+                Value="10 0 40 0" />
+        <Setter Property="FontSize"
+                Value="14" />
     </Style>
 
     <!-- Scrollbar -->

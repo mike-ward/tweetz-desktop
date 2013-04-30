@@ -1,29 +1,21 @@
-﻿// Copyright (c) 2012 Blue Onion Software. All rights reserved.
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Threading;
+using System.Windows.Input;
 
 namespace tweetz5
 {
     public partial class MainWindow
     {
-        readonly DispatcherTimer _wpfClusterFuckTimer = new DispatcherTimer();
-
         public MainWindow()
         {
             InitializeComponent();
-            _wpfClusterFuckTimer.Interval = new TimeSpan(1);
-            _wpfClusterFuckTimer.Tick += (o, args) =>
-            {
-                _wpfClusterFuckTimer.Stop();
-                OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
-                _compose.Focus();
-            };
+            Loaded += (sender, args) => _compose.Visibility = Visibility.Collapsed;
         }
 
-        private void DragMoveWindow(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void DragMoveWindow(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
@@ -41,7 +33,15 @@ namespace tweetz5
         private void ComposeOnClick(object sender, RoutedEventArgs e)
         {
             _compose.Visibility = _compose.IsVisible ? Visibility.Collapsed : Visibility.Visible;
-            _wpfClusterFuckTimer.Start();
+        }
+
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
+            if (_compose.IsVisible)
+            {
+                _compose.Focus();
+            }
         }
     }
 }
