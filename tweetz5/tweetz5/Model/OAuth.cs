@@ -68,7 +68,7 @@ namespace tweetz5.Model
             };
             if (parameters != null)
             {
-                parameterStrings.AddRange(parameters.Select(par => string.Format(format, par[0], par[1])));
+                parameterStrings.AddRange(parameters.Select(par => string.Format(format, UrlEncode(par[0]), UrlEncode(par[1]))));
             }
             parameterStrings.Sort();
             var parameterString = string.Join("&", parameterStrings);

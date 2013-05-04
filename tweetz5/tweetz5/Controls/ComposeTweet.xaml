@@ -32,7 +32,8 @@
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right">
                 <Button Style="{StaticResource ComposeTweetButton}">Shorten</Button>
-                <Button Style="{StaticResource ComposeTweetButton}">Send</Button>
+                <Button Style="{StaticResource ComposeTweetButton}"
+                        Click="OnSend">Send</Button>
             </StackPanel>
         </DockPanel>
     </StackPanel>

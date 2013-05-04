@@ -11,7 +11,7 @@
              d:DesignWidth="300">
     <UserControl.Resources>
         <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
-        <model:StringValueVisibilityConverter x:Key="stringValueVisibilityConverter" />
+        <model:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <model:Timelines />
@@ -94,7 +94,7 @@
                                 <TextBlock Grid.Row="1" 
                                            Grid.Column="1"
                                            Style="{StaticResource TweetRetweetedByStyle}"
-                                           Visibility="{Binding RetweetedBy, Converter={StaticResource stringValueVisibilityConverter}}">
+                                           Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
                                     <Run>RT </Run>
                                     <Run Text="{Binding RetweetedBy}"></Run>
                                 </TextBlock>

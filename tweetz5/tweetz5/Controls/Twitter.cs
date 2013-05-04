@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -12,17 +12,19 @@ namespace tweetz5.Model
 {
     public class Twitter
     {
-        private static IWebRequest WebRequest(string url, IEnumerable<string[]> parameters)
+        private static IWebRequest WebRequest(string url, IEnumerable<string[]> parameters, bool post = false)
         {
             var nonce = OAuth.Nonce();
             var timestamp = OAuth.TimeStamp();
             var oauth = new OAuth();
-            var signature = oauth.Signature("GET", url, nonce, timestamp, parameters);
+            var signature = oauth.Signature(post ? "POST" : "GET", url, nonce, timestamp, parameters);
             var authorizeHeader = oauth.AuthorizationHeader(nonce, timestamp, signature);
-            var fullUrl = url + "?" + string.Join("&", parameters.Select(p => string.Format("{0}={1}", p[0], p[1])));
+            var fullUrl = url;
+            if (!post) fullUrl += "?" + string.Join("&", parameters.Select(p => string.Format("{0}={1}", p[0], p[1])));
 
             var request = WebRequestWrapper.Create(new Uri(fullUrl));
             request.Headers.Add("Authorization", authorizeHeader);
+            request.Method = post ? "POST" : "GET";
             return request;
         }
 
@@ -34,6 +36,33 @@ namespace tweetz5.Model
                 using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
                     return stream.ReadToEnd();
+                }
+            }
+        }
+
+        private static string Post(string url, IEnumerable<string[]> parameters)
+        {
+            var request = WebRequest(url, parameters, true);
+            request.ContentType = "application/x-www-form-urlencoded";
+
+            if (parameters != null)
+            {
+                var parameterStrings = new List<string>();
+                parameterStrings.AddRange(parameters.Select(par => string.Format("{0}={1}", par[0], OAuth.UrlEncode(par[1]))));
+                parameterStrings.Sort();
+                var parameterString = string.Join("&", parameterStrings);
+                var requestStream = request.GetRequestStream();
+                var buffer = Encoding.ASCII.GetBytes(parameterString);
+                requestStream.Write(buffer, 0, buffer.Length);
+                requestStream.Close();
+            }
+
+            using (var response = request.GetResponse())
+            {
+                using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    var result = stream.ReadToEnd();
+                    return result;
                 }
             }
         }
@@ -107,6 +136,11 @@ namespace tweetz5.Model
             {
                 return new Status[0];
             }
+        }
+
+        public static string UpdateStatus(string message)
+        {
+            return Post("https://api.twitter.com/1.1/statuses/update.json", new[] {new[] {"status", message}});
         }
     }
 }

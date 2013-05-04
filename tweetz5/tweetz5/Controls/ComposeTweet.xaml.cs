@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using tweetz5.Model;
 
 namespace tweetz5.Controls
 {
@@ -32,6 +33,11 @@ namespace tweetz5.Controls
                 _textBox.Focus();
                 _textBox.SelectionStart = _textBox.SelectionStart = _textBox.Text.Length;
             }
+        }
+
+        private void OnSend(object sender, RoutedEventArgs e)
+        {
+            Twitter.UpdateStatus(_textBox.Text);
         }
     }
 
