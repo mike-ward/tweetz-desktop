@@ -32,7 +32,7 @@ namespace tweetz5
 
         private void ComposeOnClick(object sender, RoutedEventArgs e)
         {
-            _compose.Visibility = _compose.IsVisible ? Visibility.Collapsed : Visibility.Visible;
+            _compose.Toggle();
         }
 
         private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

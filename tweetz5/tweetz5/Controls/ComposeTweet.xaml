@@ -15,13 +15,14 @@
         <c:LengthToColorConverter x:Key="converter" />
     </UserControl.Resources>
     <StackPanel Style="{StaticResource ComposeTweet}">
-        <TextBlock Style="{StaticResource ComposeTweetTitleBlock}">What's Happening</TextBlock>
+        <TextBlock x:Name="_composeTitle"
+                   Style="{StaticResource ComposeTweetTitleBlock}">Compose a tweet</TextBlock>
         <TextBox x:Name="_textBox"
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
                  Style="{StaticResource ComposeTweetTextBox}"
                  KeyUp="OnKeyUp"
-                 IsVisibleChanged="OnIsVisibleChanged"/>
+                 IsVisibleChanged="OnIsVisibleChanged" />
         <DockPanel>
             <TextBlock x:Name="_counter"
                        DockPanel.Dock="Left"
@@ -31,8 +32,10 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right">
-                <Button Style="{StaticResource ComposeTweetButton}">Shorten</Button>
-                <Button Style="{StaticResource ComposeTweetButton}"
+                <Button x:Name="_shorten"
+                        Style="{StaticResource ComposeTweetButton}">Shorten</Button>
+                <Button x:Name="_send"
+                        Style="{StaticResource ComposeTweetButton}"
                         Click="OnSend">Send</Button>
             </StackPanel>
         </DockPanel>

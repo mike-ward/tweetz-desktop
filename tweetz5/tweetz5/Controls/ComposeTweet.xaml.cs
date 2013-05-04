@@ -17,13 +17,28 @@ namespace tweetz5.Controls
             InitializeComponent();
         }
 
+        public void Show(string title = "Compose a tweet", string message = "")
+        {
+            _composeTitle.Text = title;
+            _textBox.Text = message;
+            Visibility = Visibility.Visible;
+        }
+
+        public void Hide()
+        {
+            _textBox.Clear();
+            Visibility = Visibility.Collapsed;
+        }
+
+        public void Toggle()
+        {
+            if (IsVisible) Hide();
+            else Show();
+        }
+
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
-            {
-                _textBox.Clear();
-                Visibility = Visibility.Collapsed;
-            }
+            if (e.Key == Key.Escape) Hide();
         }
 
         private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -31,13 +46,27 @@ namespace tweetz5.Controls
             if (_textBox.IsVisible)
             {
                 _textBox.Focus();
-                _textBox.SelectionStart = _textBox.SelectionStart = _textBox.Text.Length;
+                _textBox.SelectionStart = _textBox.Text.Length;
             }
         }
 
         private void OnSend(object sender, RoutedEventArgs e)
         {
-            Twitter.UpdateStatus(_textBox.Text);
+            try
+            {
+                _send.IsEnabled = false;
+                var status = Twitter.UpdateStatus(_textBox.Text);
+                if (status.Contains("id_str")) Hide();
+                else _composeTitle.Text = "Error";
+            }
+            catch (Exception)
+            {
+                _composeTitle.Text = "Error";
+            }
+            finally
+            {
+                _send.IsEnabled = true;
+            }
         }
     }
 

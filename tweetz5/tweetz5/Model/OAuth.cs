@@ -63,8 +63,8 @@ namespace tweetz5.Model
                 string.Format(format, "oauth_nonce", nonce),
                 string.Format(format, "oauth_timestamp", timestamp),
                 string.Format(format, "oauth_signature_method", "HMAC-SHA1"),
-                string.Format(format, "oauth_consumer_key", ConsumerKey),
-                string.Format(format, "oauth_token", AccessToken)
+                string.Format(format, "oauth_consumer_key", UrlEncode(ConsumerKey)),
+                string.Format(format, "oauth_token", UrlEncode(AccessToken))
             };
             if (parameters != null)
             {
