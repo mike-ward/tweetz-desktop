@@ -1,5 +1,4 @@
-﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,6 +11,21 @@
     <UserControl.Resources>
         <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
         <model:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
+        <ContextMenu x:Key="_contextMenu"
+                     x:Shared="true">
+            <MenuItem Header="Reply" />
+            <MenuItem Header="Retweet" />
+            <MenuItem Header="RT (Classic)" />
+            <MenuItem Header="Favorite" />
+            <Separator />
+            <MenuItem Command="ApplicationCommands.Copy"
+                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}" />
+            <ContextMenu.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.Copy"
+                                Executed="CopyTweetCommand"
+                                CanExecute="CopyCanExecute" />
+            </ContextMenu.CommandBindings>
+        </ContextMenu>
     </UserControl.Resources>
     <UserControl.DataContext>
         <model:Timelines />
@@ -33,8 +47,10 @@
                             <Storyboard>
                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TimelineItems"
                                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
-                                    <EasingDoubleKeyFrame KeyTime="0" Value="-50" />
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+                                    <EasingDoubleKeyFrame KeyTime="0"
+                                                          Value="-50" />
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                                          Value="0" />
                                 </DoubleAnimationUsingKeyFrames>
                             </Storyboard>
                         </BeginStoryboard>
@@ -43,14 +59,16 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DataTemplate.Resources>
-                        	<Storyboard x:Key="ItemAnimation"
-                        		AutoReverse="False">
-                        		<DoubleAnimationUsingKeyFrames Storyboard.TargetName="MyGrid"
-                        			Storyboard.TargetProperty="(UIElement.Opacity)">
-                        			<EasingDoubleKeyFrame KeyTime="0" Value="0" />
-                        			<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1" />
-                        		</DoubleAnimationUsingKeyFrames>
-                        	</Storyboard>
+                            <Storyboard x:Key="ItemAnimation"
+                                        AutoReverse="False">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MyGrid"
+                                                               Storyboard.TargetProperty="(UIElement.Opacity)">
+                                    <EasingDoubleKeyFrame KeyTime="0"
+                                                          Value="0" />
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.8"
+                                                          Value="1" />
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
                         </DataTemplate.Resources>
 
                         <Grid x:Name="MyGrid"
@@ -58,16 +76,17 @@
                               VerticalAlignment="Top"
                               HorizontalAlignment="Left">
                             <Grid.ColumnDefinitions>
-                            	<ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
-                            	<ColumnDefinition />
+                                <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                            	<RowDefinition />
-                            	<RowDefinition />
-                            	<RowDefinition />
-                            	<RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <Rectangle Grid.Column="0"
+                                       ContextMenu="{StaticResource _contextMenu}"
                                        Style="{StaticResource TweetImageStyle}">
                                 <Rectangle.Fill>
                                     <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
@@ -76,8 +95,8 @@
                             <StackPanel Grid.Column="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                    	<ColumnDefinition Width="*" />
-                                    	<ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0"
                                                Style="{StaticResource TweetNameStyle}"
@@ -90,8 +109,7 @@
                                                           Grid.Column="1"
                                                           Markup="{Binding MarkupText}"
                                                           Style="{StaticResource TweetStyle}" />
-
-                                <TextBlock Grid.Row="1" 
+                                <TextBlock Grid.Row="1"
                                            Grid.Column="1"
                                            Style="{StaticResource TweetRetweetedByStyle}"
                                            Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
@@ -108,9 +126,9 @@
                         </Grid>
 
                         <DataTemplate.Triggers>
-                        	<EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                        		<BeginStoryboard Storyboard="{StaticResource ItemAnimation}" />
-                        	</EventTrigger>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard Storyboard="{StaticResource ItemAnimation}" />
+                            </EventTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
