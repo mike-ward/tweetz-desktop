@@ -13,17 +13,54 @@
         <model:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
         <ContextMenu x:Key="_contextMenu"
                      x:Shared="true">
-            <MenuItem Header="Reply" />
-            <MenuItem Header="Retweet" />
-            <MenuItem Header="RT (Classic)" />
-            <MenuItem Header="Favorite" />
-            <Separator />
-            <MenuItem Command="ApplicationCommands.Copy"
+            <MenuItem Header="Reply"
+                      Command="{x:Static controls:Timeline.ReplyCommand}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                <MenuItem.Icon>
+                    <Image Source="..\Assets\Images\LoadProfilenode_8711.png"></Image>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Retweet"
+                      Command="{x:Static controls:Timeline.RetweetCommand}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                <MenuItem.Icon>
+                    <Image Source="..\Assets\Images\ID_SITE_PUBLISH_ALL.png"></Image>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="RT (Classic)"
+                      Command="{x:Static controls:Timeline.RetweetClassicCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}" />
+            <MenuItem Header="Favorite"
+                      Command="{x:Static controls:Timeline.FavoritesCommand}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                <MenuItem.Icon>
+                    <Image Source="..\Assets\Images\Favorites_9002.png"></Image>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator />
+            <MenuItem Header="Copy"
+                      Command="{x:Static controls:Timeline.CopyCommand}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                <MenuItem.Icon>
+                    <Image Source="..\Assets\Images\Copy_6524.png"></Image>
+                </MenuItem.Icon>
+            </MenuItem>
             <ContextMenu.CommandBindings>
-                <CommandBinding Command="ApplicationCommands.Copy"
+                <CommandBinding Command="{x:Static controls:Timeline.ReplyCommand}"
+                                Executed="ReplyCommandExecuted"
+                                CanExecute="CanExecute" />
+                <CommandBinding Command="{x:Static controls:Timeline.RetweetCommand}"
+                                Executed="RetweetCommandExecuted"
+                                CanExecute="CanExecute" />
+                <CommandBinding Command="{x:Static controls:Timeline.RetweetClassicCommand}"
+                                Executed="RetweetClassicCommandExecuted"
+                                CanExecute="CanExecute" />
+                <CommandBinding Command="{x:Static controls:Timeline.FavoritesCommand}"
+                                Executed="FavoritesCommandExecuted"
+                                CanExecute="CanExecute" />
+                <CommandBinding Command="{x:Static controls:Timeline.CopyCommand}"
                                 Executed="CopyTweetCommand"
-                                CanExecute="CopyCanExecute" />
+                                CanExecute="CanExecute" />
             </ContextMenu.CommandBindings>
         </ContextMenu>
     </UserControl.Resources>

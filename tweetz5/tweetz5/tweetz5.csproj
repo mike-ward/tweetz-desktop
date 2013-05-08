@@ -138,7 +138,18 @@
   <ItemGroup>
     <Resource Include="twitter.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Images\Copy_6524.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Favorites_9002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\LoadProfilenode_8711.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\ID_SITE_PUBLISH_ALL.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
