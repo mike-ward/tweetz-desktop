@@ -12,6 +12,7 @@
         <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
         <model:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
         <ContextMenu x:Key="_contextMenu"
+                     Placement="Relative"
                      x:Shared="true">
             <MenuItem Header="Reply"
                       Command="{x:Static controls:Timeline.ReplyCommand}"
@@ -124,6 +125,7 @@
                             </Grid.RowDefinitions>
                             <Rectangle Grid.Column="0"
                                        ContextMenu="{StaticResource _contextMenu}"
+                                       Cursor="Hand"
                                        Style="{StaticResource TweetImageStyle}">
                                 <Rectangle.Fill>
                                     <ImageBrush ImageSource="{Binding ProfileImageUrl}" />

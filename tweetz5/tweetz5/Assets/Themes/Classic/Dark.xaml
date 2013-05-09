@@ -1,5 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>
+    
     <Style x:Key="WindowStyle"
            TargetType="Window">
         <Setter Property="Foreground"
@@ -656,13 +659,13 @@
                                  Value="true">
                             <Setter TargetName="thumb"
                                     Property="Fill"
-                                    Value="{StaticResource HoverBrush}"/>
+                                    Value="{StaticResource HoverBrush}" />
                         </Trigger>
                         <Trigger Property="IsDragging"
                                  Value="True">
                             <Setter TargetName="thumb"
                                     Property="Fill"
-                                    Value="{StaticResource PressedBrush}"/>
+                                    Value="{StaticResource PressedBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
