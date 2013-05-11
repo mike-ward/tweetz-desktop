@@ -1,7 +1,7 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:tweetz5.Controls"
-        xmlns:p="clr-namespace:tweetz5.Properties"
+        xmlns:p="clr-namespace:tweetz5.Properties" xmlns:tweetz5="clr-namespace:tweetz5"
         x:Class="tweetz5.MainWindow"
         Title="tweetz"
         MinHeight="200"
@@ -40,6 +40,26 @@
             <Thumb x:Name="_resizeBar"
                    DragDelta="ThumbOnDragDelta"
                    Style="{StaticResource SizeThumbStyle}" />
+            <StackPanel.CommandBindings>
+                <CommandBinding Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
+                                Executed="ReplyCommandExecuted"
+                                CanExecute="CanExecute" />
+                <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
+                                Executed="RetweetCommandExecuted"
+                                CanExecute="CanExecute" />
+                <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
+                                Executed="RetweetClassicCommandExecuted"
+                                CanExecute="CanExecute" />
+                <CommandBinding Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
+                                Executed="FavoritesCommandExecuted"
+                                CanExecute="CanExecute" />
+                <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyCommand}"
+                                Executed="CopyTweetCommand"
+                                CanExecute="CanExecute" />
+                <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateStatusHomeTimeline}"
+                                Executed="UpdateStatusHomeTimelineExecuted"
+                                CanExecute="CanExecute"/>
+            </StackPanel.CommandBindings>
         </StackPanel>
     </Border>
 </Window>

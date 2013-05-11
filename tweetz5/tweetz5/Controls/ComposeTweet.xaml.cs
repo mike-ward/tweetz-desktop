@@ -19,8 +19,6 @@ namespace tweetz5.Controls
             InitializeComponent();
         }
 
-        public Timeline Timeline { get; set; }
-
         public void Show(string message = "", string inReplyToId = null)
         {
             _composeTitle.Text = "Compose a tweet";
@@ -68,7 +66,7 @@ namespace tweetz5.Controls
                 else
                 {
                     var status = Status.ParseJson("[" + json + "]");
-                    Timeline.UpdateStatus(status);
+                    MainWindow.UpdateStatusHomeTimeline.Execute(status, this);
                     Hide();
                 }
             }

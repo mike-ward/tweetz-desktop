@@ -1,8 +1,7 @@
-﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
 using System.Windows;
-using System.Windows.Input;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
 

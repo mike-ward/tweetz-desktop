@@ -3,7 +3,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:tweetz5.Controls"
-             xmlns:model="clr-namespace:tweetz5.Model"
+             xmlns:model="clr-namespace:tweetz5.Model" 
+             xmlns:tweetz5="clr-namespace:tweetz5"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
@@ -15,24 +16,24 @@
                      Placement="Relative"
                      x:Shared="true">
             <MenuItem Header="Reply"
-                      Command="{x:Static controls:Timeline.ReplyCommand}"
+                      Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                 <MenuItem.Icon>
                     <Image Source="..\Assets\Images\LoadProfilenode_8711.png"></Image>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Retweet"
-                      Command="{x:Static controls:Timeline.RetweetCommand}"
+                      Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                 <MenuItem.Icon>
                     <Image Source="..\Assets\Images\ID_SITE_PUBLISH_ALL.png"></Image>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="RT (Classic)"
-                      Command="{x:Static controls:Timeline.RetweetClassicCommand}"
+                      Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}" />
             <MenuItem Header="Favorite"
-                      Command="{x:Static controls:Timeline.FavoritesCommand}"
+                      Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                 <MenuItem.Icon>
                     <Image Source="..\Assets\Images\Favorites_9002.png"></Image>
@@ -40,29 +41,12 @@
             </MenuItem>
             <Separator />
             <MenuItem Header="Copy"
-                      Command="{x:Static controls:Timeline.CopyCommand}"
+                      Command="{x:Static tweetz5:MainWindow.CopyCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                 <MenuItem.Icon>
                     <Image Source="..\Assets\Images\Copy_6524.png"></Image>
                 </MenuItem.Icon>
             </MenuItem>
-            <ContextMenu.CommandBindings>
-                <CommandBinding Command="{x:Static controls:Timeline.ReplyCommand}"
-                                Executed="ReplyCommandExecuted"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static controls:Timeline.RetweetCommand}"
-                                Executed="RetweetCommandExecuted"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static controls:Timeline.RetweetClassicCommand}"
-                                Executed="RetweetClassicCommandExecuted"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static controls:Timeline.FavoritesCommand}"
-                                Executed="FavoritesCommandExecuted"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static controls:Timeline.CopyCommand}"
-                                Executed="CopyTweetCommand"
-                                CanExecute="CanExecute" />
-            </ContextMenu.CommandBindings>
         </ContextMenu>
     </UserControl.Resources>
     <UserControl.DataContext>

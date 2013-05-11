@@ -61,6 +61,7 @@ namespace tweetz5.Model
                     {
                         StatusId = status.Id,
                         Name = displayStatus.User.Name,
+                        ScreenName = displayStatus.User.ScreenName,
                         ProfileImageUrl = displayStatus.User.ProfileImageUrl,
                         Text = displayStatus.Text,
                         MarkupText = MarkupText(displayStatus.Text, displayStatus.Entities),

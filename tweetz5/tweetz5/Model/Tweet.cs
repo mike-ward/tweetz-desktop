@@ -15,6 +15,7 @@ namespace tweetz5.Model
 
         public string StatusId { get; set; }
         public string Name { get; set; }
+        public string ScreenName { get; set; }
         public string ProfileImageUrl { get; set; }
         public string Text { get; set; }
         public string MarkupText { get; set; }
