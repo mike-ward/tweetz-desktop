@@ -12,7 +12,11 @@ namespace tweetz5
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += (sender, args) => _compose.Visibility = Visibility.Collapsed;
+            Loaded += (sender, args) =>
+            {
+                _compose.Visibility = Visibility.Collapsed;
+                _compose.Timeline = _timeline;
+            };
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)

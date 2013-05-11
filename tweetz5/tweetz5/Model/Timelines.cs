@@ -15,6 +15,7 @@ namespace tweetz5.Model
         void HomeTimeline();
         void MentionsTimeline();
         void UpdateTimeStamps();
+        void UpdateStatus(Status[] statuses);
     }
 
     public class Timelines : ITimelines, INotifyPropertyChanged
@@ -159,6 +160,11 @@ namespace tweetz5.Model
         {
             var twitter = new Twitter();
             var statuses = twitter.HomeTimeline();
+            UpdateStatus(statuses);
+        }
+
+        public void UpdateStatus(Status[] statuses)
+        {
             if (statuses.Length > 0)
             {
                 DispatchInvoker(() =>
@@ -166,7 +172,7 @@ namespace tweetz5.Model
                     UpdateTimeline(_home, statuses, "h");
                     UpdateTimeline(_unified, statuses, "h");
                 });
-            }
+            }            
         }
 
         public void MentionsTimeline()

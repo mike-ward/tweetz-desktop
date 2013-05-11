@@ -12,15 +12,20 @@ namespace tweetz5.Controls
 {
     public partial class ComposeTweet
     {
+        private string _inReplyToId;
+
         public ComposeTweet()
         {
             InitializeComponent();
         }
 
-        public void Show(string title = "Compose a tweet", string message = "")
+        public Timeline Timeline { get; set; }
+
+        public void Show(string message = "", string inReplyToId = null)
         {
-            _composeTitle.Text = title;
+            _composeTitle.Text = "Compose a tweet";
             _textBox.Text = message;
+            _inReplyToId = inReplyToId;
             Visibility = Visibility.Visible;
         }
 
@@ -55,9 +60,17 @@ namespace tweetz5.Controls
             try
             {
                 _send.IsEnabled = false;
-                var status = Twitter.UpdateStatus(_textBox.Text);
-                if (status.Contains("id_str")) Hide();
-                else _composeTitle.Text = "Error";
+                var json = Twitter.UpdateStatus(_textBox.Text, _inReplyToId);
+                if (json.Contains("id_str") == false)
+                {
+                    _composeTitle.Text = "Error";
+                }
+                else
+                {
+                    var status = Status.ParseJson("[" + json + "]");
+                    Timeline.UpdateStatus(status);
+                    Hide();
+                }
             }
             catch (Exception)
             {

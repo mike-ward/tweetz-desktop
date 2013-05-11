@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using tweetz5.Model;
 
@@ -49,6 +47,11 @@ namespace tweetz5.Controls
 
         private void FavoritesCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
+        }
+
+        public void UpdateStatus(Status[] statuses)
+        {
+            _controller.UpdateStatus(statuses);
         }
     }
 }

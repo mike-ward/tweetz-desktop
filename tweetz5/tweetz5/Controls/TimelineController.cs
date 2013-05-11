@@ -68,5 +68,10 @@ namespace tweetz5.Controls
         {
             Clipboard.SetText(tweet.Text);
         }
+
+        public void UpdateStatus(Status[] statuses)
+        {
+            _timelinesModel.UpdateStatus(statuses);
+        }
     }
 }

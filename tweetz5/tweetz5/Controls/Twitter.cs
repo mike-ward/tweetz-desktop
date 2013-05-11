@@ -138,9 +138,13 @@ namespace tweetz5.Model
             }
         }
 
-        public static string UpdateStatus(string message)
+        public static string UpdateStatus(string message, string replyToStatusId = null)
         {
-            return Post("https://api.twitter.com/1.1/statuses/update.json", new[] {new[] {"status", message}});
+            var parameters = string.IsNullOrWhiteSpace(replyToStatusId)
+                ? new[] {new[] {"status", message}}
+                : new[] {new[] {"status", message}, new[] {"in_reply_to_status_id", replyToStatusId}};
+
+            return Post("https://api.twitter.com/1.1/statuses/update.json", parameters);
         }
     }
 }
