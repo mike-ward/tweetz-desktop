@@ -152,9 +152,9 @@
     <Style x:Key="FavoriteStarStyle"
            TargetType="TextBlock">
         <Setter Property="Foreground"
-                Value="DarkGoldenrod" />
+                Value="Goldenrod" />
         <Setter Property="FontSize"
-                Value="13" />
+                Value="14" />
         <Setter Property="Margin"
                 Value="1 -4 0 0"/>
     </Style>
