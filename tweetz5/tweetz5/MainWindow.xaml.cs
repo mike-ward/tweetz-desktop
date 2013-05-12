@@ -84,8 +84,8 @@ namespace tweetz5
         private void FavoritesCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
         {
             var tweet = (Tweet)ea.Parameter;
-            var json = Twitter.Favorite(tweet.StatusId);
-            if (json.Contains(tweet.StatusId)) tweet.Favorited = true;
+            var json = tweet.Favorited ? Twitter.DestroyFavorite(tweet.StatusId) : Twitter.CreateFavorite(tweet.StatusId);
+            if (json.Contains(tweet.StatusId)) tweet.Favorited = !tweet.Favorited;
         }
 
         private void UpdateStatusHomeTimelineExecuted(object sender, ExecutedRoutedEventArgs ea)
