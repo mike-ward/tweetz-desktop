@@ -81,8 +81,11 @@ namespace tweetz5
             _compose.Show(message);
         }
 
-        private void FavoritesCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void FavoritesCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
         {
+            var tweet = (Tweet)ea.Parameter;
+            var json = Twitter.Favorite(tweet.StatusId);
+            if (json.Contains(tweet.StatusId)) tweet.Favorited = true;
         }
 
         private void UpdateStatusHomeTimelineExecuted(object sender, ExecutedRoutedEventArgs ea)

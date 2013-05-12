@@ -3,7 +3,7 @@
 using System.Windows;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using tweetz5.Model;
+using tweetz5.Utilities;
 
 namespace tweetz5UnitTests.Model
 {

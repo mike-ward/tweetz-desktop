@@ -146,5 +146,11 @@ namespace tweetz5.Model
 
             return Post("https://api.twitter.com/1.1/statuses/update.json", parameters);
         }
+
+        public static string Favorite(string id)
+        {
+            var parameters = new[] {new[] {"id", id}};
+            return Post("https://api.twitter.com/1.1/favorites/create.json", parameters);
+        }
     }
 }

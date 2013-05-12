@@ -3,15 +3,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:tweetz5.Controls"
-             xmlns:model="clr-namespace:tweetz5.Model" 
-             xmlns:tweetz5="clr-namespace:tweetz5"
+             xmlns:model="clr-namespace:tweetz5.Model"
+             xmlns:tweetz5="clr-namespace:tweetz5" 
+             xmlns:utilities="clr-namespace:tweetz5.Utilities"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
     <UserControl.Resources>
         <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
-        <model:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
+        <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanVisibilityConverter" />
         <ContextMenu x:Key="_contextMenu"
                      Placement="Relative"
                      x:Shared="true">
@@ -19,14 +21,14 @@
                       Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                 <MenuItem.Icon>
-                    <Image Source="..\Assets\Images\LoadProfilenode_8711.png"></Image>
+                    <Image Source="..\Assets\Images\LoadProfilenode_8711.png" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Retweet"
                       Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                 <MenuItem.Icon>
-                    <Image Source="..\Assets\Images\ID_SITE_PUBLISH_ALL.png"></Image>
+                    <Image Source="..\Assets\Images\ID_SITE_PUBLISH_ALL.png" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="RT (Classic)"
@@ -36,7 +38,7 @@
                       Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                 <MenuItem.Icon>
-                    <Image Source="..\Assets\Images\Favorites_9002.png"></Image>
+                    <Image Source="..\Assets\Images\Favorites_9002.png" />
                 </MenuItem.Icon>
             </MenuItem>
             <Separator />
@@ -44,7 +46,7 @@
                       Command="{x:Static tweetz5:MainWindow.CopyCommand}"
                       CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
                 <MenuItem.Icon>
-                    <Image Source="..\Assets\Images\Copy_6524.png"></Image>
+                    <Image Source="..\Assets\Images\Copy_6524.png" />
                 </MenuItem.Icon>
             </MenuItem>
         </ContextMenu>
@@ -120,6 +122,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0"
                                                Style="{StaticResource TweetNameStyle}"
@@ -127,6 +130,10 @@
                                     <TextBlock Grid.Column="1"
                                                Style="{StaticResource TweetTimeStyle}"
                                                Text="{Binding TimeAgo}" />
+                                    <TextBlock Grid.Column="2"
+                                               Text="&#x2605;"
+                                               Visibility="{Binding Favorited, Converter={StaticResource BooleanVisibilityConverter}}"
+                                               Style="{StaticResource FavoriteStarStyle}" />
                                 </Grid>
                                 <controls:TextBlockMarkup Grid.Row="1"
                                                           Grid.Column="1"

@@ -69,7 +69,7 @@
     </Compile>
     <Compile Include="Controls\TextBlockMarkup.cs" />
     <Compile Include="Model\OAuth.cs" />
-    <Compile Include="Model\StringValueVisibilityConverter.cs" />
+    <Compile Include="Utilities\StringValueVisibilityConverter.cs" />
     <Compile Include="Model\Timelines.cs" />
     <Compile Include="Model\Tweet.cs" />
     <Compile Include="Model\TweetTypeValueConverter.cs" />

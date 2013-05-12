@@ -68,6 +68,7 @@ namespace tweetz5.Model
                         CreatedAt = createdAt,
                         TimeAgo = TimeAgo(createdAt),
                         TweetType = tweetType,
+                        Favorited = status.Favorited,
                         RetweetedBy = (status.RetweeetedtStatus != null) ? status.User.Name : string.Empty
                     });
                 }

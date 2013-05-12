@@ -11,6 +11,7 @@ namespace tweetz5.Model
 {
     public class Tweet : INotifyPropertyChanged
     {
+        private bool _favorited;
         private string _timeAgo;
 
         public string StatusId { get; set; }
@@ -31,6 +32,19 @@ namespace tweetz5.Model
                 if (TimeAgo != value)
                 {
                     _timeAgo = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool Favorited
+        {
+            get { return _favorited; }
+            set
+            {
+                if (_favorited != value)
+                {
+                    _favorited = value;
                     OnPropertyChanged();
                 }
             }
@@ -68,6 +82,9 @@ namespace tweetz5.Model
 
         [DataMember(Name="retweeted_status")]
         public Status RetweeetedtStatus { get; set; }
+
+        [DataMember(Name = "favorited")]
+        public bool Favorited { get; set; }
 
         public static Status[] ParseJson(string json)
         {
