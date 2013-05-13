@@ -187,6 +187,10 @@ namespace tweetz5.Model
                 {
                     UpdateTimeline(_mentions, statuses, "m");
                     UpdateTimeline(_unified, statuses, "m");
+                    foreach (var tweet in _unified.Where(h => statuses.Any(s => s.Id == h.StatusId)))
+                    {
+                        tweet.TweetType += "m";
+                    }
                 });
             }
         }

@@ -13,6 +13,7 @@ namespace tweetz5.Model
     {
         private bool _favorited;
         private string _timeAgo;
+        private string _tweetType;
 
         public string StatusId { get; set; }
         public string Name { get; set; }
@@ -21,15 +22,28 @@ namespace tweetz5.Model
         public string Text { get; set; }
         public string MarkupText { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string TweetType { get; set; }
         public string RetweetedBy { get; set; }
+        
+        public string TweetType
+        {
+            get { return _tweetType; }
+            set
+            {
+                if (_tweetType != value)
+                {
+                    _tweetType = value;
+                    OnPropertyChanged();                    
+                }
+            }
+        }
+
 
         public string TimeAgo
         {
             get { return _timeAgo; }
             set
             {
-                if (TimeAgo != value)
+                if (_timeAgo != value)
                 {
                     _timeAgo = value;
                     OnPropertyChanged();
