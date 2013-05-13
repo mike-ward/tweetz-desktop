@@ -66,7 +66,7 @@ namespace tweetz5
         private void ReplyCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
         {
             var tweet = (Tweet)ea.Parameter;
-            var message = string.Format("@{0} {1}", tweet.ScreenName, tweet.Text);
+            var message = string.Format("@{0} ", tweet.ScreenName);
             _compose.Show(message, tweet.StatusId);
         }
 
