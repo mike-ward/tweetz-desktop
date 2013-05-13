@@ -74,7 +74,7 @@
     <Compile Include="Model\Timelines.cs" />
     <Compile Include="Model\Tweet.cs" />
     <Compile Include="Model\TweetTypeValueConverter.cs" />
-    <Compile Include="Controls\Twitter.cs" />
+    <Compile Include="Model\Twitter.cs" />
     <Compile Include="Model\WebRequestWrapper.cs" />
     <Compile Include="Model\WebResponseWrapper.cs" />
     <Compile Include="Controls\Timeline.xaml.cs">
