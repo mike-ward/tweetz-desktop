@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Navigation;
+using tweetz5.Model;
 
 namespace tweetz5.Controls
 {
@@ -87,6 +88,10 @@ namespace tweetz5.Controls
             {
                 hyperlink.NavigateUri = new Uri(link);
             }
+            hyperlink.ToolTip = link;
+            ToolTipService.SetInitialShowDelay(hyperlink, 0);
+            ToolTipService.SetShowDuration(hyperlink, 30000);
+            hyperlink.ToolTipOpening += (s, e) => hyperlink.ToolTip = LongUrl.Lookup(link);
             hyperlink.RequestNavigate += clickHandler;
             return hyperlink;
         }

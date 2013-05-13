@@ -13,6 +13,8 @@ namespace tweetz5.Model
         string Method { get; set; }
         string ContentType { get; set; }
         Stream GetRequestStream();
+        string UserAgent { get; set; }
+        int Timeout { get; set; }
     }
 
     public class WebRequestWrapper : IWebRequest
@@ -59,6 +61,18 @@ namespace tweetz5.Model
         public Stream GetRequestStream()
         {
             return _request.GetRequestStream();
+        }
+
+        public string UserAgent
+        {
+            get { return ((HttpWebRequest)_request).UserAgent; }
+            set { ((HttpWebRequest)_request).UserAgent = value; }
+        }
+
+        public int Timeout
+        {
+            get { return _request.Timeout; }
+            set { _request.Timeout = value; }
         }
     }
 }
