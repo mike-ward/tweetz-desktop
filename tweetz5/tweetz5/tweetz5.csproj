@@ -70,6 +70,7 @@
     <Compile Include="Controls\TextBlockMarkup.cs" />
     <Compile Include="Model\OAuth.cs" />
     <Compile Include="Model\LongUrl.cs" />
+    <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Utilities\StringValueVisibilityConverter.cs" />
     <Compile Include="Model\Timelines.cs" />
     <Compile Include="Model\Tweet.cs" />

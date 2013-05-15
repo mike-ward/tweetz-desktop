@@ -79,6 +79,23 @@ namespace tweetz5.Controls
                 _send.IsEnabled = true;
             }
         }
+
+        private void OnShorten(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _shorten.IsEnabled = false;
+                _textBox.Text = ShortUrl.ShortenUrls(_textBox.Text);
+            }
+            catch (Exception)
+            {
+                _composeTitle.Text = "Error shortening urls";
+            }
+            finally
+            {
+                _shorten.IsEnabled = true;
+            }
+        }
     }
 
     public class LengthToColorConverter : IValueConverter
