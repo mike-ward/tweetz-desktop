@@ -72,12 +72,19 @@ namespace tweetz5
 
         private void RetweetCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
         {
-            var tweet = (Tweet)ea.Parameter;
-            var json = Twitter.RetweetStatus(tweet.StatusId);
-            if (json.Contains(tweet.StatusId))
+            try
             {
-                var status = Status.ParseJson("[" + json + "]");
-                tweet.RetweetedBy = Timelines.RetweetedBy(status[0]);
+                var tweet = (Tweet)ea.Parameter;
+                var json = Twitter.RetweetStatus(tweet.StatusId);
+                if (json.Contains(tweet.StatusId))
+                {
+                    var status = Status.ParseJson("[" + json + "]");
+                    tweet.RetweetedBy = Timelines.RetweetedBy(status[0]);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
 
@@ -90,9 +97,16 @@ namespace tweetz5
 
         private void FavoritesCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
         {
-            var tweet = (Tweet)ea.Parameter;
-            var json = tweet.Favorited ? Twitter.DestroyFavorite(tweet.StatusId) : Twitter.CreateFavorite(tweet.StatusId);
-            if (json.Contains(tweet.StatusId)) tweet.Favorited = !tweet.Favorited;
+            try
+            {
+                var tweet = (Tweet)ea.Parameter;
+                var json = tweet.Favorited ? Twitter.DestroyFavorite(tweet.StatusId) : Twitter.CreateFavorite(tweet.StatusId);
+                if (json.Contains(tweet.StatusId)) tweet.Favorited = !tweet.Favorited;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         private void UpdateStatusHomeTimelineExecuted(object sender, ExecutedRoutedEventArgs ea)
