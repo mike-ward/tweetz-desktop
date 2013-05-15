@@ -55,7 +55,7 @@ namespace tweetz5.Model
                     var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
                         CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
-                    var displayStatus = status.RetweeetedtStatus ?? status;
+                    var displayStatus = status.RetweetedtStatus ?? status;
 
                     timeline.Add(new Tweet
                     {
@@ -69,7 +69,7 @@ namespace tweetz5.Model
                         TimeAgo = TimeAgo(createdAt),
                         TweetType = tweetType,
                         Favorited = status.Favorited,
-                        RetweetedBy = (status.RetweeetedtStatus != null) ? status.User.Name : string.Empty
+                        RetweetedBy = RetweetedBy(status)
                     });
                 }
                 newStatuses.Clear();
@@ -79,6 +79,13 @@ namespace tweetz5.Model
                     timeline.Move(timeline.IndexOf(sorted[i]), i);
                 }
             }
+        }
+
+        public static string RetweetedBy(Status status)
+        {
+            if (status.Retweeted) return "you";
+            if (status.RetweetedtStatus != null) return status.User.Name;
+            return string.Empty;
         }
 
         internal class MarkupItem

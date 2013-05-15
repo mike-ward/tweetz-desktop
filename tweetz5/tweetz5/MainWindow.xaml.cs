@@ -70,8 +70,15 @@ namespace tweetz5
             _compose.Show(message, tweet.StatusId);
         }
 
-        private void RetweetCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void RetweetCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
         {
+            var tweet = (Tweet)ea.Parameter;
+            var json = Twitter.RetweetStatus(tweet.StatusId);
+            if (json.Contains(tweet.StatusId))
+            {
+                var status = Status.ParseJson("[" + json + "]");
+                tweet.RetweetedBy = Timelines.RetweetedBy(status[0]);
+            }
         }
 
         private void RetweetClassicCommandExecuted(object sender, ExecutedRoutedEventArgs ea)

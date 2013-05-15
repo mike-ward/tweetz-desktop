@@ -158,5 +158,10 @@ namespace tweetz5.Model
             var parameters = new[] { new[] { "id", id } };
             return Post("https://api.twitter.com/1.1/favorites/destroy.json", parameters);
         }
+
+        public static string RetweetStatus(string id)
+        {
+            return Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]);
+        }
     }
 }

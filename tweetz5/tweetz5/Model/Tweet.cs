@@ -14,6 +14,7 @@ namespace tweetz5.Model
         private bool _favorited;
         private string _timeAgo;
         private string _tweetType;
+        private string _retweetedBy;
 
         public string StatusId { get; set; }
         public string Name { get; set; }
@@ -22,8 +23,20 @@ namespace tweetz5.Model
         public string Text { get; set; }
         public string MarkupText { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string RetweetedBy { get; set; }
-        
+
+        public string RetweetedBy   
+        {
+            get { return _retweetedBy; }
+            set
+            {
+                if (_retweetedBy != value)
+                {
+                    _retweetedBy = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string TweetType
         {
             get { return _tweetType; }
@@ -95,10 +108,13 @@ namespace tweetz5.Model
         public Entities Entities { get; set; }
 
         [DataMember(Name="retweeted_status")]
-        public Status RetweeetedtStatus { get; set; }
+        public Status RetweetedtStatus { get; set; }
 
         [DataMember(Name = "favorited")]
         public bool Favorited { get; set; }
+
+        [DataMember(Name = "retweeted")]
+        public bool Retweeted { get; set; }
 
         public static Status[] ParseJson(string json)
         {

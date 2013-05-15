@@ -1,8 +1,5 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Shapes;
 using tweetz5.Model;
 
 namespace tweetz5.Controls
@@ -14,7 +11,7 @@ namespace tweetz5.Controls
         public Timeline()
         {
             InitializeComponent();
-            Controller = new TimelineController((Timelines)DataContext);
+            Controller = new TimelineController((Timelines) DataContext);
             Controller.StartTimelines();
             Unloaded += (sender, args) => Controller.Dispose();
         }
