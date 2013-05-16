@@ -8,9 +8,11 @@ namespace tweetz5.Model
         private static string Shorten(string link)
         {
             var url = "http://is.gd/create.php?format=simple&url=" + OAuth.UrlEncode(link);
-            var client = new WebClient();
-            var shortUrl = client.DownloadString(url);
-            return shortUrl;
+            using (var client = new WebClient())
+            {
+                var shortUrl = client.DownloadString(url);
+                return shortUrl;
+            }
         }
 
         public static string ShortenUrls(string text)
