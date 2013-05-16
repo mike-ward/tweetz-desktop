@@ -61,26 +61,6 @@
                           ItemsSource="{Binding Timeline}"
                           Style="{StaticResource TimelineStyle}"
                           ItemContainerStyle="{StaticResource TweetItemStyle}">
-                <ItemsControl.RenderTransform>
-                    <TransformGroup>
-                        <TranslateTransform />
-                    </TransformGroup>
-                </ItemsControl.RenderTransform>
-                <ItemsControl.Triggers>
-                    <EventTrigger RoutedEvent="FrameworkElement.SizeChanged">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TimelineItems"
-                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)">
-                                    <EasingDoubleKeyFrame KeyTime="0"
-                                                          Value="-50" />
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.5"
-                                                          Value="0" />
-                                </DoubleAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </ItemsControl.Triggers>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DataTemplate.Resources>
@@ -95,7 +75,11 @@
                                 </DoubleAnimationUsingKeyFrames>
                             </Storyboard>
                         </DataTemplate.Resources>
-
+                        <DataTemplate.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard Storyboard="{StaticResource ItemAnimation}" />
+                            </EventTrigger>
+                        </DataTemplate.Triggers>
                         <Grid x:Name="MyGrid"
                               Background="{Binding TweetType, Converter={StaticResource tweetTypeConverter}}"
                               VerticalAlignment="Top"
@@ -155,12 +139,6 @@
                                        Grid.ColumnSpan="2"
                                        Style="{StaticResource TweetSeparatorBottom}" />
                         </Grid>
-
-                        <DataTemplate.Triggers>
-                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                                <BeginStoryboard Storyboard="{StaticResource ItemAnimation}" />
-                            </EventTrigger>
-                        </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
