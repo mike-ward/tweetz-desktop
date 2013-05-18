@@ -11,6 +11,8 @@
                 Value="#333333" />
         <Setter Property="FontSize"
                 Value="11" />
+        <Setter Property="TextOptions.TextFormattingMode"
+                Value="Display" />
     </Style>
 
     <Style x:Key="TopBarStyle"
