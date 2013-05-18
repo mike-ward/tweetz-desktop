@@ -4,6 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using tweetz5.Model;
 
 namespace tweetz5
@@ -16,6 +17,7 @@ namespace tweetz5
         public static readonly RoutedCommand FavoritesCommand = new RoutedUICommand();
         public static readonly RoutedCommand CopyCommand = new RoutedUICommand();
         public static readonly RoutedCommand UpdateStatusHomeTimeline = new RoutedUICommand();
+        public static readonly RoutedCommand SwitchTimelines = new RoutedUICommand();
 
         public MainWindow()
         {
@@ -55,6 +57,11 @@ namespace tweetz5
         private void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
+        }
+
+        private void SwitchTimeslinesCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
+        {
+            _timeline.Controller.SwitchTimeline(ea.Parameter as string);
         }
 
         private void CopyTweetCommand(object target, ExecutedRoutedEventArgs ea)

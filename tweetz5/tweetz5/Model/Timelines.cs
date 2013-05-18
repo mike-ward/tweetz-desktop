@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
 using System.Collections.Generic;
@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace tweetz5.Model
@@ -16,24 +17,45 @@ namespace tweetz5.Model
         void MentionsTimeline();
         void UpdateTimeStamps();
         void UpdateStatus(Status[] statuses);
+        void SwitchTimeline(string timeline);
     }
 
     public class Timelines : ITimelines, INotifyPropertyChanged
     {
-        public ObservableCollection<Tweet> Timeline { get; set; }
         public Action<Action> DispatchInvokerOverride { get; set; }
+        private ObservableCollection<Tweet> _timeline;
         private readonly ObservableCollection<Tweet> _unified = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _home = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _mentions = new ObservableCollection<Tweet>();
+        private Dictionary<string, ObservableCollection<Tweet>> _timelineMap;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Timelines()
         {
             Timeline = _unified;
+            _timelineMap = new Dictionary<string, ObservableCollection<Tweet>>
+            {
+                {"unified", _unified},
+                {"home", _home},
+                {"mentions", _mentions}
+            };
         }
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        public ObservableCollection<Tweet> Timeline
+        {
+            get { return _timeline; }
+            set
+            {
+                if (_timeline != value)
+                {
+                    _timeline = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null)
@@ -145,8 +167,8 @@ namespace tweetz5.Model
 
             return markupItems
                 .Aggregate(text, (current, markupItem) => current
-                .Remove(markupItem.Start, markupItem.End - markupItem.Start)
-                .Insert(markupItem.Start, markupItem.Markup));
+                    .Remove(markupItem.Start, markupItem.End - markupItem.Start)
+                    .Insert(markupItem.Start, markupItem.Markup));
         }
 
         private static string TimeAgo(DateTime time)
@@ -181,7 +203,16 @@ namespace tweetz5.Model
                     UpdateTimeline(_home, statuses, "h");
                     UpdateTimeline(_unified, statuses, "h");
                 });
-            }            
+            }
+        }
+
+        public void SwitchTimeline(string timelineName)
+        {
+            ObservableCollection<Tweet> timeline;
+            if (_timelineMap.TryGetValue(timelineName, out timeline))
+            {
+                Timeline = timeline;
+            }
         }
 
         public void MentionsTimeline()

@@ -70,14 +70,14 @@
                                                                Storyboard.TargetProperty="(UIElement.Opacity)">
                                     <EasingDoubleKeyFrame KeyTime="0"
                                                           Value="0" />
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.8"
+                                    <EasingDoubleKeyFrame KeyTime="0:0:1"
                                                           Value="1" />
                                 </DoubleAnimationUsingKeyFrames>
                             </Storyboard>
                         </DataTemplate.Resources>
                         <DataTemplate.Triggers>
                             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                                <BeginStoryboard Storyboard="{StaticResource ItemAnimation}" />
+                                <BeginStoryboard Name="frameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
                             </EventTrigger>
                         </DataTemplate.Triggers>
                         <Grid x:Name="MyGrid"

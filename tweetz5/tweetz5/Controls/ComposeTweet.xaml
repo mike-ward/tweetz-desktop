@@ -9,8 +9,7 @@
              d:DesignHeight="300"
              d:DesignWidth="200"
              Focusable="True"
-             Height="135"
-             Width="200">
+             Height="153">
     <UserControl.Resources>
         <c:LengthToColorConverter x:Key="converter" />
     </UserControl.Resources>

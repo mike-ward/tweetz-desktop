@@ -72,5 +72,10 @@ namespace tweetz5.Controls
         {
             _timelinesModel.UpdateStatus(statuses);
         }
+
+        public void SwitchTimeline(string timeline)
+        {
+            _timelinesModel.SwitchTimeline(timeline);
+        }
     }
 }
