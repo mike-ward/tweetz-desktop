@@ -4,144 +4,144 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:tweetz5.Controls"
              xmlns:model="clr-namespace:tweetz5.Model"
-             xmlns:tweetz5="clr-namespace:tweetz5" 
+             xmlns:tweetz5="clr-namespace:tweetz5"
              xmlns:utilities="clr-namespace:tweetz5.Utilities"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
-    <UserControl.Resources>
-        <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
-        <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
-        <BooleanToVisibilityConverter x:Key="BooleanVisibilityConverter" />
-        <Cursor x:Key="_contextMenuCursor">..\Assets\Images\context-menu-cursor.cur</Cursor>
-        <ContextMenu x:Key="_contextMenu"
-                     Placement="Relative"
-                     x:Shared="true">
-            <MenuItem Header="Reply"
-                      Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
-                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                <MenuItem.Icon>
-                    <Image Source="..\Assets\Images\LoadProfilenode_8711.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="Retweet"
-                      Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
-                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                <MenuItem.Icon>
-                    <Image Source="..\Assets\Images\ID_SITE_PUBLISH_ALL.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="RT (Classic)"
-                      Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
-                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}" />
-            <MenuItem Header="Favorite"
-                      Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
-                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                <MenuItem.Icon>
-                    <Image Source="..\Assets\Images\Favorites_9002.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <Separator />
-            <MenuItem Header="Copy"
-                      Command="{x:Static tweetz5:MainWindow.CopyCommand}"
-                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-                <MenuItem.Icon>
-                    <Image Source="..\Assets\Images\Copy_6524.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-    </UserControl.Resources>
-    <UserControl.DataContext>
-        <model:Timelines />
-    </UserControl.DataContext>
-    <Grid>
-        <ScrollViewer>
-            <ItemsControl x:Name="TimelineItems"
-                          ItemsSource="{Binding Timeline}"
-                          Style="{StaticResource TimelineStyle}"
-                          ItemContainerStyle="{StaticResource TweetItemStyle}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DataTemplate.Resources>
-                            <Storyboard x:Key="ItemAnimation"
-                                        AutoReverse="False">
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MyGrid"
-                                                               Storyboard.TargetProperty="(UIElement.Opacity)">
-                                    <EasingDoubleKeyFrame KeyTime="0"
-                                                          Value="0" />
-                                    <EasingDoubleKeyFrame KeyTime="0:0:1"
-                                                          Value="1" />
-                                </DoubleAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </DataTemplate.Resources>
-                        <DataTemplate.Triggers>
-                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                                <BeginStoryboard Name="frameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
-                            </EventTrigger>
-                        </DataTemplate.Triggers>
-                        <Grid x:Name="MyGrid"
-                              Background="{Binding TweetType, Converter={StaticResource tweetTypeConverter}}"
-                              VerticalAlignment="Top"
-                              HorizontalAlignment="Left">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Rectangle Grid.Column="0"
-                                       ContextMenu="{StaticResource _contextMenu}"
-                                       Cursor="{StaticResource _contextMenuCursor}"
-                                       Style="{StaticResource TweetImageStyle}">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <StackPanel Grid.Column="1">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0"
-                                               Style="{StaticResource TweetNameStyle}"
-                                               Text="{Binding Name}" />
-                                    <TextBlock Grid.Column="1"
-                                               Style="{StaticResource TweetTimeStyle}"
-                                               Text="{Binding TimeAgo}" />
-                                    <TextBlock Grid.Column="2"
-                                               Text="&#x2605;"
-                                               Visibility="{Binding Favorited, Converter={StaticResource BooleanVisibilityConverter}}"
-                                               Style="{StaticResource FavoriteStarStyle}" />
-                                </Grid>
-                                <controls:TextBlockMarkup Grid.Row="1"
-                                                          Grid.Column="1"
-                                                          Markup="{Binding MarkupText}"
-                                                          Style="{StaticResource TweetStyle}" />
-                                <TextBlock Grid.Row="1"
-                                           Grid.Column="1"
-                                           Style="{StaticResource TweetRetweetedByStyle}"
-                                           Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
-                                    <Run>RT </Run>
-                                    <Run Text="{Binding RetweetedBy}"></Run>
-                                </TextBlock>
-                            </StackPanel>
-                            <Separator Grid.Row="2"
-                                       Grid.ColumnSpan="2"
-                                       Style="{StaticResource TweetSeparatorTop}" />
-                            <Separator Grid.Row="3"
-                                       Grid.ColumnSpan="2"
-                                       Style="{StaticResource TweetSeparatorBottom}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
+  <UserControl.Resources>
+    <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
+    <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanVisibilityConverter" />
+    <Cursor x:Key="_contextMenuCursor">..\Assets\Images\context-menu-cursor.cur</Cursor>
+    <ContextMenu x:Key="_contextMenu"
+                 Placement="Relative"
+                 x:Shared="true">
+      <MenuItem Header="Reply"
+                Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+        <MenuItem.Icon>
+          <Image Source="..\Assets\Images\LoadProfilenode_8711.png" />
+        </MenuItem.Icon>
+      </MenuItem>
+      <MenuItem Header="Retweet"
+                Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+        <MenuItem.Icon>
+          <Image Source="..\Assets\Images\ID_SITE_PUBLISH_ALL.png" />
+        </MenuItem.Icon>
+      </MenuItem>
+      <MenuItem Header="RT (Classic)"
+                Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}" />
+      <MenuItem Header="Favorite"
+                Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+        <MenuItem.Icon>
+          <Image Source="..\Assets\Images\Favorites_9002.png" />
+        </MenuItem.Icon>
+      </MenuItem>
+      <Separator />
+      <MenuItem Header="Copy"
+                Command="{x:Static tweetz5:MainWindow.CopyCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+        <MenuItem.Icon>
+          <Image Source="..\Assets\Images\Copy_6524.png" />
+        </MenuItem.Icon>
+      </MenuItem>
+    </ContextMenu>
+  </UserControl.Resources>
+  <UserControl.DataContext>
+    <model:Timelines />
+  </UserControl.DataContext>
+  <Grid>
+    <ScrollViewer>
+      <ItemsControl x:Name="TimelineItems"
+                    ItemsSource="{Binding Timeline}"
+                    Style="{StaticResource TimelineStyle}"
+                    ItemContainerStyle="{StaticResource TweetItemStyle}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <DataTemplate.Resources>
+              <Storyboard x:Key="ItemAnimation"
+                          AutoReverse="False">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MyGrid"
+                                               Storyboard.TargetProperty="(UIElement.Opacity)">
+                  <EasingDoubleKeyFrame KeyTime="0"
+                                        Value="0" />
+                  <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                        Value="1" />
+                </DoubleAnimationUsingKeyFrames>
+              </Storyboard>
+            </DataTemplate.Resources>
+            <DataTemplate.Triggers>
+              <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard Name="frameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
+              </EventTrigger>
+            </DataTemplate.Triggers>
+            <Grid x:Name="MyGrid"
+                  Background="{Binding TweetType, Converter={StaticResource tweetTypeConverter}}"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Left">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+              </Grid.RowDefinitions>
+              <Rectangle Grid.Column="0"
+                         ContextMenu="{StaticResource _contextMenu}"
+                         Cursor="{StaticResource _contextMenuCursor}"
+                         Style="{StaticResource TweetImageStyle}">
+                <Rectangle.Fill>
+                  <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
+                </Rectangle.Fill>
+              </Rectangle>
+              <StackPanel Grid.Column="1">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Column="0"
+                             Style="{StaticResource TweetNameStyle}"
+                             Text="{Binding Name}" />
+                  <TextBlock Grid.Column="1"
+                             Style="{StaticResource TweetTimeStyle}"
+                             Text="{Binding TimeAgo}" />
+                  <TextBlock Grid.Column="2"
+                             Text="&#x2605;"
+                             Visibility="{Binding Favorited, Converter={StaticResource BooleanVisibilityConverter}}"
+                             Style="{StaticResource FavoriteStarStyle}" />
+                </Grid>
+                <controls:TextBlockMarkup Grid.Row="1"
+                                          Grid.Column="1"
+                                          Markup="{Binding MarkupText}"
+                                          Style="{StaticResource TweetStyle}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Style="{StaticResource TweetRetweetedByStyle}"
+                           Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
+                  <Run>RT </Run>
+                  <Run Text="{Binding RetweetedBy}"></Run>
+                </TextBlock>
+              </StackPanel>
+              <Separator Grid.Row="2"
+                         Grid.ColumnSpan="2"
+                         Style="{StaticResource TweetSeparatorTop}" />
+              <Separator Grid.Row="3"
+                         Grid.ColumnSpan="2"
+                         Style="{StaticResource TweetSeparatorBottom}" />
+            </Grid>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+  </Grid>
 </UserControl>

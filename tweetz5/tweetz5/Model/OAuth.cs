@@ -16,6 +16,7 @@ namespace tweetz5.Model
         public string ConsumerSecret { get; set; }
         public string AccessTokenSecret { get; set; }
         public string AccessToken { get; set; }
+        public string ScreenName { get; set; }
 
         static OAuth()
         {
@@ -28,6 +29,7 @@ namespace tweetz5.Model
             ConsumerSecret = "8gKdPBwUfZCQfUiyeFeEwVBQiV3q50wIOrIjoCxa2Q";
             AccessToken = "14410002-tTUqt6ujPyLLcn3OjgdlmSdl9e6ta1OISAWS1Gs8I";
             AccessTokenSecret = "zaBS7G3f8n0F6zxGwNJEmlU4zg1P6VgL5cPyEgShI";
+            ScreenName = "mikeward_aa";
         }
 
         public static string UrlEncode(string value)

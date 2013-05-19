@@ -15,6 +15,7 @@ namespace tweetz5.Model
     {
         void HomeTimeline();
         void MentionsTimeline();
+        void DirectMessagesTimeline();
         void UpdateTimeStamps();
         void UpdateStatus(Status[] statuses);
         void SwitchTimeline(string timeline);
@@ -27,7 +28,8 @@ namespace tweetz5.Model
         private readonly ObservableCollection<Tweet> _unified = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _home = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _mentions = new ObservableCollection<Tweet>();
-        private Dictionary<string, ObservableCollection<Tweet>> _timelineMap;
+        private readonly ObservableCollection<Tweet> _directMessages = new ObservableCollection<Tweet>();
+        private readonly Dictionary<string, ObservableCollection<Tweet>> _timelineMap;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,7 +40,8 @@ namespace tweetz5.Model
             {
                 {"unified", _unified},
                 {"home", _home},
-                {"mentions", _mentions}
+                {"mentions", _mentions},
+                {"messages", _directMessages}
             };
         }
 
@@ -72,12 +75,19 @@ namespace tweetz5.Model
 
             if (newStatuses.Count > 0)
             {
+                var screenName = new OAuth().ScreenName;
                 foreach (var status in newStatuses)
                 {
                     var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
                         CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
                     var displayStatus = status.RetweetedtStatus ?? status;
+
+                    // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
+                    if (displayStatus.User == null)
+                    {
+                        displayStatus.User = (status.Recipient.ScreenName == screenName) ? status.Sender : status.Recipient;
+                    }
 
                     timeline.Add(new Tweet
                     {
@@ -187,6 +197,15 @@ namespace tweetz5.Model
             invoker(callback);
         }
 
+        public void SwitchTimeline(string timelineName)
+        {
+            ObservableCollection<Tweet> timeline;
+            if (_timelineMap.TryGetValue(timelineName, out timeline))
+            {
+                Timeline = timeline;
+            }
+        }
+
         public void HomeTimeline()
         {
             var twitter = new Twitter();
@@ -206,15 +225,6 @@ namespace tweetz5.Model
             }
         }
 
-        public void SwitchTimeline(string timelineName)
-        {
-            ObservableCollection<Tweet> timeline;
-            if (_timelineMap.TryGetValue(timelineName, out timeline))
-            {
-                Timeline = timeline;
-            }
-        }
-
         public void MentionsTimeline()
         {
             var twitter = new Twitter();
@@ -228,6 +238,24 @@ namespace tweetz5.Model
                     foreach (var tweet in _unified.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                     {
                         tweet.TweetType += "m";
+                    }
+                });
+            }
+        }
+
+        public void DirectMessagesTimeline()
+        {
+            var twitter = new Twitter();
+            var statuses = twitter.DirectMessagesTimeline();
+            if (statuses.Length > 0)
+            {
+                DispatchInvoker(() =>
+                {
+                    UpdateTimeline(_directMessages, statuses, "d");
+                    UpdateTimeline(_unified, statuses, "d");
+                    foreach (var tweet in _unified.Where(h => statuses.Any(s => s.Id == h.StatusId)))
+                    {
+                        tweet.TweetType += "d";
                     }
                 });
             }

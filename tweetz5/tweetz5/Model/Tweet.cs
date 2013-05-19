@@ -101,6 +101,12 @@ namespace tweetz5.Model
         [DataMember(Name = "user")]
         public User User { get; set; }
 
+        [DataMember(Name = "recipient")]
+        public User Recipient { get; set; }
+
+        [DataMember(Name = "sender")]
+        public User Sender { get; set; }
+
         [DataMember(Name = "created_at")]
         public string CreatedAt { get; set; }
 

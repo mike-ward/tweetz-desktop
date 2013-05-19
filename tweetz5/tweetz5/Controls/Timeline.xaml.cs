@@ -11,7 +11,7 @@ namespace tweetz5.Controls
         public Timeline()
         {
             InitializeComponent();
-            Controller = new TimelineController((Timelines) DataContext);
+            Controller = new TimelineController((Timelines)DataContext);
             Controller.StartTimelines();
             Unloaded += (sender, args) => Controller.Dispose();
         }

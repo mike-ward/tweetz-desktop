@@ -27,6 +27,7 @@ namespace tweetz5.Controls
                 _checkTimelines.Interval = 60000;
                 _timelinesModel.HomeTimeline();
                 _timelinesModel.MentionsTimeline();
+                _timelinesModel.DirectMessagesTimeline();
             };
             _checkTimelines.Start();
 

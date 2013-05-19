@@ -1,7 +1,7 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:tweetz5.Controls"
-        xmlns:p="clr-namespace:tweetz5.Properties" 
+        xmlns:p="clr-namespace:tweetz5.Properties"
         xmlns:tweetz5="clr-namespace:tweetz5"
         x:Class="tweetz5.MainWindow"
         Title="tweetz"
@@ -54,7 +54,12 @@
                         CommandParameter="mentions">
                     @
                 </Button>
-                <Button Style="{StaticResource NavBarButton}" Background="#333377">&#x2709;</Button>
+                <Button Style="{StaticResource NavBarButton}"
+                        Background="#333377"
+                        Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                        CommandParameter="messages">
+                    &#x2709;
+                </Button>
                 <Button Style="{StaticResource NavBarButton}" Background="DarkGoldenrod">&#x2605;</Button>
                 <Button Style="{StaticResource NavBarButton}" Background="#008080">&#x2632;</Button>
                 <Button Style="{StaticResource NavBarButton}" Background="#415360">&#x2699;</Button>
