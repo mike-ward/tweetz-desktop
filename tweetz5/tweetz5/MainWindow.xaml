@@ -31,7 +31,7 @@
                             DockPanel.Dock="Right">
                     <Button Style="{StaticResource ComposeButton}"
                             Click="ComposeOnClick">
-                        compose
+                        &#xE104; compose
                     </Button>
                 </StackPanel>
             </DockPanel>
@@ -40,29 +40,29 @@
                         Background="#333344"
                         Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
                         CommandParameter="unified">
-                    &#x22c3;
+                    &#xE179;
                 </Button>
                 <Button Style="{StaticResource NavBarButton}"
-                        Background="#600000"
+                        Background="#502000"
                         Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
                         CommandParameter="home">
-                    &#x2617;
+                    &#xE10F;
                 </Button>
                 <Button Style="{StaticResource NavBarButton}"
                         Background="#335533"
                         Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
                         CommandParameter="mentions">
-                    @
+                    &#xE168;
                 </Button>
                 <Button Style="{StaticResource NavBarButton}"
                         Background="#333377"
                         Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
                         CommandParameter="messages">
-                    &#x2709;
+                    &#xE135;
                 </Button>
-                <Button Style="{StaticResource NavBarButton}" Background="DarkGoldenrod">&#x2605;</Button>
-                <Button Style="{StaticResource NavBarButton}" Background="#008080">&#x2632;</Button>
-                <Button Style="{StaticResource NavBarButton}" Background="#415360">&#x2699;</Button>
+                <Button Style="{StaticResource NavBarButton}" Background="DarkGoldenrod">&#xE113;</Button>
+                <Button Style="{StaticResource NavBarButton}" Background="#008080">&#xE11A;</Button>
+                <Button Style="{StaticResource NavBarButton}" Background="#415360">&#xE115;</Button>
             </UniformGrid>
             <local:Timeline x:Name="_timeline"
                             Panel.ZIndex="-1"

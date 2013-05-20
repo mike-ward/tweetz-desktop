@@ -80,65 +80,67 @@
                 <BeginStoryboard Name="frameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
               </EventTrigger>
             </DataTemplate.Triggers>
-            <Grid x:Name="MyGrid"
-                  Background="{Binding TweetType, Converter={StaticResource tweetTypeConverter}}"
-                  VerticalAlignment="Top"
-                  HorizontalAlignment="Left">
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
-                <ColumnDefinition />
-              </Grid.ColumnDefinitions>
-              <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-              </Grid.RowDefinitions>
-              <Rectangle Grid.Column="0"
-                         ContextMenu="{StaticResource _contextMenu}"
-                         Cursor="{StaticResource _contextMenuCursor}"
-                         Style="{StaticResource TweetImageStyle}">
-                <Rectangle.Fill>
-                  <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
-                </Rectangle.Fill>
-              </Rectangle>
-              <StackPanel Grid.Column="1">
-                <Grid>
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                  </Grid.ColumnDefinitions>
-                  <TextBlock Grid.Column="0"
-                             Style="{StaticResource TweetNameStyle}"
-                             Text="{Binding Name}" />
-                  <TextBlock Grid.Column="1"
-                             Style="{StaticResource TweetTimeStyle}"
-                             Text="{Binding TimeAgo}" />
-                  <TextBlock Grid.Column="2"
-                             Text="&#x2605;"
-                             Visibility="{Binding Favorited, Converter={StaticResource BooleanVisibilityConverter}}"
-                             Style="{StaticResource FavoriteStarStyle}" />
-                </Grid>
-                <controls:TextBlockMarkup Grid.Row="1"
-                                          Grid.Column="1"
-                                          Markup="{Binding MarkupText}"
-                                          Style="{StaticResource TweetStyle}" />
-                <TextBlock Grid.Row="1"
-                           Grid.Column="1"
-                           Style="{StaticResource TweetRetweetedByStyle}"
-                           Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
-                  <Run>RT </Run>
-                  <Run Text="{Binding RetweetedBy}"></Run>
-                </TextBlock>
-              </StackPanel>
-              <Separator Grid.Row="2"
-                         Grid.ColumnSpan="2"
-                         Style="{StaticResource TweetSeparatorTop}" />
-              <Separator Grid.Row="3"
-                         Grid.ColumnSpan="2"
-                         Style="{StaticResource TweetSeparatorBottom}" />
-            </Grid>
+            <Border Padding="0 6 0 0"
+                  Background="{Binding TweetType, Converter={StaticResource tweetTypeConverter}}">
+              <Grid x:Name="MyGrid"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
+                  <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                </Grid.RowDefinitions>
+                <Rectangle Grid.Column="0"
+                           ContextMenu="{StaticResource _contextMenu}"
+                           Cursor="{StaticResource _contextMenuCursor}"
+                           Style="{StaticResource TweetImageStyle}">
+                  <Rectangle.Fill>
+                    <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
+                  </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Grid.Column="1">
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="Auto" />
+                      <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Style="{StaticResource TweetNameStyle}"
+                               Text="{Binding Name}" />
+                    <TextBlock Grid.Column="1"
+                               Style="{StaticResource TweetTimeStyle}"
+                               Text="{Binding TimeAgo}" />
+                    <TextBlock Grid.Column="2"
+                               Text="&#x2605;"
+                               Visibility="{Binding Favorited, Converter={StaticResource BooleanVisibilityConverter}}"
+                               Style="{StaticResource FavoriteStarStyle}" />
+                  </Grid>
+                  <controls:TextBlockMarkup Grid.Row="1"
+                                            Grid.Column="1"
+                                            Markup="{Binding MarkupText}"
+                                            Style="{StaticResource TweetStyle}" />
+                  <TextBlock Grid.Row="1"
+                             Grid.Column="1"
+                             Style="{StaticResource TweetRetweetedByStyle}"
+                             Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
+                    <Run>RT </Run>
+                    <Run Text="{Binding RetweetedBy}"></Run>
+                  </TextBlock>
+                </StackPanel>
+                <Separator Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           Style="{StaticResource TweetSeparatorTop}" />
+                <Separator Grid.Row="3"
+                           Grid.ColumnSpan="2"
+                           Style="{StaticResource TweetSeparatorBottom}" />
+              </Grid>
+            </Border>
           </DataTemplate>
         </ItemsControl.ItemTemplate>
       </ItemsControl>
