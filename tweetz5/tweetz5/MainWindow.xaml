@@ -17,85 +17,79 @@
         Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
         Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
-    <Border BorderBrush="Black"
-            BorderThickness="1">
-        <StackPanel>
-            <DockPanel x:Name="_topbar"
-                       Style="{StaticResource TopBarStyle}">
-                <Label Style="{StaticResource TopBarLabelStyle}"
-                       DockPanel.Dock="Left">
-                    tweetz
-                </Label>
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            DockPanel.Dock="Right">
-                    <Button Style="{StaticResource ComposeButton}"
-                            Click="ComposeOnClick">
-                        &#xE104; compose
-                    </Button>
-                </StackPanel>
-            </DockPanel>
-            <UniformGrid x:Name="_navBar" Rows="1" Style="{StaticResource NavBar}">
-                <Button Style="{StaticResource NavBarButton}"
-                        Background="#333344"
-                        Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
-                        CommandParameter="unified">
-                    &#xE179;
-                </Button>
-                <Button Style="{StaticResource NavBarButton}"
-                        Background="#502000"
-                        Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
-                        CommandParameter="home">
-                    &#xE10F;
-                </Button>
-                <Button Style="{StaticResource NavBarButton}"
-                        Background="#335533"
-                        Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
-                        CommandParameter="mentions">
-                    &#xE168;
-                </Button>
-                <Button Style="{StaticResource NavBarButton}"
-                        Background="#333377"
-                        Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
-                        CommandParameter="messages">
-                    &#xE135;
-                </Button>
-                <Button Style="{StaticResource NavBarButton}" Background="DarkGoldenrod">&#xE113;</Button>
-                <Button Style="{StaticResource NavBarButton}" Background="#008080">&#xE11A;</Button>
-                <Button Style="{StaticResource NavBarButton}" Background="#415360">&#xE115;</Button>
-            </UniformGrid>
-            <local:Timeline x:Name="_timeline"
-                            Panel.ZIndex="-1"
-                            Height="400" />
-            <local:ComposeTweet x:Name="_compose"
-                                Visibility="Visible"
-                                IsVisibleChanged="OnIsVisibleChanged" />
-            <Thumb x:Name="_resizeBar"
-                   DragDelta="ThumbOnDragDelta"
-                   Style="{StaticResource SizeThumbStyle}" />
-            <StackPanel.CommandBindings>
-                <CommandBinding Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
-                                Executed="ReplyCommandExecuted"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
-                                Executed="RetweetCommandExecuted"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
-                                Executed="RetweetClassicCommandExecuted"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
-                                Executed="FavoritesCommandExecuted"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyCommand}"
-                                Executed="CopyTweetCommand"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateStatusHomeTimeline}"
-                                Executed="UpdateStatusHomeTimelineExecuted"
-                                CanExecute="CanExecute" />
-                <CommandBinding Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
-                                Executed="SwitchTimeslinesCommandExecuted"
-                                CanExecute="CanExecute" />
-            </StackPanel.CommandBindings>
+  <Border BorderBrush="Black"
+          BorderThickness="1">
+    <StackPanel>
+      <DockPanel x:Name="_topbar"
+                 Style="{StaticResource TopBarStyle}">
+        <Label Style="{StaticResource TopBarLabelStyle}"
+               DockPanel.Dock="Left">
+          tweetz
+        </Label>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    DockPanel.Dock="Right">
         </StackPanel>
-    </Border>
+      </DockPanel>
+      <UniformGrid x:Name="_navBar" Rows="1" Style="{StaticResource NavBar}">
+        <Button Style="{StaticResource NavBarButton}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                CommandParameter="unified">
+          &#xE179;
+        </Button>
+        <Button Style="{StaticResource NavBarButton}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                CommandParameter="home">
+          &#xE10F;
+        </Button>
+        <Button Style="{StaticResource NavBarButton}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                CommandParameter="mentions">
+          &#xE168;
+        </Button>
+        <Button Style="{StaticResource NavBarButton}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                CommandParameter="messages">
+          &#xE135;
+        </Button>
+        <Button Style="{StaticResource NavBarButton}">&#xE113;</Button>
+        <Button Style="{StaticResource NavBarButton}">&#xE11A;</Button>
+        <Button Style="{StaticResource NavBarButton}">&#xE115;</Button>
+        <Button Style="{StaticResource NavBarButton}"
+                Click="ComposeOnClick">&#xE104;</Button>
+      </UniformGrid>
+      <local:Timeline x:Name="_timeline"
+                      Panel.ZIndex="-1"
+                      Height="400" />
+      <local:ComposeTweet x:Name="_compose"
+                          Visibility="Visible"
+                          IsVisibleChanged="OnIsVisibleChanged" />
+      <Thumb x:Name="_resizeBar"
+             DragDelta="ThumbOnDragDelta"
+             Style="{StaticResource SizeThumbStyle}" />
+      <StackPanel.CommandBindings>
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
+                        Executed="ReplyCommandExecuted"
+                        CanExecute="CanExecute" />
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
+                        Executed="RetweetCommandExecuted"
+                        CanExecute="CanExecute" />
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
+                        Executed="RetweetClassicCommandExecuted"
+                        CanExecute="CanExecute" />
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
+                        Executed="FavoritesCommandExecuted"
+                        CanExecute="CanExecute" />
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyCommand}"
+                        Executed="CopyTweetCommand"
+                        CanExecute="CanExecute" />
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateStatusHomeTimeline}"
+                        Executed="UpdateStatusHomeTimelineExecuted"
+                        CanExecute="CanExecute" />
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                        Executed="SwitchTimeslinesCommandExecuted"
+                        CanExecute="CanExecute" />
+      </StackPanel.CommandBindings>
+    </StackPanel>
+  </Border>
 </Window>
