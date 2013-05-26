@@ -77,15 +77,13 @@
             Value="#bbbbbb" />
     <Setter Property="Background"
             Value="#333333" />
-    <Setter Property="Margin"
-            Value="2" />
     <Setter Property="FontSize"
             Value="11" />
   </Style>
   <Style x:Key="TweetItemStyle"
          TargetType="ContentPresenter">
     <Setter Property="Control.Margin"
-            Value="0,0,0,0" />
+            Value="0" />
   </Style>
   <Style x:Key="TweetImageStyle"
          TargetType="Rectangle">
@@ -102,7 +100,7 @@
     <Setter Property="VerticalAlignment"
             Value="Top" />
     <Setter Property="Margin"
-            Value="2,0,0,0" />
+            Value="2 0 0 0" />
   </Style>
   <Style x:Key="TweetImageColumnStyle"
          TargetType="ColumnDefinition">
@@ -632,7 +630,8 @@
           <Rectangle Name="thumb"
                      Height="5"
                      Stroke="#333344"
-                     StrokeThickness="0.5">
+                     StrokeThickness="0.5"
+                     Cursor="SizeNS">
             <Rectangle.Fill>
               <SolidColorBrush Color="#333344" />
             </Rectangle.Fill>

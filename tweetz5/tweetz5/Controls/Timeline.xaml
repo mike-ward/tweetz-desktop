@@ -13,6 +13,7 @@
   <UserControl.Resources>
     <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
     <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
+    <utilities:ScreenNameConverter x:Key="ScreenNameConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanVisibilityConverter" />
     <Cursor x:Key="_contextMenuCursor">..\Assets\Images\context-menu-cursor.cur</Cursor>
     <ContextMenu x:Key="_contextMenu"
@@ -112,7 +113,8 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0"
                                Style="{StaticResource TweetNameStyle}"
-                               Text="{Binding Name}" />
+                               Text="{Binding Name}"
+                               ToolTip="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}"/>
                     <TextBlock Grid.Column="1"
                                Style="{StaticResource TweetTimeStyle}"
                                Text="{Binding TimeAgo}" />
