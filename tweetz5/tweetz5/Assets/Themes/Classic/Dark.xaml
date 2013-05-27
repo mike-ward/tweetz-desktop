@@ -70,7 +70,14 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
+
+  <Style x:Key="AppCloseButtonStyle"
+         TargetType="Button"
+         BasedOn="{StaticResource NavBarButton}">
+    <Setter Property="FontSize"
+            Value="12" />
+  </Style>
+
   <Style x:Key="TimelineStyle"
          TargetType="ItemsControl">
     <Setter Property="Foreground"

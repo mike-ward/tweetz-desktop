@@ -29,6 +29,8 @@
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     DockPanel.Dock="Right">
+          <Button Style="{StaticResource AppCloseButtonStyle}"
+                  Command="Close">&#xE10A;</Button>
         </StackPanel>
       </DockPanel>
       <UniformGrid x:Name="_navBar" Rows="1" Style="{StaticResource NavBar}">
@@ -89,6 +91,8 @@
         <CommandBinding Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
                         Executed="SwitchTimeslinesCommandExecuted"
                         CanExecute="CanExecute" />
+        <CommandBinding Command="Close"
+                        Executed="CloseCommandHandler"/>
       </StackPanel.CommandBindings>
     </StackPanel>
   </Border>

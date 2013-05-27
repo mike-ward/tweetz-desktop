@@ -121,5 +121,10 @@ namespace tweetz5
             var statuses = (Status[])ea.Parameter;
             _timeline.Controller.UpdateStatus(statuses);
         }
+
+        private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
