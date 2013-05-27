@@ -88,9 +88,9 @@
             Value="11" />
   </Style>
   <Style x:Key="TweetItemStyle"
-         TargetType="ContentPresenter">
-    <Setter Property="Control.Margin"
-            Value="0" />
+         TargetType="Border">
+    <Setter Property="Padding"
+            Value="3" />
   </Style>
   <Style x:Key="TweetImageStyle"
          TargetType="Rectangle">
@@ -107,7 +107,7 @@
     <Setter Property="VerticalAlignment"
             Value="Top" />
     <Setter Property="Margin"
-            Value="2 0 0 0" />
+            Value="0" />
   </Style>
   <Style x:Key="TweetImageColumnStyle"
          TargetType="ColumnDefinition">
@@ -269,9 +269,9 @@
 
   <!-- Scrollbar -->
   <SolidColorBrush x:Key="StandardBorderBrush"
-                   Color="#585858"></SolidColorBrush>
+                   Color="#393939"></SolidColorBrush>
   <SolidColorBrush x:Key="StandardBrush"
-                   Color="#585858"></SolidColorBrush>
+                   Color="#393939"></SolidColorBrush>
   <SolidColorBrush x:Key="PressedBrush"
                    Color="#777777"></SolidColorBrush>
   <SolidColorBrush x:Key="HoverBrush"

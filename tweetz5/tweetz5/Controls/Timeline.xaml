@@ -5,7 +5,7 @@
              xmlns:controls="clr-namespace:tweetz5.Controls"
              xmlns:model="clr-namespace:tweetz5.Model"
              xmlns:tweetz5="clr-namespace:tweetz5"
-             xmlns:utilities="clr-namespace:tweetz5.Utilities"
+             xmlns:utilities="clr-namespace:tweetz5.Utilities" xmlns:system="clr-namespace:System;assembly=mscorlib"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
@@ -52,40 +52,46 @@
         </MenuItem.Icon>
       </MenuItem>
     </ContextMenu>
+    <Storyboard x:Key="ItemAnimation"
+                AutoReverse="False">
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MyGrid"
+                                     Storyboard.TargetProperty="(UIElement.Opacity)">
+        <EasingDoubleKeyFrame KeyTime="0"
+                              Value="0" />
+        <EasingDoubleKeyFrame KeyTime="0:0:1"
+                              Value="1" />
+      </DoubleAnimationUsingKeyFrames>
+      <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AnimateInsertion"
+                                     Storyboard.TargetProperty="Y">
+        <EasingDoubleKeyFrame KeyTime="0"
+                              Value="-100"/>
+        <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                              Value="0"/>
+
+      </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
   </UserControl.Resources>
   <UserControl.DataContext>
     <model:Timelines />
   </UserControl.DataContext>
   <Grid>
-    <ScrollViewer>
+    <ScrollViewer x:Name="TimelineScrollViewer">
       <ItemsControl x:Name="TimelineItems"
                     ItemsSource="{Binding Timeline}"
-                    Style="{StaticResource TimelineStyle}"
-                    ItemContainerStyle="{StaticResource TweetItemStyle}">
+                    Style="{StaticResource TimelineStyle}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
-            <DataTemplate.Resources>
-              <Storyboard x:Key="ItemAnimation"
-                          AutoReverse="False">
-                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MyGrid"
-                                               Storyboard.TargetProperty="(UIElement.Opacity)">
-                  <EasingDoubleKeyFrame KeyTime="0"
-                                        Value="0" />
-                  <EasingDoubleKeyFrame KeyTime="0:0:1"
-                                        Value="1" />
-                </DoubleAnimationUsingKeyFrames>
-              </Storyboard>
-            </DataTemplate.Resources>
             <DataTemplate.Triggers>
               <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                 <BeginStoryboard Name="frameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
               </EventTrigger>
             </DataTemplate.Triggers>
-            <Border Padding="0 6 0 0"
-                  Background="{Binding TweetType, Converter={StaticResource tweetTypeConverter}}">
-              <Grid x:Name="MyGrid"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Left">
+            <Border Style="{StaticResource TweetItemStyle}"
+                    Background="{Binding TweetType, Converter={StaticResource tweetTypeConverter}}">
+              <Grid x:Name="MyGrid">
+                <Grid.RenderTransform>
+                  <TranslateTransform x:Name="AnimateInsertion" />
+                </Grid.RenderTransform>
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
                   <ColumnDefinition />
