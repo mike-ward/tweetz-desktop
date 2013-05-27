@@ -69,6 +69,9 @@
       <Thumb x:Name="_resizeBar"
              DragDelta="ThumbOnDragDelta"
              Style="{StaticResource SizeThumbStyle}" />
+      <local:AboutUser x:Name="_userInformationPopup"
+                       Placement="Left"
+                       StaysOpen="False"/>
       <StackPanel.CommandBindings>
         <CommandBinding Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
                         Executed="ReplyCommandExecuted"
@@ -93,6 +96,8 @@
                         CanExecute="CanExecute" />
         <CommandBinding Command="Close"
                         Executed="CloseCommandHandler"/>
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.ShowUserInformation}" 
+                        Executed="ShowUserInformationHandler"/>
       </StackPanel.CommandBindings>
     </StackPanel>
   </Border>

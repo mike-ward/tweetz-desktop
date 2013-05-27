@@ -96,13 +96,13 @@ namespace tweetz5.Controls
             return hyperlink;
         }
 
-        private static Span Mention(string text)
+        private static Hyperlink Mention(string text)
         {
-            var span = new Span(new Run(text))
+            return new Hyperlink(new Run(text))
             {
-                Style = (Style)Application.Current.FindResource("TweetMention")
+                Command = MainWindow.ShowUserInformation, 
+                CommandParameter = text.Replace("@", "")
             };
-            return span;
         }
 
         private static Span Hashtag(string text)

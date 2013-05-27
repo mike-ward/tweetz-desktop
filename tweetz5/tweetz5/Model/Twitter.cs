@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Json;
 using System.Text;
 
 namespace tweetz5.Model
@@ -166,6 +167,17 @@ namespace tweetz5.Model
         public static string RetweetStatus(string id)
         {
             return Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]);
+        }
+
+        public static User GetUserInformation(string screenName)
+        {
+            var parameters = new[] {new[] {"screen_name", screenName}};
+            var json = Get("https://api.twitter.com/1.1/users/show.json", parameters);
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+            {
+                var serializer = new DataContractJsonSerializer(typeof(User));
+                return (User)serializer.ReadObject(stream);
+            }
         }
     }
 }

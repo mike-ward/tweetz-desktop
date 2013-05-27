@@ -1,0 +1,46 @@
+﻿<Popup x:Class="tweetz5.Controls.AboutUser"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+       xmlns:utilities="clr-namespace:tweetz5.Utilities"
+       mc:Ignorable="d"
+       Width="300"
+       d:DesignHeight="300" d:DesignWidth="300">
+  <Popup.Resources>
+    <utilities:ScreenNameConverter x:Key="ScreenNameConverter" />
+  </Popup.Resources>
+  <Border Style="{StaticResource UserInfoPopupStyle}">
+    <StackPanel>
+      <TextBlock Style="{StaticResource UserInfoTextBlockStyle}" Background="FloralWhite">Profile Summary</TextBlock>
+      <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
+        <Border  Style="{StaticResource UserInfoProfileImageStyle}">
+          <Image Source="{Binding ProfileImageUrl}" />
+        </Border>
+      </TextBlock>
+      <TextBlock Text="{Binding Name}" Style="{StaticResource UserInfoTextBlockStyle}" />
+      <TextBlock Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}" Style="{StaticResource UserInfoTextBlockStyle}" />
+      <TextBlock Text="{Binding Description}" Style="{StaticResource UserInfoTextBlockStyle}" />
+      <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
+        <Run Text="{Binding Location}"></Run>
+        &#x2022; 
+        <Run Text="{Binding Url}"></Run>
+      </TextBlock>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel>
+          <TextBlock Text="{Binding Tweets}" Style="{StaticResource UserInfoTextBlockStyle}"/>
+          <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">Tweets</TextBlock>
+        </StackPanel>
+        <StackPanel>
+          <TextBlock Text="{Binding Friends}" Style="{StaticResource UserInfoTextBlockStyle}" />
+          <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">Following</TextBlock>
+        </StackPanel>
+        <StackPanel>
+          <TextBlock Text="{Binding Followers}" Style="{StaticResource UserInfoTextBlockStyle}" />
+          <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">Followers</TextBlock>
+        </StackPanel>
+        <Button>Following</Button>
+      </StackPanel>
+    </StackPanel>
+  </Border>
+</Popup>

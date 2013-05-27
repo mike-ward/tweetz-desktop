@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\AboutUser.xaml.cs">
+      <DependentUpon>AboutUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ComposeTweet.xaml.cs">
       <DependentUpon>ComposeTweet.xaml</DependentUpon>
     </Compile>
@@ -87,6 +90,10 @@
     </Compile>
     <Compile Include="Utilities\System\SysTimer.cs" />
     <Page Include="Assets\Themes\Classic\Dark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AboutUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\context-menu-cursor.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\waiting.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

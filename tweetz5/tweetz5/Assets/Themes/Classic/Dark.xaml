@@ -269,15 +269,20 @@
 
   <!-- Scrollbar -->
   <SolidColorBrush x:Key="StandardBorderBrush"
-                   Color="#393939"></SolidColorBrush>
+                   Color="#393939">
+  </SolidColorBrush>
   <SolidColorBrush x:Key="StandardBrush"
-                   Color="#393939"></SolidColorBrush>
+                   Color="#393939">
+  </SolidColorBrush>
   <SolidColorBrush x:Key="PressedBrush"
-                   Color="#777777"></SolidColorBrush>
+                   Color="#777777">
+  </SolidColorBrush>
   <SolidColorBrush x:Key="HoverBrush"
-                   Color="#888888"></SolidColorBrush>
+                   Color="#888888">
+  </SolidColorBrush>
   <SolidColorBrush x:Key="GlyphBrush"
-                   Color="#333333"></SolidColorBrush>
+                   Color="#333333">
+  </SolidColorBrush>
 
   <Style x:Key="VerticalScrollBarThumbStyle"
          TargetType="{x:Type Thumb}">
@@ -303,13 +308,15 @@
                      Value="true">
               <Setter TargetName="ellipse"
                       Property="Fill"
-                      Value="{StaticResource HoverBrush}"></Setter>
+                      Value="{StaticResource HoverBrush}">
+              </Setter>
             </Trigger>
             <Trigger Property="IsDragging"
                      Value="True">
               <Setter TargetName="ellipse"
                       Property="Fill"
-                      Value="{StaticResource PressedBrush}"></Setter>
+                      Value="{StaticResource PressedBrush}">
+              </Setter>
             </Trigger>
 
           </ControlTemplate.Triggers>
@@ -340,13 +347,15 @@
                      Value="true">
               <Setter TargetName="ellipse"
                       Property="Fill"
-                      Value="{StaticResource HoverBrush}"></Setter>
+                      Value="{StaticResource HoverBrush}">
+              </Setter>
             </Trigger>
             <Trigger Property="IsDragging"
                      Value="True">
               <Setter TargetName="ellipse"
                       Property="Fill"
-                      Value="{StaticResource PressedBrush}"></Setter>
+                      Value="{StaticResource PressedBrush}">
+              </Setter>
             </Trigger>
 
           </ControlTemplate.Triggers>
@@ -368,7 +377,8 @@
                   VerticalAlignment="Center"
                   Name="Path"
                   Fill="{StaticResource StandardBrush}"
-                  Data="M 0 8 L 8 8 L 4 0 Z"></Path>
+                  Data="M 0 8 L 8 8 L 4 0 Z">
+            </Path>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
@@ -402,7 +412,8 @@
                   VerticalAlignment="Center"
                   Name="Path"
                   Fill="{StaticResource StandardBrush}"
-                  Data="M 0 0 L 4 8 L 8 0 Z"></Path>
+                  Data="M 0 0 L 4 8 L 8 0 Z">
+            </Path>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
@@ -436,7 +447,8 @@
                   VerticalAlignment="Center"
                   Name="Path"
                   Fill="{StaticResource StandardBrush}"
-                  Data="M 0 0 L -8 4 L 0 8 Z"></Path>
+                  Data="M 0 0 L -8 4 L 0 8 Z">
+            </Path>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
@@ -470,7 +482,8 @@
                   VerticalAlignment="Center"
                   Name="Path"
                   Fill="{StaticResource StandardBrush}"
-                  Data="M 0 0 L 8 4 L 0 8 Z"></Path>
+                  Data="M 0 0 L 8 4 L 0 8 Z">
+            </Path>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
@@ -516,9 +529,11 @@
         <LinearGradientBrush StartPoint="0,0"
                              EndPoint="0,1">
           <GradientStop Offset="0"
-                        Color="#333333"></GradientStop>
+                        Color="#333333">
+          </GradientStop>
           <GradientStop Offset="1"
-                        Color="#333333"></GradientStop>
+                        Color="#333333">
+          </GradientStop>
         </LinearGradientBrush>
       </Grid.Background>
       <RepeatButton Grid.Row="0"
@@ -566,9 +581,11 @@
         <LinearGradientBrush StartPoint="0,0"
                              EndPoint="1,0">
           <GradientStop Offset="0"
-                        Color="#333333"></GradientStop>
+                        Color="#333333">
+          </GradientStop>
           <GradientStop Offset="1"
-                        Color="#333333"></GradientStop>
+                        Color="#333333">
+          </GradientStop>
         </LinearGradientBrush>
       </Grid.Background>
       <RepeatButton Grid.Column="0"
@@ -662,4 +679,25 @@
     </Setter>
   </Style>
 
+  <Style x:Key="UserInfoPopupStyle"
+         TargetType="Border">
+    <Setter Property="Background" Value="#333333" />
+  </Style>
+  
+  <Style x:Key="UserInfoTextBlockStyle"
+         TargetType="TextBlock">
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="Margin" Value="5" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <Style x:Key="UserInfoProfileImageStyle"
+         TargetType="Border">
+    <Setter Property="Width" Value="60" />
+    <Setter Property="Height" Value="60" />
+    <Setter Property="CornerRadius" Value="5" />
+    <Setter Property="BorderThickness" Value="2"/>
+    <Setter Property="BorderBrush" Value="DarkGoldenrod" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+  </Style>
 </ResourceDictionary>

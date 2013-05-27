@@ -143,6 +143,27 @@ namespace tweetz5.Model
 
         [DataMember(Name = "profile_image_url_https")]
         public string ProfileImageUrl { get; set; }
+
+        [DataMember(Name = "description")]
+        [DefaultValue("(not specified)")]
+        public string Description { get; set; }
+
+        [DataMember(Name = "location")]
+        [DefaultValue("(not specified)")]
+        public string Location { get; set; }
+
+        [DataMember(Name = "url")]
+        [DefaultValue("(not specified)")]
+        public string Url { get; set; }
+
+        [DataMember(Name = "statuses_count")]
+        public int Tweets { get; set; }
+
+        [DataMember(Name = "friends_count")]
+        public int Friends { get; set; }
+
+        [DataMember(Name = "followers_count")]
+        public int Followers { get; set; }
     }
 
     [DataContract]

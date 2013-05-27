@@ -4,7 +4,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
 using tweetz5.Model;
 
 namespace tweetz5
@@ -18,6 +17,7 @@ namespace tweetz5
         public static readonly RoutedCommand CopyCommand = new RoutedUICommand();
         public static readonly RoutedCommand UpdateStatusHomeTimeline = new RoutedUICommand();
         public static readonly RoutedCommand SwitchTimelines = new RoutedUICommand();
+        public static readonly RoutedCommand ShowUserInformation = new RoutedUICommand();
 
         public MainWindow()
         {
@@ -37,7 +37,7 @@ namespace tweetz5
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _timeline.Height = e.NewSize.Height - _topbar.ActualHeight -_navBar.ActualHeight - _compose.ActualHeight - _resizeBar.ActualHeight;
+            _timeline.Height = e.NewSize.Height - _topbar.ActualHeight - _navBar.ActualHeight - _compose.ActualHeight - _resizeBar.ActualHeight;
         }
 
         private void ComposeOnClick(object sender, RoutedEventArgs e)
@@ -125,6 +125,12 @@ namespace tweetz5
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ShowUserInformationHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+            _userInformationPopup.ScreenName = e.Parameter as string;
+            _userInformationPopup.IsOpen = true;
         }
     }
 }
