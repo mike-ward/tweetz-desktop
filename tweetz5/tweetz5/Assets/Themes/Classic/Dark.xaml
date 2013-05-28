@@ -114,11 +114,6 @@
     <Setter Property="Width"
             Value="40" />
   </Style>
-  <Style x:Key="TweetNameStyle"
-         TargetType="TextBlock">
-    <Setter Property="Foreground"
-            Value="#99bbee" />
-  </Style>
   <Style x:Key="TweetTimeStyle"
          TargetType="TextBlock">
     <Setter Property="Foreground"

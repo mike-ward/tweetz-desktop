@@ -24,10 +24,9 @@
       <TextBlock Text="{Binding Name}" Style="{StaticResource UserInfoNameStyle}" />
       <TextBlock Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}" Style="{StaticResource UserInfoScreenNameStyle}" />
       <TextBlock Text="{Binding Description}" Style="{StaticResource UserInfoTextBlockStyle}" />
+      <TextBlock Style="{StaticResource UserInfoTextBlockStyle}" Text="{Binding Location}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
-        <Run Text="{Binding Location}"></Run>
-        &#x2022; 
-        <Hyperlink NavigateUri="{Binding Url}" RequestNavigate="OnRequestNavigate"><TextBlock Text="{Binding Url}" /></Hyperlink>
+        <Hyperlink NavigateUri="{Binding Url}" RequestNavigate="OnRequestNavigate"><Run Text="{Binding Url}" /></Hyperlink>
       </TextBlock>
       <Separator Margin="0 10" />
       <DockPanel LastChildFill="True">
