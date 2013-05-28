@@ -164,6 +164,23 @@ namespace tweetz5.Model
 
         [DataMember(Name = "followers_count")]
         public int Followers { get; set; }
+
+        [DataMember(Name = "entities")]
+        public UserObjectEntities Entities { get; set; }
+    }
+
+    [DataContract]
+    public class UserObjectEntities
+    {
+        [DataMember(Name = "url")]
+        public UserObjectUrls Url { get; set; }
+    }
+
+    [DataContract]
+    public class UserObjectUrls
+    {
+        [DataMember(Name = "urls")]
+        public UrlEntity[] Urls { get; set; }
     }
 
     [DataContract]

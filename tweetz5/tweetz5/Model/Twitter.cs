@@ -171,7 +171,11 @@ namespace tweetz5.Model
 
         public static User GetUserInformation(string screenName)
         {
-            var parameters = new[] {new[] {"screen_name", screenName}};
+            var parameters = new[]
+            {
+                new[] {"screen_name", screenName},
+                new[] {"include_entities", "true"}
+            };
             var json = Get("https://api.twitter.com/1.1/users/show.json", parameters);
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
