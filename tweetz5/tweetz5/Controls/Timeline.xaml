@@ -5,7 +5,7 @@
              xmlns:controls="clr-namespace:tweetz5.Controls"
              xmlns:model="clr-namespace:tweetz5.Model"
              xmlns:tweetz5="clr-namespace:tweetz5"
-             xmlns:utilities="clr-namespace:tweetz5.Utilities" xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:utilities="clr-namespace:tweetz5.Utilities"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
@@ -13,7 +13,6 @@
   <UserControl.Resources>
     <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
     <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
-    <utilities:ScreenNameConverter x:Key="ScreenNameConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanVisibilityConverter" />
     <Cursor x:Key="_contextMenuCursor">..\Assets\Images\context-menu-cursor.cur</Cursor>
     <ContextMenu x:Key="_contextMenu"
@@ -117,8 +116,7 @@
                       <ColumnDefinition Width="Auto" />
                       <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0"
-                               ToolTip="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}">
+                    <TextBlock Grid.Column="0">
                       <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformation}"
                                  CommandParameter="{Binding ScreenName}">
                         <Run Text="{Binding Name}" />
