@@ -133,8 +133,10 @@ namespace tweetz5.Model
     }
 
     [DataContract]
-    public class User
+    public class User : INotifyPropertyChanged
     {
+        private bool _following;
+
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
@@ -167,6 +169,30 @@ namespace tweetz5.Model
 
         [DataMember(Name = "entities")]
         public UserObjectEntities Entities { get; set; }
+
+        public bool Following
+        {
+            get { return _following; }
+            set
+            {
+                if (_following != value)
+                {
+                    _following = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 
     [DataContract]

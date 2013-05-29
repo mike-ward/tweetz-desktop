@@ -154,14 +154,30 @@ namespace tweetz5.Model
 
         public static string CreateFavorite(string id)
         {
-            var parameters = new[] {new[] {"id", id}};
-            return Post("https://api.twitter.com/1.1/favorites/create.json", parameters);
+            try
+            {
+                var parameters = new[] {new[] {"id", id}};
+                return Post("https://api.twitter.com/1.1/favorites/create.json", parameters);
+            }
+            catch (WebException e)
+            {
+                Console.WriteLine(e);
+                return string.Empty;
+            }
         }
 
         public static string DestroyFavorite(string id)
         {
-            var parameters = new[] {new[] {"id", id}};
-            return Post("https://api.twitter.com/1.1/favorites/destroy.json", parameters);
+            try
+            {
+                var parameters = new[] {new[] {"id", id}};
+                return Post("https://api.twitter.com/1.1/favorites/destroy.json", parameters);
+            }
+            catch (WebException e)
+            {
+                Console.WriteLine(e);
+                return string.Empty;
+            }
         }
 
         public static string RetweetStatus(string id)
@@ -171,17 +187,78 @@ namespace tweetz5.Model
 
         public static User GetUserInformation(string screenName)
         {
-            var parameters = new[]
+            try
             {
-                new[] {"screen_name", screenName},
-                new[] {"include_entities", "true"}
-            };
-            var json = Get("https://api.twitter.com/1.1/users/show.json", parameters);
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+                var parameters = new[]
+                {
+                    new[] {"screen_name", screenName},
+                    new[] {"include_entities", "true"}
+                };
+                var json = Get("https://api.twitter.com/1.1/users/show.json", parameters);
+                using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+                {
+                    var serializer = new DataContractJsonSerializer(typeof(User));
+                    return (User)serializer.ReadObject(stream);
+                }
+            }
+            catch (WebException e)
             {
-                var serializer = new DataContractJsonSerializer(typeof(User));
-                return (User)serializer.ReadObject(stream);
+                Console.WriteLine(e);
+                return new User { Name = "Error!" };
             }
         }
+
+        public static bool Following(string screenName)
+        {
+            try
+            {
+                var parameters = new[] { new[] { "screen_name", screenName } };
+                var json = Get("https://api.twitter.com/1.1/friendships/lookup.json", parameters);
+                return json.Contains("\"following\"");
+            }
+            catch (WebException e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public static bool Follow(string screenName)
+        {
+            try
+            {
+                var parameters = new[]
+                {
+                    new[] {"screen_name", screenName},
+                    new[] {"following", "true"}
+                };
+                var json = Post("https://api.twitter.com/1.1/friendships/create.json", parameters);
+                return json.Contains(screenName);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public static bool Unfollow(string screenName)
+        {
+            try
+            {
+                var parameters = new[]
+                {
+                    new[] {"screen_name", screenName},
+                };
+                var json = Post("https://api.twitter.com/1.1/friendships/destroy.json", parameters);
+                return json.Contains(screenName);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
     }
 }

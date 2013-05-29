@@ -3,6 +3,8 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+       xmlns:local="clr-namespace:tweetz5"
+       xmlns:controls="clr-namespace:tweetz5.Controls"
        xmlns:utilities="clr-namespace:tweetz5.Utilities"
        mc:Ignorable="d"
        Width="300"
@@ -10,6 +12,8 @@
   <Popup.Resources>
     <utilities:ScreenNameConverter x:Key="ScreenNameConverter" />
     <utilities:NumberValueCommaConverter x:Key="NumberValueCommaConverter" />
+    <controls:BoolToFollowingConverter x:Key="BoolToFollowingConverter" />
+    <controls:BoolToUnfollowConverter x:Key="BoolToUnfollowConverter" />
   </Popup.Resources>
   <Border Style="{StaticResource UserInfoPopupStyle}">
     <StackPanel HorizontalAlignment="Stretch" Margin="10">
@@ -26,7 +30,7 @@
       <TextBlock Text="{Binding Description}" Style="{StaticResource UserInfoTextBlockStyle}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}" Text="{Binding Location}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
-        <Hyperlink NavigateUri="{Binding Url}" RequestNavigate="OnRequestNavigate"><Run Text="{Binding Url}" /></Hyperlink>
+        <Hyperlink Command="{x:Static local:MainWindow.OpenLinkCommand}" CommandParameter="{Binding Url}"><Run Text="{Binding Url}" /></Hyperlink>
       </TextBlock>
       <Separator Margin="0 10" />
       <DockPanel LastChildFill="True">
@@ -35,7 +39,21 @@
         <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Friends, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/>following</TextBlock>
         <Border Style="{StaticResource VerticalSeparatorStyle}"/>
         <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Followers, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/>followers</TextBlock>
-        <Button DockPanel.Dock="Right" Width="70" Height="23">Following</Button>
+        <Button DockPanel.Dock="Right"
+                Width="70" Height="23"
+                Command="{x:Static local:MainWindow.FollowUserComand}"
+                CommandParameter="{Binding}">
+          <Button.Style>
+            <Style TargetType="Button">
+              <Setter Property="Content" Value="{Binding Following, Converter={StaticResource BoolToFollowingConverter}}"/>
+              <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter Property="Content" Value="{Binding Following, Converter={StaticResource BoolToUnfollowConverter}}" />
+                </Trigger>
+              </Style.Triggers>
+            </Style>
+          </Button.Style>
+        </Button>
         <TextBlock />
       </DockPanel>
     </StackPanel>

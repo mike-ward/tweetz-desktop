@@ -1,19 +1,17 @@
-﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Navigation;
 using tweetz5.Model;
 
 namespace tweetz5.Controls
 {
     public class TextBlockMarkup : TextBlock
     {
-        public static DependencyProperty MarkupProperty = DependencyProperty.Register("Markup", typeof(string),
-            typeof(TextBlockMarkup), new UIPropertyMetadata("Markup", OnMarkupChanged));
+        public static DependencyProperty MarkupProperty = DependencyProperty.Register("Markup", typeof (string),
+            typeof (TextBlockMarkup), new UIPropertyMetadata("Markup", OnMarkupChanged));
 
         public string Markup
         {
@@ -46,7 +44,7 @@ namespace tweetz5.Controls
                 switch (tag)
                 {
                     case 'a':
-                        textBlock.Inlines.Add(Hyperlink("[link]", tagText, OpenExternalLink));
+                        textBlock.Inlines.Add(Hyperlink("[link]", tagText));
                         break;
 
                     case 'm':
@@ -81,18 +79,17 @@ namespace tweetz5.Controls
             return text.Replace("\n", "");
         }
 
-        private static Hyperlink Hyperlink(string text, string link, RequestNavigateEventHandler clickHandler)
+        private static Hyperlink Hyperlink(string text, string link)
         {
-            var hyperlink = new Hyperlink(new Run(text));
-            if (string.IsNullOrWhiteSpace(link) == false)
+            var hyperlink = new Hyperlink(new Run(text))
             {
-                hyperlink.NavigateUri = new Uri(link);
-            }
-            hyperlink.ToolTip = link;
+                Command = MainWindow.OpenLinkCommand,
+                CommandParameter = link,
+                ToolTip = link
+            };
             ToolTipService.SetInitialShowDelay(hyperlink, 0);
             ToolTipService.SetShowDuration(hyperlink, 30000);
             hyperlink.ToolTipOpening += (s, e) => hyperlink.ToolTip = LongUrl.Lookup(link);
-            hyperlink.RequestNavigate += clickHandler;
             return hyperlink;
         }
 
@@ -100,7 +97,7 @@ namespace tweetz5.Controls
         {
             return new Hyperlink(new Run(text))
             {
-                Command = MainWindow.ShowUserInformation, 
+                Command = MainWindow.ShowUserInformationCommand,
                 CommandParameter = text.Replace("@", "")
             };
         }
@@ -111,13 +108,7 @@ namespace tweetz5.Controls
             {
                 Style = (Style)Application.Current.FindResource("TweetHashtag")
             };
-            return span;            
-        }
-
-        private static void OpenExternalLink(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo(e.Uri.ToString()));
-            e.Handled = true;
+            return span;
         }
     }
 }

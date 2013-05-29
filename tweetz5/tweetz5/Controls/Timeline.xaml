@@ -117,7 +117,7 @@
                       <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0">
-                      <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformation}"
+                      <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
                                  CommandParameter="{Binding ScreenName}">
                         <Run Text="{Binding Name}" />
                       </Hyperlink>

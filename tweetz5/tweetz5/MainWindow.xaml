@@ -35,22 +35,22 @@
       </DockPanel>
       <UniformGrid x:Name="_navBar" Rows="1" Style="{StaticResource NavBar}">
         <Button Style="{StaticResource NavBarButton}"
-                Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="unified">
           &#xE179;
         </Button>
         <Button Style="{StaticResource NavBarButton}"
-                Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="home">
           &#xE10F;
         </Button>
         <Button Style="{StaticResource NavBarButton}"
-                Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="mentions">
           &#xE168;
         </Button>
         <Button Style="{StaticResource NavBarButton}"
-                Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="messages">
           &#xE135;
         </Button>
@@ -88,16 +88,20 @@
         <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyCommand}"
                         Executed="CopyTweetCommand"
                         CanExecute="CanExecute" />
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateStatusHomeTimeline}"
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateStatusHomeTimelineCommand}"
                         Executed="UpdateStatusHomeTimelineExecuted"
                         CanExecute="CanExecute" />
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.SwitchTimelines}"
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                         Executed="SwitchTimeslinesCommandExecuted"
                         CanExecute="CanExecute" />
         <CommandBinding Command="Close"
                         Executed="CloseCommandHandler"/>
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.ShowUserInformation}" 
-                        Executed="ShowUserInformationHandler"/>
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}" 
+                        Executed="ShowUserInformationCommandHandler"/>
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.OpenLinkCommand}"
+                        Executed="OpenLinkCommandHandler" />
+        <CommandBinding Command="{x:Static tweetz5:MainWindow.FollowUserComand}"
+                        Executed="FollowCommandHandler"/>
       </StackPanel.CommandBindings>
     </StackPanel>
   </Border>

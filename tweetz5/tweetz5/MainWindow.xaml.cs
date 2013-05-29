@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -15,9 +16,11 @@ namespace tweetz5
         public static readonly RoutedCommand RetweetClassicCommand = new RoutedUICommand();
         public static readonly RoutedCommand FavoritesCommand = new RoutedUICommand();
         public static readonly RoutedCommand CopyCommand = new RoutedUICommand();
-        public static readonly RoutedCommand UpdateStatusHomeTimeline = new RoutedUICommand();
-        public static readonly RoutedCommand SwitchTimelines = new RoutedUICommand();
-        public static readonly RoutedCommand ShowUserInformation = new RoutedUICommand();
+        public static readonly RoutedCommand UpdateStatusHomeTimelineCommand = new RoutedUICommand();
+        public static readonly RoutedCommand SwitchTimelinesCommand = new RoutedUICommand();
+        public static readonly RoutedCommand ShowUserInformationCommand = new RoutedUICommand();
+        public static readonly RoutedCommand OpenLinkCommand = new RoutedUICommand();
+        public static readonly RoutedCommand FollowUserComand = new RoutedUICommand();
 
         public MainWindow()
         {
@@ -127,10 +130,23 @@ namespace tweetz5
             Close();
         }
 
-        private void ShowUserInformationHandler(object sender, ExecutedRoutedEventArgs e)
+        private void ShowUserInformationCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            _userInformationPopup.ScreenName = e.Parameter as string;
+            _userInformationPopup.ScreenName = ea.Parameter as string;
             _userInformationPopup.IsOpen = true;
+        }
+
+        private void OpenLinkCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            Process.Start(new ProcessStartInfo((string)ea.Parameter));
+            ea.Handled = true;
+        }
+
+        private void FollowCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            var user = (User)ea.Parameter;
+            user.Following = user.Following ? !Twitter.Unfollow(user.ScreenName) : Twitter.Follow(user.ScreenName);
+            ea.Handled = true;
         }
     }
 }

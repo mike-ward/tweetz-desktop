@@ -66,7 +66,7 @@ namespace tweetz5.Controls
                 else
                 {
                     var status = Status.ParseJson("[" + json + "]");
-                    MainWindow.UpdateStatusHomeTimeline.Execute(status, this);
+                    MainWindow.UpdateStatusHomeTimelineCommand.Execute(status, this);
                     Hide();
                 }
             }
