@@ -125,6 +125,19 @@ namespace tweetz5.Model
             return GetTimeline("https://api.twitter.com/1.1/direct_messages.json", parameters, ref _sinceIdDirectMessages);
         }
 
+        private static ulong _sinceIdFavorites = 1;
+
+        public Status[] FavoritesTimeline()
+        {
+            var parameters = new[]
+            {
+                new[] { "count", "50" },
+                new[] {"since_id", _sinceIdFavorites.ToString(CultureInfo.InvariantCulture)}
+            };
+            return GetTimeline("https://api.twitter.com/1.1/favorites/list.json", parameters, ref _sinceIdFavorites);
+
+        }
+
         private static Status[] GetTimeline(string url, IEnumerable<string[]> parameters, ref ulong sinceId)
         {
             try
@@ -146,8 +159,8 @@ namespace tweetz5.Model
         public static string UpdateStatus(string message, string replyToStatusId = null)
         {
             var parameters = string.IsNullOrWhiteSpace(replyToStatusId)
-                ? new[] {new[] {"status", message}}
-                : new[] {new[] {"status", message}, new[] {"in_reply_to_status_id", replyToStatusId}};
+                ? new[] { new[] { "status", message } }
+                : new[] { new[] { "status", message }, new[] { "in_reply_to_status_id", replyToStatusId } };
 
             return Post("https://api.twitter.com/1.1/statuses/update.json", parameters);
         }
@@ -156,7 +169,7 @@ namespace tweetz5.Model
         {
             try
             {
-                var parameters = new[] {new[] {"id", id}};
+                var parameters = new[] { new[] { "id", id } };
                 return Post("https://api.twitter.com/1.1/favorites/create.json", parameters);
             }
             catch (WebException e)
@@ -170,7 +183,7 @@ namespace tweetz5.Model
         {
             try
             {
-                var parameters = new[] {new[] {"id", id}};
+                var parameters = new[] { new[] { "id", id } };
                 return Post("https://api.twitter.com/1.1/favorites/destroy.json", parameters);
             }
             catch (WebException e)
@@ -246,10 +259,7 @@ namespace tweetz5.Model
         {
             try
             {
-                var parameters = new[]
-                {
-                    new[] {"screen_name", screenName},
-                };
+                var parameters = new[] { new[] { "screen_name", screenName } };
                 var json = Post("https://api.twitter.com/1.1/friendships/destroy.json", parameters);
                 return json.Contains(screenName);
             }
@@ -259,6 +269,5 @@ namespace tweetz5.Model
                 return false;
             }
         }
-
     }
 }

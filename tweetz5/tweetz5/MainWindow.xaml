@@ -54,7 +54,11 @@
                 CommandParameter="messages">
           &#xE135;
         </Button>
-        <Button Style="{StaticResource NavBarButton}">&#xE113;</Button>
+        <Button Style="{StaticResource NavBarButton}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                CommandParameter="favorites">
+          &#xE113;
+        </Button>
         <Button Style="{StaticResource NavBarButton}">&#xE11A;</Button>
         <Button Style="{StaticResource NavBarButton}">&#xE115;</Button>
         <Button Style="{StaticResource NavBarButton}"

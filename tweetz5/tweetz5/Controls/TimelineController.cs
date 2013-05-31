@@ -28,6 +28,7 @@ namespace tweetz5.Controls
                 _timelinesModel.HomeTimeline();
                 _timelinesModel.MentionsTimeline();
                 _timelinesModel.DirectMessagesTimeline();
+                _timelinesModel.FavoritesTimeline();
             };
             _checkTimelines.Start();
 
