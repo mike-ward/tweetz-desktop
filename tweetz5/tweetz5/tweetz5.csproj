@@ -76,6 +76,7 @@
     <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
     <Compile Include="Utilities\ScreenNameConverter.cs" />
+    <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />
     <Compile Include="Utilities\StringValueVisibilityConverter.cs" />
     <Compile Include="Model\Timelines.cs" />
     <Compile Include="Model\Tweet.cs" />

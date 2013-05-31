@@ -14,6 +14,7 @@
     <utilities:NumberValueCommaConverter x:Key="NumberValueCommaConverter" />
     <controls:BoolToFollowingConverter x:Key="BoolToFollowingConverter" />
     <controls:BoolToUnfollowConverter x:Key="BoolToUnfollowConverter" />
+    <utilities:ScreenNameToLinkConverter x:Key="ScreenNameToLinkConverter" />
   </Popup.Resources>
   <Border Style="{StaticResource UserInfoPopupStyle}">
     <StackPanel HorizontalAlignment="Stretch" Margin="10">
@@ -26,7 +27,12 @@
         </Border>
       </TextBlock>
       <TextBlock Text="{Binding Name}" Style="{StaticResource UserInfoNameStyle}" />
-      <TextBlock Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}" Style="{StaticResource UserInfoScreenNameStyle}" />
+      <TextBlock Style="{StaticResource UserInfoScreenNameStyle}">
+        <Hyperlink Command="{x:Static local:MainWindow.OpenLinkCommand}" 
+                   CommandParameter="{Binding ScreenName, Converter={StaticResource ScreenNameToLinkConverter}}">
+          <Run Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}" />
+        </Hyperlink>
+      </TextBlock>
       <TextBlock Text="{Binding Description}" Style="{StaticResource UserInfoTextBlockStyle}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}" Text="{Binding Location}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
