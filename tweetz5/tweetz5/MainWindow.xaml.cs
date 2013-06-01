@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Threading;
 using tweetz5.Model;
 
 namespace tweetz5
@@ -22,9 +23,12 @@ namespace tweetz5
         public static readonly RoutedCommand OpenLinkCommand = new RoutedUICommand();
         public static readonly RoutedCommand FollowUserComand = new RoutedUICommand();
 
+        private DispatcherTimer _switchTimelineTimer;
+
         public MainWindow()
         {
             InitializeComponent();
+            // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
             Loaded += (sender, args) => _compose.Visibility = Visibility.Collapsed;
         }
 
@@ -62,25 +66,41 @@ namespace tweetz5
             e.CanExecute = true;
         }
 
-        private void SwitchTimeslinesCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
+        private void SwitchTimeslinesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            _timeline.Controller.SwitchTimeline(ea.Parameter as string);
+            // HACK: The timeline takes a precievable amount of time to update
+            // when switching timelines. Improve UI feedback by immediatelly hiding
+            // timeline and launching a timer to update it. Hiding without the timer
+            // does not give the desired effect.
+            if (_switchTimelineTimer == null)
+            {
+                _switchTimelineTimer = new DispatcherTimer { Interval = new TimeSpan(1) };
+                _switchTimelineTimer.Tick += (o, args) =>
+                {
+                    _switchTimelineTimer.Stop();
+                    _timeline.Controller.SwitchTimeline(_switchTimelineTimer.Tag as string);
+                    _timeline.Visibility = Visibility.Visible;
+                };                
+            }
+            _timeline.Visibility = Visibility.Hidden;
+            _switchTimelineTimer.Tag = ea.Parameter;
+            _switchTimelineTimer.Start();
         }
 
-        private void CopyTweetCommand(object target, ExecutedRoutedEventArgs ea)
+        private void CopyTweetCommandHandler(object target, ExecutedRoutedEventArgs ea)
         {
             var tweet = (Tweet)ea.Parameter;
             Clipboard.SetText(tweet.Text);
         }
 
-        private void ReplyCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
+        private void ReplyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var tweet = (Tweet)ea.Parameter;
             var message = string.Format("@{0} ", tweet.ScreenName);
             _compose.Show(message, tweet.StatusId);
         }
 
-        private void RetweetCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
+        private void RetweetCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             try
             {
@@ -98,14 +118,14 @@ namespace tweetz5
             }
         }
 
-        private void RetweetClassicCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
+        private void RetweetClassicCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var tweet = (Tweet)ea.Parameter;
             var message = string.Format("RT @{0} {1}", tweet.ScreenName, tweet.Text);
             _compose.Show(message);
         }
 
-        private void FavoritesCommandExecuted(object sender, ExecutedRoutedEventArgs ea)
+        private void FavoritesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             try
             {
@@ -119,7 +139,7 @@ namespace tweetz5
             }
         }
 
-        private void UpdateStatusHomeTimelineExecuted(object sender, ExecutedRoutedEventArgs ea)
+        private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var statuses = (Status[])ea.Parameter;
             _timeline.Controller.UpdateStatus(statuses);
