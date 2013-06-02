@@ -51,23 +51,13 @@
         </MenuItem.Icon>
       </MenuItem>
     </ContextMenu>
-    <Storyboard x:Key="ItemAnimation"
-                AutoReverse="False">
-      <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MyGrid"
-                                     Storyboard.TargetProperty="(UIElement.Opacity)">
-        <EasingDoubleKeyFrame KeyTime="0"
-                              Value="0" />
-        <EasingDoubleKeyFrame KeyTime="0:0:1"
-                              Value="1" />
-      </DoubleAnimationUsingKeyFrames>
-      <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AnimateInsertion"
-                                     Storyboard.TargetProperty="Y">
-        <EasingDoubleKeyFrame KeyTime="0"
-                              Value="-100"/>
-        <EasingDoubleKeyFrame KeyTime="0:0:0.5"
-                              Value="0"/>
-
-      </DoubleAnimationUsingKeyFrames>
+    <Storyboard x:Key="ItemAnimation">
+      <DoubleAnimation Storyboard.TargetName="AnimateInsertion"
+                       Storyboard.TargetProperty="X"
+                       From="-200" To="0" Duration="0:0:1" />
+      <DoubleAnimation Storyboard.TargetName="MyGrid"
+                       Storyboard.TargetProperty="(UIElement.Opacity)"
+                       From="0" To="1" Duration="0:0:1" />
     </Storyboard>
   </UserControl.Resources>
   <UserControl.DataContext>

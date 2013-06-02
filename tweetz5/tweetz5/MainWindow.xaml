@@ -76,37 +76,32 @@
       <local:AboutUser x:Name="_userInformationPopup"
                        Placement="Left"
                        StaysOpen="False"/>
-      <StackPanel.CommandBindings>
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
-                        Executed="ReplyCommandHandler"
-                        CanExecute="CanExecute" />
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
-                        Executed="RetweetCommandHandler"
-                        CanExecute="CanExecute" />
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
-                        Executed="RetweetClassicCommandHandler"
-                        CanExecute="CanExecute" />
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
-                        Executed="FavoritesCommandHandler"
-                        CanExecute="CanExecute" />
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyCommand}"
-                        Executed="CopyTweetCommandHandler"
-                        CanExecute="CanExecute" />
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateStatusHomeTimelineCommand}"
-                        Executed="UpdateStatusHomeTimelineHandler"
-                        CanExecute="CanExecute" />
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                        Executed="SwitchTimeslinesCommandHandler"
-                        CanExecute="CanExecute" />
-        <CommandBinding Command="Close"
-                        Executed="CloseCommandHandler"/>
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}" 
-                        Executed="ShowUserInformationCommandHandler"/>
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.OpenLinkCommand}"
-                        Executed="OpenLinkCommandHandler" />
-        <CommandBinding Command="{x:Static tweetz5:MainWindow.FollowUserComand}"
-                        Executed="FollowCommandHandler"/>
-      </StackPanel.CommandBindings>
     </StackPanel>
   </Border>
+  <Window.CommandBindings>
+    <CommandBinding Command="Close"
+                    Executed="CloseCommandHandler"/>
+    <CommandBinding Command="Play"
+                    Executed="NotifyCommandHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
+                    Executed="ReplyCommandHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
+                    Executed="RetweetCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
+                    Executed="RetweetClassicCommandHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
+                    Executed="FavoritesCommandHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyCommand}"
+                    Executed="CopyTweetCommandHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateStatusHomeTimelineCommand}"
+                    Executed="UpdateStatusHomeTimelineHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    Executed="SwitchTimeslinesCommandHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
+                    Executed="ShowUserInformationCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.OpenLinkCommand}"
+                    Executed="OpenLinkCommandHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.FollowUserComand}"
+                    Executed="FollowCommandHandler"/>
+  </Window.CommandBindings>
 </Window>

@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -59,11 +60,6 @@ namespace tweetz5
             {
                 _compose.Focus();
             }
-        }
-
-        private void CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
         }
 
         private void SwitchTimeslinesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -167,6 +163,12 @@ namespace tweetz5
             var user = (User)ea.Parameter;
             user.Following = user.Following ? !Twitter.Unfollow(user.ScreenName) : Twitter.Follow(user.ScreenName);
             ea.Handled = true;
+        }
+
+        private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
+            player.Play();
         }
     }
 }

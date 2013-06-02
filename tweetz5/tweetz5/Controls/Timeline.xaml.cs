@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
+using System.Windows;
 using tweetz5.Model;
 
 namespace tweetz5.Controls

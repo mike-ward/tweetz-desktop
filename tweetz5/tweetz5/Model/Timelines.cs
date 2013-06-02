@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 
 namespace tweetz5.Model
 {
@@ -72,6 +73,7 @@ namespace tweetz5.Model
 
         private static void UpdateTimeline(ObservableCollection<Tweet> timeline, IEnumerable<Status> statuses, string tweetType)
         {
+            var updated = false;
             var screenName = string.Empty;
             foreach (var status in statuses.Where(status => timeline.All(t => t.StatusId != status.Id)))
             {
@@ -101,11 +103,16 @@ namespace tweetz5.Model
                     Favorited = status.Favorited,
                     RetweetedBy = RetweetedBy(status)
                 });
+                updated = true;
             }
             var i = 0;
             foreach (var item in timeline.OrderByDescending(s => s.CreatedAt))
             {
                 timeline.Move(timeline.IndexOf(item), i++);
+            }
+            if (updated)
+            {
+                MediaCommands.Play.Execute(string.Empty, Application.Current.MainWindow);
             }
         }
 
@@ -244,18 +251,15 @@ namespace tweetz5.Model
         {
             var twitter = new Twitter();
             var statuses = twitter.DirectMessagesTimeline();
-            if (statuses.Length > 0)
+            DispatchInvoker(() =>
             {
-                DispatchInvoker(() =>
+                UpdateTimeline(_directMessages, statuses, "d");
+                UpdateTimeline(_unified, statuses, "d");
+                foreach (var tweet in _unified.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                 {
-                    UpdateTimeline(_directMessages, statuses, "d");
-                    UpdateTimeline(_unified, statuses, "d");
-                    foreach (var tweet in _unified.Where(h => statuses.Any(s => s.Id == h.StatusId)))
-                    {
-                        tweet.TweetType += "d";
-                    }
-                });
-            }
+                    tweet.TweetType += "d";
+                }
+            });
         }
 
         public void UpdateTimeStamps()
