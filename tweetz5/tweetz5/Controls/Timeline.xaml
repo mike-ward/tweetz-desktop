@@ -14,24 +14,8 @@
     <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
     <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanVisibilityConverter" />
-    <Cursor x:Key="_contextMenuCursor">..\Assets\Images\context-menu-cursor.cur</Cursor>
     <ContextMenu x:Key="_contextMenu"
-                 Placement="Relative"
                  x:Shared="true">
-      <MenuItem Header="Reply"
-                Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-        <MenuItem.Icon>
-          <Image Source="..\Assets\Images\LoadProfilenode_8711.png" />
-        </MenuItem.Icon>
-      </MenuItem>
-      <MenuItem Header="Retweet"
-                Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-        <MenuItem.Icon>
-          <Image Source="..\Assets\Images\ID_SITE_PUBLISH_ALL.png" />
-        </MenuItem.Icon>
-      </MenuItem>
       <MenuItem Header="RT (Classic)"
                 Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}" />
@@ -54,8 +38,8 @@
     <Storyboard x:Key="ItemAnimation">
       <DoubleAnimation Storyboard.TargetName="AnimateInsertion"
                        Storyboard.TargetProperty="X"
-                       From="-200" To="0" Duration="0:0:1" />
-      <DoubleAnimation Storyboard.TargetName="MyGrid"
+                       From="-200" To="0" Duration="0:0:0.5" />
+      <DoubleAnimation Storyboard.TargetName="AnimateInsertion"
                        Storyboard.TargetProperty="(UIElement.Opacity)"
                        From="0" To="1" Duration="0:0:1" />
     </Storyboard>
@@ -90,10 +74,10 @@
                   <RowDefinition />
                   <RowDefinition />
                   <RowDefinition />
+                  <RowDefinition />
                 </Grid.RowDefinitions>
                 <Rectangle Grid.Column="0"
-                           ContextMenu="{StaticResource _contextMenu}"
-                           Cursor="{StaticResource _contextMenuCursor}"
+                           Cursor="Hand"
                            Style="{StaticResource TweetImageStyle}">
                   <Rectangle.Fill>
                     <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
@@ -128,14 +112,30 @@
                              Grid.Column="1"
                              Style="{StaticResource TweetRetweetedByStyle}"
                              Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
-                    <Run>RT </Run>
+                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA; </Run>
                     <Run Text="{Binding RetweetedBy}"></Run>
                   </TextBlock>
                 </StackPanel>
-                <Separator Grid.Row="2"
+                <TextBlock Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           Style="{StaticResource TweetActions}">
+                  <Hyperlink Style="{StaticResource TweetActionsItem}"
+                             Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
+                             CommandParameter="{Binding}">
+                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> Reply&#160;</Hyperlink>
+                  <Hyperlink Style="{StaticResource TweetActionsItem}" 
+                             Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
+                             CommandParameter="{Binding}"><Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA;</Run> Retweet&#160;</Hyperlink>
+                  <Hyperlink Style="{StaticResource TweetActionsItem}" 
+                             Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
+                             CommandParameter="{Binding}"><Run Style="{StaticResource TweetActionsSymbol}">&#xE082;</Run> Favorite</Hyperlink>
+                  <Hyperlink Style="{StaticResource TweetActionsItem}"
+                             ContextMenu="_contextMenu"><Run Style="{StaticResource TweetActionsSymbol}">&#xE118;</Run></Hyperlink>
+                </TextBlock>
+                <Separator Grid.Row="3"
                            Grid.ColumnSpan="2"
                            Style="{StaticResource TweetSeparatorTop}" />
-                <Separator Grid.Row="3"
+                <Separator Grid.Row="4"
                            Grid.ColumnSpan="2"
                            Style="{StaticResource TweetSeparatorBottom}" />
               </Grid>

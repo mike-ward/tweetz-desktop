@@ -42,7 +42,7 @@
     <Setter Property="FontSize"
             Value="14" />
     <Setter Property="Foreground"
-            Value="#bbbbbb" />
+            Value="#666666" />
     <Setter Property="BorderThickness"
             Value="0" />
     <Setter Property="Template">
@@ -53,13 +53,12 @@
                               HorizontalAlignment="Center">
               <ContentPresenter.Resources>
                 <Style TargetType="TextBlock">
-                  <Setter Property="TextAlignment"
-                          Value="Center" />
-                  <Setter Property="Foreground"
-                          Value="#666666" />
                   <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
                       <Setter Property="Foreground" Value="#bbbbbb" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                      <Setter Property="Foreground" Value="#557799" />
                     </Trigger>
                   </Style.Triggers>
                 </Style>
@@ -145,6 +144,28 @@
             Value="#888888" />
     <Setter Property="FontSize"
             Value="10" />
+  </Style>
+  <Style x:Key="TweetActions"
+         TargetType="TextBlock">
+    <Setter Property="Margin" Value="0 4 0 0"></Setter>
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="Foreground" Value="#666666"/>
+    <Setter Property="TextAlignment" Value="Right"/>
+  </Style>
+  <Style x:Key="TweetActionsItem"
+         TargetType="Hyperlink">
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="Foreground" Value="#666666"/>
+    <Setter Property="TextDecorations" Value="{x:Null}"></Setter>
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver" Value="True">
+        <Setter Property="Foreground" Value="#bbbbbb" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="TweetActionsSymbol"
+         TargetType="Run">
+    <Setter Property="FontFamily" Value="Segoe UI Symbol" />
   </Style>
   <Style x:Key="TweetSeparatorTop"
          TargetType="Separator">
@@ -680,7 +701,7 @@
     <Setter Property="BorderThickness" Value="2" />
     <Setter Property="BorderBrush" Value="#404040"/>
   </Style>
-  
+
   <Style x:Key="UserInfoTextBlockStyle"
          TargetType="TextBlock">
     <Setter Property="TextAlignment" Value="Center" />
@@ -693,7 +714,7 @@
          TargetType="TextBlock"
          BasedOn="{StaticResource UserInfoTextBlockStyle}">
     <Setter Property="FontSize" Value="18" />
-    <Setter Property="FontWeight" Value="Bold" /> 
+    <Setter Property="FontWeight" Value="Bold" />
   </Style>
 
   <Style x:Key="UserInfoScreenNameStyle"
@@ -710,7 +731,7 @@
     <Setter Property="FontWeight" Value="Bold" />
     <Setter Property="Typography.Capitals" Value="AllSmallCaps"></Setter>
   </Style>
-  
+
   <Style x:Key="VerticalSeparatorStyle"
          TargetType="Border">
     <Setter Property="Width" Value="1"/>
@@ -718,7 +739,7 @@
     <Setter Property="BorderBrush" Value="#999999"/>
     <Setter Property="Margin" Value="5 0" />
   </Style>
-  
+
   <Style x:Key="UserInfoProfileImageStyle"
          TargetType="Border">
     <Setter Property="Width" Value="64" />

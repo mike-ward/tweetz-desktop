@@ -34,27 +34,32 @@
         </StackPanel>
       </DockPanel>
       <UniformGrid x:Name="_navBar" Rows="1" Style="{StaticResource NavBar}">
-        <Button Style="{StaticResource NavBarButton}"
+        <Button x:Name="_unifiedButton"
+                Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="unified">
           &#xE179;
         </Button>
-        <Button Style="{StaticResource NavBarButton}"
+        <Button x:Name="_homeButton"
+                Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="home">
           &#xE10F;
         </Button>
-        <Button Style="{StaticResource NavBarButton}"
+        <Button x:Name="_mentionsButton"
+                Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="mentions">
           &#xE168;
         </Button>
-        <Button Style="{StaticResource NavBarButton}"
+        <Button x:Name="_messagesButton"
+                Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="messages">
           &#xE135;
         </Button>
-        <Button Style="{StaticResource NavBarButton}"
+        <Button x:Name="_favoritesButton"
+                Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="favorites">
           &#xE113;

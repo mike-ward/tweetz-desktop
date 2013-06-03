@@ -110,7 +110,7 @@ namespace tweetz5.Model
             {
                 timeline.Move(timeline.IndexOf(item), i++);
             }
-            if (updated)
+            if (updated && Application.Current != null)
             {
                 MediaCommands.Play.Execute(string.Empty, Application.Current.MainWindow);
             }

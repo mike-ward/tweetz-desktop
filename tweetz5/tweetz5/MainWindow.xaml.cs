@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Media;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -31,6 +32,7 @@ namespace tweetz5
             InitializeComponent();
             // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
             Loaded += (sender, args) => _compose.Visibility = Visibility.Collapsed;
+            SetButtonStates("unified");
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
@@ -80,7 +82,17 @@ namespace tweetz5
             }
             _timeline.Visibility = Visibility.Hidden;
             _switchTimelineTimer.Tag = ea.Parameter;
+            SetButtonStates(ea.Parameter as string);
             _switchTimelineTimer.Start();
+        }
+
+        private void SetButtonStates(string timeline)
+        {
+            _unifiedButton.IsEnabled = timeline != "unified";
+            _homeButton.IsEnabled = timeline != "home";
+            _mentionsButton.IsEnabled = timeline != "mentions";
+            _messagesButton.IsEnabled = timeline != "messages";
+            _favoritesButton.IsEnabled = timeline != "favorites";
         }
 
         private void CopyTweetCommandHandler(object target, ExecutedRoutedEventArgs ea)
