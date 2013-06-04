@@ -153,10 +153,7 @@
     <Setter Property="TextAlignment" Value="Right"/>
   </Style>
   <Style x:Key="TweetActionsItem"
-         TargetType="Hyperlink">
-    <Setter Property="FontSize" Value="11" />
-    <Setter Property="Foreground" Value="#666666"/>
-    <Setter Property="TextDecorations" Value="{x:Null}"></Setter>
+         TargetType="Span">
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
         <Setter Property="Foreground" Value="#bbbbbb" />

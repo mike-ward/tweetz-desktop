@@ -14,22 +14,15 @@
     <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
     <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanVisibilityConverter" />
-    <ContextMenu x:Key="_contextMenu"
+    <ContextMenu x:Key="MoreMenu"
                  x:Shared="true">
       <MenuItem Header="RT (Classic)"
                 Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}" />
-      <MenuItem Header="Favorite"
-                Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
-        <MenuItem.Icon>
-          <Image Source="..\Assets\Images\Favorites_9002.png" />
-        </MenuItem.Icon>
-      </MenuItem>
+                CommandParameter="{Binding}" />
       <Separator />
       <MenuItem Header="Copy"
                 Command="{x:Static tweetz5:MainWindow.CopyCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}">
+                CommandParameter="{Binding}">
         <MenuItem.Icon>
           <Image Source="..\Assets\Images\Copy_6524.png" />
         </MenuItem.Icon>
@@ -77,11 +70,15 @@
                   <RowDefinition />
                 </Grid.RowDefinitions>
                 <Rectangle Grid.Column="0"
-                           Cursor="Hand"
                            Style="{StaticResource TweetImageStyle}">
                   <Rectangle.Fill>
                     <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
                   </Rectangle.Fill>
+                  <Rectangle.InputBindings>
+                    <MouseBinding Gesture="LeftClick"
+                                  Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
+                                  CommandParameter="{Binding ScreenName}"/>
+                  </Rectangle.InputBindings>
                 </Rectangle>
                 <StackPanel Grid.Column="1">
                   <Grid>
@@ -119,18 +116,29 @@
                 <TextBlock Grid.Row="2"
                            Grid.ColumnSpan="2"
                            Style="{StaticResource TweetActions}">
-                  <Hyperlink Style="{StaticResource TweetActionsItem}"
-                             Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
-                             CommandParameter="{Binding}">
-                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> Reply&#160;</Hyperlink>
-                  <Hyperlink Style="{StaticResource TweetActionsItem}" 
-                             Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
-                             CommandParameter="{Binding}"><Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA;</Run> Retweet&#160;</Hyperlink>
-                  <Hyperlink Style="{StaticResource TweetActionsItem}" 
-                             Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
-                             CommandParameter="{Binding}"><Run Style="{StaticResource TweetActionsSymbol}">&#xE082;</Run> Favorite</Hyperlink>
-                  <Hyperlink Style="{StaticResource TweetActionsItem}"
-                             ContextMenu="_contextMenu"><Run Style="{StaticResource TweetActionsSymbol}">&#xE118;</Run></Hyperlink>
+                  <Span Style="{StaticResource TweetActionsItem}">
+                    <Span.InputBindings>
+                      <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.ReplyCommand}" CommandParameter="{Binding}"/>
+                    </Span.InputBindings>
+                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> Reply&#160;
+                  </Span>
+                  <Span Style="{StaticResource TweetActionsItem}">
+                    <Span.InputBindings>
+                      <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.RetweetCommand}" CommandParameter="{Binding}"/>
+                    </Span.InputBindings>
+                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA;</Run> Retweet&#160;
+                  </Span>
+                  <Span Style="{StaticResource TweetActionsItem}">
+                    <Span.InputBindings>
+                      <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}" CommandParameter="{Binding}"/>
+                    </Span.InputBindings>
+                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE082;</Run> Favorite
+                  </Span>
+                  <Span Style="{StaticResource TweetActionsItem}"
+                             ContextMenu="{StaticResource MoreMenu}"
+                             PreviewMouseLeftButtonDown="MoreOnMouseDown">
+                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE118;</Run>
+                  </Span>
                 </TextBlock>
                 <Separator Grid.Row="3"
                            Grid.ColumnSpan="2"
