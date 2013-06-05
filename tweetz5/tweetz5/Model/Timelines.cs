@@ -71,7 +71,7 @@ namespace tweetz5.Model
             }
         }
 
-        private static void UpdateTimeline(ObservableCollection<Tweet> timeline, IEnumerable<Status> statuses, string tweetType)
+        private static bool UpdateTimeline(ObservableCollection<Tweet> timeline, IEnumerable<Status> statuses, string tweetType)
         {
             var updated = false;
             var screenName = string.Empty;
@@ -110,12 +110,16 @@ namespace tweetz5.Model
             {
                 timeline.Move(timeline.IndexOf(item), i++);
             }
-            if (updated && Application.Current != null)
+            return updated;
+        }
+
+        private void PlayNotification()
+        {
+            if (Application.Current != null)
             {
                 MediaCommands.Play.Execute(string.Empty, Application.Current.MainWindow);
             }
         }
-
         public static string RetweetedBy(Status status)
         {
             if (status.Retweeted) return "you";
@@ -220,7 +224,7 @@ namespace tweetz5.Model
         {
             DispatchInvoker(() =>
             {
-                UpdateTimeline(_home, statuses, "h");
+                if (UpdateTimeline(_home, statuses, "h")) PlayNotification();
                 UpdateTimeline(_unified, statuses, "h");
             });
         }
@@ -231,7 +235,7 @@ namespace tweetz5.Model
             var statuses = twitter.MentionsTimeline();
             DispatchInvoker(() =>
             {
-                UpdateTimeline(_mentions, statuses, "m");
+               if (UpdateTimeline(_mentions, statuses, "m")) PlayNotification();
                 UpdateTimeline(_unified, statuses, "m");
                 foreach (var tweet in _unified.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                 {
@@ -253,7 +257,7 @@ namespace tweetz5.Model
             var statuses = twitter.DirectMessagesTimeline();
             DispatchInvoker(() =>
             {
-                UpdateTimeline(_directMessages, statuses, "d");
+                if (UpdateTimeline(_directMessages, statuses, "d")) PlayNotification();
                 UpdateTimeline(_unified, statuses, "d");
                 foreach (var tweet in _unified.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                 {

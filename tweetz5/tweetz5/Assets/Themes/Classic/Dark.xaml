@@ -1,56 +1,38 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:utilities="clr-namespace:tweetz5.Utilities">
+  <utilities:BoolToStringConverter x:Key="FavoriteToColorConverter" />
 
   <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>
 
-  <Style x:Key="WindowStyle"
-         TargetType="Window">
-    <Setter Property="Foreground"
-            Value="#bbbbbb" />
-    <Setter Property="Background"
-            Value="#333333" />
-    <Setter Property="FontSize"
-            Value="11" />
-    <Setter Property="TextOptions.TextFormattingMode"
-            Value="Display" />
+  <Style x:Key="WindowStyle" TargetType="Window">
+    <Setter Property="Foreground" Value="#bbbbbb" />
+    <Setter Property="Background" Value="#333333" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
   </Style>
 
-  <Style x:Key="TopBarStyle"
-         TargetType="DockPanel">
-    <Setter Property="Background"
-            Value="#333344" />
+  <Style x:Key="TopBarStyle" TargetType="DockPanel">
+    <Setter Property="Background" Value="#333344" />
   </Style>
 
-  <Style x:Key="TopBarLabelStyle"
-         TargetType="Label">
-    <Setter Property="Foreground"
-            Value="#bbbbbb" />
-    <Setter Property="Padding"
-            Value="5,0,0,1" />
+  <Style x:Key="TopBarLabelStyle" TargetType="Label">
+    <Setter Property="Foreground" Value="#bbbbbb" />
+    <Setter Property="Padding" Value="5,0,0,1" />
   </Style>
 
-  <Style TargetType="UniformGrid"
-         x:Key="NavBar">
-    <Setter Property="Margin"
-            Value="3 0 3 0" />
+  <Style TargetType="UniformGrid" x:Key="NavBar">
+    <Setter Property="Margin" Value="3 0 3 0" />
   </Style>
 
-  <Style TargetType="Button"
-         x:Key="NavBarButton">
-    <Setter Property="FontFamily"
-            Value="Segoe UI Symbol" />
-    <Setter Property="FontSize"
-            Value="14" />
-    <Setter Property="Foreground"
-            Value="#666666" />
-    <Setter Property="BorderThickness"
-            Value="0" />
+  <Style TargetType="Button" x:Key="NavBarButton">
+    <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Foreground" Value="#666666" />
+    <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Border x:Name="border">
-            <ContentPresenter VerticalAlignment="Center"
-                              HorizontalAlignment="Center">
+            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center">
               <ContentPresenter.Resources>
                 <Style TargetType="TextBlock">
                   <Style.Triggers>
@@ -70,193 +52,142 @@
     </Setter>
   </Style>
 
-  <Style x:Key="AppCloseButtonStyle"
-         TargetType="Button"
-         BasedOn="{StaticResource NavBarButton}">
-    <Setter Property="FontSize"
-            Value="12" />
+  <Style x:Key="AppCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource NavBarButton}">
+    <Setter Property="FontSize" Value="12" />
   </Style>
 
-  <Style x:Key="TimelineStyle"
-         TargetType="ItemsControl">
-    <Setter Property="Foreground"
-            Value="#bbbbbb" />
-    <Setter Property="Background"
-            Value="#333333" />
-    <Setter Property="FontSize"
-            Value="11" />
-  </Style>
-  <Style x:Key="TweetItemStyle"
-         TargetType="Border">
-    <Setter Property="Padding"
-            Value="3" />
-  </Style>
-  <Style x:Key="TweetImageStyle"
-         TargetType="Rectangle">
-    <Setter Property="Width"
-            Value="33" />
-    <Setter Property="Height"
-            Value="33" />
-    <Setter Property="RadiusX"
-            Value="4" />
-    <Setter Property="RadiusY"
-            Value="4" />
-    <Setter Property="HorizontalAlignment"
-            Value="Left" />
-    <Setter Property="VerticalAlignment"
-            Value="Top" />
-    <Setter Property="Margin"
-            Value="0" />
-  </Style>
-  <Style x:Key="TweetImageColumnStyle"
-         TargetType="ColumnDefinition">
-    <Setter Property="Width"
-            Value="40" />
-  </Style>
-  <Style x:Key="TweetTimeStyle"
-         TargetType="TextBlock">
-    <Setter Property="Foreground"
-            Value="#888888" />
-    <Setter Property="FontSize"
-            Value="10" />
-  </Style>
-  <Style x:Key="FavoriteStarStyle"
-         TargetType="TextBlock">
-    <Setter Property="Foreground"
-            Value="Goldenrod" />
-    <Setter Property="FontSize"
-            Value="14" />
-    <Setter Property="Margin"
-            Value="1 -4 0 0" />
-  </Style>
-  <Style x:Key="TweetStyle"
-         TargetType="TextBlock">
-    <Setter Property="TextWrapping"
-            Value="Wrap" />
-  </Style>
-  <Style x:Key="TweetRetweetedByStyle"
-         TargetType="TextBlock">
-    <Setter Property="HorizontalAlignment"
-            Value="Right" />
-    <Setter Property="FontStyle"
-            Value="Italic" />
-    <Setter Property="Foreground"
-            Value="#888888" />
-    <Setter Property="FontSize"
-            Value="10" />
-  </Style>
-  <Style x:Key="TweetActions"
-         TargetType="TextBlock">
-    <Setter Property="Margin" Value="0 4 0 0"></Setter>
+  <Style x:Key="TimelineStyle" TargetType="ItemsControl">
+    <Setter Property="Foreground" Value="#bbbbbb" />
+    <Setter Property="Background" Value="#333333" />
     <Setter Property="FontSize" Value="11" />
-    <Setter Property="Foreground" Value="#666666"/>
-    <Setter Property="TextAlignment" Value="Right"/>
   </Style>
-  <Style x:Key="TweetActionsItem"
-         TargetType="Span">
+  
+  <Style x:Key="TweetItemStyle" TargetType="Border">
+    <Setter Property="Padding" Value="3" />
+  </Style>
+  
+  <Style x:Key="TweetImageStyle" TargetType="Rectangle">
+    <Setter Property="Width" Value="33" />
+    <Setter Property="Height" Value="33" />
+    <Setter Property="RadiusX" Value="4" />
+    <Setter Property="RadiusY" Value="4" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="Margin" Value="0" />
+  </Style>
+  
+  <Style x:Key="TweetImageColumnStyle" TargetType="ColumnDefinition">
+    <Setter Property="Width" Value="40" />
+  </Style>
+  
+  <Style x:Key="TweetTimeStyle" TargetType="TextBlock">
+    <Setter Property="Foreground" Value="#888888" />
+    <Setter Property="FontSize" Value="10" />
+  </Style>
+  
+  <Style x:Key="FavoriteStarStyle" TargetType="TextBlock">
+    <Setter Property="Foreground" Value="Goldenrod" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Margin" Value="1 -4 0 0" />
+  </Style>
+  
+  <Style x:Key="TweetStyle" TargetType="TextBlock">
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+  
+  <Style x:Key="TweetRetweetedByStyle" TargetType="TextBlock">
+    <Setter Property="Margin" Value="0 2 0 0"></Setter>
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="FontStyle" Value="Italic" />
+    <Setter Property="Foreground" Value="#888888" />
+    <Setter Property="FontSize" Value="10" />
+  </Style>
+  
+  <Style x:Key="TweetActions" TargetType="TextBlock">
+    <Setter Property="Margin" Value="0 2 0 0"></Setter>
+    <Setter Property="FontSize" Value="10" />
+    <Setter Property="Foreground" Value="#666666" />
+    <Setter Property="TextAlignment" Value="Right" />
+  </Style>
+  
+  <Style x:Key="TweetActionsItem" TargetType="Span">
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
         <Setter Property="Foreground" Value="#bbbbbb" />
       </Trigger>
     </Style.Triggers>
   </Style>
-  <Style x:Key="TweetActionsSymbol"
-         TargetType="Run">
+  
+  <Style x:Key="TweetActionsSymbol" TargetType="Run">
     <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+    <Style.Triggers>
+      <Trigger Property="Tag" Value="True" >
+        <Setter Property="Foreground" Value="DarkGoldenrod" />
+      </Trigger>
+    </Style.Triggers>
   </Style>
-  <Style x:Key="TweetSeparatorTop"
-         TargetType="Separator">
-    <Setter Property="Background"
-            Value="#222222" />
-    <Setter Property="Width"
-            Value="4000" />
-    <Setter Property="Margin"
-            Value="0,4,0,0" />
+  
+  <Style x:Key="TweetSeparatorTop" TargetType="Separator">
+    <Setter Property="Background" Value="#222222" />
+    <Setter Property="Width" Value="4000" />
+    <Setter Property="Margin" Value="0,4,0,0" />
   </Style>
-  <Style x:Key="TweetSeparatorBottom"
-         TargetType="Separator">
-    <Setter Property="Background"
-            Value="#484848" />
-    <Setter Property="Width"
-            Value="4000" />
-    <Setter Property="Margin"
-            Value="0" />
+  
+  <Style x:Key="TweetSeparatorBottom" TargetType="Separator">
+    <Setter Property="Background" Value="#484848" />
+    <Setter Property="Width" Value="4000" />
+    <Setter Property="Margin" Value="0" />
   </Style>
+  
   <Style TargetType="Hyperlink">
-    <Setter Property="Foreground"
-            Value="#99bbee" />
-    <Setter Property="TextDecorations"
-            Value="{x:Null}" />
+    <Setter Property="Foreground" Value="#99bbee" />
+    <Setter Property="TextDecorations" Value="{x:Null}" />
   </Style>
-  <Style x:Key="TweetMention"
-         TargetType="Span">
-    <Setter Property="Foreground"
-            Value="#99bbee" />
+  
+  <Style x:Key="TweetMention" TargetType="Span">
+    <Setter Property="Foreground" Value="#99bbee" />
   </Style>
-  <Style x:Key="TweetHashtag"
-         TargetType="Span">
-    <Setter Property="Foreground"
-            Value="#99bbee" />
+  
+  <Style x:Key="TweetHashtag" TargetType="Span">
+    <Setter Property="Foreground" Value="#99bbee" />
   </Style>
 
   <!-- Compose -->
 
-  <Style x:Key="ComposeTweet"
-         TargetType="StackPanel">
-    <Setter Property="Background"
-            Value="#484848" />
-    <Setter Property="Margin"
-            Value="4 0 6 1" />
+  <Style x:Key="ComposeTweet" TargetType="StackPanel">
+    <Setter Property="Background" Value="#484848" />
+    <Setter Property="Margin" Value="4 0 6 1" />
   </Style>
-  <Style x:Key="ComposeTweetTitleBlock"
-         TargetType="TextBlock">
-    <Setter Property="Foreground"
-            Value="#bbbbbb" />
-    <Setter Property="Margin"
-            Value="7 4 0 4" />
+  
+  <Style x:Key="ComposeTweetTitleBlock" TargetType="TextBlock">
+    <Setter Property="Foreground" Value="#bbbbbb" />
+    <Setter Property="Margin" Value="7 4 0 4" />
   </Style>
-  <Style x:Key="ComposeTweetTextBox"
-         TargetType="TextBox">
-    <Setter Property="FontSize"
-            Value="14" />
-    <Setter Property="Height"
-            Value="101" />
-    <Setter Property="Foreground"
-            Value="#dddddd" />
-    <Setter Property="Background"
-            Value="#585858" />
-    <Setter Property="BorderThickness"
-            Value="0" />
-    <Setter Property="Margin"
-            Value="7 0 7 5" />
-    <Setter Property="Padding"
-            Value="3" />
+  
+  <Style x:Key="ComposeTweetTextBox" TargetType="TextBox">
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Height" Value="101" />
+    <Setter Property="Foreground" Value="#dddddd" />
+    <Setter Property="Background" Value="#585858" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Margin" Value="7 0 7 5" />
+    <Setter Property="Padding" Value="3" />
   </Style>
-  <Style x:Key="ComposeTweetButton"
-         TargetType="Button">
-    <Setter Property="Cursor"
-            Value="Hand" />
-    <Setter Property="Foreground"
-            Value="#cccccc" />
-    <Setter Property="FontWeight"
-            Value="Normal" />
-    <Setter Property="Margin"
-            Value="0 0 7 0" />
+  
+  <Style x:Key="ComposeTweetButton" TargetType="Button">
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Foreground" Value="#cccccc" />
+    <Setter Property="FontWeight" Value="Normal" />
+    <Setter Property="Margin" Value="0 0 7 0" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
-          <Border x:Name="border"
-                  CornerRadius="5"
-                  Background="#FF415360">
-            <ContentPresenter x:Name="ButtonContentPresenter"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Center">
+          <Border x:Name="border" CornerRadius="5" Background="#FF415360">
+            <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center">
               <ContentPresenter.Resources>
                 <Style TargetType="TextBlock">
-                  <Setter Property="TextAlignment"
-                          Value="Center" />
-                  <Setter Property="Padding"
-                          Value="9 3 9 3" />
+                  <Setter Property="TextAlignment" Value="Center" />
+                  <Setter Property="Padding" Value="9 3 9 3" />
                 </Style>
               </ContentPresenter.Resources>
             </ContentPresenter>
@@ -266,69 +197,43 @@
     </Setter>
   </Style>
 
-  <Style x:Key="ComposeCharCounter"
-         TargetType="TextBlock">
-    <Setter Property="HorizontalAlignment"
-            Value="Stretch" />
-    <Setter Property="TextAlignment"
-            Value="Left" />
-    <Setter Property="Foreground"
-            Value="#cccccc" />
-    <Setter Property="Margin"
-            Value="10 0 0 0" />
-    <Setter Property="FontSize"
-            Value="14" />
+  <Style x:Key="ComposeCharCounter" TargetType="TextBlock">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="TextAlignment" Value="Left" />
+    <Setter Property="Foreground" Value="#cccccc" />
+    <Setter Property="Margin" Value="10 0 0 0" />
+    <Setter Property="FontSize" Value="14" />
   </Style>
 
   <!-- Scrollbar -->
-  <SolidColorBrush x:Key="StandardBorderBrush"
-                   Color="#393939">
+  <SolidColorBrush x:Key="StandardBorderBrush" Color="#393939">
   </SolidColorBrush>
-  <SolidColorBrush x:Key="StandardBrush"
-                   Color="#393939">
+  <SolidColorBrush x:Key="StandardBrush" Color="#393939">
   </SolidColorBrush>
-  <SolidColorBrush x:Key="PressedBrush"
-                   Color="#777777">
+  <SolidColorBrush x:Key="PressedBrush" Color="#777777">
   </SolidColorBrush>
-  <SolidColorBrush x:Key="HoverBrush"
-                   Color="#888888">
+  <SolidColorBrush x:Key="HoverBrush" Color="#888888">
   </SolidColorBrush>
-  <SolidColorBrush x:Key="GlyphBrush"
-                   Color="#333333">
+  <SolidColorBrush x:Key="GlyphBrush" Color="#333333">
   </SolidColorBrush>
 
-  <Style x:Key="VerticalScrollBarThumbStyle"
-         TargetType="{x:Type Thumb}">
-    <Setter Property="IsTabStop"
-            Value="False" />
-    <Setter Property="Focusable"
-            Value="False" />
-    <Setter Property="Margin"
-            Value="1,0,1,0" />
-    <Setter Property="BorderBrush"
-            Value="{StaticResource StandardBorderBrush}" />
+  <Style x:Key="VerticalScrollBarThumbStyle" TargetType="{x:Type Thumb}">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Margin" Value="1,0,1,0" />
+    <Setter Property="BorderBrush" Value="{StaticResource StandardBorderBrush}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
-          <Rectangle Width="8"
-                     Name="ellipse"
-                     Stroke="{StaticResource StandardBorderBrush}"
-                     Fill="{StaticResource StandardBrush}"
-                     Margin="0,2,0,2">
+          <Rectangle Width="8" Name="ellipse" Stroke="{StaticResource StandardBorderBrush}" Fill="{StaticResource StandardBrush}" Margin="0,2,0,2">
           </Rectangle>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="true">
-              <Setter TargetName="ellipse"
-                      Property="Fill"
-                      Value="{StaticResource HoverBrush}">
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="ellipse" Property="Fill" Value="{StaticResource HoverBrush}">
               </Setter>
             </Trigger>
-            <Trigger Property="IsDragging"
-                     Value="True">
-              <Setter TargetName="ellipse"
-                      Property="Fill"
-                      Value="{StaticResource PressedBrush}">
+            <Trigger Property="IsDragging" Value="True">
+              <Setter TargetName="ellipse" Property="Fill" Value="{StaticResource PressedBrush}">
               </Setter>
             </Trigger>
 
@@ -337,37 +242,23 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="HorizontalScrollBarThumbStyle"
-         TargetType="{x:Type Thumb}">
-    <Setter Property="IsTabStop"
-            Value="False" />
-    <Setter Property="Focusable"
-            Value="False" />
-    <Setter Property="Margin"
-            Value="0,1,0,1" />
-    <Setter Property="BorderBrush"
-            Value="{StaticResource StandardBorderBrush}" />
+  <Style x:Key="HorizontalScrollBarThumbStyle" TargetType="{x:Type Thumb}">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Margin" Value="0,1,0,1" />
+    <Setter Property="BorderBrush" Value="{StaticResource StandardBorderBrush}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
-          <Rectangle Height="8"
-                     Name="ellipse"
-                     Stroke="{StaticResource StandardBorderBrush}"
-                     Fill="{StaticResource StandardBrush}">
+          <Rectangle Height="8" Name="ellipse" Stroke="{StaticResource StandardBorderBrush}" Fill="{StaticResource StandardBrush}">
           </Rectangle>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="true">
-              <Setter TargetName="ellipse"
-                      Property="Fill"
-                      Value="{StaticResource HoverBrush}">
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="ellipse" Property="Fill" Value="{StaticResource HoverBrush}">
               </Setter>
             </Trigger>
-            <Trigger Property="IsDragging"
-                     Value="True">
-              <Setter TargetName="ellipse"
-                      Property="Fill"
-                      Value="{StaticResource PressedBrush}">
+            <Trigger Property="IsDragging" Value="True">
+              <Setter TargetName="ellipse" Property="Fill" Value="{StaticResource PressedBrush}">
               </Setter>
             </Trigger>
 
@@ -376,152 +267,93 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="LineButtonUpStyle"
-         TargetType="{x:Type RepeatButton}">
-    <Setter Property="Focusable"
-            Value="False" />
+  <Style x:Key="LineButtonUpStyle" TargetType="{x:Type RepeatButton}">
+    <Setter Property="Focusable" Value="False" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type RepeatButton}">
-          <Grid Margin="1"
-                Height="9">
-            <Path Stretch="None"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Name="Path"
-                  Fill="{StaticResource StandardBrush}"
-                  Data="M 0 8 L 8 8 L 4 0 Z">
+          <Grid Margin="1" Height="9">
+            <Path Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Path" Fill="{StaticResource StandardBrush}" Data="M 0 8 L 8 8 L 4 0 Z">
             </Path>
           </Grid>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="true">
-              <Setter TargetName="Path"
-                      Property="Fill"
-                      Value="{StaticResource HoverBrush}" />
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="Path" Property="Fill" Value="{StaticResource HoverBrush}" />
             </Trigger>
-            <Trigger Property="IsPressed"
-                     Value="true">
-              <Setter TargetName="Path"
-                      Property="Fill"
-                      Value="{StaticResource PressedBrush}" />
+            <Trigger Property="IsPressed" Value="true">
+              <Setter TargetName="Path" Property="Fill" Value="{StaticResource PressedBrush}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="LineButtonDownStyle"
-         TargetType="{x:Type RepeatButton}">
-    <Setter Property="Focusable"
-            Value="False" />
+  <Style x:Key="LineButtonDownStyle" TargetType="{x:Type RepeatButton}">
+    <Setter Property="Focusable" Value="False" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type RepeatButton}">
-          <Grid Margin="1"
-                Height="9">
-            <Path Stretch="None"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Name="Path"
-                  Fill="{StaticResource StandardBrush}"
-                  Data="M 0 0 L 4 8 L 8 0 Z">
+          <Grid Margin="1" Height="9">
+            <Path Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Path" Fill="{StaticResource StandardBrush}" Data="M 0 0 L 4 8 L 8 0 Z">
             </Path>
           </Grid>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="true">
-              <Setter TargetName="Path"
-                      Property="Fill"
-                      Value="{StaticResource HoverBrush}" />
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="Path" Property="Fill" Value="{StaticResource HoverBrush}" />
             </Trigger>
-            <Trigger Property="IsPressed"
-                     Value="true">
-              <Setter TargetName="Path"
-                      Property="Fill"
-                      Value="{StaticResource PressedBrush}" />
+            <Trigger Property="IsPressed" Value="true">
+              <Setter TargetName="Path" Property="Fill" Value="{StaticResource PressedBrush}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="LineButtonLeftStyle"
-         TargetType="{x:Type RepeatButton}">
-    <Setter Property="Focusable"
-            Value="False" />
+  <Style x:Key="LineButtonLeftStyle" TargetType="{x:Type RepeatButton}">
+    <Setter Property="Focusable" Value="False" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type RepeatButton}">
-          <Grid Margin="1"
-                Width="9">
-            <Path Stretch="None"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Name="Path"
-                  Fill="{StaticResource StandardBrush}"
-                  Data="M 0 0 L -8 4 L 0 8 Z">
+          <Grid Margin="1" Width="9">
+            <Path Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Path" Fill="{StaticResource StandardBrush}" Data="M 0 0 L -8 4 L 0 8 Z">
             </Path>
           </Grid>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="true">
-              <Setter TargetName="Path"
-                      Property="Fill"
-                      Value="{StaticResource HoverBrush}" />
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="Path" Property="Fill" Value="{StaticResource HoverBrush}" />
             </Trigger>
-            <Trigger Property="IsPressed"
-                     Value="true">
-              <Setter TargetName="Path"
-                      Property="Fill"
-                      Value="{StaticResource PressedBrush}" />
+            <Trigger Property="IsPressed" Value="true">
+              <Setter TargetName="Path" Property="Fill" Value="{StaticResource PressedBrush}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="LineButtonRightStyle"
-         TargetType="{x:Type RepeatButton}">
-    <Setter Property="Focusable"
-            Value="False" />
+  <Style x:Key="LineButtonRightStyle" TargetType="{x:Type RepeatButton}">
+    <Setter Property="Focusable" Value="False" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type RepeatButton}">
-          <Grid Margin="1"
-                Width="9">
-            <Path Stretch="None"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Name="Path"
-                  Fill="{StaticResource StandardBrush}"
-                  Data="M 0 0 L 8 4 L 0 8 Z">
+          <Grid Margin="1" Width="9">
+            <Path Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Path" Fill="{StaticResource StandardBrush}" Data="M 0 0 L 8 4 L 0 8 Z">
             </Path>
           </Grid>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="true">
-              <Setter TargetName="Path"
-                      Property="Fill"
-                      Value="{StaticResource HoverBrush}" />
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="Path" Property="Fill" Value="{StaticResource HoverBrush}" />
             </Trigger>
-            <Trigger Property="IsPressed"
-                     Value="true">
-              <Setter TargetName="Path"
-                      Property="Fill"
-                      Value="{StaticResource PressedBrush}" />
+            <Trigger Property="IsPressed" Value="true">
+              <Setter TargetName="Path" Property="Fill" Value="{StaticResource PressedBrush}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ScrollBarPageButtonStyle"
-         TargetType="{x:Type RepeatButton}">
-    <Setter Property="IsTabStop"
-            Value="False" />
-    <Setter Property="Focusable"
-            Value="False" />
+  <Style x:Key="ScrollBarPageButtonStyle" TargetType="{x:Type RepeatButton}">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Focusable" Value="False" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -530,8 +362,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <ControlTemplate x:Key="VerticalScrollBar"
-                   TargetType="{x:Type ScrollBar}">
+  <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition MaxHeight="9" />
@@ -539,29 +370,20 @@
         <RowDefinition MaxHeight="9" />
       </Grid.RowDefinitions>
       <Grid.Background>
-        <LinearGradientBrush StartPoint="0,0"
-                             EndPoint="0,1">
-          <GradientStop Offset="0"
-                        Color="#333333">
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+          <GradientStop Offset="0" Color="#333333">
           </GradientStop>
-          <GradientStop Offset="1"
-                        Color="#333333">
+          <GradientStop Offset="1" Color="#333333">
           </GradientStop>
         </LinearGradientBrush>
       </Grid.Background>
-      <RepeatButton Grid.Row="0"
-                    Height="9"
-                    Style="{StaticResource LineButtonUpStyle}"
-                    Command="ScrollBar.LineUpCommand">
+      <RepeatButton Grid.Row="0" Height="9" Style="{StaticResource LineButtonUpStyle}" Command="ScrollBar.LineUpCommand">
 
       </RepeatButton>
 
-      <Track Name="PART_Track"
-             Grid.Row="1"
-             IsDirectionReversed="True">
+      <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="True">
         <Track.DecreaseRepeatButton>
-          <RepeatButton Command="ScrollBar.PageUpCommand"
-                        Style="{StaticResource ScrollBarPageButtonStyle}">
+          <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource ScrollBarPageButtonStyle}">
           </RepeatButton>
         </Track.DecreaseRepeatButton>
         <Track.Thumb>
@@ -569,21 +391,16 @@
           </Thumb>
         </Track.Thumb>
         <Track.IncreaseRepeatButton>
-          <RepeatButton Command="ScrollBar.PageDownCommand"
-                        Style="{StaticResource ScrollBarPageButtonStyle}">
+          <RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource ScrollBarPageButtonStyle}">
           </RepeatButton>
         </Track.IncreaseRepeatButton>
       </Track>
 
-      <RepeatButton Grid.Row="2"
-                    Height="9"
-                    Style="{StaticResource LineButtonDownStyle}"
-                    Command="ScrollBar.LineDownCommand">
+      <RepeatButton Grid.Row="2" Height="9" Style="{StaticResource LineButtonDownStyle}" Command="ScrollBar.LineDownCommand">
       </RepeatButton>
     </Grid>
   </ControlTemplate>
-  <ControlTemplate x:Key="HorizontalScrollBar"
-                   TargetType="{x:Type ScrollBar}">
+  <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition MaxWidth="9"></ColumnDefinition>
@@ -591,28 +408,19 @@
         <ColumnDefinition MaxWidth="9"></ColumnDefinition>
       </Grid.ColumnDefinitions>
       <Grid.Background>
-        <LinearGradientBrush StartPoint="0,0"
-                             EndPoint="1,0">
-          <GradientStop Offset="0"
-                        Color="#333333">
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+          <GradientStop Offset="0" Color="#333333">
           </GradientStop>
-          <GradientStop Offset="1"
-                        Color="#333333">
+          <GradientStop Offset="1" Color="#333333">
           </GradientStop>
         </LinearGradientBrush>
       </Grid.Background>
-      <RepeatButton Grid.Column="0"
-                    Width="9"
-                    Style="{StaticResource LineButtonLeftStyle}"
-                    Command="ScrollBar.LineLeftCommand">
+      <RepeatButton Grid.Column="0" Width="9" Style="{StaticResource LineButtonLeftStyle}" Command="ScrollBar.LineLeftCommand">
       </RepeatButton>
 
-      <Track Name="PART_Track"
-             Grid.Column="1"
-             IsDirectionReversed="False">
+      <Track Name="PART_Track" Grid.Column="1" IsDirectionReversed="False">
         <Track.DecreaseRepeatButton>
-          <RepeatButton Command="ScrollBar.PageLeftCommand"
-                        Style="{StaticResource ScrollBarPageButtonStyle}">
+          <RepeatButton Command="ScrollBar.PageLeftCommand" Style="{StaticResource ScrollBarPageButtonStyle}">
           </RepeatButton>
         </Track.DecreaseRepeatButton>
         <Track.Thumb>
@@ -620,71 +428,46 @@
           </Thumb>
         </Track.Thumb>
         <Track.IncreaseRepeatButton>
-          <RepeatButton Command="ScrollBar.PageRightCommand"
-                        Style="{StaticResource ScrollBarPageButtonStyle}">
+          <RepeatButton Command="ScrollBar.PageRightCommand" Style="{StaticResource ScrollBarPageButtonStyle}">
           </RepeatButton>
         </Track.IncreaseRepeatButton>
       </Track>
-      <RepeatButton Grid.Column="2"
-                    Width="9"
-                    Style="{StaticResource LineButtonRightStyle}"
-                    Command="ScrollBar.LineRightCommand">
+      <RepeatButton Grid.Column="2" Width="9" Style="{StaticResource LineButtonRightStyle}" Command="ScrollBar.LineRightCommand">
       </RepeatButton>
     </Grid>
   </ControlTemplate>
   <Style TargetType="{x:Type ScrollBar}">
-    <Setter Property="SnapsToDevicePixels"
-            Value="True" />
-    <Setter Property="OverridesDefaultStyle"
-            Value="true" />
+    <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Setter Property="OverridesDefaultStyle" Value="true" />
     <Style.Triggers>
-      <Trigger Property="Orientation"
-               Value="Vertical">
-        <Setter Property="Width"
-                Value="9" />
-        <Setter Property="Height"
-                Value="Auto" />
-        <Setter Property="Template"
-                Value="{StaticResource VerticalScrollBar}" />
+      <Trigger Property="Orientation" Value="Vertical">
+        <Setter Property="Width" Value="9" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Template" Value="{StaticResource VerticalScrollBar}" />
       </Trigger>
-      <Trigger Property="Orientation"
-               Value="Horizontal">
-        <Setter Property="Width"
-                Value="Auto" />
-        <Setter Property="Height"
-                Value="9" />
-        <Setter Property="Template"
-                Value="{StaticResource HorizontalScrollBar}" />
+      <Trigger Property="Orientation" Value="Horizontal">
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="9" />
+        <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}" />
       </Trigger>
     </Style.Triggers>
   </Style>
 
-  <Style x:Key="SizeThumbStyle"
-         TargetType="{x:Type Thumb}">
+  <Style x:Key="SizeThumbStyle" TargetType="{x:Type Thumb}">
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
-          <Rectangle Name="thumb"
-                     Height="5"
-                     Stroke="#333344"
-                     StrokeThickness="0.5"
-                     Cursor="SizeNS">
+          <Rectangle Name="thumb" Height="5" Stroke="#333344" StrokeThickness="0.5" Cursor="SizeNS">
             <Rectangle.Fill>
               <SolidColorBrush Color="#333344" />
             </Rectangle.Fill>
           </Rectangle>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="true">
-              <Setter TargetName="thumb"
-                      Property="Fill"
-                      Value="{StaticResource HoverBrush}" />
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter TargetName="thumb" Property="Fill" Value="{StaticResource HoverBrush}" />
             </Trigger>
-            <Trigger Property="IsDragging"
-                     Value="True">
-              <Setter TargetName="thumb"
-                      Property="Fill"
-                      Value="{StaticResource PressedBrush}" />
+            <Trigger Property="IsDragging" Value="True">
+              <Setter TargetName="thumb" Property="Fill" Value="{StaticResource PressedBrush}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -692,57 +475,49 @@
     </Setter>
   </Style>
 
-  <Style x:Key="UserInfoPopupStyle"
-         TargetType="Border">
+  <!--User Information Popup-->
+  
+  <Style x:Key="UserInfoPopupStyle" TargetType="Border">
     <Setter Property="Background" Value="#333333" />
     <Setter Property="BorderThickness" Value="2" />
-    <Setter Property="BorderBrush" Value="#404040"/>
+    <Setter Property="BorderBrush" Value="#404040" />
   </Style>
 
-  <Style x:Key="UserInfoTextBlockStyle"
-         TargetType="TextBlock">
+  <Style x:Key="UserInfoTextBlockStyle" TargetType="TextBlock">
     <Setter Property="TextAlignment" Value="Center" />
     <Setter Property="HorizontalAlignment" Value="Center" />
     <Setter Property="Margin" Value="3" />
     <Setter Property="TextWrapping" Value="Wrap" />
   </Style>
 
-  <Style x:Key="UserInfoNameStyle"
-         TargetType="TextBlock"
-         BasedOn="{StaticResource UserInfoTextBlockStyle}">
+  <Style x:Key="UserInfoNameStyle" TargetType="TextBlock" BasedOn="{StaticResource UserInfoTextBlockStyle}">
     <Setter Property="FontSize" Value="18" />
     <Setter Property="FontWeight" Value="Bold" />
   </Style>
 
-  <Style x:Key="UserInfoScreenNameStyle"
-         TargetType="TextBlock"
-         BasedOn="{StaticResource UserInfoTextBlockStyle}">
+  <Style x:Key="UserInfoScreenNameStyle" TargetType="TextBlock" BasedOn="{StaticResource UserInfoTextBlockStyle}">
     <Setter Property="FontSize" Value="12" />
     <Setter Property="FontWeight" Value="Bold" />
     <Setter Property="Margin" Value="0 0 0 6" />
   </Style>
 
-  <Style x:Key="UserInfoNumberStyle"
-         BasedOn="{StaticResource UserInfoTextBlockStyle}"
-         TargetType="TextBlock">
+  <Style x:Key="UserInfoNumberStyle" BasedOn="{StaticResource UserInfoTextBlockStyle}" TargetType="TextBlock">
     <Setter Property="FontWeight" Value="Bold" />
     <Setter Property="Typography.Capitals" Value="AllSmallCaps"></Setter>
   </Style>
 
-  <Style x:Key="VerticalSeparatorStyle"
-         TargetType="Border">
-    <Setter Property="Width" Value="1"/>
-    <Setter Property="BorderThickness" Value="1"/>
-    <Setter Property="BorderBrush" Value="#999999"/>
+  <Style x:Key="VerticalSeparatorStyle" TargetType="Border">
+    <Setter Property="Width" Value="1" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="#999999" />
     <Setter Property="Margin" Value="5 0" />
   </Style>
 
-  <Style x:Key="UserInfoProfileImageStyle"
-         TargetType="Border">
+  <Style x:Key="UserInfoProfileImageStyle" TargetType="Border">
     <Setter Property="Width" Value="64" />
     <Setter Property="Height" Value="64" />
     <Setter Property="CornerRadius" Value="6" />
-    <Setter Property="BorderThickness" Value="2"/>
+    <Setter Property="BorderThickness" Value="2" />
     <Setter Property="BorderBrush" Value="DarkGoldenrod" />
     <Setter Property="HorizontalAlignment" Value="Center" />
   </Style>

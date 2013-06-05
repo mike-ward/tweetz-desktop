@@ -13,9 +13,8 @@
   <UserControl.Resources>
     <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
     <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
-    <BooleanToVisibilityConverter x:Key="BooleanVisibilityConverter" />
-    <ContextMenu x:Key="MoreMenu"
-                 x:Shared="true">
+    <utilities:BoolToStringConverter x:Key="BoolToStringConverter" />
+    <ContextMenu x:Key="MoreMenu">
       <MenuItem Header="RT (Classic)"
                 Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
                 CommandParameter="{Binding}" />
@@ -74,17 +73,11 @@
                   <Rectangle.Fill>
                     <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
                   </Rectangle.Fill>
-                  <Rectangle.InputBindings>
-                    <MouseBinding Gesture="LeftClick"
-                                  Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
-                                  CommandParameter="{Binding ScreenName}"/>
-                  </Rectangle.InputBindings>
                 </Rectangle>
                 <StackPanel Grid.Column="1">
                   <Grid>
                     <Grid.ColumnDefinitions>
                       <ColumnDefinition Width="*" />
-                      <ColumnDefinition Width="Auto" />
                       <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0">
@@ -96,10 +89,6 @@
                     <TextBlock Grid.Column="1"
                                Style="{StaticResource TweetTimeStyle}"
                                Text="{Binding TimeAgo}" />
-                    <TextBlock Grid.Column="2"
-                               Text="&#x2605;"
-                               Visibility="{Binding Favorited, Converter={StaticResource BooleanVisibilityConverter}}"
-                               Style="{StaticResource FavoriteStarStyle}" />
                   </Grid>
                   <controls:TextBlockMarkup Grid.Row="1"
                                             Grid.Column="1"
@@ -132,7 +121,7 @@
                     <Span.InputBindings>
                       <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}" CommandParameter="{Binding}"/>
                     </Span.InputBindings>
-                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE082;</Run> Favorite
+                    <Run Style="{StaticResource TweetActionsSymbol}" Tag="{Binding Favorited, Converter={StaticResource BoolToStringConverter}}">&#xE082;</Run> Favorite
                   </Span>
                   <Span Style="{StaticResource TweetActionsItem}"
                              ContextMenu="{StaticResource MoreMenu}"

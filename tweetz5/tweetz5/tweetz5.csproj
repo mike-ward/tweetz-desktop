@@ -74,6 +74,7 @@
     <Compile Include="Model\OAuth.cs" />
     <Compile Include="Model\LongUrl.cs" />
     <Compile Include="Model\ShortUrl.cs" />
+    <Compile Include="Utilities\BoolToStringConverter.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
     <Compile Include="Utilities\ScreenNameConverter.cs" />
     <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />
@@ -152,18 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\Copy_6524.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Favorites_9002.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\LoadProfilenode_8711.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\ID_SITE_PUBLISH_ALL.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\context-menu-cursor.cur" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\waiting.png" />
