@@ -71,11 +71,11 @@ namespace tweetz5.Model
             }
         }
 
-        private static bool UpdateTimeline(ObservableCollection<Tweet> timeline, IEnumerable<Status> statuses, string tweetType)
+        private static bool UpdateTimeline(ObservableCollection<Tweet>[] timelines, IEnumerable<Status> statuses, string tweetType)
         {
             var updated = false;
             var screenName = string.Empty;
-            foreach (var status in statuses.Where(status => timeline.All(t => t.StatusId != status.Id)))
+            foreach (var status in statuses.Where(status => timelines.All(timeline => timeline.All(t => t.StatusId != status.Id))))
             {
                 var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
                     CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
@@ -89,26 +89,34 @@ namespace tweetz5.Model
                     displayStatus.User = (status.Recipient.ScreenName == screenName) ? status.Sender : status.Recipient;
                 }
 
-                timeline.Add(new Tweet
+                var tweet = new Tweet
+                    {
+                        StatusId = status.Id,
+                        Name = displayStatus.User.Name,
+                        ScreenName = displayStatus.User.ScreenName,
+                        ProfileImageUrl = displayStatus.User.ProfileImageUrl,
+                        Text = displayStatus.Text,
+                        MarkupText = MarkupText(displayStatus.Text, displayStatus.Entities),
+                        CreatedAt = createdAt,
+                        TimeAgo = TimeAgo(createdAt),
+                        TweetType = tweetType,
+                        Favorited = status.Favorited,
+                        RetweetedBy = RetweetedBy(status)
+                    };
+
+                foreach (var timeline in timelines.Where(timeline => timeline.Any(t => t.StatusId == status.Id) == false))
                 {
-                    StatusId = status.Id,
-                    Name = displayStatus.User.Name,
-                    ScreenName = displayStatus.User.ScreenName,
-                    ProfileImageUrl = displayStatus.User.ProfileImageUrl,
-                    Text = displayStatus.Text,
-                    MarkupText = MarkupText(displayStatus.Text, displayStatus.Entities),
-                    CreatedAt = createdAt,
-                    TimeAgo = TimeAgo(createdAt),
-                    TweetType = tweetType,
-                    Favorited = status.Favorited,
-                    RetweetedBy = RetweetedBy(status)
-                });
+                    timeline.Add(tweet);
+                }
                 updated = true;
             }
-            var i = 0;
-            foreach (var item in timeline.OrderByDescending(s => s.CreatedAt))
+            foreach (var timeline in timelines)
             {
-                timeline.Move(timeline.IndexOf(item), i++);
+                var i = 0;
+                foreach (var item in timeline.OrderByDescending(s => s.CreatedAt))
+                {
+                    timeline.Move(timeline.IndexOf(item), i++);
+                }
             }
             return updated;
         }
@@ -224,8 +232,7 @@ namespace tweetz5.Model
         {
             DispatchInvoker(() =>
             {
-                if (UpdateTimeline(_home, statuses, "h")) PlayNotification();
-                UpdateTimeline(_unified, statuses, "h");
+                if (UpdateTimeline(new[] { _home, _unified }, statuses, "h")) PlayNotification();
             });
         }
 
@@ -235,8 +242,7 @@ namespace tweetz5.Model
             var statuses = twitter.MentionsTimeline();
             DispatchInvoker(() =>
             {
-               if (UpdateTimeline(_mentions, statuses, "m")) PlayNotification();
-                UpdateTimeline(_unified, statuses, "m");
+                if (UpdateTimeline(new[] { _mentions, _unified }, statuses, "m")) PlayNotification();
                 foreach (var tweet in _unified.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                 {
                     tweet.TweetType += "m";
@@ -248,7 +254,7 @@ namespace tweetz5.Model
         {
             var twitter = new Twitter();
             var statuses = twitter.FavoritesTimeline();
-            DispatchInvoker(() => UpdateTimeline(_favorites, statuses, "f"));
+            DispatchInvoker(() => UpdateTimeline(new[] { _favorites }, statuses, "f"));
         }
 
         public void DirectMessagesTimeline()
@@ -257,8 +263,7 @@ namespace tweetz5.Model
             var statuses = twitter.DirectMessagesTimeline();
             DispatchInvoker(() =>
             {
-                if (UpdateTimeline(_directMessages, statuses, "d")) PlayNotification();
-                UpdateTimeline(_unified, statuses, "d");
+                if (UpdateTimeline(new[] { _directMessages, _unified }, statuses, "d")) PlayNotification();
                 foreach (var tweet in _unified.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                 {
                     tweet.TweetType += "d";
