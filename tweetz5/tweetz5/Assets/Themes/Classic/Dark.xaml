@@ -85,19 +85,13 @@
     <Setter Property="FontSize" Value="10" />
   </Style>
   
-  <Style x:Key="FavoriteStarStyle" TargetType="TextBlock">
-    <Setter Property="Foreground" Value="Goldenrod" />
-    <Setter Property="FontSize" Value="14" />
-    <Setter Property="Margin" Value="1 -4 0 0" />
-  </Style>
-  
   <Style x:Key="TweetStyle" TargetType="TextBlock">
     <Setter Property="TextWrapping" Value="Wrap" />
   </Style>
   
   <Style x:Key="TweetRetweetedByStyle" TargetType="TextBlock">
     <Setter Property="Margin" Value="0 2 0 0"></Setter>
-    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="TextAlignment" Value="Right" />
     <Setter Property="FontStyle" Value="Italic" />
     <Setter Property="Foreground" Value="#888888" />
     <Setter Property="FontSize" Value="10" />
@@ -120,13 +114,24 @@
   
   <Style x:Key="TweetActionsSymbol" TargetType="Run">
     <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+  </Style>
+
+  <Style x:Key="TweetActionsFavoritesSymbol" TargetType="Run" BasedOn="{StaticResource TweetActionsSymbol}">
     <Style.Triggers>
       <Trigger Property="Tag" Value="True" >
         <Setter Property="Foreground" Value="DarkGoldenrod" />
       </Trigger>
     </Style.Triggers>
   </Style>
-  
+
+  <Style x:Key="TweetActionsRetweetSymbol" TargetType="Run" BasedOn="{StaticResource TweetActionsSymbol}">
+    <Style.Triggers>
+      <Trigger Property="Tag" Value="True" >
+        <Setter Property="Foreground" Value="Green" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+
   <Style x:Key="TweetSeparatorTop" TargetType="Separator">
     <Setter Property="Background" Value="#222222" />
     <Setter Property="Width" Value="4000" />

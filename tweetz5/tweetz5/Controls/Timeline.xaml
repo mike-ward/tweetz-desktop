@@ -115,13 +115,15 @@
                     <Span.InputBindings>
                       <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.RetweetCommand}" CommandParameter="{Binding}"/>
                     </Span.InputBindings>
-                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA;</Run> Retweet&#160;
+                    <Run Style="{StaticResource TweetActionsRetweetSymbol}"
+                         Tag="{Binding IsRetweet, Converter={StaticResource BoolToStringConverter}}">&#xE1CA;</Run> Retweet&#160;
                   </Span>
                   <Span Style="{StaticResource TweetActionsItem}">
                     <Span.InputBindings>
                       <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}" CommandParameter="{Binding}"/>
                     </Span.InputBindings>
-                    <Run Style="{StaticResource TweetActionsSymbol}" Tag="{Binding Favorited, Converter={StaticResource BoolToStringConverter}}">&#xE082;</Run> Favorite
+                    <Run Style="{StaticResource TweetActionsFavoritesSymbol}" 
+                         Tag="{Binding Favorited, Converter={StaticResource BoolToStringConverter}}">&#xE082;</Run> Favorite
                   </Span>
                   <Span Style="{StaticResource TweetActionsItem}"
                              ContextMenu="{StaticResource MoreMenu}"

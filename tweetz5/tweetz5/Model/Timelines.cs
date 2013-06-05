@@ -101,6 +101,7 @@ namespace tweetz5.Model
                         TimeAgo = TimeAgo(createdAt),
                         TweetType = tweetType,
                         Favorited = status.Favorited,
+                        IsRetweet = status.Retweeted,
                         RetweetedBy = RetweetedBy(status)
                     };
 
@@ -130,9 +131,7 @@ namespace tweetz5.Model
         }
         public static string RetweetedBy(Status status)
         {
-            if (status.Retweeted) return "you";
-            if (status.RetweetedtStatus != null) return status.User.Name;
-            return string.Empty;
+            return status.RetweetedtStatus != null ? status.User.Name : string.Empty;
         }
 
         internal class MarkupItem

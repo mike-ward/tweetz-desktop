@@ -118,6 +118,7 @@ namespace tweetz5
                 {
                     var status = Status.ParseJson("[" + json + "]");
                     tweet.RetweetedBy = Timelines.RetweetedBy(status[0]);
+                    tweet.IsRetweet = true;
                 }
             }
             catch (Exception e)

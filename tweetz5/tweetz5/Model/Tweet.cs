@@ -15,6 +15,7 @@ namespace tweetz5.Model
         private string _timeAgo;
         private string _tweetType;
         private string _retweetedBy;
+        private bool _retweet;
 
         public string StatusId { get; set; }
         public string Name { get; set; }
@@ -23,6 +24,19 @@ namespace tweetz5.Model
         public string Text { get; set; }
         public string MarkupText { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public bool IsRetweet
+        {
+            get { return _retweet; }
+            set
+            {
+                if (_retweet != value)
+                {
+                    _retweet = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public string RetweetedBy   
         {
