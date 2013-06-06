@@ -198,6 +198,21 @@ namespace tweetz5.Model
             return Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]);
         }
 
+        public static string DestroyStatus(string id)
+        {
+            return Post(string.Format("https://api.twitter.com/1.1/statuses/destroy/{0}.json", id), new string[0][]);
+        }
+
+        public static string GetTweet(string id)
+        {
+                var parameters = new[]
+                {
+                    new[] {"id", id},
+                    new[] {"include_my_retweet", "true"}
+                };
+            return Get("https://api.twitter.com/1.1/statuses/show.json", parameters);
+        }
+
         public static User GetUserInformation(string screenName)
         {
             try

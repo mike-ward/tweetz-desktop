@@ -102,6 +102,7 @@ namespace tweetz5.Model
                         TweetType = tweetType,
                         Favorited = status.Favorited,
                         IsRetweet = status.Retweeted,
+                        RetweetStatusId = (status.RetweetedtStatus != null) ? status.RetweetedtStatus.Id : null,
                         RetweetedBy = RetweetedBy(status)
                     };
 
@@ -131,7 +132,12 @@ namespace tweetz5.Model
         }
         public static string RetweetedBy(Status status)
         {
-            return status.RetweetedtStatus != null ? status.User.Name : string.Empty;
+            if (status.RetweetedtStatus != null)
+            {
+                var oauth = new OAuth();
+                return oauth.ScreenName != status.User.ScreenName ? status.User.Name : string.Empty;
+            }
+            return string.Empty;
         }
 
         internal class MarkupItem

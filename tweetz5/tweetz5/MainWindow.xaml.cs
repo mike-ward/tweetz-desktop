@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics;
 using System.Media;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -72,13 +71,13 @@ namespace tweetz5
             // does not give the desired effect.
             if (_switchTimelineTimer == null)
             {
-                _switchTimelineTimer = new DispatcherTimer { Interval = new TimeSpan(1) };
+                _switchTimelineTimer = new DispatcherTimer {Interval = new TimeSpan(1)};
                 _switchTimelineTimer.Tick += (o, args) =>
                 {
                     _switchTimelineTimer.Stop();
                     _timeline.Controller.SwitchTimeline(_switchTimelineTimer.Tag as string);
                     _timeline.Visibility = Visibility.Visible;
-                };                
+                };
             }
             _timeline.Visibility = Visibility.Hidden;
             _switchTimelineTimer.Tag = ea.Parameter;
@@ -112,13 +111,29 @@ namespace tweetz5
         {
             try
             {
+                string json;
                 var tweet = (Tweet)ea.Parameter;
-                var json = Twitter.RetweetStatus(tweet.StatusId);
+                if (tweet.IsRetweet)
+                {
+                    var retweetStatusId = tweet.RetweetStatusId;
+                    if (retweetStatusId == null)
+                    {
+                        json = Twitter.GetTweet(tweet.StatusId);
+                        var status = Status.ParseJson("[" + json + "]")[0];
+                        retweetStatusId = status.CurrentUserRetweet.Id;
+                    }
+                    json = Twitter.DestroyStatus(retweetStatusId);
+                }
+                else
+                {
+                    json = Twitter.RetweetStatus(tweet.StatusId);
+                }
                 if (json.Contains(tweet.StatusId))
                 {
-                    var status = Status.ParseJson("[" + json + "]");
-                    tweet.RetweetedBy = Timelines.RetweetedBy(status[0]);
-                    tweet.IsRetweet = true;
+                    var status = Status.ParseJson("[" + json + "]")[0];
+                    if (status.Retweeted) tweet.RetweetStatusId = status.RetweetedtStatus.Id;
+                    tweet.RetweetedBy = Timelines.RetweetedBy(status);
+                    tweet.IsRetweet = status.Retweeted;
                 }
             }
             catch (Exception e)

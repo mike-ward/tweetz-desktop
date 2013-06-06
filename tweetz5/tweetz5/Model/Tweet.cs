@@ -16,6 +16,7 @@ namespace tweetz5.Model
         private string _tweetType;
         private string _retweetedBy;
         private bool _retweet;
+        private string _retweetStatusId;
 
         public string StatusId { get; set; }
         public string Name { get; set; }
@@ -24,6 +25,19 @@ namespace tweetz5.Model
         public string Text { get; set; }
         public string MarkupText { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public string RetweetStatusId
+        {
+            get { return _retweetStatusId; }
+            set
+            {
+                if (_retweetStatusId != value)
+                {
+                    _retweetStatusId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public bool IsRetweet
         {
@@ -135,6 +149,9 @@ namespace tweetz5.Model
 
         [DataMember(Name = "retweeted")]
         public bool Retweeted { get; set; }
+
+        [DataMember(Name = "current_user_retweet")]
+        public CurrentUserRetweet CurrentUserRetweet { get; set; }
 
         public static Status[] ParseJson(string json)
         {
@@ -298,5 +315,12 @@ namespace tweetz5.Model
 
         [DataMember(Name = "indices")]
         public int[] Indices { get; set; }
+    }
+
+    [DataContract]
+    public class CurrentUserRetweet
+    {
+        [DataMember(Name = "id_str")] 
+        public string Id;
     }
 }
