@@ -151,6 +151,11 @@ namespace tweetz5
                 var tweet = (Tweet)ea.Parameter;
                 var json = tweet.Favorited ? Twitter.DestroyFavorite(tweet.StatusId) : Twitter.CreateFavorite(tweet.StatusId);
                 if (json.Contains(tweet.StatusId)) tweet.Favorited = !tweet.Favorited;
+                if (tweet.Favorited)
+                {
+                    var status = Status.ParseJson("[" + json + "]");
+                    _timeline.Controller.UpdateStatus(new [] { "favorites" }, status, "f");
+                }
             }
             catch (Exception e)
             {
@@ -161,7 +166,7 @@ namespace tweetz5
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var statuses = (Status[])ea.Parameter;
-            _timeline.Controller.UpdateStatus(statuses);
+            _timeline.Controller.UpdateStatus(new [] {"home", "unified"}, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)

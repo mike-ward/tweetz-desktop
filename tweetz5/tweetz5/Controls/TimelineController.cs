@@ -70,9 +70,9 @@ namespace tweetz5.Controls
             Clipboard.SetText(tweet.Text);
         }
 
-        public void UpdateStatus(Status[] statuses)
+        public void UpdateStatus(string[] timelines, Status[] statuses, string tweetType)
         {
-            _timelinesModel.UpdateStatus(statuses);
+            _timelinesModel.UpdateStatus(timelines, statuses, tweetType);
         }
 
         public void SwitchTimeline(string timeline)

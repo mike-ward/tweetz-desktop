@@ -19,7 +19,7 @@ namespace tweetz5.Model
         void DirectMessagesTimeline();
         void FavoritesTimeline();
         void UpdateTimeStamps();
-        void UpdateStatus(Status[] statuses);
+        void UpdateStatus(string[] timelines, Status[] statuses, string tweetType);
         void SwitchTimeline(string timeline);
     }
 
@@ -229,14 +229,18 @@ namespace tweetz5.Model
         {
             var twitter = new Twitter();
             var statuses = twitter.HomeTimeline();
-            UpdateStatus(statuses);
+            UpdateStatus(new [] { "home", "unified"}, statuses, "h");
         }
 
-        public void UpdateStatus(Status[] statuses)
+        public void UpdateStatus(string[] timelines, Status[] statuses, string tweetType)
         {
             DispatchInvoker(() =>
-            {
-                if (UpdateTimeline(new[] { _home, _unified }, statuses, "h")) PlayNotification();
+                {
+                    var timelinesArray = _timelineMap
+                        .Where(timeline => timelines.Contains(timeline.Key))
+                        .Select(timeline => timeline.Value)
+                        .ToArray();
+                if (UpdateTimeline(timelinesArray , statuses, tweetType)) PlayNotification();
             });
         }
 
