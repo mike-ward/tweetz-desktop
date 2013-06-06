@@ -77,7 +77,7 @@
   </Style>
   
   <Style x:Key="TweetImageColumnStyle" TargetType="ColumnDefinition">
-    <Setter Property="Width" Value="40" />
+    <Setter Property="Width" Value="38" />
   </Style>
   
   <Style x:Key="TweetTimeStyle" TargetType="TextBlock">
@@ -97,14 +97,15 @@
     <Setter Property="FontSize" Value="10" />
   </Style>
   
-  <Style x:Key="TweetActions" TargetType="TextBlock">
+  <Style x:Key="TweetActions" TargetType="Grid">
     <Setter Property="Margin" Value="0 2 0 0"></Setter>
-    <Setter Property="FontSize" Value="10" />
-    <Setter Property="Foreground" Value="#666666" />
-    <Setter Property="TextAlignment" Value="Right" />
+    <Setter Property="HorizontalAlignment" Value="Right" />
   </Style>
   
-  <Style x:Key="TweetActionsItem" TargetType="Span">
+  <Style x:Key="TweetActionsItem" TargetType="TextBlock">
+    <Setter Property="FontSize" Value="10" />
+    <Setter Property="Foreground" Value="#666666" />
+    <Setter Property="Margin" Value="5 0 0 0" />
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
         <Setter Property="Foreground" Value="#bbbbbb" />

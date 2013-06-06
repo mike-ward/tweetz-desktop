@@ -92,6 +92,8 @@
                     Executed="ReplyCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
                     Executed="RetweetCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.DeleteTweetCommand}"
+                    Executed="DeleteTweetCommandHander"/>
     <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
                     Executed="RetweetClassicCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"

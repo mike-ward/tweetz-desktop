@@ -91,6 +91,15 @@ namespace tweetz5.Model
             }
         }
 
+        public bool IsMyTweet
+        {
+            get
+            {
+                var oauth = new OAuth();
+                return ScreenName == oauth.ScreenName;
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

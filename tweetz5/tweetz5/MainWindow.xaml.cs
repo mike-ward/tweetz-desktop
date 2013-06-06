@@ -17,6 +17,7 @@ namespace tweetz5
         public static readonly RoutedCommand RetweetCommand = new RoutedUICommand();
         public static readonly RoutedCommand RetweetClassicCommand = new RoutedUICommand();
         public static readonly RoutedCommand FavoritesCommand = new RoutedUICommand();
+        public static readonly RoutedCommand DeleteTweetCommand = new RoutedUICommand();
         public static readonly RoutedCommand CopyCommand = new RoutedUICommand();
         public static readonly RoutedCommand UpdateStatusHomeTimelineCommand = new RoutedUICommand();
         public static readonly RoutedCommand SwitchTimelinesCommand = new RoutedUICommand();
@@ -197,6 +198,12 @@ namespace tweetz5
         {
             var player = new SoundPlayer { Stream = Properties.Resources.Notify };
             player.Play();
+        }
+
+        private void DeleteTweetCommandHander(object sender, ExecutedRoutedEventArgs ea)
+        {
+            var id = (string)ea.Parameter;
+            Twitter.DestroyStatus(id);
         }
     }
 }
