@@ -11,7 +11,7 @@
              d:DesignHeight="300"
              d:DesignWidth="300">
   <UserControl.Resources>
-    <model:TweetTypeValueConverter x:Key="tweetTypeConverter" />
+    <model:TweetTypeValueConverter x:Key="TweetTypeConverter" />
     <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
     <utilities:BoolToStringConverter x:Key="BoolToStringConverter" />
     <ContextMenu x:Key="MoreMenu">
@@ -52,7 +52,7 @@
               </EventTrigger>
             </DataTemplate.Triggers>
             <Border Style="{StaticResource TweetItemStyle}"
-                    Background="{Binding TweetType, Converter={StaticResource tweetTypeConverter}}">
+                    Background="{Binding TweetType, Converter={StaticResource TweetTypeConverter}}">
               <Grid x:Name="MyGrid">
                 <Grid.RenderTransform>
                   <TranslateTransform x:Name="AnimateInsertion" />
@@ -71,7 +71,7 @@
                 <Rectangle Grid.Column="0"
                            Style="{StaticResource TweetImageStyle}">
                   <Rectangle.Fill>
-                    <ImageBrush ImageSource="{Binding ProfileImageUrl}" />
+                    <ImageBrush ImageSource="{Binding ProfileImageUrl, Mode=OneTime}" />
                   </Rectangle.Fill>
                 </Rectangle>
                 <StackPanel Grid.Column="1">
@@ -82,8 +82,8 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0">
                       <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
-                                 CommandParameter="{Binding ScreenName}">
-                        <Run Text="{Binding Name}" />
+                                 CommandParameter="{Binding ScreenName, Mode=OneTime}">
+                        <Run Text="{Binding Name, Mode=OneTime}" />
                       </Hyperlink>
                     </TextBlock>
                     <TextBlock Grid.Column="1"
@@ -92,7 +92,7 @@
                   </Grid>
                   <controls:TextBlockMarkup Grid.Row="1"
                                             Grid.Column="1"
-                                            Markup="{Binding MarkupText}"
+                                            Markup="{Binding MarkupText, Mode=OneTime}"
                                             Style="{StaticResource TweetStyle}" />
                   <TextBlock Grid.Row="1"
                              Grid.Column="1"

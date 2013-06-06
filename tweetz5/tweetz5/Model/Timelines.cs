@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace tweetz5.Model
 {
-    public interface ITimelines
+    public interface ITimelines : INotifyPropertyChanged
     {
         void HomeTimeline();
         void MentionsTimeline();
@@ -23,7 +23,7 @@ namespace tweetz5.Model
         void SwitchTimeline(string timeline);
     }
 
-    public class Timelines : ITimelines, INotifyPropertyChanged
+    public class Timelines : ITimelines
     {
         public Action<Action> DispatchInvokerOverride { get; set; }
         private ObservableCollection<Tweet> _timeline;
