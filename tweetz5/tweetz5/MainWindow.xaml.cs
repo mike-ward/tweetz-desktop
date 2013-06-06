@@ -71,7 +71,7 @@ namespace tweetz5
             // does not give the desired effect.
             if (_switchTimelineTimer == null)
             {
-                _switchTimelineTimer = new DispatcherTimer {Interval = new TimeSpan(1)};
+                _switchTimelineTimer = new DispatcherTimer { Interval = new TimeSpan(1) };
                 _switchTimelineTimer.Tick += (o, args) =>
                 {
                     _switchTimelineTimer.Stop();
@@ -115,13 +115,9 @@ namespace tweetz5
                 var tweet = (Tweet)ea.Parameter;
                 if (tweet.IsRetweet)
                 {
-                    var retweetStatusId = tweet.RetweetStatusId;
-                    if (retweetStatusId == null)
-                    {
-                        json = Twitter.GetTweet(tweet.StatusId);
-                        var status = Status.ParseJson("[" + json + "]")[0];
-                        retweetStatusId = status.CurrentUserRetweet.Id;
-                    }
+                    json = Twitter.GetTweet(tweet.StatusId);
+                    var status = Status.ParseJson("[" + json + "]")[0];
+                    var retweetStatusId = status.CurrentUserRetweet.Id;
                     json = Twitter.DestroyStatus(retweetStatusId);
                 }
                 else
@@ -131,7 +127,6 @@ namespace tweetz5
                 if (json.Contains(tweet.StatusId))
                 {
                     var status = Status.ParseJson("[" + json + "]")[0];
-                    if (status.Retweeted) tweet.RetweetStatusId = status.RetweetedtStatus.Id;
                     tweet.RetweetedBy = Timelines.RetweetedBy(status);
                     tweet.IsRetweet = status.Retweeted;
                 }
@@ -195,7 +190,7 @@ namespace tweetz5
 
         private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
+            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
             player.Play();
         }
     }

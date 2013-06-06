@@ -102,7 +102,6 @@ namespace tweetz5.Model
                         TweetType = tweetType,
                         Favorited = status.Favorited,
                         IsRetweet = status.Retweeted,
-                        RetweetStatusId = (status.RetweetedtStatus != null) ? status.RetweetedtStatus.Id : null,
                         RetweetedBy = RetweetedBy(status)
                     };
 
