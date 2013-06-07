@@ -33,6 +33,7 @@ namespace tweetz5.Model
         private readonly ObservableCollection<Tweet> _mentions = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _directMessages = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _favorites = new ObservableCollection<Tweet>();
+        private readonly ObservableCollection<Tweet> _search = new ObservableCollection<Tweet>();
         private readonly Dictionary<string, ObservableCollection<Tweet>> _timelineMap;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -46,7 +47,8 @@ namespace tweetz5.Model
                 {"home", _home},
                 {"mentions", _mentions},
                 {"messages", _directMessages},
-                {"favorites", _favorites}
+                {"favorites", _favorites},
+                {"search", _search}
             };
         }
 
@@ -229,8 +231,7 @@ namespace tweetz5.Model
 
         public void RemoveStatus(Tweet tweet)
         {
-            var timelines = new [] {_unified, _home, _mentions, _directMessages, _favorites};
-            foreach (var timeline in timelines)
+            foreach (var timeline in _timelineMap.Values)
             {
                 timeline.Remove(tweet);
             }

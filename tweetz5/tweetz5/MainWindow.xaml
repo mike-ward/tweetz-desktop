@@ -17,6 +17,7 @@
         Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
         Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
+  <!-- ReSharper disable InconsistentNaming -->
   <Border BorderBrush="Black"
           BorderThickness="1">
     <StackPanel>
@@ -110,5 +111,7 @@
                     Executed="OpenLinkCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MainWindow.FollowUserComand}"
                     Executed="FollowCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.SearchCommand}"
+                    Executed="SearchCommandHandler"/>
   </Window.CommandBindings>
 </Window>

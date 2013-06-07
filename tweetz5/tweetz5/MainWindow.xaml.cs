@@ -24,6 +24,7 @@ namespace tweetz5
         public static readonly RoutedCommand ShowUserInformationCommand = new RoutedUICommand();
         public static readonly RoutedCommand OpenLinkCommand = new RoutedUICommand();
         public static readonly RoutedCommand FollowUserComand = new RoutedUICommand();
+        public static readonly RoutedCommand SearchCommand = new RoutedUICommand();
 
         private DispatcherTimer _switchTimelineTimer;
 
@@ -207,6 +208,22 @@ namespace tweetz5
                 var tweet = (Tweet)ea.Parameter;
                 Twitter.DestroyStatus(tweet.StatusId);
                 _timeline.Controller.RemoveStatus(tweet);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        private void SearchCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            try
+            {
+                var query = (string) ea.Parameter;
+                var json = Twitter.Search(query);
+                var statuses = Status.ParseJson(json);
+                _timeline.Controller.UpdateStatus(new[] { "search" }, statuses, string.Empty);
+                SwitchTimelinesCommand.Execute("search", this);
             }
             catch (Exception e)
             {

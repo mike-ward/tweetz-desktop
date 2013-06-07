@@ -9,6 +9,8 @@ using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
+// ReSharper disable PossibleMultipleEnumeration
+
 namespace tweetz5.Model
 {
     public class Twitter
@@ -205,7 +207,7 @@ namespace tweetz5.Model
 
         public static string GetTweet(string id)
         {
-                var parameters = new[]
+            var parameters = new[]
                 {
                     new[] {"id", id},
                     new[] {"include_my_retweet", "true"}
@@ -283,6 +285,16 @@ namespace tweetz5.Model
                 Console.WriteLine(e);
                 return false;
             }
+        }
+
+        public static string Search(string query, string sinceId = "1")
+        {
+            var parameters = new[]
+            {
+                new[] { "q", query }, 
+                new[] { "since_id", sinceId }
+            };
+            return Get("https://api.twitter.com/1.1/search/tweets.json", parameters);
         }
     }
 }
