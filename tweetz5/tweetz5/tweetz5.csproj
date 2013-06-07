@@ -153,13 +153,10 @@
     <Resource Include="twitter.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Images\Copy_6524.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\waiting.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\notify.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

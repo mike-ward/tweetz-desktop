@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 using tweetz5.Model;
 
 namespace tweetz5.Controls
@@ -17,10 +16,7 @@ namespace tweetz5.Controls
         public AboutUser()
         {
             InitializeComponent();
-            Opened += (sender, args) =>
-            {
-                DataContext = new User {ProfileImageUrl = "../Assets/Images/waiting.png"};
-                Task.Run(() =>
+            Opened += (sender, args) => Task.Run(() =>
                 {
                     var user = Twitter.GetUserInformation(ScreenName);
                     user.Following = Twitter.Following(ScreenName);
@@ -30,7 +26,6 @@ namespace tweetz5.Controls
                     }
                     Application.Current.Dispatcher.Invoke(() => DataContext = user);
                 });
-            };
         }
     }
 
@@ -39,26 +34,26 @@ namespace tweetz5.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? "Following" : "Follow";
+            return (bool) value ? "Following" : "Follow";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value;
         }
     }
 
-    [ValueConversion(typeof(bool), typeof(string))]
+    [ValueConversion(typeof (bool), typeof (string))]
     public class BoolToUnfollowConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? "Unfollow!" : "Follow";
+            return (bool) value ? "Unfollow!" : "Follow";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value;
         }
     }
 }

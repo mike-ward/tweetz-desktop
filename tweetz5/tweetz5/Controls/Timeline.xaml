@@ -22,11 +22,9 @@
                 CommandParameter="{Binding}" />
       <Separator />
       <MenuItem Header="Copy"
+                SnapsToDevicePixels="True"
                 Command="{x:Static tweetz5:MainWindow.CopyCommand}"
                 CommandParameter="{Binding}">
-        <MenuItem.Icon>
-          <Image Source="..\Assets\Images\Copy_6524.png" />
-        </MenuItem.Icon>
       </MenuItem>
     </ContextMenu>
     <Storyboard x:Key="ItemAnimation">
@@ -41,9 +39,10 @@
   <UserControl.DataContext>
     <model:Timelines />
   </UserControl.DataContext>
-  <Grid>
+  <Grid SnapsToDevicePixels="True">
     <ScrollViewer x:Name="TimelineScrollViewer">
       <ItemsControl x:Name="TimelineItems"
+                    SnapsToDevicePixels="True"
                     ItemsSource="{Binding Timeline}"
                     Style="{StaticResource TimelineStyle}">
         <ItemsControl.ItemTemplate>
@@ -107,6 +106,7 @@
                 
                 <Grid Grid.Row="2"
                       Grid.ColumnSpan="2"
+                      SnapsToDevicePixels="True"
                       Style="{StaticResource TweetActions}">
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
