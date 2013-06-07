@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
-using System.Windows.Documents;
+using System.Windows;
 using System.Windows.Input;
 using tweetz5.Model;
 
@@ -20,10 +20,10 @@ namespace tweetz5.Controls
 
         private void MoreOnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var span = sender as Span;
-            span.ContextMenu.PlacementTarget = this;
-            span.ContextMenu.DataContext = span.DataContext;
-            span.ContextMenu.IsOpen = true;
+            var frameworkElement = sender as FrameworkElement;
+            frameworkElement.ContextMenu.PlacementTarget = this;
+            frameworkElement.ContextMenu.DataContext = frameworkElement.DataContext;
+            frameworkElement.ContextMenu.IsOpen = true;
         }
     }
 }
