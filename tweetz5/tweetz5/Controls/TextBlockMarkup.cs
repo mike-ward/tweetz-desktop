@@ -102,13 +102,13 @@ namespace tweetz5.Controls
             };
         }
 
-        private static Span Hashtag(string text)
+        private static Hyperlink Hashtag(string text)
         {
-            var span = new Span(new Run(text))
+            return new Hyperlink(new Run(text))
             {
-                Style = (Style)Application.Current.FindResource("TweetHashtag")
+                Command = MainWindow.SearchCommand,
+                CommandParameter = text
             };
-            return span;
         }
     }
 }

@@ -65,7 +65,11 @@
                 CommandParameter="favorites">
           &#xE113;
         </Button>
-        <Button Style="{StaticResource NavBarButton}">&#xE11A;</Button>
+        <Button x:Name="_searchButton"
+                Style="{StaticResource NavBarButton}"
+                Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                CommandParameter="search">
+          &#xE11A;</Button>
         <Button Style="{StaticResource NavBarButton}">&#xE115;</Button>
         <Button Style="{StaticResource NavBarButton}"
                 Click="ComposeOnClick">&#xE104;</Button>

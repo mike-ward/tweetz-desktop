@@ -23,7 +23,7 @@ namespace tweetz5.Model
             var signature = oauth.Signature(post ? "POST" : "GET", url, nonce, timestamp, parameters);
             var authorizeHeader = oauth.AuthorizationHeader(nonce, timestamp, signature);
             var fullUrl = url;
-            if (!post) fullUrl += "?" + string.Join("&", parameters.Select(p => string.Format("{0}={1}", p[0], p[1])));
+            if (!post) fullUrl += "?" + string.Join("&", parameters.Select(p => string.Format("{0}={1}", OAuth.UrlEncode(p[0]), OAuth.UrlEncode(p[1]))));
 
             var request = WebRequestWrapper.Create(new Uri(fullUrl));
             request.Headers.Add("Authorization", authorizeHeader);
@@ -292,6 +292,7 @@ namespace tweetz5.Model
             var parameters = new[]
             {
                 new[] { "q", query }, 
+                new[] { "count", "50" }, 
                 new[] { "since_id", sinceId }
             };
             return Get("https://api.twitter.com/1.1/search/tweets.json", parameters);

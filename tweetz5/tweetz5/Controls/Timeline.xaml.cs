@@ -25,5 +25,10 @@ namespace tweetz5.Controls
             frameworkElement.ContextMenu.DataContext = frameworkElement.DataContext;
             frameworkElement.ContextMenu.IsOpen = true;
         }
+
+        public void ScrollToTop()
+        {
+           TimelineScrollViewer.ScrollToTop();
+        }
     }
 }

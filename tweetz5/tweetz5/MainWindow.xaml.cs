@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.Media;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -73,7 +74,7 @@ namespace tweetz5
             // does not give the desired effect.
             if (_switchTimelineTimer == null)
             {
-                _switchTimelineTimer = new DispatcherTimer { Interval = new TimeSpan(1) };
+                _switchTimelineTimer = new DispatcherTimer {Interval = new TimeSpan(1)};
                 _switchTimelineTimer.Tick += (o, args) =>
                 {
                     _switchTimelineTimer.Stop();
@@ -82,6 +83,7 @@ namespace tweetz5
                 };
             }
             _timeline.Visibility = Visibility.Hidden;
+            _timeline.ScrollToTop();
             _switchTimelineTimer.Tag = ea.Parameter;
             SetButtonStates(ea.Parameter as string);
             _switchTimelineTimer.Start();
@@ -94,6 +96,7 @@ namespace tweetz5
             _mentionsButton.IsEnabled = timeline != "mentions";
             _messagesButton.IsEnabled = timeline != "messages";
             _favoritesButton.IsEnabled = timeline != "favorites";
+            _searchButton.IsEnabled = timeline != "search";
         }
 
         private void CopyTweetCommandHandler(object target, ExecutedRoutedEventArgs ea)
@@ -156,7 +159,7 @@ namespace tweetz5
                 if (tweet.Favorited)
                 {
                     var status = Status.ParseJson("[" + json + "]");
-                    _timeline.Controller.UpdateStatus(new [] { "favorites" }, status, "f");
+                    _timeline.Controller.UpdateStatus(new[] {"favorites"}, status, "f");
                 }
             }
             catch (Exception e)
@@ -168,7 +171,7 @@ namespace tweetz5
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var statuses = (Status[])ea.Parameter;
-            _timeline.Controller.UpdateStatus(new [] {"home", "unified"}, statuses, "h");
+            _timeline.Controller.UpdateStatus(new[] {"home", "unified"}, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
@@ -197,7 +200,7 @@ namespace tweetz5
 
         private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
+            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
         }
 
@@ -219,11 +222,15 @@ namespace tweetz5
         {
             try
             {
-                var query = (string) ea.Parameter;
-                var json = Twitter.Search(query);
-                var statuses = Status.ParseJson(json);
-                _timeline.Controller.UpdateStatus(new[] { "search" }, statuses, string.Empty);
+                _timeline.Controller.ClearSearchTimeline();
                 SwitchTimelinesCommand.Execute("search", this);
+                Task.Run(() =>
+                {
+                    var query = (string)ea.Parameter;
+                    var json = Twitter.Search(query);
+                    var statuses = SearchStatuses.ParseJson(json);
+                    _timeline.Controller.UpdateStatus(new[] {"search"}, statuses, string.Empty);
+                });
             }
             catch (Exception e)
             {

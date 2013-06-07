@@ -170,6 +170,23 @@ namespace tweetz5.Model
     }
 
     [DataContract]
+    public class SearchStatuses
+    {
+        [DataMember(Name = "statuses")]
+        public Status[] Statuses { get; set; }
+
+        public static Status[] ParseJson(string json)
+        {
+            using (var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)))
+            {
+                var serializer = new DataContractJsonSerializer(typeof(SearchStatuses));
+                var searchStatuses = (SearchStatuses)serializer.ReadObject(stream);
+                return searchStatuses.Statuses;
+            }
+        }
+    }
+
+    [DataContract]
     public class User : INotifyPropertyChanged
     {
         private bool _following;

@@ -22,6 +22,7 @@ namespace tweetz5.Model
         void UpdateStatus(string[] timelines, Status[] statuses, string tweetType);
         void SwitchTimeline(string timeline);
         void RemoveStatus(Tweet tweet);
+        void ClearSearchTimeline();
     }
 
     public class Timelines : ITimelines
@@ -235,6 +236,11 @@ namespace tweetz5.Model
             {
                 timeline.Remove(tweet);
             }
+        }
+
+        public void ClearSearchTimeline()
+        {
+            _search.Clear();
         }
 
         public void HomeTimeline()
