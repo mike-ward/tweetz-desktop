@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -9,7 +10,7 @@ using System.Runtime.Serialization.Json;
 
 namespace tweetz5.Model
 {
-    public class Tweet : INotifyPropertyChanged
+    public class Tweet : INotifyPropertyChanged, IEqualityComparer<Tweet>
     {
         private bool _favorited;
         private string _timeAgo;
@@ -109,6 +110,16 @@ namespace tweetz5.Model
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public bool Equals(Tweet x, Tweet y)
+        {
+            return x.GetHashCode() == y.GetHashCode();
+        }
+
+        public int GetHashCode(Tweet obj)
+        {
+            return Convert.ToInt32(obj.StatusId);
         }
     }
 

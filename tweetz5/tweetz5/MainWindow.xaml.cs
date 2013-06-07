@@ -202,8 +202,16 @@ namespace tweetz5
 
         private void DeleteTweetCommandHander(object sender, ExecutedRoutedEventArgs ea)
         {
-            var id = (string)ea.Parameter;
-            Twitter.DestroyStatus(id);
+            try
+            {
+                var tweet = (Tweet)ea.Parameter;
+                Twitter.DestroyStatus(tweet.StatusId);
+                _timeline.Controller.RemoveStatus(tweet);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }

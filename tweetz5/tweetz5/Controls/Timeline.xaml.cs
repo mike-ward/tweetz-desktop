@@ -20,7 +20,7 @@ namespace tweetz5.Controls
 
         private void MoreOnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var frameworkElement = sender as FrameworkElement;
+            var frameworkElement = (FrameworkElement)sender;
             frameworkElement.ContextMenu.PlacementTarget = this;
             frameworkElement.ContextMenu.DataContext = frameworkElement.DataContext;
             frameworkElement.ContextMenu.IsOpen = true;

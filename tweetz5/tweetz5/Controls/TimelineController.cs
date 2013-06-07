@@ -79,5 +79,10 @@ namespace tweetz5.Controls
         {
             _timelinesModel.SwitchTimeline(timeline);
         }
+
+        public void RemoveStatus(Tweet tweet)
+        {
+            _timelinesModel.RemoveStatus(tweet);
+        }
     }
 }
