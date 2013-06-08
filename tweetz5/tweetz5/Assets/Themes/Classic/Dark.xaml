@@ -527,4 +527,22 @@
     <Setter Property="BorderBrush" Value="DarkGoldenrod" />
     <Setter Property="HorizontalAlignment" Value="Center" />
   </Style>
+
+  <!-- Search box styles -->
+  
+  <Style x:Key="SearchControlStyle" 
+         TargetType="UserControl">
+    <Setter Property="SnapsToDevicePixels" Value="True"/>
+    <Setter Property="Margin" Value="4 0" />
+    <Setter Property="Height" Value="18" />
+  </Style>
+  
+  <Style x:Key="SearchControlTextBoxStyle"
+         TargetType="TextBox">
+    <Setter Property="SnapsToDevicePixels" Value="True"/>
+    <Setter Property="Foreground" Value="#dddddd" />
+    <Setter Property="Background" Value="#585858" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="2" />
+  </Style>
 </ResourceDictionary>

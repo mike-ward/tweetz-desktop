@@ -27,8 +27,6 @@ namespace tweetz5
         public static readonly RoutedCommand FollowUserComand = new RoutedUICommand();
         public static readonly RoutedCommand SearchCommand = new RoutedUICommand();
 
-        private DispatcherTimer _switchTimelineTimer;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -68,25 +66,11 @@ namespace tweetz5
 
         private void SwitchTimeslinesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            // HACK: The timeline takes a precievable amount of time to update
-            // when switching timelines. Improve UI feedback by immediatelly hiding
-            // timeline and launching a timer to update it. Hiding without the timer
-            // does not give the desired effect.
-            if (_switchTimelineTimer == null)
-            {
-                _switchTimelineTimer = new DispatcherTimer {Interval = new TimeSpan(1)};
-                _switchTimelineTimer.Tick += (o, args) =>
-                {
-                    _switchTimelineTimer.Stop();
-                    _timeline.Controller.SwitchTimeline(_switchTimelineTimer.Tag as string);
-                    _timeline.Visibility = Visibility.Visible;
-                };
-            }
-            _timeline.Visibility = Visibility.Hidden;
+            var timeline = (string)ea.Parameter;
+            SetButtonStates(timeline);
+            _timeline.Controller.SwitchTimeline(timeline);
             _timeline.ScrollToTop();
-            _switchTimelineTimer.Tag = ea.Parameter;
-            SetButtonStates(ea.Parameter as string);
-            _switchTimelineTimer.Start();
+            _timeline.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
         private void SetButtonStates(string timeline)
@@ -159,7 +143,7 @@ namespace tweetz5
                 if (tweet.Favorited)
                 {
                     var status = Status.ParseJson("[" + json + "]");
-                    _timeline.Controller.UpdateStatus(new[] {"favorites"}, status, "f");
+                    _timeline.Controller.UpdateStatus(new[] { "favorites" }, status, "f");
                 }
             }
             catch (Exception e)
@@ -171,7 +155,7 @@ namespace tweetz5
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var statuses = (Status[])ea.Parameter;
-            _timeline.Controller.UpdateStatus(new[] {"home", "unified"}, statuses, "h");
+            _timeline.Controller.UpdateStatus(new[] { "home", "unified" }, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
@@ -200,7 +184,7 @@ namespace tweetz5
 
         private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
+            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
             player.Play();
         }
 
@@ -222,14 +206,16 @@ namespace tweetz5
         {
             try
             {
+                var query = ea.Parameter as string;
+                if (string.IsNullOrWhiteSpace(query)) return;
+                _timeline.SearchControl.SetSearchText(query);
                 _timeline.Controller.ClearSearchTimeline();
                 SwitchTimelinesCommand.Execute("search", this);
                 Task.Run(() =>
                 {
-                    var query = (string)ea.Parameter;
                     var json = Twitter.Search(query);
                     var statuses = SearchStatuses.ParseJson(json);
-                    _timeline.Controller.UpdateStatus(new[] {"search"}, statuses, string.Empty);
+                    _timeline.Controller.UpdateStatus(new[] { "search" }, statuses, string.Empty);
                 });
             }
             catch (Exception e)

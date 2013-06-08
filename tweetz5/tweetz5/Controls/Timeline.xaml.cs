@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using tweetz5.Model;
 
@@ -28,7 +29,11 @@ namespace tweetz5.Controls
 
         public void ScrollToTop()
         {
-           TimelineScrollViewer.ScrollToTop();
+            TimelineScrollViewer.ScrollToTop();
+        }
+
+        private void TimelineItems_OnTargetUpdated(object sender, DataTransferEventArgs e)
+        {
         }
     }
 }

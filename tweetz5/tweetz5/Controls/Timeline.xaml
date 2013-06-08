@@ -40,10 +40,20 @@
     <model:Timelines />
   </UserControl.DataContext>
   <Grid SnapsToDevicePixels="True">
-    <ScrollViewer x:Name="TimelineScrollViewer">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <controls:SearchControl Grid.Row="0" 
+                            x:Name="SearchControl"
+                            Visibility="{Binding SearchVisibility}"
+                            Style="{StaticResource SearchControlStyle}" />
+    <ScrollViewer x:Name="TimelineScrollViewer" Grid.Row="1">
       <ItemsControl x:Name="TimelineItems"
+                    Focusable="True"
                     SnapsToDevicePixels="True"
-                    ItemsSource="{Binding Timeline}"
+                    ItemsSource="{Binding Timeline, NotifyOnTargetUpdated=True}"
+                    TargetUpdated="TimelineItems_OnTargetUpdated"
                     Style="{StaticResource TimelineStyle}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>

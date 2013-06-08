@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -21,22 +22,22 @@ namespace tweetz5.Controls
 
         private static void OnMarkupChanged(DependencyObject sender, DependencyPropertyChangedEventArgs ea)
         {
-            var textBlock = (TextBlockMarkup)sender;
-            textBlock.Inlines.Clear();
             var text = (string)ea.NewValue;
+            var inlines = new List<object>();
+            var textBlock = (TextBlockMarkup)sender;
             var start = 0;
             do
             {
                 var index = text.IndexOf("<", start, StringComparison.Ordinal);
                 if (index == -1)
                 {
-                    textBlock.Inlines.Add(Run(text.Substring(start)));
+                    inlines.Add(Run(text.Substring(start)));
                     break;
                 }
                 if (index > start)
                 {
                     var run = Run(text.Substring(start, index - start));
-                    textBlock.Inlines.Add(run);
+                    inlines.Add(run);
                 }
                 var tag = text[++index];
                 start = text.IndexOf('>', ++index);
@@ -44,19 +45,22 @@ namespace tweetz5.Controls
                 switch (tag)
                 {
                     case 'a':
-                        textBlock.Inlines.Add(Hyperlink("[link]", tagText));
+                        inlines.Add(Hyperlink("[link]", tagText));
                         break;
 
                     case 'm':
-                        textBlock.Inlines.Add(Mention(tagText));
+                        inlines.Add(Mention(tagText));
                         break;
 
                     case 'h':
-                        textBlock.Inlines.Add(Hashtag(tagText));
+                        inlines.Add(Hashtag(tagText));
                         break;
                 }
                 start += 1;
             } while (start < text.Length);
+            textBlock.Inlines.Clear();
+            textBlock.Inlines.AddRange(inlines);
+            textBlock.UpdateLayout();
         }
 
         private static Run Run(string text)

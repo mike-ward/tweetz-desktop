@@ -23,11 +23,13 @@ namespace tweetz5.Model
         void SwitchTimeline(string timeline);
         void RemoveStatus(Tweet tweet);
         void ClearSearchTimeline();
+        string TimelineName { get; set; }
     }
 
     public class Timelines : ITimelines
     {
         public Action<Action> DispatchInvokerOverride { get; set; }
+        private string _timelineName;
         private ObservableCollection<Tweet> _timeline;
         private readonly ObservableCollection<Tweet> _unified = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _home = new ObservableCollection<Tweet>();
@@ -36,12 +38,12 @@ namespace tweetz5.Model
         private readonly ObservableCollection<Tweet> _favorites = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _search = new ObservableCollection<Tweet>();
         private readonly Dictionary<string, ObservableCollection<Tweet>> _timelineMap;
+        private Visibility _serachVisibility;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Timelines()
         {
-            Timeline = _unified;
             _timelineMap = new Dictionary<string, ObservableCollection<Tweet>>
             {
                 {"unified", _unified},
@@ -51,6 +53,7 @@ namespace tweetz5.Model
                 {"favorites", _favorites},
                 {"search", _search}
             };
+            SwitchTimeline("unified");
         }
 
         public ObservableCollection<Tweet> Timeline
@@ -61,6 +64,32 @@ namespace tweetz5.Model
                 if (_timeline != value)
                 {
                     _timeline = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string TimelineName
+        {
+            get { return _timelineName; }
+            set
+            {
+                if (_timelineName != value)
+                {
+                    _timelineName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Visibility SearchVisibility
+        {
+            get { return _serachVisibility; }
+            set
+            {
+                if (_serachVisibility != value)
+                {
+                    _serachVisibility = value;
                     OnPropertyChanged();
                 }
             }
@@ -223,11 +252,9 @@ namespace tweetz5.Model
 
         public void SwitchTimeline(string timelineName)
         {
-            ObservableCollection<Tweet> timeline;
-            if (_timelineMap.TryGetValue(timelineName, out timeline))
-            {
-                Timeline = timeline;
-            }
+            Timeline = _timelineMap[timelineName];
+            TimelineName = timelineName;
+            SearchVisibility = timelineName == "search" ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public void RemoveStatus(Tweet tweet)
