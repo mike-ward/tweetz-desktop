@@ -73,6 +73,9 @@
     <Compile Include="Controls\SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StatusAlert.xaml.cs">
+      <DependentUpon>StatusAlert.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TextBlockMarkup.cs" />
     <Compile Include="Model\OAuth.cs" />
     <Compile Include="Model\LongUrl.cs" />
@@ -110,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SearchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StatusAlert.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

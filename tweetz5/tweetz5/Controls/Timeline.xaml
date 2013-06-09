@@ -57,7 +57,7 @@
         <DataTemplate>
           <DataTemplate.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-              <BeginStoryboard Name="frameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
+              <BeginStoryboard Name="FrameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
             </EventTrigger>
           </DataTemplate.Triggers>
           <Border Style="{StaticResource TweetItemStyle}"

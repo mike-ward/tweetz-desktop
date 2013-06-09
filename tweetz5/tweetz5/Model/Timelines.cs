@@ -285,7 +285,10 @@ namespace tweetz5.Model
                         .Where(timeline => timelines.Contains(timeline.Key))
                         .Select(timeline => timeline.Value)
                         .ToArray();
-                    if (UpdateTimeline(timelinesArray, statuses, tweetType)) PlayNotification();
+                    if (UpdateTimeline(timelinesArray, statuses, tweetType))
+                    {
+                        if (timelines.Contains("home")) PlayNotification();
+                    }
                 });
         }
 
