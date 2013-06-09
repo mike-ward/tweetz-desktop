@@ -27,18 +27,12 @@
                 CommandParameter="{Binding}">
       </MenuItem>
     </ContextMenu>
-    <Storyboard x:Key="ItemAnimation">
-      <DoubleAnimation Storyboard.TargetName="AnimateInsertion"
-                       Storyboard.TargetProperty="X"
-                       From="-200" To="0" Duration="0:0:0.5" />
-      <DoubleAnimation Storyboard.TargetName="AnimateInsertion"
-                       Storyboard.TargetProperty="(UIElement.Opacity)"
-                       From="0" To="1" Duration="0:0:1" />
-    </Storyboard>
   </UserControl.Resources>
+
   <UserControl.DataContext>
     <model:Timelines />
   </UserControl.DataContext>
+
   <Grid SnapsToDevicePixels="True">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -56,17 +50,18 @@
              Style="{StaticResource TimelineStyle}">
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <!--<DataTemplate.Triggers>
+          <DataTemplate.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-              <BeginStoryboard Name="FrameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
+              <BeginStoryboard>
+                <Storyboard>
+                  <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1"/>
+                </Storyboard>
+              </BeginStoryboard>
             </EventTrigger>
-          </DataTemplate.Triggers>-->
+          </DataTemplate.Triggers>
           <Border Style="{StaticResource TweetItemStyle}"
                   Background="{Binding TweetType, Converter={StaticResource TweetTypeConverter}}">
-            <Grid x:Name="MyGrid">
-              <Grid.RenderTransform>
-                <TranslateTransform x:Name="AnimateInsertion" />
-              </Grid.RenderTransform>
+            <Grid>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
                 <ColumnDefinition Width="*" />
@@ -78,13 +73,13 @@
                 <RowDefinition />
                 <RowDefinition />
               </Grid.RowDefinitions>
-              
+
               <Rectangle Grid.Column="0" Style="{StaticResource TweetImageStyle}">
                 <Rectangle.Fill>
                   <ImageBrush ImageSource="{Binding ProfileImageUrl, Mode=OneTime}" />
                 </Rectangle.Fill>
               </Rectangle>
-              
+
               <StackPanel Grid.Column="1">
                 <Grid>
                   <Grid.ColumnDefinitions>
@@ -162,7 +157,7 @@
                   <Run Style="{StaticResource TweetActionsSymbol}">&#xE118;</Run>
                 </TextBlock>
               </Grid>
-              
+
               <Separator Grid.Row="3"
                          Grid.ColumnSpan="2"
                          Style="{StaticResource TweetSeparatorTop}" />

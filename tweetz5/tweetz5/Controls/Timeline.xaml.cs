@@ -71,7 +71,6 @@ namespace tweetz5.Controls
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(o); i++)
             {
                 var child = VisualTreeHelper.GetChild(o, i);
-
                 var result = GetScrollViewer(child);
                 if (result != null)
                 {
