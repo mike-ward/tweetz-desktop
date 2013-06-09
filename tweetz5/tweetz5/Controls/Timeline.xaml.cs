@@ -29,7 +29,7 @@ namespace tweetz5.Controls
 
         public void ScrollToTop()
         {
-            TimelineScrollViewer.ScrollToTop();
+            //TimelineScrollViewer.ScrollToTop();
         }
 
         private void TimelineItems_OnTargetUpdated(object sender, DataTransferEventArgs e)

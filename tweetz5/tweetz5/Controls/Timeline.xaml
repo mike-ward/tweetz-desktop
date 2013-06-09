@@ -44,135 +44,134 @@
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
-    <controls:SearchControl Grid.Row="0" 
+    <controls:SearchControl Grid.Row="0"
                             x:Name="SearchControl"
                             Visibility="{Binding SearchVisibility}"
                             Style="{StaticResource SearchControlStyle}" />
-    <ScrollViewer x:Name="TimelineScrollViewer" Grid.Row="1">
-      <ItemsControl x:Name="TimelineItems"
-                    Focusable="True"
-                    SnapsToDevicePixels="True"
-                    ItemsSource="{Binding Timeline, NotifyOnTargetUpdated=True}"
-                    TargetUpdated="TimelineItems_OnTargetUpdated"
-                    Style="{StaticResource TimelineStyle}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <DataTemplate.Triggers>
-              <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                <BeginStoryboard Name="frameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
-              </EventTrigger>
-            </DataTemplate.Triggers>
-            <Border Style="{StaticResource TweetItemStyle}"
-                    Background="{Binding TweetType, Converter={StaticResource TweetTypeConverter}}">
-              <Grid x:Name="MyGrid">
-                <Grid.RenderTransform>
-                  <TranslateTransform x:Name="AnimateInsertion" />
-                </Grid.RenderTransform>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
-                  <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                  <RowDefinition />
-                  <RowDefinition />
-                  <RowDefinition />
-                  <RowDefinition />
-                  <RowDefinition />
-                </Grid.RowDefinitions>
-                <Rectangle Grid.Column="0"
-                           Style="{StaticResource TweetImageStyle}">
-                  <Rectangle.Fill>
-                    <ImageBrush ImageSource="{Binding ProfileImageUrl, Mode=OneTime}" />
-                  </Rectangle.Fill>
-                </Rectangle>
-                <StackPanel Grid.Column="1">
-                  <Grid>
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="*" />
-                      <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0">
-                      <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
-                                 CommandParameter="{Binding ScreenName, Mode=OneTime}">
-                        <Run Text="{Binding Name, Mode=OneTime}" />
-                      </Hyperlink>
-                    </TextBlock>
-                    <TextBlock Grid.Column="1"
-                               Style="{StaticResource TweetTimeStyle}"
-                               Text="{Binding TimeAgo}" />
-                  </Grid>
-                  <controls:TextBlockMarkup Grid.Row="1"
-                                            Grid.Column="1"
-                                            Markup="{Binding MarkupText, Mode=OneTime}"
-                                            Style="{StaticResource TweetStyle}" />
-                  <TextBlock Grid.Row="1"
-                             Grid.Column="1"
-                             Style="{StaticResource TweetRetweetedByStyle}"
-                             Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
-                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA; </Run>
-                    <Run Text="{Binding RetweetedBy}"></Run>
-                  </TextBlock>
-                </StackPanel>
-                
-                <Grid Grid.Row="2"
-                      Grid.ColumnSpan="2"
-                      SnapsToDevicePixels="True"
-                      Style="{StaticResource TweetActions}">
+    <ListBox x:Name="TimelineItems"
+             Grid.Row="1"
+             SnapsToDevicePixels="True"
+             ItemsSource="{Binding Timeline}"
+             Style="{StaticResource TimelineStyle}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <DataTemplate.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+              <BeginStoryboard Name="frameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
+            </EventTrigger>
+          </DataTemplate.Triggers>
+          <Border Style="{StaticResource TweetItemStyle}"
+                  Background="{Binding TweetType, Converter={StaticResource TweetTypeConverter}}">
+            <Grid x:Name="MyGrid">
+              <Grid.RenderTransform>
+                <TranslateTransform x:Name="AnimateInsertion" />
+              </Grid.RenderTransform>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+              </Grid.RowDefinitions>
+              
+              <Rectangle Grid.Column="0" Style="{StaticResource TweetImageStyle}">
+                <Rectangle.Fill>
+                  <ImageBrush ImageSource="{Binding ProfileImageUrl, Mode=OneTime}" />
+                </Rectangle.Fill>
+              </Rectangle>
+              
+              <StackPanel Grid.Column="1">
+                <Grid>
                   <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                   </Grid.ColumnDefinitions>
-                  <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="0">
-                    <TextBlock.InputBindings>
-                      <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.ReplyCommand}" CommandParameter="{Binding}"/>
-                    </TextBlock.InputBindings>
-                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> Reply&#160;
+                  <TextBlock Grid.Column="0">
+                    <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
+                               CommandParameter="{Binding ScreenName, Mode=OneTime}">
+                      <Run Text="{Binding Name, Mode=OneTime}" />
+                    </Hyperlink>
                   </TextBlock>
-
-                  <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="1"
-                             Visibility="{Binding IsMyTweet, Mode=OneTime, Converter={StaticResource ReverseBoolToVisibilityConverter}}">
-                    <TextBlock.InputBindings>
-                      <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.RetweetCommand}" CommandParameter="{Binding}"/>
-                    </TextBlock.InputBindings>
-                    <Run Style="{StaticResource TweetActionsRetweetSymbol}"
-                         Tag="{Binding IsRetweet, Converter={StaticResource BoolToStringConverter}}">&#xE1CA;</Run> Retweet&#160;
-                  </TextBlock>
-
-                  <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="1"
-                             Visibility="{Binding IsMyTweet, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <TextBlock.InputBindings>
-                      <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.DeleteTweetCommand}" CommandParameter="{Binding}"/>
-                    </TextBlock.InputBindings>
-                    <Run Style="{StaticResource TweetActionsRetweetSymbol}">&#xE107;</Run> Delete&#160;
-                  </TextBlock>
-                  
-                  <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="2">
-                    <TextBlock.InputBindings>
-                      <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}" CommandParameter="{Binding}"/>
-                    </TextBlock.InputBindings>
-                    <Run Style="{StaticResource TweetActionsFavoritesSymbol}" 
-                         Tag="{Binding Favorited, Converter={StaticResource BoolToStringConverter}}">&#xE082;</Run> Favorite
-                  </TextBlock>
-                  
-                  <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="3"
-                             ContextMenu="{StaticResource MoreMenu}"
-                             PreviewMouseLeftButtonDown="MoreOnMouseDown">
-                    <Run Style="{StaticResource TweetActionsSymbol}">&#xE118;</Run>
-                  </TextBlock>
+                  <TextBlock Grid.Column="1"
+                             Style="{StaticResource TweetTimeStyle}"
+                             Text="{Binding TimeAgo}" />
                 </Grid>
-                <Separator Grid.Row="3"
-                           Grid.ColumnSpan="2"
-                           Style="{StaticResource TweetSeparatorTop}" />
-                <Separator Grid.Row="4"
-                           Grid.ColumnSpan="2"
-                           Style="{StaticResource TweetSeparatorBottom}" />
+                <controls:TextBlockMarkup Grid.Row="1"
+                                          Grid.Column="1"
+                                          Markup="{Binding MarkupText, Mode=OneTime}"
+                                          Style="{StaticResource TweetStyle}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Style="{StaticResource TweetRetweetedByStyle}"
+                           Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
+                  <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA; </Run>
+                  <Run Text="{Binding RetweetedBy}"></Run>
+                </TextBlock>
+              </StackPanel>
+
+              <Grid Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    SnapsToDevicePixels="True"
+                    Style="{StaticResource TweetActions}">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="0">
+                  <TextBlock.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.ReplyCommand}" CommandParameter="{Binding}"/>
+                  </TextBlock.InputBindings>
+                  <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> Reply&#160;
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="1"
+                           Visibility="{Binding IsMyTweet, Mode=OneTime, Converter={StaticResource ReverseBoolToVisibilityConverter}}">
+                  <TextBlock.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.RetweetCommand}" CommandParameter="{Binding}"/>
+                  </TextBlock.InputBindings>
+                  <Run Style="{StaticResource TweetActionsRetweetSymbol}"
+                       Tag="{Binding IsRetweet, Converter={StaticResource BoolToStringConverter}}">&#xE1CA;</Run> Retweet&#160;
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="1"
+                           Visibility="{Binding IsMyTweet, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverter}}">
+                  <TextBlock.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.DeleteTweetCommand}" CommandParameter="{Binding}"/>
+                  </TextBlock.InputBindings>
+                  <Run Style="{StaticResource TweetActionsRetweetSymbol}">&#xE107;</Run> Delete&#160;
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="2">
+                  <TextBlock.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}" CommandParameter="{Binding}"/>
+                  </TextBlock.InputBindings>
+                  <Run Style="{StaticResource TweetActionsFavoritesSymbol}"
+                       Tag="{Binding Favorited, Converter={StaticResource BoolToStringConverter}}">&#xE082;</Run> Favorite
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="3"
+                           ContextMenu="{StaticResource MoreMenu}"
+                           PreviewMouseLeftButtonDown="MoreOnMouseDown">
+                  <Run Style="{StaticResource TweetActionsSymbol}">&#xE118;</Run>
+                </TextBlock>
               </Grid>
-            </Border>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
-    </ScrollViewer>
+              
+              <Separator Grid.Row="3"
+                         Grid.ColumnSpan="2"
+                         Style="{StaticResource TweetSeparatorTop}" />
+              <Separator Grid.Row="4"
+                         Grid.ColumnSpan="2"
+                         Style="{StaticResource TweetSeparatorBottom}" />
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
   </Grid>
 </UserControl>
