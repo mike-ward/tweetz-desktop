@@ -2,7 +2,9 @@
 
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using tweetz5.Model;
 
 namespace tweetz5.Controls
@@ -16,6 +18,7 @@ namespace tweetz5.Controls
             InitializeComponent();
             Controller = new TimelineController((Timelines)DataContext);
             Controller.StartTimelines();
+            TimelineItems.PreviewMouseWheel += TimelineItemsOnPreviewMouseWheel;
             Unloaded += (sender, args) => Controller.Dispose();
         }
 
@@ -36,6 +39,46 @@ namespace tweetz5.Controls
             catch (ArgumentOutOfRangeException)
             {
             }
+        }
+
+        private static void TimelineItemsOnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            // Modify listbox to scroll one line at a time.
+            var scrollHost = (DependencyObject)sender;
+            var scrollViewer = (ScrollViewer)GetScrollViewer(scrollHost);
+            var offset = scrollViewer.VerticalOffset - (e.Delta > 0 ? 1 : -1);
+            if (offset < 0)
+            {
+                scrollViewer.ScrollToVerticalOffset(0);
+            }
+            else if (offset > scrollViewer.ExtentHeight)
+            {
+                scrollViewer.ScrollToVerticalOffset(scrollViewer.ExtentHeight);
+            }
+            else
+            {
+                scrollViewer.ScrollToVerticalOffset(offset);
+            }
+            e.Handled = true;
+        }
+
+        public static DependencyObject GetScrollViewer(DependencyObject o)
+        {
+            if (o is ScrollViewer)
+            {
+                return o;
+            }
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(o); i++)
+            {
+                var child = VisualTreeHelper.GetChild(o, i);
+
+                var result = GetScrollViewer(child);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+            return null;
         }
     }
 }

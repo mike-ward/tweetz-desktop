@@ -52,14 +52,15 @@
              Grid.Row="1"
              SnapsToDevicePixels="True"
              ItemsSource="{Binding Timeline}"
+             VirtualizingStackPanel.VirtualizationMode="Recycling"
              Style="{StaticResource TimelineStyle}">
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <DataTemplate.Triggers>
+          <!--<DataTemplate.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
               <BeginStoryboard Name="FrameLoadedStoryboard" Storyboard="{StaticResource ItemAnimation}" />
             </EventTrigger>
-          </DataTemplate.Triggers>
+          </DataTemplate.Triggers>-->
           <Border Style="{StaticResource TweetItemStyle}"
                   Background="{Binding TweetType, Converter={StaticResource TweetTypeConverter}}">
             <Grid x:Name="MyGrid">
