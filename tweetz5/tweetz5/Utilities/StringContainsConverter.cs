@@ -2,22 +2,20 @@
 
 using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
 namespace tweetz5.Utilities
 {
-    [ValueConversion(typeof (string), typeof (Visibility))]
-    internal class ReverseBoolToVisibilityConverter : IValueConverter
+    public class StringContainsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? Visibility.Collapsed : Visibility.Visible;
+            return (((string)value).Contains((string)parameter));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,7 +10,6 @@
        Width="300"
        d:DesignHeight="300" d:DesignWidth="300">
   <Popup.Resources>
-    <utilities:ScreenNameConverter x:Key="ScreenNameConverter" />
     <utilities:NumberValueCommaConverter x:Key="NumberValueCommaConverter" />
     <controls:BoolToFollowingConverter x:Key="BoolToFollowingConverter" />
     <controls:BoolToUnfollowConverter x:Key="BoolToUnfollowConverter" />
@@ -30,7 +29,7 @@
       <TextBlock Style="{StaticResource UserInfoScreenNameStyle}">
         <Hyperlink Command="{x:Static local:MainWindow.OpenLinkCommand}" 
                    CommandParameter="{Binding ScreenName, Converter={StaticResource ScreenNameToLinkConverter}}">
-          <Run Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}" />
+          @<Run Text="{Binding ScreenName}" />
         </Hyperlink>
       </TextBlock>
       <TextBlock Text="{Binding Description}" Style="{StaticResource UserInfoTextBlockStyle}" />

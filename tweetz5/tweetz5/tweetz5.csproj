@@ -81,15 +81,10 @@
     <Compile Include="Model\LongUrl.cs" />
     <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Utilities\BoolToStringConverter.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
-    <Compile Include="Utilities\ReverseBoolToVisibilityConverter.cs" />
-    <Compile Include="Utilities\ScreenNameConverter.cs" />
     <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />
-    <Compile Include="Utilities\StringValueVisibilityConverter.cs" />
     <Compile Include="Model\Timelines.cs" />
     <Compile Include="Model\Tweet.cs" />
-    <Compile Include="Model\TweetTypeValueConverter.cs" />
     <Compile Include="Model\Twitter.cs" />
     <Compile Include="Model\WebRequestWrapper.cs" />
     <Compile Include="Model\WebResponseWrapper.cs" />
@@ -99,6 +94,7 @@
     <Compile Include="Controls\TimelineController.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\StringContainsConverter.cs" />
     <Compile Include="Utilities\System\SysTimer.cs" />
     <Page Include="Assets\Themes\Classic\Dark.xaml">
       <SubType>Designer</SubType>

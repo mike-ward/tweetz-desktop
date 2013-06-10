@@ -1,6 +1,5 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:utilities="clr-namespace:tweetz5.Utilities">
-  <utilities:BoolToStringConverter x:Key="FavoriteToColorConverter" />
-
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:utilities="clr-namespace:tweetz5.Utilities" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <utilities:StringContainsConverter x:Key="StringContainsConverter" />
   <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>
 
   <Style x:Key="WindowStyle" TargetType="Window">
@@ -67,6 +66,17 @@
   
   <Style x:Key="TweetItemStyle" TargetType="Border">
     <Setter Property="Padding" Value="3" />
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=m}" Value="True">
+        <Setter Property="Background" Value="#334533" />
+      </DataTrigger>
+      <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=d}" Value="True">
+        <Setter Property="Background" Value="#333344" />
+      </DataTrigger>
+      <DataTrigger Binding="{Binding IsMyTweet, Mode=OneTime}" Value="True">
+        <Setter Property="Background" Value="#663333" />
+      </DataTrigger>
+    </Style.Triggers>
   </Style>
   
   <Style x:Key="TweetImageStyle" TargetType="Rectangle">
@@ -98,12 +108,18 @@
     <Setter Property="FontStyle" Value="Italic" />
     <Setter Property="Foreground" Value="#888888" />
     <Setter Property="FontSize" Value="10" />
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding RetweetedBy}" Value="{x:Static sys:String.Empty}">
+        <Setter Property="Visibility" Value="Collapsed" />
+      </DataTrigger>
+    </Style.Triggers>
   </Style>
   
   <Style x:Key="TweetActions" TargetType="Grid">
     <Setter Property="Margin" Value="0 2 0 0"></Setter>
     <Setter Property="HorizontalAlignment" Value="Right" />
   </Style>
+  
   
   <Style x:Key="TweetActionsItem" TargetType="TextBlock">
     <Setter Property="FontSize" Value="10" />
@@ -115,24 +131,46 @@
       </Trigger>
     </Style.Triggers>
   </Style>
-  
+
+  <Style x:Key="TweetActionsItemRetweet"
+         TargetType="TextBlock"
+         BasedOn="{StaticResource TweetActionsItem}">
+    <Setter Property="Visibility" Value="Visible" />
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding IsMyTweet}" Value="True">
+        <Setter Property="Visibility" Value="Collapsed" />
+      </DataTrigger>
+    </Style.Triggers>  
+  </Style>
+
+  <Style x:Key="TweetActionsItemDelete"
+         TargetType="TextBlock"
+         BasedOn="{StaticResource TweetActionsItem}">
+    <Setter Property="Visibility" Value="Collapsed" />
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding IsMyTweet}" Value="True">
+        <Setter Property="Visibility" Value="Visible" />
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
   <Style x:Key="TweetActionsSymbol" TargetType="Run">
     <Setter Property="FontFamily" Value="Segoe UI Symbol" />
   </Style>
 
   <Style x:Key="TweetActionsFavoritesSymbol" TargetType="Run" BasedOn="{StaticResource TweetActionsSymbol}">
     <Style.Triggers>
-      <Trigger Property="Tag" Value="True" >
+      <DataTrigger Binding="{Binding Favorited}" Value="True" >
         <Setter Property="Foreground" Value="DarkGoldenrod" />
-      </Trigger>
+      </DataTrigger>
     </Style.Triggers>
   </Style>
 
   <Style x:Key="TweetActionsRetweetSymbol" TargetType="Run" BasedOn="{StaticResource TweetActionsSymbol}">
     <Style.Triggers>
-      <Trigger Property="Tag" Value="True" >
+      <DataTrigger Binding="{Binding IsRetweet}" Value="True" >
         <Setter Property="Foreground" Value="Green" />
-      </Trigger>
+      </DataTrigger>
     </Style.Triggers>
   </Style>
 

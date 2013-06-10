@@ -5,17 +5,11 @@
              xmlns:controls="clr-namespace:tweetz5.Controls"
              xmlns:model="clr-namespace:tweetz5.Model"
              xmlns:tweetz5="clr-namespace:tweetz5"
-             xmlns:utilities="clr-namespace:tweetz5.Utilities"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
   <UserControl.Resources>
-    <model:TweetTypeValueConverter x:Key="TweetTypeConverter" />
-    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    <utilities:StringValueVisibilityConverter x:Key="StringValueVisibilityConverter" />
-    <utilities:BoolToStringConverter x:Key="BoolToStringConverter" />
-    <utilities:ReverseBoolToVisibilityConverter x:Key="ReverseBoolToVisibilityConverter" />
     <ContextMenu x:Key="MoreMenu">
       <MenuItem Header="RT (Classic)"
                 Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
@@ -59,8 +53,8 @@
               </BeginStoryboard>
             </EventTrigger>
           </DataTemplate.Triggers>
-          <Border Style="{StaticResource TweetItemStyle}"
-                  Background="{Binding TweetType, Converter={StaticResource TweetTypeConverter}}">
+
+          <Border Style="{StaticResource TweetItemStyle}">
             <Grid>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
@@ -102,8 +96,7 @@
                                           Style="{StaticResource TweetStyle}" />
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
-                           Style="{StaticResource TweetRetweetedByStyle}"
-                           Visibility="{Binding RetweetedBy, Converter={StaticResource StringValueVisibilityConverter}}">
+                           Style="{StaticResource TweetRetweetedByStyle}">
                   <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA; </Run>
                   <Run Text="{Binding RetweetedBy}"></Run>
                 </TextBlock>
@@ -123,32 +116,28 @@
                   <TextBlock.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.ReplyCommand}" CommandParameter="{Binding}"/>
                   </TextBlock.InputBindings>
-                  <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> Reply&#160;
+                  <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> Reply
                 </TextBlock>
 
-                <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="1"
-                           Visibility="{Binding IsMyTweet, Mode=OneTime, Converter={StaticResource ReverseBoolToVisibilityConverter}}">
+                <TextBlock Style="{StaticResource TweetActionsItemRetweet}" Grid.Column="1">
                   <TextBlock.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.RetweetCommand}" CommandParameter="{Binding}"/>
                   </TextBlock.InputBindings>
-                  <Run Style="{StaticResource TweetActionsRetweetSymbol}"
-                       Tag="{Binding IsRetweet, Converter={StaticResource BoolToStringConverter}}">&#xE1CA;</Run> Retweet&#160;
+                  <Run Style="{StaticResource TweetActionsRetweetSymbol}">&#xE1CA;</Run> Retweet
                 </TextBlock>
 
-                <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="1"
-                           Visibility="{Binding IsMyTweet, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Style="{StaticResource TweetActionsItemDelete}" Grid.Column="1">
                   <TextBlock.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.DeleteTweetCommand}" CommandParameter="{Binding}"/>
                   </TextBlock.InputBindings>
-                  <Run Style="{StaticResource TweetActionsRetweetSymbol}">&#xE107;</Run> Delete&#160;
+                  &#xE107; Delete
                 </TextBlock>
 
                 <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="2">
                   <TextBlock.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}" CommandParameter="{Binding}"/>
                   </TextBlock.InputBindings>
-                  <Run Style="{StaticResource TweetActionsFavoritesSymbol}"
-                       Tag="{Binding Favorited, Converter={StaticResource BoolToStringConverter}}">&#xE082;</Run> Favorite
+                  <Run Style="{StaticResource TweetActionsFavoritesSymbol}">&#xE082;</Run> Favorite
                 </TextBlock>
 
                 <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="3"
