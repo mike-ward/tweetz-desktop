@@ -3,9 +3,29 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        PopupAnimation="Fade"
        AllowsTransparency="True"
-       Placement="Center"
-       Height="300" Width="300">
-  <Border Padding="20" CornerRadius="10">
-    <TextBlock Foreground="White" x:Name="Message" Text="No Message for You" />
+       StaysOpen="False"
+       Height="Auto" 
+       Width="Auto"
+       TextOptions.TextFormattingMode="Display">
+  <Popup.CommandBindings>
+    <CommandBinding Command="Close" Executed="CloseCommandHandler"></CommandBinding>
+  </Popup.CommandBindings>
+  <Border Padding="5" CornerRadius="10" Background="Black">
+      <StackPanel>
+        <TextBlock Foreground="#bbbbbb" 
+                   FontFamily="Segoe UI Symbol" 
+                   HorizontalAlignment="Right" 
+                   Cursor="Hand">
+          <TextBlock.InputBindings>
+            <MouseBinding MouseAction="LeftClick" Command="Close" />
+          </TextBlock.InputBindings>
+          &#xE10A;
+        </TextBlock>
+        <TextBlock Foreground="#bbbbbb"
+                   FontFamily="13"
+                   Margin="15 5 15 15" 
+                   x:Name="Message" 
+                   Text="No Message for You" />
+      </StackPanel>
   </Border>
 </Popup>

@@ -26,6 +26,7 @@ namespace tweetz5
         public static readonly RoutedCommand OpenLinkCommand = new RoutedUICommand();
         public static readonly RoutedCommand FollowUserComand = new RoutedUICommand();
         public static readonly RoutedCommand SearchCommand = new RoutedUICommand();
+        public static readonly RoutedCommand AlertCommand = new RoutedUICommand();
 
         public MainWindow()
         {
@@ -222,6 +223,14 @@ namespace tweetz5
             {
                 Console.WriteLine(e);
             }
+        }
+
+        private void AlertCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            var message = ea.Parameter as string;
+            if (string.IsNullOrWhiteSpace(message)) return;
+            StatusAlert.Message.Text = message;
+            StatusAlert.IsOpen = true;
         }
     }
 }

@@ -70,7 +70,10 @@
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="search">
           &#xE11A;</Button>
-        <Button Style="{StaticResource NavBarButton}">&#xE115;</Button>
+        <Button x:Name="SettingsButton" 
+                Style="{StaticResource NavBarButton}"
+                Command="{x:Static tweetz5:MainWindow.AlertCommand}"
+                CommandParameter="This is test message">&#xE115;</Button>
         <Button Style="{StaticResource NavBarButton}"
                 Click="ComposeOnClick">&#xE104;</Button>
       </UniformGrid>
@@ -86,6 +89,8 @@
       <local:AboutUser x:Name="_userInformationPopup"
                        Placement="Left"
                        StaysOpen="False"/>
+      <local:StatusAlert x:Name="StatusAlert" 
+                         Placement="Center" />
     </StackPanel>
   </Border>
   <Window.CommandBindings>
@@ -117,5 +122,7 @@
                     Executed="FollowCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MainWindow.SearchCommand}"
                     Executed="SearchCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.AlertCommand}"
+                    Executed="AlertCommandHandler"/>
   </Window.CommandBindings>
 </Window>
