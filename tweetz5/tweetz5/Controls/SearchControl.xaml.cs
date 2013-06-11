@@ -11,7 +11,7 @@ namespace tweetz5.Controls
 
         public void SetSearchText(string text)
         {
-            if (text != null) _searchText.Text = text;
+            if (text != null) SearchText.Text = text;
         }
     }
 }

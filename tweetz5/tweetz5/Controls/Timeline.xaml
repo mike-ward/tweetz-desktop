@@ -21,6 +21,10 @@
                 CommandParameter="{Binding}">
       </MenuItem>
     </ContextMenu>
+
+    <Storyboard x:Key="LoadItemAnimation">
+      <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1"/>
+    </Storyboard>
   </UserControl.Resources>
 
   <UserControl.DataContext>
@@ -46,11 +50,7 @@
         <DataTemplate>
           <DataTemplate.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-              <BeginStoryboard>
-                <Storyboard>
-                  <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1"/>
-                </Storyboard>
-              </BeginStoryboard>
+              <BeginStoryboard Storyboard="{StaticResource LoadItemAnimation}" />
             </EventTrigger>
           </DataTemplate.Triggers>
 
@@ -90,10 +90,10 @@
                              Style="{StaticResource TweetTimeStyle}"
                              Text="{Binding TimeAgo}" />
                 </Grid>
-                <controls:TextBlockMarkup Grid.Row="1"
-                                          Grid.Column="1"
-                                          Markup="{Binding MarkupText, Mode=OneTime}"
-                                          Style="{StaticResource TweetStyle}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           controls:MarkupService.Text="{Binding MarkupText, Mode=OneTime}"
+                           Style="{StaticResource TweetStyle}" />
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
                            Style="{StaticResource TweetRetweetedByStyle}">

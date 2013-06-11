@@ -1,5 +1,5 @@
 ﻿<UserControl x:Class="tweetz5.Controls.ComposeTweet"
-             x:Name="root"
+             x:Name="Root"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,30 +11,30 @@
              Focusable="True"
              Height="153">
     <UserControl.Resources>
-        <c:LengthToColorConverter x:Key="converter" />
+        <c:LengthToColorConverter x:Key="Converter" />
     </UserControl.Resources>
     <StackPanel Style="{StaticResource ComposeTweet}">
-        <TextBlock x:Name="_composeTitle"
+        <TextBlock x:Name="ComposeTitle"
                    Style="{StaticResource ComposeTweetTitleBlock}">Compose a tweet</TextBlock>
-        <TextBox x:Name="_textBox"
+        <TextBox x:Name="TextBox"
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
                  Style="{StaticResource ComposeTweetTextBox}"
                  KeyUp="OnKeyUp"
                  IsVisibleChanged="OnIsVisibleChanged" />
         <DockPanel>
-            <TextBlock x:Name="_counter"
+            <TextBlock x:Name="Counter"
                        DockPanel.Dock="Left"
                        Style="{StaticResource ComposeCharCounter}"
-                       Text="{Binding ElementName=_textBox, Path=Text.Length}"
-                       Foreground="{Binding ElementName=_textBox, Path=Text.Length, Converter={StaticResource converter}}" />
+                       Text="{Binding ElementName=TextBox, Path=Text.Length}"
+                       Foreground="{Binding ElementName=TextBox, Path=Text.Length, Converter={StaticResource Converter}}" />
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right">
-                <Button x:Name="_shorten"
+                <Button x:Name="Shorten"
                         Click="OnShorten"
                         Style="{StaticResource ComposeTweetButton}">Shorten</Button>
-                <Button x:Name="_send"
+                <Button x:Name="Send"
                         Style="{StaticResource ComposeTweetButton}"
                         Click="OnSend">Send</Button>
             </StackPanel>

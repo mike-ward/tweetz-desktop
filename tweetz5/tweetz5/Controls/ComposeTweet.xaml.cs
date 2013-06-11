@@ -21,15 +21,15 @@ namespace tweetz5.Controls
 
         public void Show(string message = "", string inReplyToId = null)
         {
-            _composeTitle.Text = "Compose a tweet";
-            _textBox.Text = message;
+            ComposeTitle.Text = "Compose a tweet";
+            TextBox.Text = message;
             _inReplyToId = inReplyToId;
             Visibility = Visibility.Visible;
         }
 
         public void Hide()
         {
-            _textBox.Clear();
+            TextBox.Clear();
             Visibility = Visibility.Collapsed;
         }
 
@@ -46,10 +46,10 @@ namespace tweetz5.Controls
 
         private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (_textBox.IsVisible)
+            if (TextBox.IsVisible)
             {
-                _textBox.Focus();
-                _textBox.SelectionStart = _textBox.Text.Length;
+                TextBox.Focus();
+                TextBox.SelectionStart = TextBox.Text.Length;
             }
         }
 
@@ -57,11 +57,11 @@ namespace tweetz5.Controls
         {
             try
             {
-                _send.IsEnabled = false;
-                var json = Twitter.UpdateStatus(_textBox.Text, _inReplyToId);
+                Send.IsEnabled = false;
+                var json = Twitter.UpdateStatus(TextBox.Text, _inReplyToId);
                 if (json.Contains("id_str") == false)
                 {
-                    _composeTitle.Text = "Error";
+                    ComposeTitle.Text = "Error";
                 }
                 else
                 {
@@ -72,11 +72,11 @@ namespace tweetz5.Controls
             }
             catch (Exception)
             {
-                _composeTitle.Text = "Error";
+                ComposeTitle.Text = "Error";
             }
             finally
             {
-                _send.IsEnabled = true;
+                Send.IsEnabled = true;
             }
         }
 
@@ -84,16 +84,16 @@ namespace tweetz5.Controls
         {
             try
             {
-                _shorten.IsEnabled = false;
-                _textBox.Text = ShortUrl.ShortenUrls(_textBox.Text);
+                Shorten.IsEnabled = false;
+                TextBox.Text = ShortUrl.ShortenUrls(TextBox.Text);
             }
             catch (Exception)
             {
-                _composeTitle.Text = "Error shortening urls";
+                ComposeTitle.Text = "Error shortening urls";
             }
             finally
             {
-                _shorten.IsEnabled = true;
+                Shorten.IsEnabled = true;
             }
         }
     }

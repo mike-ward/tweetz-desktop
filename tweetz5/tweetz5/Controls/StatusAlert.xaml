@@ -10,7 +10,7 @@
   <Popup.CommandBindings>
     <CommandBinding Command="Close" Executed="CloseCommandHandler"></CommandBinding>
   </Popup.CommandBindings>
-  <Border Padding="5" CornerRadius="10" Background="Black">
+  <Border Padding="5" CornerRadius="5" Background="Black">
       <StackPanel>
         <TextBlock Foreground="#bbbbbb" 
                    FontFamily="Segoe UI Symbol" 

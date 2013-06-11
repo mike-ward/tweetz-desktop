@@ -1,7 +1,6 @@
-﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -9,22 +8,33 @@ using tweetz5.Model;
 
 namespace tweetz5.Controls
 {
-    public class TextBlockMarkup : TextBlock
+    public class MarkupService
     {
-        public static DependencyProperty MarkupProperty = DependencyProperty.Register("Markup", typeof (string),
-            typeof (TextBlockMarkup), new UIPropertyMetadata("Markup", OnMarkupChanged));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached(
+            "Text",
+            typeof (string),
+            typeof (MarkupService),
+            new PropertyMetadata(null, OnTextChanged)
+            );
 
-        public string Markup
+        public static string GetText(DependencyObject d)
         {
-            get { return (string)GetValue(MarkupProperty); }
-            set { SetValue(MarkupProperty, value); }
+            return d.GetValue(TextProperty) as string;
         }
 
-        private static void OnMarkupChanged(DependencyObject sender, DependencyPropertyChangedEventArgs ea)
+        public static void SetText(DependencyObject d, string value)
         {
-            var text = (string)ea.NewValue;
+            d.SetValue(TextProperty, value);
+        }
+
+        private static void OnTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs ea)
+        {
+            MarkupToContent(sender as TextBlock, ea.NewValue as string);
+        }
+
+        public static void MarkupToContent(TextBlock textBlock, string text)
+        {
             var inlines = new List<object>();
-            var textBlock = (TextBlockMarkup)sender;
             var start = 0;
             do
             {
@@ -60,8 +70,11 @@ namespace tweetz5.Controls
             } while (start < text.Length);
             textBlock.Inlines.Clear();
             textBlock.Inlines.AddRange(inlines);
-            textBlock.UpdateLayout();
+            keybd_event(0x28, 0, 0x0002, 0);
         }
+
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
 
         private static Run Run(string text)
         {

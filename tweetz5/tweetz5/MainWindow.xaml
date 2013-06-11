@@ -17,11 +17,10 @@
         Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
         Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
-  <!-- ReSharper disable InconsistentNaming -->
   <Border BorderBrush="Black"
           BorderThickness="1">
     <StackPanel>
-      <DockPanel x:Name="_topbar"
+      <DockPanel x:Name="Topbar"
                  Style="{StaticResource TopBarStyle}">
         <Label Style="{StaticResource TopBarLabelStyle}"
                DockPanel.Dock="Left">
@@ -34,38 +33,38 @@
                   Command="Close">&#xE10A;</Button>
         </StackPanel>
       </DockPanel>
-      <UniformGrid x:Name="_navBar" Rows="1" Style="{StaticResource NavBar}">
-        <Button x:Name="_unifiedButton"
+      <UniformGrid x:Name="NavBar" Rows="1" Style="{StaticResource NavBar}">
+        <Button x:Name="UnifiedButton"
                 Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="unified">
           &#xE179;
         </Button>
-        <Button x:Name="_homeButton"
+        <Button x:Name="HomeButton"
                 Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="home">
           &#xE10F;
         </Button>
-        <Button x:Name="_mentionsButton"
+        <Button x:Name="MentionsButton"
                 Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="mentions">
           &#xE168;
         </Button>
-        <Button x:Name="_messagesButton"
+        <Button x:Name="MessagesButton"
                 Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="messages">
           &#xE135;
         </Button>
-        <Button x:Name="_favoritesButton"
+        <Button x:Name="FavoritesButton"
                 Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="favorites">
           &#xE113;
         </Button>
-        <Button x:Name="_searchButton"
+        <Button x:Name="SearchButton"
                 Style="{StaticResource NavBarButton}"
                 Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
                 CommandParameter="search">
@@ -77,16 +76,16 @@
         <Button Style="{StaticResource NavBarButton}"
                 Click="ComposeOnClick">&#xE104;</Button>
       </UniformGrid>
-      <local:Timeline x:Name="_timeline"
+      <local:Timeline x:Name="Timeline"
                       Panel.ZIndex="-1"
                       Height="400" />
-      <local:ComposeTweet x:Name="_compose"
+      <local:ComposeTweet x:Name="Compose"
                           Visibility="Visible"
                           IsVisibleChanged="OnIsVisibleChanged" />
-      <Thumb x:Name="_resizeBar"
+      <Thumb x:Name="ResizeBar"
              DragDelta="ThumbOnDragDelta"
              Style="{StaticResource SizeThumbStyle}" />
-      <local:AboutUser x:Name="_userInformationPopup"
+      <local:AboutUser x:Name="UserInformationPopup"
                        Placement="Left"
                        StaysOpen="False"/>
       <local:StatusAlert x:Name="StatusAlert" 

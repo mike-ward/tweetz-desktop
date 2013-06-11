@@ -32,7 +32,7 @@ namespace tweetz5
         {
             InitializeComponent();
             // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
-            Loaded += (sender, args) => _compose.Visibility = Visibility.Collapsed;
+            Loaded += (sender, args) => Compose.Visibility = Visibility.Collapsed;
             SetButtonStates("unified");
         }
 
@@ -48,20 +48,20 @@ namespace tweetz5
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _timeline.Height = e.NewSize.Height - _topbar.ActualHeight - _navBar.ActualHeight - _compose.ActualHeight - _resizeBar.ActualHeight;
+            Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - ResizeBar.ActualHeight;
         }
 
         private void ComposeOnClick(object sender, RoutedEventArgs e)
         {
-            _compose.Toggle();
+            Compose.Toggle();
         }
 
         private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
-            if (_compose.IsVisible)
+            if (Compose.IsVisible)
             {
-                _compose.Focus();
+                Compose.Focus();
             }
         }
 
@@ -69,19 +69,19 @@ namespace tweetz5
         {
             var timeline = (string)ea.Parameter;
             SetButtonStates(timeline);
-            _timeline.Controller.SwitchTimeline(timeline);
-            _timeline.ScrollToTop();
-            _timeline.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            Timeline.Controller.SwitchTimeline(timeline);
+            Timeline.ScrollToTop();
+            Timeline.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
         private void SetButtonStates(string timeline)
         {
-            _unifiedButton.IsEnabled = timeline != "unified";
-            _homeButton.IsEnabled = timeline != "home";
-            _mentionsButton.IsEnabled = timeline != "mentions";
-            _messagesButton.IsEnabled = timeline != "messages";
-            _favoritesButton.IsEnabled = timeline != "favorites";
-            _searchButton.IsEnabled = timeline != "search";
+            UnifiedButton.IsEnabled = timeline != "unified";
+            HomeButton.IsEnabled = timeline != "home";
+            MentionsButton.IsEnabled = timeline != "mentions";
+            MessagesButton.IsEnabled = timeline != "messages";
+            FavoritesButton.IsEnabled = timeline != "favorites";
+            SearchButton.IsEnabled = timeline != "search";
         }
 
         private void CopyTweetCommandHandler(object target, ExecutedRoutedEventArgs ea)
@@ -94,7 +94,7 @@ namespace tweetz5
         {
             var tweet = (Tweet)ea.Parameter;
             var message = string.Format("@{0} ", tweet.ScreenName);
-            _compose.Show(message, tweet.StatusId);
+            Compose.Show(message, tweet.StatusId);
         }
 
         private void RetweetCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -131,7 +131,7 @@ namespace tweetz5
         {
             var tweet = (Tweet)ea.Parameter;
             var message = string.Format("RT @{0} {1}", tweet.ScreenName, tweet.Text);
-            _compose.Show(message);
+            Compose.Show(message);
         }
 
         private void FavoritesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -144,7 +144,7 @@ namespace tweetz5
                 if (tweet.Favorited)
                 {
                     var status = Status.ParseJson("[" + json + "]");
-                    _timeline.Controller.UpdateStatus(new[] { "favorites" }, status, "f");
+                    Timeline.Controller.UpdateStatus(new[] { "favorites" }, status, "f");
                 }
             }
             catch (Exception e)
@@ -156,7 +156,7 @@ namespace tweetz5
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var statuses = (Status[])ea.Parameter;
-            _timeline.Controller.UpdateStatus(new[] { "home", "unified" }, statuses, "h");
+            Timeline.Controller.UpdateStatus(new[] { "home", "unified" }, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
@@ -166,8 +166,8 @@ namespace tweetz5
 
         private void ShowUserInformationCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            _userInformationPopup.ScreenName = ea.Parameter as string;
-            _userInformationPopup.IsOpen = true;
+            UserInformationPopup.ScreenName = ea.Parameter as string;
+            UserInformationPopup.IsOpen = true;
         }
 
         private void OpenLinkCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -195,7 +195,7 @@ namespace tweetz5
             {
                 var tweet = (Tweet)ea.Parameter;
                 Twitter.DestroyStatus(tweet.StatusId);
-                _timeline.Controller.RemoveStatus(tweet);
+                Timeline.Controller.RemoveStatus(tweet);
             }
             catch (Exception e)
             {
@@ -209,14 +209,14 @@ namespace tweetz5
             {
                 var query = ea.Parameter as string;
                 if (string.IsNullOrWhiteSpace(query)) return;
-                _timeline.SearchControl.SetSearchText(query);
-                _timeline.Controller.ClearSearchTimeline();
+                Timeline.SearchControl.SetSearchText(query);
+                Timeline.Controller.ClearSearchTimeline();
                 SwitchTimelinesCommand.Execute("search", this);
                 Task.Run(() =>
                 {
                     var json = Twitter.Search(query);
                     var statuses = SearchStatuses.ParseJson(json);
-                    _timeline.Controller.UpdateStatus(new[] { "search" }, statuses, string.Empty);
+                    Timeline.Controller.UpdateStatus(new[] { "search" }, statuses, string.Empty);
                 });
             }
             catch (Exception e)
