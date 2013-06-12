@@ -106,7 +106,7 @@ namespace tweetz5.Controls
             };
             ToolTipService.SetInitialShowDelay(hyperlink, 0);
             ToolTipService.SetShowDuration(hyperlink, 30000);
-            hyperlink.ToolTipOpening += (s, e) => hyperlink.ToolTip = LongUrl.Lookup(link);
+            hyperlink.ToolTipOpening += async (s, e) =>  hyperlink.ToolTip = await LongUrl.Lookup(link);
             return hyperlink;
         }
 

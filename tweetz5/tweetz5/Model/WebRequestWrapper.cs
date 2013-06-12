@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace tweetz5.Model
 {
@@ -15,6 +16,7 @@ namespace tweetz5.Model
         Stream GetRequestStream();
         string UserAgent { get; set; }
         int Timeout { get; set; }
+        Task<WebResponse> GetResponseAsync();
     }
 
     public class WebRequestWrapper : IWebRequest
@@ -73,6 +75,11 @@ namespace tweetz5.Model
         {
             get { return _request.Timeout; }
             set { _request.Timeout = value; }
+        }
+
+        public Task<WebResponse> GetResponseAsync()
+        {
+            return _request.GetResponseAsync();
         }
     }
 }
