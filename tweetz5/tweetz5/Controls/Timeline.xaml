@@ -8,7 +8,7 @@
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="300">
+             d:DesignWidth="200">
   <UserControl.Resources>
     <ContextMenu x:Key="MoreMenu">
       <MenuItem Header="RT (Classic)"

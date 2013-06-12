@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="tweetz5.Controls.Authenticate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             Margin="20"
+             HorizontalAlignment="Center"
+             d:DesignWidth="200"
+             mc:Ignorable="d">
+  <StackPanel>
+    <TextBlock TextWrapping="Wrap">
+      To get started, click the <Run FontWeight="Bold">Get PIN</Run> button.
+      This opens a Web page where you'll authorize access.
+      Copy the PIN from the Web page to here and click <Run FontWeight="Bold">Authorize</Run>.
+    </TextBlock>
+
+        <StackPanel Margin="30 10">
+            <Button Click="GetPin_OnClick"
+                    FontSize="16"
+                    Margin="5">Get PIN</Button>
+
+            <TextBox x:Name="Pin"
+                     FontSize="18"
+                     FontWeight="Bold"
+                     TextAlignment="Center"
+                     Margin="10 20" />
+
+            <Button Click="Authorize_OnClick"
+                    FontSize="16"
+                    Margin="5">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=Pin, Path=Text.Length}" Value="0">
+                                <Setter Property="UIElement.IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                Authenticate
+            </Button>
+        </StackPanel>
+      
+        <TextBlock TextWrapping="Wrap">
+      PINs can only be used so there's no need to save them.
+    </TextBlock>
+  </StackPanel>
+</UserControl>

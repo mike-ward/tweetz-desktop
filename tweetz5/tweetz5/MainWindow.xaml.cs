@@ -48,7 +48,7 @@ namespace tweetz5
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - ResizeBar.ActualHeight;
+            Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - AuthenticatePanel.ActualHeight - ResizeBar.ActualHeight;
         }
 
         private void ComposeOnClick(object sender, RoutedEventArgs e)

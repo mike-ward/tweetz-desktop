@@ -7,10 +7,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 
 // ReSharper disable PossibleMultipleEnumeration
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace tweetz5.Model
 {
@@ -358,48 +360,82 @@ namespace tweetz5.Model
 
         public static OAuthTokens GetRequestToken()
         {
-            try
-            {
-                var parameters = new[] {new[] {"oauth_callback", "oob"}};
-                var response = Post("https://api.twitter.com/oauth/request_token", parameters);
+            var nonce = OAuth.Nonce();
+            var timestamp = OAuth.TimeStamp();
+            var oauth = new OAuth();
 
-                var tokens = response.Split('&');
-                var oauthToken = Token(tokens[0]);
-                var oauthSecret = Token(tokens[1]);
-                var callbackConfirmed = Token(tokens[2]);
 
-                if (callbackConfirmed != "true") throw new InvalidProgramException("callback token not confirmed");
-                return new OAuthTokens {OAuthToken = oauthToken, OAuthSecret = oauthSecret};
-            }
-            catch (Exception e)
+            const string format = "{0}={1}";
+            var parameterStrings = new List<string>
             {
-                ShowAlert(e.Message);
-                return null;
+                string.Format(format, "oauth_callback", "oob"),
+                string.Format(format, "oauth_consumer_key", OAuth.UrlEncode(oauth.ConsumerKey)),
+                string.Format(format, "oauth_nonce", nonce),
+                string.Format(format, "oauth_signature_method", "HMAC-SHA1"),
+                string.Format(format, "oauth_timestamp", timestamp),
+                string.Format(format, "oauth_version", "1.0"),
+            };
+
+            const string requestTokenUrl = "https://api.twitter.com/oauth/request_token";
+            var parameterString = string.Join("&", parameterStrings);
+            var signatureBaseString = string.Format("{0}&{1}&{2}", "POST", OAuth.UrlEncode(requestTokenUrl), OAuth.UrlEncode(parameterString));
+            var compositeKey = string.Format("{0}&", OAuth.UrlEncode(oauth.ConsumerSecret));
+            using (var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(compositeKey)))
+            {
+                var signature = Convert.ToBase64String(hmac.ComputeHash(Encoding.ASCII.GetBytes(signatureBaseString)));
+
+                const string headerFormat =
+                                "OAuth " +
+                                    "oauth_callback=\"{0}\"," +
+                                    "oauth_consumer_key=\"{1}\"," +
+                                    "oauth_nonce=\"{2}\"," +
+                                    "oauth_timestamp=\"{3}\"," +
+                                    "oauth_signature=\"{4}\"," +
+                                    "oauth_signature_method=\"HMAC-SHA1\"," +
+                                    "oauth_version=\"1.0\"";
+
+                var authorizeHeader = string.Format(headerFormat,
+                    OAuth.UrlEncode("oob"),
+                    OAuth.UrlEncode(oauth.ConsumerKey),
+                    OAuth.UrlEncode(nonce),
+                    OAuth.UrlEncode(timestamp),
+                    OAuth.UrlEncode(signature));
+
+                var request = System.Net.WebRequest.Create(requestTokenUrl);
+                request.Method = "POST";
+                request.Headers.Add("Authorization", authorizeHeader);
+
+                using (var response = request.GetResponse())
+                {
+                    using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    {
+                        var body = stream.ReadToEnd();
+                        var tokens = body.Split('&');
+                        var oauthToken = Token(tokens[0]);
+                        var oauthSecret = Token(tokens[1]);
+                        var callbackConfirmed = Token(tokens[2]);
+
+                        if (callbackConfirmed != "true") throw new InvalidProgramException("callback token not confirmed");
+                        return new OAuthTokens { OAuthToken = oauthToken, OAuthSecret = oauthSecret };
+                    }
+                }
             }
         }
 
         public static OAuthTokens GetAccessToken(string oauthVerifier)
         {
-            try
-            {
-                var parameters = new[] {new[] {"oauth_verifier", oauthVerifier}};
-                var response = Post("https://api.twitter.com/oauth/access_token", parameters);
+            var parameters = new[] { new[] { "oauth_verifier", oauthVerifier } };
+            var response = Post("https://api.twitter.com/oauth/access_token", parameters);
 
-                var tokens = response.Split('&');
-                var oauthTokens = new OAuthTokens
-                {
-                    OAuthToken = Token(tokens[0]),
-                    OAuthSecret = Token(tokens[1]),
-                    UserId = Token(tokens[2]),
-                    ScreenName = Token(tokens[3])
-                };
-                return oauthTokens;
-            }
-            catch (Exception e)
+            var tokens = response.Split('&');
+            var oauthTokens = new OAuthTokens
             {
-                ShowAlert(e.Message);
-                return null;
-            }
+                OAuthToken = Token(tokens[0]),
+                OAuthSecret = Token(tokens[1]),
+                UserId = Token(tokens[2]),
+                ScreenName = Token(tokens[3])
+            };
+            return oauthTokens;
         }
 
         private static string Token(string pair)

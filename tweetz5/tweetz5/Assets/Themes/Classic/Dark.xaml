@@ -617,5 +617,10 @@
     </Setter.Value>
   </Setter>
   </Style>
+
+  <!-- Authenticate Styles -->
   
+  <Style x:Key="AuthenticatePanelStyle" TargetType="StackPanel">
+    
+  </Style>
 </ResourceDictionary>

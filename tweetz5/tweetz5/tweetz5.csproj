@@ -67,6 +67,9 @@
     <Compile Include="Controls\AboutUser.xaml.cs">
       <DependentUpon>AboutUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Authenticate.xaml.cs">
+      <DependentUpon>Authenticate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ComposeTweet.xaml.cs">
       <DependentUpon>ComposeTweet.xaml</DependentUpon>
     </Compile>
@@ -101,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AboutUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Authenticate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

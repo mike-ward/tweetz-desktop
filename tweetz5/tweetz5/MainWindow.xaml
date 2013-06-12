@@ -82,6 +82,8 @@
       <local:ComposeTweet x:Name="Compose"
                           Visibility="Visible"
                           IsVisibleChanged="OnIsVisibleChanged" />
+      <local:Authenticate x:Name="AuthenticatePanel"
+                          Visibility="Collapsed"/>
       <Thumb x:Name="ResizeBar"
              DragDelta="ThumbOnDragDelta"
              Style="{StaticResource SizeThumbStyle}" />
