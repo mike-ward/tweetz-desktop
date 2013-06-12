@@ -218,6 +218,7 @@ namespace tweetz5
                     var statuses = SearchStatuses.ParseJson(json);
                     Timeline.Controller.UpdateStatus(new[] { "search" }, statuses, string.Empty);
                 });
+                ea.Handled = true;
             }
             catch (Exception e)
             {
@@ -231,6 +232,7 @@ namespace tweetz5
             if (string.IsNullOrWhiteSpace(message)) return;
             StatusAlert.Message.Text = message;
             StatusAlert.IsOpen = true;
+            ea.Handled = true;
         }
     }
 }

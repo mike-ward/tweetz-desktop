@@ -5,12 +5,12 @@
        AllowsTransparency="True"
        StaysOpen="False"
        Height="Auto" 
-       Width="Auto"
+       Width="190"
        TextOptions.TextFormattingMode="Display">
   <Popup.CommandBindings>
     <CommandBinding Command="Close" Executed="CloseCommandHandler"></CommandBinding>
   </Popup.CommandBindings>
-  <Border Padding="5" CornerRadius="5" Background="Black">
+  <Border Padding="5" CornerRadius="8" Background="Black" BorderThickness="2" BorderBrush="DarkGoldenrod">
       <StackPanel>
         <TextBlock Foreground="#bbbbbb" 
                    FontFamily="Segoe UI Symbol" 
@@ -22,7 +22,10 @@
           &#xE10A;
         </TextBlock>
         <TextBlock Foreground="#bbbbbb"
-                   FontFamily="13"
+                   FontSize="14"
+                   FontWeight="Heavy"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"
                    Margin="15 5 15 15" 
                    x:Name="Message" 
                    Text="No Message for You" />

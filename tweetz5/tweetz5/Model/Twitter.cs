@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Windows;
 
 // ReSharper disable PossibleMultipleEnumeration
 
@@ -152,8 +153,9 @@ namespace tweetz5.Model
                 }
                 return statuses;
             }
-            catch (WebException)
+            catch (WebException e)
             {
+                Console.WriteLine(e);
                 return new Status[0];
             }
         }
@@ -164,7 +166,15 @@ namespace tweetz5.Model
                 ? new[] { new[] { "status", message } }
                 : new[] { new[] { "status", message }, new[] { "in_reply_to_status_id", replyToStatusId } };
 
-            return Post("https://api.twitter.com/1.1/statuses/update.json", parameters);
+            try
+            {
+                return Post("https://api.twitter.com/1.1/statuses/update.json", parameters);
+            }
+            catch (WebException e)
+            {
+                ShowAlert(e.Message);
+                return string.Empty;
+            }
         }
 
         public static string CreateFavorite(string id)
@@ -176,7 +186,7 @@ namespace tweetz5.Model
             }
             catch (WebException e)
             {
-                Console.WriteLine(e);
+                ShowAlert(e.Message);
                 return string.Empty;
             }
         }
@@ -190,19 +200,35 @@ namespace tweetz5.Model
             }
             catch (WebException e)
             {
-                Console.WriteLine(e);
+                ShowAlert(e.Message);
                 return string.Empty;
             }
         }
 
         public static string RetweetStatus(string id)
         {
-            return Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]);
+            try
+            {
+                return Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]);
+            }
+            catch (WebException e)
+            {
+                ShowAlert(e.Message);
+                return string.Empty;
+            }
         }
 
         public static string DestroyStatus(string id)
         {
-            return Post(string.Format("https://api.twitter.com/1.1/statuses/destroy/{0}.json", id), new string[0][]);
+            try
+            {
+                return Post(string.Format("https://api.twitter.com/1.1/statuses/destroy/{0}.json", id), new string[0][]);
+            }
+            catch (WebException e)
+            {
+                ShowAlert(e.Message);
+                return string.Empty;
+            }
         }
 
         public static string GetTweet(string id)
@@ -212,7 +238,15 @@ namespace tweetz5.Model
                     new[] {"id", id},
                     new[] {"include_my_retweet", "true"}
                 };
-            return Get("https://api.twitter.com/1.1/statuses/show.json", parameters);
+            try
+            {
+                return Get("https://api.twitter.com/1.1/statuses/show.json", parameters);
+            }
+            catch (WebException e)
+            {
+                ShowAlert(e.Message);
+                return string.Empty;
+            }
         }
 
         public static User GetUserInformation(string screenName)
@@ -233,7 +267,7 @@ namespace tweetz5.Model
             }
             catch (WebException e)
             {
-                Console.WriteLine(e);
+                ShowAlert(e.Message);
                 return new User { Name = "Error!" };
             }
         }
@@ -262,12 +296,20 @@ namespace tweetz5.Model
                     new[] {"screen_name", screenName},
                     new[] {"following", "true"}
                 };
-                var json = Post("https://api.twitter.com/1.1/friendships/create.json", parameters);
-                return json.Contains(screenName);
+                try
+                {
+                    var json = Post("https://api.twitter.com/1.1/friendships/create.json", parameters);
+                    return json.Contains(screenName);
+                }
+                catch (WebException e)
+                {
+                    ShowAlert(e.Message);
+                    return false;
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                ShowAlert(e.Message);
                 return false;
             }
         }
@@ -282,7 +324,7 @@ namespace tweetz5.Model
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                ShowAlert(e.Message);
                 return false;
             }
         }
@@ -295,7 +337,20 @@ namespace tweetz5.Model
                 new[] { "count", "50" }, 
                 new[] { "since_id", sinceId }
             };
-            return Get("https://api.twitter.com/1.1/search/tweets.json", parameters);
+            try
+            {
+                return Get("https://api.twitter.com/1.1/search/tweets.json", parameters);
+            }
+            catch (WebException e)
+            {
+                ShowAlert(e.Message);
+                return string.Empty;
+            }
+        }
+
+        private static void ShowAlert(string message)
+        {
+            Application.Current.Dispatcher.Invoke(() => MainWindow.AlertCommand.Execute(message, Application.Current.MainWindow));
         }
     }
 }
