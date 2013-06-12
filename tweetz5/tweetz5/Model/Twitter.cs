@@ -348,6 +348,65 @@ namespace tweetz5.Model
             }
         }
 
+        public class OAuthTokens
+        {
+            public string OAuthToken { get; set; }
+            public string OAuthSecret { get; set; }
+            public string UserId { get; set; }
+            public string ScreenName { get; set; }
+        }
+
+        public static OAuthTokens GetRequestToken()
+        {
+            try
+            {
+                var parameters = new[] {new[] {"oauth_callback", "oob"}};
+                var response = Post("https://api.twitter.com/oauth/request_token", parameters);
+
+                var tokens = response.Split('&');
+                var oauthToken = Token(tokens[0]);
+                var oauthSecret = Token(tokens[1]);
+                var callbackConfirmed = Token(tokens[2]);
+
+                if (callbackConfirmed != "true") throw new InvalidProgramException("callback token not confirmed");
+                return new OAuthTokens {OAuthToken = oauthToken, OAuthSecret = oauthSecret};
+            }
+            catch (Exception e)
+            {
+                ShowAlert(e.Message);
+                return null;
+            }
+        }
+
+        public static OAuthTokens GetAccessToken(string oauthVerifier)
+        {
+            try
+            {
+                var parameters = new[] {new[] {"oauth_verifier", oauthVerifier}};
+                var response = Post("https://api.twitter.com/oauth/access_token", parameters);
+
+                var tokens = response.Split('&');
+                var oauthTokens = new OAuthTokens
+                {
+                    OAuthToken = Token(tokens[0]),
+                    OAuthSecret = Token(tokens[1]),
+                    UserId = Token(tokens[2]),
+                    ScreenName = Token(tokens[3])
+                };
+                return oauthTokens;
+            }
+            catch (Exception e)
+            {
+                ShowAlert(e.Message);
+                return null;
+            }
+        }
+
+        private static string Token(string pair)
+        {
+            return pair.Substring(pair.IndexOf('=') + 1);
+        }
+
         private static void ShowAlert(string message)
         {
             Application.Current.Dispatcher.Invoke(() => MainWindow.AlertCommand.Execute(message, Application.Current.MainWindow));
