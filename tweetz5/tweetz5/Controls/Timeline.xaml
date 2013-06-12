@@ -130,7 +130,7 @@
                   <TextBlock.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.DeleteTweetCommand}" CommandParameter="{Binding}"/>
                   </TextBlock.InputBindings>
-                  &#xE107; Delete
+                  <Run Style="{StaticResource TweetActionsSymbol}">&#xE107;</Run> Delete
                 </TextBlock>
 
                 <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="2">
