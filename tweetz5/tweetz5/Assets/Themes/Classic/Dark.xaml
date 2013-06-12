@@ -2,19 +2,25 @@
   <utilities:StringContainsConverter x:Key="StringContainsConverter" />
   <PopupAnimation x:Key="{x:Static SystemParameters.MenuPopupAnimationKey}">None</PopupAnimation>
 
+  <Color x:Key="AppForegroundColor">#bbbbbb</Color>
+  <Color x:Key="AppBackgroundColor">#333333</Color>
+  <SolidColorBrush x:Key="AppForegroundBrush">#bbbbbb</SolidColorBrush>
+  <SolidColorBrush x:Key="AppBackgroundBrush">#333333</SolidColorBrush>
+  <SolidColorBrush x:Key="TopBarBackgroundBrush">#333344</SolidColorBrush>
+  
   <Style x:Key="WindowStyle" TargetType="Window">
-    <Setter Property="Foreground" Value="#bbbbbb" />
-    <Setter Property="Background" Value="#333333" />
+    <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
+    <Setter Property="Background" Value="{StaticResource AppBackgroundBrush}" />
     <Setter Property="FontSize" Value="11" />
     <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
   </Style>
 
   <Style x:Key="TopBarStyle" TargetType="DockPanel">
-    <Setter Property="Background" Value="#333344" />
+    <Setter Property="Background" Value="{StaticResource TopBarBackgroundBrush}" />
   </Style>
 
   <Style x:Key="TopBarLabelStyle" TargetType="Label">
-    <Setter Property="Foreground" Value="#bbbbbb" />
+    <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
     <Setter Property="Padding" Value="5,0,0,1" />
   </Style>
 
@@ -36,7 +42,7 @@
                 <Style TargetType="TextBlock">
                   <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                      <Setter Property="Foreground" Value="#bbbbbb" />
+                      <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="False">
                       <Setter Property="Foreground" Value="#557799" />
@@ -56,8 +62,8 @@
   </Style>
 
   <Style x:Key="TimelineStyle" TargetType="ListBox">
-    <Setter Property="Foreground" Value="#bbbbbb" />
-    <Setter Property="Background" Value="#333333" />
+    <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
+    <Setter Property="Background" Value="{StaticResource AppBackgroundBrush}" />
     <Setter Property="FontSize" Value="11" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Margin" Value="0" />
@@ -65,16 +71,16 @@
   </Style>
   
   <Style x:Key="TweetItemStyle" TargetType="Border">
-    <Setter Property="Padding" Value="3" />
+    <Setter Property="Padding" Value="3 6 3 0" />
     <Style.Triggers>
       <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=m}" Value="True">
-        <Setter Property="Background" Value="#334533" />
+        <Setter Property="Background" Value="#223022" />
       </DataTrigger>
       <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=d}" Value="True">
-        <Setter Property="Background" Value="#333344" />
+        <Setter Property="Background" Value="#222229" />
       </DataTrigger>
       <DataTrigger Binding="{Binding IsMyTweet, Mode=OneTime}" Value="True">
-        <Setter Property="Background" Value="#663333" />
+        <Setter Property="Background" Value="#292222" />
       </DataTrigger>
     </Style.Triggers>
   </Style>
@@ -127,7 +133,7 @@
     <Setter Property="Margin" Value="5 0 0 0" />
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Foreground" Value="#bbbbbb" />
+        <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
       </Trigger>
     </Style.Triggers>
   </Style>
@@ -207,7 +213,7 @@
   </Style>
   
   <Style x:Key="ComposeTweetTitleBlock" TargetType="TextBlock">
-    <Setter Property="Foreground" Value="#bbbbbb" />
+    <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
     <Setter Property="Margin" Value="7 4 0 4" />
   </Style>
   
@@ -261,7 +267,7 @@
   </SolidColorBrush>
   <SolidColorBrush x:Key="HoverBrush" Color="#888888">
   </SolidColorBrush>
-  <SolidColorBrush x:Key="GlyphBrush" Color="#333333">
+  <SolidColorBrush x:Key="GlyphBrush" Color="{StaticResource AppBackgroundColor}">
   </SolidColorBrush>
 
   <Style x:Key="VerticalScrollBarThumbStyle" TargetType="{x:Type Thumb}">
@@ -418,9 +424,9 @@
       </Grid.RowDefinitions>
       <Grid.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-          <GradientStop Offset="0" Color="#333333">
+          <GradientStop Offset="0" Color="{StaticResource AppBackgroundColor}">
           </GradientStop>
-          <GradientStop Offset="1" Color="#333333">
+          <GradientStop Offset="1" Color="{StaticResource AppBackgroundColor}">
           </GradientStop>
         </LinearGradientBrush>
       </Grid.Background>
@@ -456,9 +462,9 @@
       </Grid.ColumnDefinitions>
       <Grid.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-          <GradientStop Offset="0" Color="#333333">
+          <GradientStop Offset="0" Color="{StaticResource AppBackgroundColor}">
           </GradientStop>
-          <GradientStop Offset="1" Color="#333333">
+          <GradientStop Offset="1" Color="{StaticResource AppBackgroundColor}">
           </GradientStop>
         </LinearGradientBrush>
       </Grid.Background>
@@ -525,7 +531,7 @@
   <!--User Information Popup-->
   
   <Style x:Key="UserInfoPopupStyle" TargetType="Border">
-    <Setter Property="Background" Value="#333333" />
+    <Setter Property="Background" Value="{StaticResource AppBackgroundBrush}" />
     <Setter Property="BorderThickness" Value="2" />
     <Setter Property="BorderBrush" Value="#404040" />
   </Style>
