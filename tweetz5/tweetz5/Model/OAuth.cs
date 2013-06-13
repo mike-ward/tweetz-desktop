@@ -12,8 +12,8 @@ namespace tweetz5.Model
 {
     public class OAuth
     {
-        public string ConsumerKey { get; set; }
-        public string ConsumerSecret { get; set; }
+        public static string ConsumerKey { get; private set; }
+        public static string ConsumerSecret { get; private set; }
         public string AccessTokenSecret { get; set; }
         public string AccessToken { get; set; }
         public string ScreenName { get; set; }
@@ -21,12 +21,12 @@ namespace tweetz5.Model
         static OAuth()
         {
             ServicePointManager.Expect100Continue = false;
+            ConsumerKey = "ZScn2AEIQrfC48Zlw";
+            ConsumerSecret = "8gKdPBwUfZCQfUiyeFeEwVBQiV3q50wIOrIjoCxa2Q";
         }
 
         public OAuth()
         {
-            ConsumerKey = "ZScn2AEIQrfC48Zlw";
-            ConsumerSecret = "8gKdPBwUfZCQfUiyeFeEwVBQiV3q50wIOrIjoCxa2Q";
             AccessToken = "14410002-tTUqt6ujPyLLcn3OjgdlmSdl9e6ta1OISAWS1Gs8I";
             AccessTokenSecret = "zaBS7G3f8n0F6zxGwNJEmlU4zg1P6VgL5cPyEgShI";
             ScreenName = "mikeward_aa";
@@ -56,7 +56,7 @@ namespace tweetz5.Model
             return Convert.ToInt64(timespan.TotalSeconds).ToString(CultureInfo.InvariantCulture);
         }
 
-        public string Signature(string httpMethod, string url, string nonce, string timestamp, IEnumerable<string[]> parameters)
+        public static string Signature(string httpMethod, string url, string nonce, string timestamp, string accessToken, string accessTokenSecret, IEnumerable<string[]> parameters)
         {
             const string format = "{0}={1}";
             var parameterStrings = new List<string>
@@ -66,41 +66,43 @@ namespace tweetz5.Model
                 string.Format(format, "oauth_timestamp", timestamp),
                 string.Format(format, "oauth_signature_method", "HMAC-SHA1"),
                 string.Format(format, "oauth_consumer_key", UrlEncode(ConsumerKey)),
-                string.Format(format, "oauth_token", UrlEncode(AccessToken))
             };
+            if (string.IsNullOrWhiteSpace(accessToken) == false)
+                parameterStrings.Add(string.Format(format, "oauth_token", UrlEncode(accessToken)));
+
             if (parameters != null)
-            {
                 parameterStrings.AddRange(parameters.Select(par => string.Format(format, UrlEncode(par[0]), UrlEncode(par[1]))));
-            }
+            
             parameterStrings.Sort();
             var parameterString = string.Join("&", parameterStrings);
             var signatureBaseString = string.Format("{0}&{1}&{2}", httpMethod, UrlEncode(url), UrlEncode(parameterString));
-            var compositeKey = string.Format("{0}&{1}", UrlEncode(ConsumerSecret), UrlEncode(AccessTokenSecret));
+            var compositeKey = string.Format("{0}&{1}", UrlEncode(ConsumerSecret), UrlEncode(accessTokenSecret));
             using (var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(compositeKey)))
             {
                 return Convert.ToBase64String(hmac.ComputeHash(Encoding.ASCII.GetBytes(signatureBaseString)));
             }
         }
 
-        public string AuthorizationHeader(string nonce, string timestamp, string signature)
+        public static string AuthorizationHeader(string nonce, string timestamp, string accessToken, string signature, IEnumerable<string[]> parameters = null)
         {
-            const string headerFormat =
-                "OAuth " +
-                    "oauth_consumer_key=\"{0}\"," +
-                    "oauth_nonce=\"{1}\"," +
-                    "oauth_timestamp=\"{2}\"," +
-                    "oauth_token=\"{3}\"," +
-                    "oauth_signature=\"{4}\"," +
-                    "oauth_signature_method=\"HMAC-SHA1\"," +
-                    "oauth_version=\"1.0\"";
+            const string format = "{0}=\"{1}\"";
+            var parameterStrings = new List<string>
+            {
+                string.Format(format, "oauth_version", "1.0"),
+                string.Format(format, "oauth_nonce", UrlEncode(nonce)),
+                string.Format(format, "oauth_timestamp", UrlEncode(timestamp)),
+                string.Format(format, "oauth_signature", UrlEncode(signature)),
+                string.Format(format, "oauth_signature_method", "HMAC-SHA1"),
+                string.Format(format, "oauth_consumer_key", UrlEncode(ConsumerKey)),
+            };
+            if (string.IsNullOrWhiteSpace(accessToken) == false)
+                parameterStrings.Add(string.Format(format, "oauth_token", UrlEncode(accessToken)));
+            
+            if (parameters != null)
+                parameterStrings.AddRange(parameters.Select(par => string.Format(format, UrlEncode(par[0]), UrlEncode(par[1]))));
 
-            var header = string.Format(headerFormat,
-                UrlEncode(ConsumerKey),
-                UrlEncode(nonce),
-                UrlEncode(timestamp),
-                UrlEncode(AccessToken),
-                UrlEncode(signature));
-
+            parameterStrings.Sort();
+            var header = "OAuth " + string.Join(",", parameterStrings);
             return header;
         }
     }

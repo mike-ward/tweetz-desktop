@@ -83,7 +83,7 @@
                           Visibility="Visible"
                           IsVisibleChanged="OnIsVisibleChanged" />
       <local:Authenticate x:Name="AuthenticatePanel"
-                          Visibility="Collapsed"/>
+                          Visibility="Visible"/>
       <Thumb x:Name="ResizeBar"
              DragDelta="ThumbOnDragDelta"
              Style="{StaticResource SizeThumbStyle}" />
