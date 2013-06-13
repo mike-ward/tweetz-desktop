@@ -35,37 +35,21 @@ namespace tweetz5UnitTests.Model
         [TestMethod]
         public void AuthorizationHeaderIsCorrectFormat()
         {
-            var oAuth = new OAuth
-            {
-                ConsumerKey = "4431",
-                ConsumerSecret = "xa2Q",
-                AccessToken = "s8I",
-                AccessTokenSecret = "zEgShI"
-            };
-            const string authorizationHeader =
-                "OAuth " +
-                    "oauth_consumer_key=\"4431\"," +
-                    "oauth_nonce=\"123\"," +
-                    "oauth_timestamp=\"345\"," +
-                    "oauth_token=\"s8I\"," +
-                    "oauth_signature=\"signature\"," +
-                    "oauth_signature_method=\"HMAC-SHA1\"," +
-                    "oauth_version=\"1.0\"";
-            oAuth.AuthorizationHeader("123", "345", "signature").Should().Be(authorizationHeader);
+            const string header = "OAuth oauth_consumer_key=\"ZScn2AEIQrfC48Zlw\"," +
+                                  "oauth_nonce=\"123\"," +
+                                  "oauth_signature_method=\"HMAC-SHA1\"," +
+                                  "oauth_signature=\"signature\"," +
+                                  "oauth_timestamp=\"345\"," +
+                                  "oauth_token=\"s8I\"," +
+                                  "oauth_version=\"1.0\"";
+            OAuth.AuthorizationHeader("123", "345", "s8I", "signature").Should().Be(header);
         }
 
         [TestMethod]
         public void SignatureMethodTest()
         {
-            var oAuth = new OAuth
-            {
-                ConsumerKey = "4431",
-                ConsumerSecret = "xa2Q",
-                AccessToken = "s8I",
-                AccessTokenSecret = "zEgShI"
-            };
-            var signature = oAuth.Signature("GET", "http://twitter.com", "123", "456", new[] {new[] {"entities", "true"}});
-            signature.Should().Be("DFXMW0qmQACqiAnGTOJFKJlkn3c=");
+            var signature = OAuth.Signature("GET", "http://twitter.com", "123", "456", "s8I", "zEgShI", new[] {new[] {"entities", "true"}});
+            signature.Should().Be("u+LenucADw1l+2Kx6W0NedXLrpc=");
         }
     }
 }
