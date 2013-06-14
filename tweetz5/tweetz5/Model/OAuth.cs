@@ -27,6 +27,9 @@ namespace tweetz5.Model
 
         public OAuth()
         {
+            AccessToken = Properties.Settings.Default.AccessToken;
+            AccessTokenSecret = Properties.Settings.Default.AccessTokenSecret;
+            ScreenName = Properties.Settings.Default.ScreenName;
             AccessToken = "14410002-tTUqt6ujPyLLcn3OjgdlmSdl9e6ta1OISAWS1Gs8I";
             AccessTokenSecret = "zaBS7G3f8n0F6zxGwNJEmlU4zg1P6VgL5cPyEgShI";
             ScreenName = "mikeward_aa";

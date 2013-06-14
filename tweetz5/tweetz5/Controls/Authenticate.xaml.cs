@@ -30,7 +30,10 @@ namespace tweetz5.Controls
         private void Authorize_OnClick(object sender, RoutedEventArgs e)
         {
             var tokens = Twitter.GetAccessToken(Tokens.OAuthToken, Tokens.OAuthSecret, Pin.Text);
-            Visibility = string.IsNullOrWhiteSpace(tokens.UserId) ? Visibility.Visible : Visibility.Collapsed;
+            Properties.Settings.Default.AccessToken = tokens.OAuthToken;
+            Properties.Settings.Default.AccessTokenSecret = tokens.OAuthSecret;
+            Properties.Settings.Default.UserId = tokens.UserId;
+            Properties.Settings.Default.ScreenName = tokens.ScreenName;
         }
     }
 }
