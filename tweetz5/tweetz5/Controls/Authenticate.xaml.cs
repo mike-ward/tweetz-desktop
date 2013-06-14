@@ -6,6 +6,8 @@ namespace tweetz5.Controls
 {
     public partial class Authenticate
     {
+        private Twitter.OAuthTokens Tokens { get; set; }
+
         public Authenticate()
         {
             InitializeComponent();
@@ -15,8 +17,8 @@ namespace tweetz5.Controls
         {
             try
             {
-                var tokens = Twitter.GetRequestToken();
-                var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + tokens.OAuthToken;
+                Tokens = Twitter.GetRequestToken();
+                var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + Tokens.OAuthToken;
                 MainWindow.OpenLinkCommand.Execute(url, this);
             }
             catch (Exception ex)
@@ -27,9 +29,8 @@ namespace tweetz5.Controls
 
         private void Authorize_OnClick(object sender, RoutedEventArgs e)
         {
-            var tokens = Twitter.GetAccessToken(Pin.Text);
-            // save tokens
-            // wakeup timeline
+            var tokens = Twitter.GetAccessToken(Tokens.OAuthToken, Tokens.OAuthSecret, Pin.Text);
+            Visibility = string.IsNullOrWhiteSpace(tokens.UserId) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

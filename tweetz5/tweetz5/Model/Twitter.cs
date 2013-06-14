@@ -46,12 +46,11 @@ namespace tweetz5.Model
                 request.ContentType = "application/x-www-form-urlencoded";
                 if (parameters != null)
                 {
-                    parameterStrings.Sort();
-                    var parameterString = string.Join("&", parameterStrings);
-                    var requestStream = request.GetRequestStream();
-                    var buffer = Encoding.ASCII.GetBytes(parameterString);
-                    requestStream.Write(buffer, 0, buffer.Length);
-                    requestStream.Close();
+                    var buffer = Encoding.ASCII.GetBytes(string.Join("&", parameterStrings));
+                    using (var requestStream = request.GetRequestStream())
+                    {
+                        requestStream.Write(buffer, 0, buffer.Length);
+                    }
                 }
             }
 
@@ -359,20 +358,34 @@ namespace tweetz5.Model
             }
         }
 
-        public static OAuthTokens GetAccessToken(string oauthVerifier)
+        public static OAuthTokens GetAccessToken(string accessToken, string accessTokenSecret, string oauthVerifier)
         {
+            const string requestTokenUrl = "https://api.twitter.com/oauth/access_token";
+            var nonce = OAuth.Nonce();
+            var timestamp = OAuth.TimeStamp();
             var parameters = new[] {new[] {"oauth_verifier", oauthVerifier}};
-            var response = Post("https://api.twitter.com/oauth/access_token", parameters);
+            var signature = OAuth.Signature("POST", requestTokenUrl, nonce, timestamp, accessToken, accessTokenSecret, parameters);
+            var authorizationHeader = OAuth.AuthorizationHeader(nonce, timestamp, accessToken, signature, parameters);
 
-            var tokens = response.Split('&');
-            var oauthTokens = new OAuthTokens
+            var request = System.Net.WebRequest.Create(requestTokenUrl);
+            request.Method = "POST";
+            request.Headers.Add("Authorization", authorizationHeader);
+
+            using (var response = request.GetResponse())
             {
-                OAuthToken = Token(tokens[0]),
-                OAuthSecret = Token(tokens[1]),
-                UserId = Token(tokens[2]),
-                ScreenName = Token(tokens[3])
-            };
-            return oauthTokens;
+                using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    var tokens = stream.ReadToEnd().Split('&');
+                    var oauthTokens = new OAuthTokens
+                    {
+                        OAuthToken = Token(tokens[0]),
+                        OAuthSecret = Token(tokens[1]),
+                        UserId = Token(tokens[2]),
+                        ScreenName = Token(tokens[3])
+                    };
+                    return oauthTokens;
+                }
+            }
         }
 
         private static string Token(string pair)
