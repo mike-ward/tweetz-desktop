@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
+
+using System;
 using System.Windows;
 using tweetz5.Model;
 
@@ -27,14 +29,16 @@ namespace tweetz5.Controls
             }
         }
 
-        private void Authorize_OnClick(object sender, RoutedEventArgs e)
+        private void SignIn_OnClick(object sender, RoutedEventArgs e)
         {
             var tokens = Twitter.GetAccessToken(Tokens.OAuthToken, Tokens.OAuthSecret, Pin.Text);
+            Pin.Text = string.Empty;
             Properties.Settings.Default.AccessToken = tokens.OAuthToken;
             Properties.Settings.Default.AccessTokenSecret = tokens.OAuthSecret;
             Properties.Settings.Default.UserId = tokens.UserId;
             Properties.Settings.Default.ScreenName = tokens.ScreenName;
-            ((MainWindow)Application.Current.MainWindow).Login();
+            Properties.Settings.Default.Save();
+            ((MainWindow)Application.Current.MainWindow).SignIn();
         }
     }
 }

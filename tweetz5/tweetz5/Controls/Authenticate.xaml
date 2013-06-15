@@ -26,7 +26,7 @@
                      TextAlignment="Center"
                      Margin="10 20" />
 
-            <Button Click="Authorize_OnClick"
+            <Button Click="SignIn_OnClick"
                     FontSize="16"
                     Margin="5">
                 <Button.Style>
@@ -38,7 +38,7 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
-                Authenticate
+                Sign In
             </Button>
         </StackPanel>
       

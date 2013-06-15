@@ -50,6 +50,7 @@ namespace tweetz5.Controls
                 _updateTimeStamps.Dispose();
                 _updateTimeStamps = null;
             }
+            _timelinesModel.ClearAllTimelines();
         }
 
         public void Dispose()

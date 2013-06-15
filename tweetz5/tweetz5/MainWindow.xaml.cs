@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Threading;
 using tweetz5.Model;
+using tweetz5.Properties;
 
 namespace tweetz5
 {
@@ -27,23 +27,25 @@ namespace tweetz5
         public static readonly RoutedCommand FollowUserComand = new RoutedUICommand();
         public static readonly RoutedCommand SearchCommand = new RoutedUICommand();
         public static readonly RoutedCommand AlertCommand = new RoutedUICommand();
-        public static readonly RoutedCommand LogOutCommand = new RoutedUICommand();
+        public static readonly RoutedCommand SignOutCommand = new RoutedUICommand();
+        public static readonly RoutedCommand SettingsCommand = new RoutedUICommand();
 
         public MainWindow()
         {
             InitializeComponent();
-            // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
+            MainPanel.IsVisibleChanged += MainPanelOnIsVisibleChanged;
             Loaded += (sender, args) =>
             {
+                // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
                 Compose.Visibility = Visibility.Collapsed;
-                Login();
+                SignIn();
             };
-            MainPanel.IsVisibleChanged += MainPanelOnIsVisibleChanged;
         }
 
-        public void Login()
+        public void SignIn()
         {
-            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.UserId))
+            SettingsPanel.Visibility = Visibility.Collapsed;
+            if (string.IsNullOrWhiteSpace(Settings.Default.UserId))
             {
                 AuthenticatePanel.Visibility = Visibility.Visible;
                 MainPanel.Visibility = Visibility.Collapsed;
@@ -53,8 +55,8 @@ namespace tweetz5
                 AuthenticatePanel.Visibility = Visibility.Collapsed;
                 MainPanel.Visibility = Visibility.Visible;
                 Timeline.Controller.StartTimelines();
-                SetButtonStates("unified");
-            }            
+                SwitchTimelinesCommand.Execute("unified", this);
+            }
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
@@ -67,11 +69,12 @@ namespace tweetz5
             Height = Math.Max(Height + e.VerticalChange, MinHeight);
         }
 
-
         private void MainPanelOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (MainPanel.IsVisible)
             {
+                ResizeBar.Visibility = Visibility.Visible;
+                Timeline.Visibility = Visibility.Visible;
                 OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
             }
         }
@@ -174,7 +177,7 @@ namespace tweetz5
                 if (tweet.Favorited)
                 {
                     var status = Status.ParseJson("[" + json + "]");
-                    Timeline.Controller.UpdateStatus(new[] { "favorites" }, status, "f");
+                    Timeline.Controller.UpdateStatus(new[] {"favorites"}, status, "f");
                 }
             }
             catch (Exception e)
@@ -186,7 +189,7 @@ namespace tweetz5
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var statuses = (Status[])ea.Parameter;
-            Timeline.Controller.UpdateStatus(new[] { "home", "unified" }, statuses, "h");
+            Timeline.Controller.UpdateStatus(new[] {"home", "unified"}, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
@@ -215,7 +218,7 @@ namespace tweetz5
 
         private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
+            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
         }
 
@@ -246,7 +249,7 @@ namespace tweetz5
                 {
                     var json = Twitter.Search(query);
                     var statuses = SearchStatuses.ParseJson(json);
-                    Timeline.Controller.UpdateStatus(new[] { "search" }, statuses, string.Empty);
+                    Timeline.Controller.UpdateStatus(new[] {"search"}, statuses, string.Empty);
                 });
                 ea.Handled = true;
             }
@@ -265,14 +268,22 @@ namespace tweetz5
             ea.Handled = true;
         }
 
-        private void LogOutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        private void SignOutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             Timeline.Controller.StopTimelines();
-            Properties.Settings.Default.AccessToken = "";
-            Properties.Settings.Default.AccessTokenSecret = "";
-            Properties.Settings.Default.ScreenName = "";
-            Properties.Settings.Default.UserId = "";
-            Login();
+            Settings.Default.AccessToken = "";
+            Settings.Default.AccessTokenSecret = "";
+            Settings.Default.ScreenName = "";
+            Settings.Default.UserId = "";
+            Settings.Default.Save();
+            SignIn();
+        }
+
+        private void SettingsCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            SettingsPanel.Visibility = SettingsPanel.IsVisible ? Visibility.Collapsed : Visibility.Visible;
+            ResizeBar.Visibility = SettingsPanel.IsVisible ? Visibility.Collapsed : Visibility.Visible;
+            Timeline.Visibility = SettingsPanel.IsVisible ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

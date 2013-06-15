@@ -75,11 +75,12 @@
           </Button>
           <Button x:Name="SettingsButton"
                   Style="{StaticResource NavBarButton}"
-                  Command="{x:Static tweetz5:MainWindow.LogOutCommand}">
+                  Command="{x:Static tweetz5:MainWindow.SettingsCommand}">
             &#xE115;</Button>
           <Button Style="{StaticResource NavBarButton}"
                   Click="ComposeOnClick">&#xE104;</Button>
         </UniformGrid>
+        <local:Settings x:Name="SettingsPanel" />
         <local:Timeline x:Name="Timeline"
                         Panel.ZIndex="-1"
                         Height="400" />
@@ -128,7 +129,9 @@
                     Executed="SearchCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MainWindow.AlertCommand}"
                     Executed="AlertCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.LogOutCommand}"
-                    Executed="LogOutCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.SignOutCommand}"
+                    Executed="SignOutCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.SettingsCommand}"
+                    Executed="SettingsCommandHandler"/>
   </Window.CommandBindings>
 </Window>

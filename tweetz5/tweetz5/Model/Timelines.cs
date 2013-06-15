@@ -23,6 +23,7 @@ namespace tweetz5.Model
         void SwitchTimeline(string timeline);
         void RemoveStatus(Tweet tweet);
         void ClearSearchTimeline();
+        void ClearAllTimelines();
         string TimelineName { get; set; }
     }
 
@@ -38,7 +39,7 @@ namespace tweetz5.Model
         private readonly ObservableCollection<Tweet> _favorites = new ObservableCollection<Tweet>();
         private readonly ObservableCollection<Tweet> _search = new ObservableCollection<Tweet>();
         private readonly Dictionary<string, ObservableCollection<Tweet>> _timelineMap;
-        private Visibility _serachVisibility;
+        private Visibility _searchVisibility;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -84,12 +85,12 @@ namespace tweetz5.Model
 
         public Visibility SearchVisibility
         {
-            get { return _serachVisibility; }
+            get { return _searchVisibility; }
             set
             {
-                if (_serachVisibility != value)
+                if (_searchVisibility != value)
                 {
-                    _serachVisibility = value;
+                    _searchVisibility = value;
                     OnPropertyChanged();
                 }
             }
@@ -102,6 +103,15 @@ namespace tweetz5.Model
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public void ClearAllTimelines()
+        {
+            foreach (var timeline in _timelineMap)
+            {
+                timeline.Value.Clear();
+            }
+            
         }
 
         private static bool UpdateTimeline(ObservableCollection<Tweet>[] timelines, IEnumerable<Status> statuses, string tweetType)

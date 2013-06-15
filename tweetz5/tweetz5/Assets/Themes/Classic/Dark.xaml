@@ -15,6 +15,18 @@
     <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
   </Style>
 
+  <Style TargetType="Label">
+    <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
+  </Style>
+
+  <Style TargetType="TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
+  </Style>
+
+  <Style x:Key="SettingsPanelStyle" TargetType="UserControl">
+    <Setter Property="Background" Value="#292929" />
+  </Style>
+  
   <Style x:Key="TopBarStyle" TargetType="DockPanel">
     <Setter Property="Background" Value="{StaticResource TopBarBackgroundBrush}" />
   </Style>
