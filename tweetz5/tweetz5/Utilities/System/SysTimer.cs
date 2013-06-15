@@ -65,6 +65,7 @@ namespace tweetz5.Utilities.System
             {
                 if (_timer != null)
                 {
+                    _timer.Stop();
                     _timer.Elapsed -= TimerOnElapsed;
                     _timer.Dispose();
                     _timer = null;

@@ -27,13 +27,34 @@ namespace tweetz5
         public static readonly RoutedCommand FollowUserComand = new RoutedUICommand();
         public static readonly RoutedCommand SearchCommand = new RoutedUICommand();
         public static readonly RoutedCommand AlertCommand = new RoutedUICommand();
+        public static readonly RoutedCommand LogOutCommand = new RoutedUICommand();
 
         public MainWindow()
         {
             InitializeComponent();
             // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
-            Loaded += (sender, args) => Compose.Visibility = Visibility.Collapsed;
-            SetButtonStates("unified");
+            Loaded += (sender, args) =>
+            {
+                Compose.Visibility = Visibility.Collapsed;
+                Login();
+            };
+            MainPanel.IsVisibleChanged += MainPanelOnIsVisibleChanged;
+        }
+
+        public void Login()
+        {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.UserId))
+            {
+                AuthenticatePanel.Visibility = Visibility.Visible;
+                MainPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                AuthenticatePanel.Visibility = Visibility.Collapsed;
+                MainPanel.Visibility = Visibility.Visible;
+                Timeline.Controller.StartTimelines();
+                SetButtonStates("unified");
+            }            
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
@@ -46,9 +67,18 @@ namespace tweetz5
             Height = Math.Max(Height + e.VerticalChange, MinHeight);
         }
 
+
+        private void MainPanelOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (MainPanel.IsVisible)
+            {
+                OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
+            }
+        }
+
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - AuthenticatePanel.ActualHeight - ResizeBar.ActualHeight;
+            Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - ResizeBar.ActualHeight;
         }
 
         private void ComposeOnClick(object sender, RoutedEventArgs e)
@@ -56,7 +86,7 @@ namespace tweetz5
             Compose.Toggle();
         }
 
-        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void ComposeOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
             if (Compose.IsVisible)
@@ -233,6 +263,16 @@ namespace tweetz5
             StatusAlert.Message.Text = message;
             StatusAlert.IsOpen = true;
             ea.Handled = true;
+        }
+
+        private void LogOutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            Timeline.Controller.StopTimelines();
+            Properties.Settings.Default.AccessToken = "";
+            Properties.Settings.Default.AccessTokenSecret = "";
+            Properties.Settings.Default.ScreenName = "";
+            Properties.Settings.Default.UserId = "";
+            Login();
         }
     }
 }

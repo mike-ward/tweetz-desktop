@@ -80,7 +80,7 @@
         <Setter Property="Background" Value="#222229" />
       </DataTrigger>
       <DataTrigger Binding="{Binding IsMyTweet, Mode=OneTime}" Value="True">
-        <Setter Property="Background" Value="#292222" />
+        <Setter Property="Background" Value="#442222" />
       </DataTrigger>
     </Style.Triggers>
   </Style>

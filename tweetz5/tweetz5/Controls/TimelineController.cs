@@ -38,6 +38,20 @@ namespace tweetz5.Controls
             _updateTimeStamps.Start();
         }
 
+        public void StopTimelines()
+        {
+            if (_checkTimelines != null)
+            {
+                _checkTimelines.Dispose();
+                _checkTimelines = null;
+            }
+            if (_updateTimeStamps != null)
+            {
+                _updateTimeStamps.Dispose();
+                _updateTimeStamps = null;
+            }
+        }
+
         public void Dispose()
         {
             Dispose(true);

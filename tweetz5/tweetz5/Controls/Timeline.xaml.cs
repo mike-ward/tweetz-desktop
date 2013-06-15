@@ -17,7 +17,6 @@ namespace tweetz5.Controls
         {
             InitializeComponent();
             Controller = new TimelineController((Timelines)DataContext);
-            Controller.StartTimelines();
             TimelineItems.PreviewMouseWheel += TimelineItemsOnPreviewMouseWheel;
             Unloaded += (sender, args) => Controller.Dispose();
         }

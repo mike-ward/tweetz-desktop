@@ -14,9 +14,10 @@
       Copy the PIN from the Web page to here and click <Run FontWeight="Bold">Authorize</Run>.
     </TextBlock>
 
-        <StackPanel Margin="30 10">
+        <StackPanel Margin="20 10">
             <Button Click="GetPin_OnClick"
                     FontSize="16"
+                    Padding="0 0 0 2"
                     Margin="5">Get PIN</Button>
 
             <TextBox x:Name="Pin"

@@ -34,6 +34,7 @@ namespace tweetz5.Controls
             Properties.Settings.Default.AccessTokenSecret = tokens.OAuthSecret;
             Properties.Settings.Default.UserId = tokens.UserId;
             Properties.Settings.Default.ScreenName = tokens.ScreenName;
+            ((MainWindow)Application.Current.MainWindow).Login();
         }
     }
 }
