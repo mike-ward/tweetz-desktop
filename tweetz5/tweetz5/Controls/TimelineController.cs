@@ -90,9 +90,9 @@ namespace tweetz5.Controls
             _timelinesModel.UpdateStatus(timelines, statuses, tweetType);
         }
 
-        public void SwitchTimeline(string timeline)
+        public void SwitchTimeline(string timelineName)
         {
-            _timelinesModel.SwitchTimeline(timeline);
+            _timelinesModel.SwitchTimeline(timelineName);
         }
 
         public void RemoveStatus(Tweet tweet)

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -31,13 +30,7 @@ namespace tweetz5.Controls
 
         public void ScrollToTop()
         {
-            try
-            {
-                TimelineItems.ScrollIntoView(TimelineItems.Items[0]);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-            }
+            if (TimelineItems.Items.Count > 0) TimelineItems.ScrollIntoView(TimelineItems.Items[0]);
         }
 
         private static void TimelineItemsOnPreviewMouseWheel(object sender, MouseWheelEventArgs e)

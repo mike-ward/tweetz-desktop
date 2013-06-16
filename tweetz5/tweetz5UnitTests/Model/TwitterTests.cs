@@ -30,7 +30,7 @@ namespace tweetz5UnitTests.Model
             mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
 
             var twitter = new Twitter();
-            twitter.HomeTimeline().Should().HaveCount(1);
+            twitter.HomeTimeline(1).Should().HaveCount(1);
 
             stream.Dispose();
             mockWebRequest.VerifyAll();
@@ -50,7 +50,7 @@ namespace tweetz5UnitTests.Model
             mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
 
             var twitter = new Twitter();
-            twitter.MentionsTimeline().Should().HaveCount(1);
+            twitter.MentionsTimeline(1).Should().HaveCount(1);
 
             stream.Dispose();
             mockWebRequest.VerifyAll();

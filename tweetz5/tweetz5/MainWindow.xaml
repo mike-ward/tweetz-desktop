@@ -1,8 +1,9 @@
 ﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:tweetz5.Controls"
+        xmlns:controls="clr-namespace:tweetz5.Controls"
         xmlns:p="clr-namespace:tweetz5.Properties"
         xmlns:tweetz5="clr-namespace:tweetz5"
+        xmlns:model="clr-namespace:tweetz5.Model"
         x:Class="tweetz5.MainWindow"
         Title="tweetz"
         MinHeight="200"
@@ -33,44 +34,44 @@
                   Command="Close">&#xE10A;</Button>
         </StackPanel>
       </DockPanel>
-      <local:Authenticate x:Name="AuthenticatePanel"
+      <controls:Authenticate x:Name="AuthenticatePanel"
                           Visibility="Collapsed"/>
       <StackPanel x:Name="MainPanel">
         <UniformGrid x:Name="NavBar" Rows="1" Style="{StaticResource NavBar}">
           <Button x:Name="UnifiedButton"
                   Style="{StaticResource NavBarButton}"
                   Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="unified">
+                  CommandParameter="{x:Static model:Timelines.UnifiedName}">
             &#xE179;
           </Button>
           <Button x:Name="HomeButton"
                   Style="{StaticResource NavBarButton}"
                   Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="home">
+                  CommandParameter="{x:Static model:Timelines.HomeName}">
             &#xE10F;
           </Button>
           <Button x:Name="MentionsButton"
                   Style="{StaticResource NavBarButton}"
                   Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="mentions">
+                  CommandParameter="{x:Static model:Timelines.MentionsName}">
             &#xE168;
           </Button>
           <Button x:Name="MessagesButton"
                   Style="{StaticResource NavBarButton}"
                   Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="messages">
+                  CommandParameter="{x:Static model:Timelines.MessagesName}">
             &#xE135;
           </Button>
           <Button x:Name="FavoritesButton"
                   Style="{StaticResource NavBarButton}"
                   Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="favorites">
+                  CommandParameter="{x:Static model:Timelines.FavoritesName}">
             &#xE113;
           </Button>
           <Button x:Name="SearchButton"
                   Style="{StaticResource NavBarButton}"
                   Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="search">
+                  CommandParameter="{x:Static model:Timelines.SearchName}">
             &#xE11A;
           </Button>
           <Button x:Name="SettingsButton"
@@ -80,20 +81,20 @@
           <Button Style="{StaticResource NavBarButton}"
                   Click="ComposeOnClick">&#xE104;</Button>
         </UniformGrid>
-        <local:Settings x:Name="SettingsPanel" />
-        <local:Timeline x:Name="Timeline"
+        <controls:Settings x:Name="SettingsPanel" />
+        <controls:Timeline x:Name="Timeline"
                         Panel.ZIndex="-1"
                         Height="400" />
-        <local:ComposeTweet x:Name="Compose"
+        <controls:ComposeTweet x:Name="Compose"
                             Visibility="Visible"
                             IsVisibleChanged="ComposeOnIsVisibleChanged" />
         <Thumb x:Name="ResizeBar"
                DragDelta="ThumbOnDragDelta"
                Style="{StaticResource SizeThumbStyle}" />
-        <local:AboutUser x:Name="UserInformationPopup"
+        <controls:AboutUser x:Name="UserInformationPopup"
                          Placement="Left"
                          StaysOpen="False"/>
-        <local:StatusAlert x:Name="StatusAlert" 
+        <controls:StatusAlert x:Name="StatusAlert" 
                            Placement="Center"/>
       </StackPanel>
     </StackPanel>

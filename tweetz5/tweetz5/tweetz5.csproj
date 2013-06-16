@@ -86,6 +86,7 @@
     <Compile Include="Model\OAuth.cs" />
     <Compile Include="Model\LongUrl.cs" />
     <Compile Include="Model\ShortUrl.cs" />
+    <Compile Include="Model\Timeline.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
     <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />

@@ -64,67 +64,55 @@ namespace tweetz5.Model
             }
         }
 
-        private static ulong _sinceIdHome = 1;
-
-        public Status[] HomeTimeline()
+        public Status[] HomeTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
                 new[] {"count", "50"},
                 new[] {"include_rts", "true"},
                 new[] {"include_entities", "true"},
-                new[] {"since_id", _sinceIdHome.ToString(CultureInfo.InvariantCulture)}
+                new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
-            return GetTimeline("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters, ref _sinceIdHome);
+            return GetTimeline("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters);
         }
 
-        private static ulong _sinceIdMentions = 1;
-
-        public Status[] MentionsTimeline()
+        public Status[] MentionsTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
                 new[] {"count", "50"},
                 new[] {"include_entities", "true"},
-                new[] {"since_id", _sinceIdMentions.ToString(CultureInfo.InvariantCulture)}
+                new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
-            return GetTimeline("https://api.twitter.com/1.1/statuses/mentions_timeline.json", parameters, ref _sinceIdMentions);
+            return GetTimeline("https://api.twitter.com/1.1/statuses/mentions_timeline.json", parameters);
         }
 
-        private static ulong _sinceIdDirectMessages = 1;
-
-        public Status[] DirectMessagesTimeline()
+        public Status[] DirectMessagesTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
                 new[] {"include_entities", "true"},
-                new[] {"since_id", _sinceIdDirectMessages.ToString(CultureInfo.InvariantCulture)}
+                new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
-            return GetTimeline("https://api.twitter.com/1.1/direct_messages.json", parameters, ref _sinceIdDirectMessages);
+            return GetTimeline("https://api.twitter.com/1.1/direct_messages.json", parameters);
         }
 
-        private static ulong _sinceIdFavorites = 1;
-
-        public Status[] FavoritesTimeline()
+        public Status[] FavoritesTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
                 new[] {"count", "50"},
-                new[] {"since_id", _sinceIdFavorites.ToString(CultureInfo.InvariantCulture)}
+                new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
-            return GetTimeline("https://api.twitter.com/1.1/favorites/list.json", parameters, ref _sinceIdFavorites);
+            return GetTimeline("https://api.twitter.com/1.1/favorites/list.json", parameters);
         }
 
-        private static Status[] GetTimeline(string url, IEnumerable<string[]> parameters, ref ulong sinceId)
+        private static Status[] GetTimeline(string url, IEnumerable<string[]> parameters)
         {
             try
             {
                 var json = Get(url, parameters);
                 var statuses = Status.ParseJson(json);
-                if (statuses.Length > 0)
-                {
-                    sinceId = Math.Max(sinceId, statuses.Max(s => ulong.Parse(s.Id)));
-                }
                 return statuses;
             }
             catch (WebException e)

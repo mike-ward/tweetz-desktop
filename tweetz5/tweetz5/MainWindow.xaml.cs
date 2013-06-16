@@ -55,7 +55,7 @@ namespace tweetz5
                 AuthenticatePanel.Visibility = Visibility.Collapsed;
                 MainPanel.Visibility = Visibility.Visible;
                 Timeline.Controller.StartTimelines();
-                SwitchTimelinesCommand.Execute("unified", this);
+                SwitchTimelinesCommand.Execute(Timelines.UnifiedName, this);
             }
         }
 
@@ -100,21 +100,21 @@ namespace tweetz5
 
         private void SwitchTimeslinesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            var timeline = (string)ea.Parameter;
-            SetButtonStates(timeline);
-            Timeline.Controller.SwitchTimeline(timeline);
+            var timelineName = (string)ea.Parameter;
+            SetButtonStates(timelineName);
+            Timeline.Controller.SwitchTimeline(timelineName);
             Timeline.ScrollToTop();
             Timeline.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
         private void SetButtonStates(string timeline)
         {
-            UnifiedButton.IsEnabled = timeline != "unified";
-            HomeButton.IsEnabled = timeline != "home";
-            MentionsButton.IsEnabled = timeline != "mentions";
-            MessagesButton.IsEnabled = timeline != "messages";
-            FavoritesButton.IsEnabled = timeline != "favorites";
-            SearchButton.IsEnabled = timeline != "search";
+            UnifiedButton.IsEnabled = timeline != Timelines.UnifiedName;
+            HomeButton.IsEnabled = timeline != Timelines.HomeName;
+            MentionsButton.IsEnabled = timeline != Timelines.MentionsName;
+            MessagesButton.IsEnabled = timeline != Timelines.MessagesName;
+            FavoritesButton.IsEnabled = timeline != Timelines.FavoritesName;
+            SearchButton.IsEnabled = timeline != Timelines.SearchName;
         }
 
         private void CopyTweetCommandHandler(object target, ExecutedRoutedEventArgs ea)
@@ -177,7 +177,7 @@ namespace tweetz5
                 if (tweet.Favorited)
                 {
                     var status = Status.ParseJson("[" + json + "]");
-                    Timeline.Controller.UpdateStatus(new[] {"favorites"}, status, "f");
+                    Timeline.Controller.UpdateStatus(new[] {Timelines.FavoritesName}, status, "f");
                 }
             }
             catch (Exception e)
@@ -189,7 +189,7 @@ namespace tweetz5
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var statuses = (Status[])ea.Parameter;
-            Timeline.Controller.UpdateStatus(new[] {"home", "unified"}, statuses, "h");
+            Timeline.Controller.UpdateStatus(new[] { Timelines.HomeName, Timelines.UnifiedName }, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
@@ -244,12 +244,12 @@ namespace tweetz5
                 if (string.IsNullOrWhiteSpace(query)) return;
                 Timeline.SearchControl.SetSearchText(query);
                 Timeline.Controller.ClearSearchTimeline();
-                SwitchTimelinesCommand.Execute("search", this);
+                SwitchTimelinesCommand.Execute(Timelines.SearchName, this);
                 Task.Run(() =>
                 {
                     var json = Twitter.Search(query);
                     var statuses = SearchStatuses.ParseJson(json);
-                    Timeline.Controller.UpdateStatus(new[] {"search"}, statuses, string.Empty);
+                    Timeline.Controller.UpdateStatus(new[] {Timelines.SearchName}, statuses, string.Empty);
                 });
                 ea.Handled = true;
             }

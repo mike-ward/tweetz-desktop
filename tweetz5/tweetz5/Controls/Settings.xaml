@@ -3,14 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:tweetz5="clr-namespace:tweetz5" mc:Ignorable="d" 
-             Style="{StaticResource SettingsPanelStyle}"
             d:DesignWidth="200">
     <StackPanel Margin="10">
       <TextBlock HorizontalAlignment="Center" FontWeight="Bold">
           <Run FontFamily="Segoe UI Symbol">&#xE115;</Run> Settings</TextBlock>
       <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <CheckBox VerticalAlignment="Center" />
-            <Label>Chirp on Timeline Updates</Label>
+            <Label Style="{StaticResource SettingsPanelLabelStyle}">Chirp on Timeline Updates</Label>
       </StackPanel>
         <Button Margin="40 20" Command="tweetz5:MainWindow.SignOutCommand">Sign Out</Button>
         <TextBlock>tweetz Desktop, v: 0.3</TextBlock>
