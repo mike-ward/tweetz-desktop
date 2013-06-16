@@ -1,7 +1,10 @@
 ﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace tweetz5.Utilities.System
 {
@@ -36,9 +39,17 @@ namespace tweetz5.Utilities.System
 
         private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            if (Elapsed != null)
+            try
             {
-                Elapsed(this, EventArgs.Empty);
+                if (Elapsed != null)
+                {
+                    Elapsed(this, EventArgs.Empty);
+                }
+            }
+            catch (Exception e)
+            {
+                // Timers eat exceptions. We don't
+                ThreadPool.QueueUserWorkItem(_ => { throw new Exception("Exception on timer", e); });
             }
         }
 

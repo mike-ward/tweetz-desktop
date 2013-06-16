@@ -286,9 +286,9 @@ namespace tweetz5.Model
             _search.Clear();
         }
 
-        private static ulong MaxSinceId(ulong currentSinceId, IEnumerable<Status> statuses)
+        private static ulong MaxSinceId(ulong currentSinceId, Status[] statuses)
         {
-            return Math.Max(currentSinceId, statuses.Max(s => ulong.Parse(s.Id)));
+            return statuses.Length > 0 ? Math.Max(currentSinceId, statuses.Max(s => ulong.Parse(s.Id))) : currentSinceId;
         }
 
         public void HomeTimeline()

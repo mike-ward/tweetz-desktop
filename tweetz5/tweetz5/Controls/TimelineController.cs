@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
+using System.Net;
 using System.Windows;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
@@ -24,11 +25,19 @@ namespace tweetz5.Controls
             _checkTimelines.Interval = 100;
             _checkTimelines.Elapsed += (s, e) =>
             {
-                _checkTimelines.Interval = 60000;
-                _timelinesModel.HomeTimeline();
-                _timelinesModel.MentionsTimeline();
-                _timelinesModel.DirectMessagesTimeline();
-                _timelinesModel.FavoritesTimeline();
+                try
+                {
+                    _checkTimelines.Interval = 60000;
+                    _timelinesModel.HomeTimeline();
+                    _timelinesModel.MentionsTimeline();
+                    _timelinesModel.DirectMessagesTimeline();
+                    _timelinesModel.FavoritesTimeline();
+                }
+                catch (WebException ex)
+                {
+                    // Offline, authorization error, exceeded rate limit, etc.
+                    Console.WriteLine(ex);
+                }
             };
             _checkTimelines.Start();
 
