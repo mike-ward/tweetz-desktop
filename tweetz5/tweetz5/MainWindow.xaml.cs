@@ -53,7 +53,6 @@ namespace tweetz5
             else
             {
                 AuthenticatePanel.Visibility = Visibility.Collapsed;
-                MainPanel.Visibility = Visibility.Visible;
                 Timeline.Controller.StartTimelines();
                 SwitchTimelinesCommand.Execute(Timelines.UnifiedName, this);
             }
@@ -101,20 +100,25 @@ namespace tweetz5
         private void SwitchTimeslinesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var timelineName = (string)ea.Parameter;
+            SettingsPanel.Visibility = Visibility.Collapsed;
+            ResizeBar.Visibility = Visibility.Visible;
+            Timeline.Visibility = Visibility.Visible;
+            MainPanel.Visibility = Visibility.Visible;
             SetButtonStates(timelineName);
             Timeline.Controller.SwitchTimeline(timelineName);
             Timeline.ScrollToTop();
             Timeline.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
-        private void SetButtonStates(string timeline)
+        private void SetButtonStates(string timelineName)
         {
-            UnifiedButton.IsEnabled = timeline != Timelines.UnifiedName;
-            HomeButton.IsEnabled = timeline != Timelines.HomeName;
-            MentionsButton.IsEnabled = timeline != Timelines.MentionsName;
-            MessagesButton.IsEnabled = timeline != Timelines.MessagesName;
-            FavoritesButton.IsEnabled = timeline != Timelines.FavoritesName;
-            SearchButton.IsEnabled = timeline != Timelines.SearchName;
+            UnifiedButton.IsEnabled = timelineName != Timelines.UnifiedName;
+            HomeButton.IsEnabled = timelineName != Timelines.HomeName;
+            MentionsButton.IsEnabled = timelineName != Timelines.MentionsName;
+            MessagesButton.IsEnabled = timelineName != Timelines.MessagesName;
+            FavoritesButton.IsEnabled = timelineName != Timelines.FavoritesName;
+            SearchButton.IsEnabled = timelineName != Timelines.SearchName;
+            SettingsButton.IsEnabled = timelineName != "settings";
         }
 
         private void CopyTweetCommandHandler(object target, ExecutedRoutedEventArgs ea)
@@ -281,9 +285,10 @@ namespace tweetz5
 
         private void SettingsCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            SettingsPanel.Visibility = SettingsPanel.IsVisible ? Visibility.Collapsed : Visibility.Visible;
-            ResizeBar.Visibility = SettingsPanel.IsVisible ? Visibility.Collapsed : Visibility.Visible;
-            Timeline.Visibility = SettingsPanel.IsVisible ? Visibility.Collapsed : Visibility.Visible;
+            SettingsPanel.Visibility = Visibility.Visible;
+            ResizeBar.Visibility = Visibility.Collapsed;
+            Timeline.Visibility = Visibility.Collapsed;
+            SetButtonStates("settings");
         }
     }
 }

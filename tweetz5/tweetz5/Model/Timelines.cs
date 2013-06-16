@@ -268,9 +268,13 @@ namespace tweetz5.Model
 
         public void SwitchTimeline(string timelineName)
         {
-            Timeline = _timelineMap[timelineName].Tweets;
-            TimelineName = timelineName;
-            SearchVisibility = timelineName == SearchName ? Visibility.Visible : Visibility.Collapsed;
+            Timeline timeline;
+            if (_timelineMap.TryGetValue(timelineName, out timeline))
+            {
+                Timeline = timeline.Tweets;
+                TimelineName = timelineName;
+                SearchVisibility = timelineName == SearchName ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         public void RemoveStatus(Tweet tweet)
