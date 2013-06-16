@@ -23,10 +23,10 @@
     <StackPanel>
       <DockPanel x:Name="Topbar"
                  Style="{StaticResource TopBarStyle}">
-        <Label Style="{StaticResource TopBarLabelStyle}"
-               DockPanel.Dock="Left">
-          tweetz
-        </Label>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+          <Image Source="..\Assets\Images\birdblue.png" />
+          <Label Style="{StaticResource TopBarLabelStyle}">tweetz</Label>
+        </StackPanel>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     DockPanel.Dock="Right">
