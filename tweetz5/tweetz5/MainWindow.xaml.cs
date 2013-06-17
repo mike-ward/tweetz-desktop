@@ -99,6 +99,7 @@ namespace tweetz5
 
         private void SwitchTimeslinesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             var timelineName = (string)ea.Parameter;
             SettingsPanel.Visibility = Visibility.Collapsed;
             ResizeBar.Visibility = Visibility.Visible;
@@ -123,12 +124,14 @@ namespace tweetz5
 
         private void CopyTweetCommandHandler(object target, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             var tweet = (Tweet)ea.Parameter;
             Clipboard.SetText(tweet.Text);
         }
 
         private void ReplyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             var tweet = (Tweet)ea.Parameter;
             var message = string.Format("@{0} ", tweet.ScreenName);
             Compose.Show(message, tweet.StatusId);
@@ -138,6 +141,7 @@ namespace tweetz5
         {
             try
             {
+                ea.Handled = true;
                 var tweet = (Tweet)ea.Parameter;
                 if (tweet.IsRetweet)
                 {
@@ -162,6 +166,7 @@ namespace tweetz5
 
         private void RetweetClassicCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             var tweet = (Tweet)ea.Parameter;
             var message = string.Format("RT @{0} {1}", tweet.ScreenName, tweet.Text);
             Compose.Show(message);
@@ -171,17 +176,15 @@ namespace tweetz5
         {
             try
             {
+                ea.Handled = true;
                 var tweet = (Tweet)ea.Parameter;
-                var json = tweet.Favorited ? Twitter.DestroyFavorite(tweet.StatusId) : Twitter.CreateFavorite(tweet.StatusId);
-                if (json.Contains(tweet.StatusId)) tweet.Favorited = !tweet.Favorited;
                 if (tweet.Favorited)
                 {
-                    var status = Status.ParseJson("[" + json + "]");
-                    Timeline.Controller.UpdateStatus(new[] {Timelines.FavoritesName}, status, "f");
+                    Timeline.Controller.RemoveFavorite(tweet);
                 }
                 else
                 {
-                    Timeline.Controller.RemoveTweet(Timelines.FavoritesName, tweet);
+                    Timeline.Controller.AddFavorite(tweet);
                 }
             }
             catch (Exception e)
@@ -192,29 +195,34 @@ namespace tweetz5
 
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             var statuses = (Status[])ea.Parameter;
             Timeline.Controller.UpdateStatus(new[] {Timelines.HomeName, Timelines.UnifiedName}, statuses, "h");
         }
 
-        private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
+        private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             Close();
         }
 
         private void ShowUserInformationCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             UserInformationPopup.ScreenName = ea.Parameter as string;
             UserInformationPopup.IsOpen = true;
         }
 
         private void OpenLinkCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             Process.Start(new ProcessStartInfo((string)ea.Parameter));
             ea.Handled = true;
         }
 
         private void FollowCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             var user = (User)ea.Parameter;
             user.Following = user.Following ? !Twitter.Unfollow(user.ScreenName) : Twitter.Follow(user.ScreenName);
             ea.Handled = true;
@@ -222,7 +230,8 @@ namespace tweetz5
 
         private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
+            ea.Handled = true;
+            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
             player.Play();
         }
 
@@ -230,6 +239,7 @@ namespace tweetz5
         {
             try
             {
+                ea.Handled = true;
                 var tweet = (Tweet)ea.Parameter;
                 Twitter.DestroyStatus(tweet.StatusId);
                 Timeline.Controller.RemoveStatus(tweet);
@@ -244,6 +254,7 @@ namespace tweetz5
         {
             try
             {
+                ea.Handled = true;
                 var query = ea.Parameter as string;
                 if (string.IsNullOrWhiteSpace(query)) return;
                 Timeline.SearchControl.SetSearchText(query);
@@ -255,7 +266,6 @@ namespace tweetz5
                     var statuses = SearchStatuses.ParseJson(json);
                     Timeline.Controller.UpdateStatus(new[] {Timelines.SearchName}, statuses, string.Empty);
                 });
-                ea.Handled = true;
             }
             catch (Exception e)
             {
@@ -265,15 +275,16 @@ namespace tweetz5
 
         private void AlertCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             var message = ea.Parameter as string;
             if (string.IsNullOrWhiteSpace(message)) return;
             StatusAlert.Message.Text = message;
             StatusAlert.IsOpen = true;
-            ea.Handled = true;
         }
 
         private void SignOutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             Timeline.Controller.StopTimelines();
             Settings.Default.AccessToken = "";
             Settings.Default.AccessTokenSecret = "";
@@ -285,6 +296,7 @@ namespace tweetz5
 
         private void SettingsCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            ea.Handled = true;
             SettingsPanel.Visibility = Visibility.Visible;
             ResizeBar.Visibility = Visibility.Collapsed;
             Timeline.Visibility = Visibility.Collapsed;

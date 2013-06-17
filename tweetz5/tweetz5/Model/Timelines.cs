@@ -25,7 +25,8 @@ namespace tweetz5.Model
         void ClearSearchTimeline();
         void ClearAllTimelines();
         string TimelineName { get; set; }
-        void RemoveTweet(string timelineName, Tweet tweet);
+        void AddFavorite(Tweet tweet);
+        void RemoveFavorite(Tweet tweet);
     }
 
     public class Timelines : ITimelines
@@ -33,6 +34,7 @@ namespace tweetz5.Model
         private string _timelineName;
         private ObservableCollection<Tweet> _timeline;
         private readonly Dictionary<string, Timeline> _timelineMap;
+        private readonly Collection<Tweet> _tweets = new Collection<Tweet>(); 
         private Timeline _unified { get { return _timelineMap[UnifiedName]; } }
         private Timeline _home { get { return _timelineMap[HomeName]; } }
         private Timeline _mentions { get { return _timelineMap[MentionsName]; } }
@@ -91,11 +93,6 @@ namespace tweetz5.Model
             }
         }
 
-        public void RemoveTweet(string timelineName, Tweet tweet)
-        {
-            var result =_timelineMap[timelineName].Tweets.Remove(tweet);
-        }
-
         public Visibility SearchVisibility
         {
             get { return _searchVisibility; }
@@ -126,7 +123,7 @@ namespace tweetz5.Model
             }
         }
 
-        private static bool UpdateTimelines(Timeline[] timelines, IEnumerable<Status> statuses, string tweetType)
+        private bool UpdateTimelines(Timeline[] timelines, IEnumerable<Status> statuses, string tweetType)
         {
             var updated = false;
             var screenName = string.Empty;
@@ -161,6 +158,17 @@ namespace tweetz5.Model
                     RetweetStatusId = (status.RetweetedtStatus != null) ? status.RetweetedtStatus.Id : string.Empty
                 };
 
+                var index = _tweets.IndexOf(tweet);
+                if (index == -1)
+                {
+                    _tweets.Add(tweet);
+                }
+                else
+                {
+                    tweet = _tweets[index];
+                    if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
+                }
+
                 foreach (var timeline in timelines.Where(timeline => timeline.Tweets.Any(t => t.StatusId == status.Id) == false))
                 {
                     timeline.Tweets.Add(tweet);
@@ -169,11 +177,7 @@ namespace tweetz5.Model
             }
             foreach (var timeline in timelines)
             {
-                var i = 0;
-                foreach (var item in timeline.Tweets.OrderByDescending(s => s.CreatedAt))
-                {
-                    timeline.Tweets.Move(timeline.Tweets.IndexOf(item), i++);
-                }
+                SortTweetCollection(timeline.Tweets);
             }
             return updated;
         }
@@ -376,6 +380,49 @@ namespace tweetz5.Model
                         tweet.TimeAgo = TimeAgo(tweet.CreatedAt);
                     }
                 });
+        }
+
+        public void AddFavorite(Tweet tweet)
+        {
+            if (tweet.Favorited) return;
+            Twitter.CreateFavorite(tweet.StatusId);
+            tweet.Favorited = true;
+            var index = _tweets.IndexOf(tweet);
+            if (index == -1)
+            {
+                tweet.TweetType += "f";
+                _tweets.Add(tweet);
+            }
+            else
+            {
+                _tweets[index].TweetType += "f";
+                _tweets[index].Favorited = true;
+            }
+            if (_favorites.Tweets.Contains(tweet) == false)
+            {
+                _favorites.Tweets.Add(tweet);
+                SortTweetCollection(_favorites.Tweets);                
+            }
+        }
+
+        public void RemoveFavorite(Tweet tweet)
+        {
+            if (tweet.Favorited == false) return;
+            Twitter.DestroyFavorite(tweet.StatusId);
+            var index = _tweets.IndexOf(tweet);
+            var t = _tweets[index];
+            t.Favorited = false;
+            t.TweetType = t.TweetType.Replace("f", "");
+            _favorites.Tweets.Remove(t);
+        }
+
+        private static void SortTweetCollection(ObservableCollection<Tweet> collection)
+        {
+            var i = 0;
+            foreach (var item in collection.OrderByDescending(s => s.CreatedAt))
+            {
+                collection.Move(collection.IndexOf(item), i++);
+            }            
         }
     }
 }

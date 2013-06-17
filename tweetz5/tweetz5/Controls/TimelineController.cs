@@ -109,14 +109,19 @@ namespace tweetz5.Controls
             _timelinesModel.RemoveStatus(tweet);
         }
 
-        public void RemoveTweet(string timelineName, Tweet tweet)
-        {
-            _timelinesModel.RemoveTweet(timelineName, tweet);
-        }
-
         public void ClearSearchTimeline()
         {
             _timelinesModel.ClearSearchTimeline();
+        }
+
+        public void AddFavorite(Tweet tweet)
+        {
+            _timelinesModel.AddFavorite(tweet);
+        }
+
+        public void RemoveFavorite(Tweet tweet)
+        {
+            _timelinesModel.RemoveFavorite(tweet);
         }
     }
 }
