@@ -104,9 +104,9 @@ namespace tweetz5.Controls
             _timelinesModel.SwitchTimeline(timelineName);
         }
 
-        public void RemoveStatus(Tweet tweet)
+        public void DeleteTweet(Tweet tweet)
         {
-            _timelinesModel.RemoveStatus(tweet);
+            _timelinesModel.DeleteTweet(tweet);
         }
 
         public void AddFavorite(Tweet tweet)
@@ -122,6 +122,11 @@ namespace tweetz5.Controls
         public void Search(string query)
         {
             _timelinesModel.Search(query);
+        }
+
+        public void Retweet(Tweet tweet)
+        {
+            _timelinesModel.Retweet(tweet);
         }
     }
 }

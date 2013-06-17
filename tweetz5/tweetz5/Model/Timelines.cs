@@ -22,12 +22,13 @@ namespace tweetz5.Model
         void UpdateTimeStamps();
         void UpdateStatus(string[] timelines, Status[] statuses, string tweetType);
         void SwitchTimeline(string timelineName);
-        void RemoveStatus(Tweet tweet);
         void ClearAllTimelines();
-        string TimelineName { get; set; }
         void AddFavorite(Tweet tweet);
         void RemoveFavorite(Tweet tweet);
         void Search(string query);
+        void DeleteTweet(Tweet tweet);
+        void Retweet(Tweet tweet);
+        string TimelineName { get; set; }
     }
 
     public class Timelines : ITimelines
@@ -292,7 +293,7 @@ namespace tweetz5.Model
             }
         }
 
-        public void RemoveStatus(Tweet tweet)
+        private void RemoveStatus(Tweet tweet)
         {
             foreach (var timeline in _timelineMap.Values)
             {
@@ -433,7 +434,30 @@ namespace tweetz5.Model
                 var statuses = SearchStatuses.ParseJson(json);
                 UpdateStatus(new[] { SearchName }, statuses, "s");
             });
-            
+        }
+
+        public void DeleteTweet(Tweet tweet)
+        {
+            Twitter.DestroyStatus(tweet.StatusId);
+            RemoveStatus(tweet);
+        }
+
+        public void Retweet(Tweet tweet)
+        {
+            if (tweet.IsRetweet)
+            {
+                var id = string.IsNullOrWhiteSpace(tweet.RetweetStatusId) ? tweet.StatusId : tweet.RetweetStatusId;
+                var json = Twitter.GetTweet(id);
+                var status = Status.ParseJson("[" + json + "]")[0];
+                var retweetStatusId = status.CurrentUserRetweet.Id;
+                Twitter.DestroyStatus(retweetStatusId);
+                tweet.IsRetweet = false;
+            }
+            else
+            {
+                Twitter.RetweetStatus(tweet.StatusId);
+                tweet.IsRetweet = true;
+            }            
         }
     }
 }

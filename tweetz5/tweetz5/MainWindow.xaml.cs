@@ -3,7 +3,6 @@
 using System;
 using System.Diagnostics;
 using System.Media;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -91,10 +90,7 @@ namespace tweetz5
         private void ComposeOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
-            if (Compose.IsVisible)
-            {
-                Compose.Focus();
-            }
+            if (Compose.IsVisible) Compose.Focus();
         }
 
         private void SwitchTimeslinesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -126,7 +122,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             var tweet = (Tweet)ea.Parameter;
-            Clipboard.SetText(tweet.Text);
+            Timeline.Controller.CopyTweetToClipboard(tweet);
         }
 
         private void ReplyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -139,29 +135,9 @@ namespace tweetz5
 
         private void RetweetCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            try
-            {
-                ea.Handled = true;
-                var tweet = (Tweet)ea.Parameter;
-                if (tweet.IsRetweet)
-                {
-                    var id = string.IsNullOrWhiteSpace(tweet.RetweetStatusId) ? tweet.StatusId : tweet.RetweetStatusId;
-                    var json = Twitter.GetTweet(id);
-                    var status = Status.ParseJson("[" + json + "]")[0];
-                    var retweetStatusId = status.CurrentUserRetweet.Id;
-                    Twitter.DestroyStatus(retweetStatusId);
-                    tweet.IsRetweet = false;
-                }
-                else
-                {
-                    Twitter.RetweetStatus(tweet.StatusId);
-                    tweet.IsRetweet = true;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            ea.Handled = true;
+            var tweet = (Tweet)ea.Parameter;
+            Timeline.Controller.Retweet(tweet);
         }
 
         private void RetweetClassicCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -174,23 +150,10 @@ namespace tweetz5
 
         private void FavoritesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            try
-            {
-                ea.Handled = true;
-                var tweet = (Tweet)ea.Parameter;
-                if (tweet.Favorited)
-                {
-                    Timeline.Controller.RemoveFavorite(tweet);
-                }
-                else
-                {
-                    Timeline.Controller.AddFavorite(tweet);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            ea.Handled = true;
+            var tweet = (Tweet)ea.Parameter;
+            if (tweet.Favorited) Timeline.Controller.RemoveFavorite(tweet);
+            else Timeline.Controller.AddFavorite(tweet);
         }
 
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -229,40 +192,25 @@ namespace tweetz5
         private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
+            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
         }
 
         private void DeleteTweetCommandHander(object sender, ExecutedRoutedEventArgs ea)
         {
-            try
-            {
-                ea.Handled = true;
-                var tweet = (Tweet)ea.Parameter;
-                Twitter.DestroyStatus(tweet.StatusId);
-                Timeline.Controller.RemoveStatus(tweet);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            ea.Handled = true;
+            var tweet = (Tweet)ea.Parameter;
+            Timeline.Controller.DeleteTweet(tweet);
         }
 
         private void SearchCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
-            try
-            {
-                ea.Handled = true;
-                var query = ea.Parameter as string;
-                if (string.IsNullOrWhiteSpace(query)) return;
-                Timeline.SearchControl.SetSearchText(query);
-                SwitchTimelinesCommand.Execute(Timelines.SearchName, this);
-                Timeline.Controller.Search(query);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            ea.Handled = true;
+            var query = ea.Parameter as string;
+            if (string.IsNullOrWhiteSpace(query)) return;
+            Timeline.SearchControl.SetSearchText(query);
+            SwitchTimelinesCommand.Execute(Timelines.SearchName, this);
+            Timeline.Controller.Search(query);
         }
 
         private void AlertCommandHandler(object sender, ExecutedRoutedEventArgs ea)
