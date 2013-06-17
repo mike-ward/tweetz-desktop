@@ -138,24 +138,20 @@ namespace tweetz5
         {
             try
             {
-                string json;
                 var tweet = (Tweet)ea.Parameter;
                 if (tweet.IsRetweet)
                 {
-                    json = Twitter.GetTweet(tweet.StatusId);
+                    var id = string.IsNullOrWhiteSpace(tweet.RetweetStatusId) ? tweet.StatusId : tweet.RetweetStatusId;
+                    var json = Twitter.GetTweet(id);
                     var status = Status.ParseJson("[" + json + "]")[0];
                     var retweetStatusId = status.CurrentUserRetweet.Id;
-                    json = Twitter.DestroyStatus(retweetStatusId);
+                    Twitter.DestroyStatus(retweetStatusId);
+                    tweet.IsRetweet = false;
                 }
                 else
                 {
-                    json = Twitter.RetweetStatus(tweet.StatusId);
-                }
-                if (json.Contains(tweet.StatusId))
-                {
-                    var status = Status.ParseJson("[" + json + "]")[0];
-                    tweet.RetweetedBy = Timelines.RetweetedBy(status);
-                    tweet.IsRetweet = status.Retweeted;
+                    Twitter.RetweetStatus(tweet.StatusId);
+                    tweet.IsRetweet = true;
                 }
             }
             catch (Exception e)
@@ -183,6 +179,10 @@ namespace tweetz5
                     var status = Status.ParseJson("[" + json + "]");
                     Timeline.Controller.UpdateStatus(new[] {Timelines.FavoritesName}, status, "f");
                 }
+                else
+                {
+                    Timeline.Controller.RemoveTweet(Timelines.FavoritesName, tweet);
+                }
             }
             catch (Exception e)
             {
@@ -193,7 +193,7 @@ namespace tweetz5
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var statuses = (Status[])ea.Parameter;
-            Timeline.Controller.UpdateStatus(new[] { Timelines.HomeName, Timelines.UnifiedName }, statuses, "h");
+            Timeline.Controller.UpdateStatus(new[] {Timelines.HomeName, Timelines.UnifiedName}, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)

@@ -3,7 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        PopupAnimation="Fade"
        AllowsTransparency="True"
-       StaysOpen="False"
+       StaysOpen="True"
        Height="Auto" 
        Width="190"
        TextOptions.TextFormattingMode="Display">

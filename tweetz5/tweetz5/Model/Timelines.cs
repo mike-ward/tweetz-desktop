@@ -25,6 +25,7 @@ namespace tweetz5.Model
         void ClearSearchTimeline();
         void ClearAllTimelines();
         string TimelineName { get; set; }
+        void RemoveTweet(string timelineName, Tweet tweet);
     }
 
     public class Timelines : ITimelines
@@ -90,6 +91,11 @@ namespace tweetz5.Model
             }
         }
 
+        public void RemoveTweet(string timelineName, Tweet tweet)
+        {
+            var result =_timelineMap[timelineName].Tweets.Remove(tweet);
+        }
+
         public Visibility SearchVisibility
         {
             get { return _searchVisibility; }
@@ -151,7 +157,8 @@ namespace tweetz5.Model
                     TweetType = tweetType,
                     Favorited = status.Favorited,
                     IsRetweet = status.Retweeted,
-                    RetweetedBy = RetweetedBy(status)
+                    RetweetedBy = RetweetedBy(status),
+                    RetweetStatusId = (status.RetweetedtStatus != null) ? status.RetweetedtStatus.Id : string.Empty
                 };
 
                 foreach (var timeline in timelines.Where(timeline => timeline.Tweets.Any(t => t.StatusId == status.Id) == false))
@@ -335,7 +342,14 @@ namespace tweetz5.Model
             var twitter = new Twitter();
             var statuses = twitter.FavoritesTimeline(_favorites.SinceId);
             _favorites.SinceId = MaxSinceId(_favorites.SinceId, statuses);
-            DispatchInvoker(() => UpdateTimelines(new[] { _favorites }, statuses, "f"));
+            DispatchInvoker(() =>
+            {
+                UpdateTimelines(new[] {_favorites}, statuses, "f");
+                foreach (var tweet in _home.Tweets.Where(t => statuses.Any(s => s.Id == t.StatusId || s.Id == t.RetweetStatusId)))
+                {
+                    tweet.Favorited = true;
+                }
+            });
         }
 
         public void DirectMessagesTimeline()

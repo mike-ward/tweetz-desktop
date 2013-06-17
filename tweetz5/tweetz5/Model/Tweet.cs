@@ -1,16 +1,16 @@
-﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace tweetz5.Model
 {
-    public class Tweet : INotifyPropertyChanged, IEqualityComparer<Tweet>
+    public class Tweet : INotifyPropertyChanged, IEquatable<Tweet>
     {
         private bool _favorited;
         private string _timeAgo;
@@ -19,6 +19,7 @@ namespace tweetz5.Model
         private bool _retweet;
 
         public string StatusId { get; set; }
+        public string RetweetStatusId { get; set; }
         public string Name { get; set; }
         public string ScreenName { get; set; }
         public string ProfileImageUrl { get; set; }
@@ -39,7 +40,7 @@ namespace tweetz5.Model
             }
         }
 
-        public string RetweetedBy   
+        public string RetweetedBy
         {
             get { return _retweetedBy; }
             set
@@ -60,11 +61,10 @@ namespace tweetz5.Model
                 if (_tweetType != value)
                 {
                     _tweetType = value;
-                    OnPropertyChanged();                    
+                    OnPropertyChanged();
                 }
             }
         }
-
 
         public string TimeAgo
         {
@@ -112,14 +112,9 @@ namespace tweetz5.Model
             }
         }
 
-        public bool Equals(Tweet x, Tweet y)
+        public bool Equals(Tweet other)
         {
-            return x.GetHashCode() == y.GetHashCode();
-        }
-
-        public int GetHashCode(Tweet obj)
-        {
-            return Convert.ToInt32(obj.StatusId);
+            return other != null && other.StatusId == StatusId;
         }
     }
 
@@ -144,10 +139,10 @@ namespace tweetz5.Model
         [DataMember(Name = "created_at")]
         public string CreatedAt { get; set; }
 
-        [DataMember(Name="entities")]
+        [DataMember(Name = "entities")]
         public Entities Entities { get; set; }
 
-        [DataMember(Name="retweeted_status")]
+        [DataMember(Name = "retweeted_status")]
         public Status RetweetedtStatus { get; set; }
 
         [DataMember(Name = "favorited")]
@@ -161,10 +156,10 @@ namespace tweetz5.Model
 
         public static Status[] ParseJson(string json)
         {
-            using (var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)))
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
-                var serializer = new DataContractJsonSerializer(typeof(Status[]));
-                return (Status[]) serializer.ReadObject(stream);
+                var serializer = new DataContractJsonSerializer(typeof (Status[]));
+                return (Status[])serializer.ReadObject(stream);
             }
         }
     }
@@ -177,9 +172,9 @@ namespace tweetz5.Model
 
         public static Status[] ParseJson(string json)
         {
-            using (var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)))
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
-                var serializer = new DataContractJsonSerializer(typeof(SearchStatuses));
+                var serializer = new DataContractJsonSerializer(typeof (SearchStatuses));
                 var searchStatuses = (SearchStatuses)serializer.ReadObject(stream);
                 return searchStatuses.Statuses;
             }
@@ -343,7 +338,6 @@ namespace tweetz5.Model
     [DataContract]
     public class CurrentUserRetweet
     {
-        [DataMember(Name = "id_str")] 
-        public string Id;
+        [DataMember(Name = "id_str")] public string Id;
     }
 }
