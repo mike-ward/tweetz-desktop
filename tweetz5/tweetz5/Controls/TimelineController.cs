@@ -109,11 +109,6 @@ namespace tweetz5.Controls
             _timelinesModel.RemoveStatus(tweet);
         }
 
-        public void ClearSearchTimeline()
-        {
-            _timelinesModel.ClearSearchTimeline();
-        }
-
         public void AddFavorite(Tweet tweet)
         {
             _timelinesModel.AddFavorite(tweet);
@@ -122,6 +117,11 @@ namespace tweetz5.Controls
         public void RemoveFavorite(Tweet tweet)
         {
             _timelinesModel.RemoveFavorite(tweet);
+        }
+
+        public void Search(string query)
+        {
+            _timelinesModel.Search(query);
         }
     }
 }

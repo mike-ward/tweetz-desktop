@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -22,11 +23,11 @@ namespace tweetz5.Model
         void UpdateStatus(string[] timelines, Status[] statuses, string tweetType);
         void SwitchTimeline(string timelineName);
         void RemoveStatus(Tweet tweet);
-        void ClearSearchTimeline();
         void ClearAllTimelines();
         string TimelineName { get; set; }
         void AddFavorite(Tweet tweet);
         void RemoveFavorite(Tweet tweet);
+        void Search(string query);
     }
 
     public class Timelines : ITimelines
@@ -159,14 +160,17 @@ namespace tweetz5.Model
                 };
 
                 var index = _tweets.IndexOf(tweet);
-                if (index == -1)
+                if (tweetType != "s")
                 {
-                    _tweets.Add(tweet);
-                }
-                else
-                {
-                    tweet = _tweets[index];
-                    if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
+                    if (index == -1)
+                    {
+                        _tweets.Add(tweet);
+                    }
+                    else
+                    {
+                        tweet = _tweets[index];
+                        if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
+                    }
                 }
 
                 foreach (var timeline in timelines.Where(timeline => timeline.Tweets.Any(t => t.StatusId == status.Id) == false))
@@ -296,11 +300,6 @@ namespace tweetz5.Model
             }
         }
 
-        public void ClearSearchTimeline()
-        {
-            _search.Clear();
-        }
-
         private static ulong MaxSinceId(ulong currentSinceId, Status[] statuses)
         {
             return statuses.Length > 0 ? Math.Max(currentSinceId, statuses.Max(s => ulong.Parse(s.Id))) : currentSinceId;
@@ -423,6 +422,18 @@ namespace tweetz5.Model
             {
                 collection.Move(collection.IndexOf(item), i++);
             }            
+        }
+
+        public void Search(string query)
+        {
+            _search.Clear();
+            Task.Run(() =>
+            {
+                var json = Twitter.Search(query);
+                var statuses = SearchStatuses.ParseJson(json);
+                UpdateStatus(new[] { SearchName }, statuses, "s");
+            });
+            
         }
     }
 }

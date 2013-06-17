@@ -217,7 +217,6 @@ namespace tweetz5
         {
             ea.Handled = true;
             Process.Start(new ProcessStartInfo((string)ea.Parameter));
-            ea.Handled = true;
         }
 
         private void FollowCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -225,7 +224,6 @@ namespace tweetz5
             ea.Handled = true;
             var user = (User)ea.Parameter;
             user.Following = user.Following ? !Twitter.Unfollow(user.ScreenName) : Twitter.Follow(user.ScreenName);
-            ea.Handled = true;
         }
 
         private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -258,14 +256,8 @@ namespace tweetz5
                 var query = ea.Parameter as string;
                 if (string.IsNullOrWhiteSpace(query)) return;
                 Timeline.SearchControl.SetSearchText(query);
-                Timeline.Controller.ClearSearchTimeline();
                 SwitchTimelinesCommand.Execute(Timelines.SearchName, this);
-                Task.Run(() =>
-                {
-                    var json = Twitter.Search(query);
-                    var statuses = SearchStatuses.ParseJson(json);
-                    Timeline.Controller.UpdateStatus(new[] {Timelines.SearchName}, statuses, string.Empty);
-                });
+                Timeline.Controller.Search(query);
             }
             catch (Exception e)
             {
