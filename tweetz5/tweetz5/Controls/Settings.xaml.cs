@@ -1,28 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
+
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using tweetz5.Annotations;
 
 namespace tweetz5.Controls
 {
-    /// <summary>
-    /// Interaction logic for Settings.xaml
-    /// </summary>
-    public partial class Settings : UserControl
+    public partial class Settings : INotifyPropertyChanged
     {
         public Settings()
         {
             InitializeComponent();
+        }
+
+        public bool Chirp
+        {
+            get { return Properties.Settings.Default.Chirp; }
+            set
+            {
+                if (Properties.Settings.Default.Chirp != value)
+                {
+                    Properties.Settings.Default.Chirp = value;
+                    Properties.Settings.Default.Save();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

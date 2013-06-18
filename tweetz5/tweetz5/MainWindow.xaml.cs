@@ -192,6 +192,7 @@ namespace tweetz5
         private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
+            if (Settings.Default.Chirp == false) return;
             var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
         }
