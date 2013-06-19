@@ -32,11 +32,11 @@
                         HorizontalAlignment="Right"
                         DockPanel.Dock="Right">
                 <Button x:Name="Shorten"
-                        Click="OnShorten"
-                        Style="{StaticResource ComposeTweetButton}">Shorten</Button>
+                        Style="{StaticResource ComposeTweetButton}"
+                        Click="OnShorten"><Run FontFamily="Segoe UI Symbol">&#xE167;</Run></Button>
                 <Button x:Name="Send"
                         Style="{StaticResource ComposeTweetButton}"
-                        Click="OnSend">Send</Button>
+                        Click="OnSend">Tweet</Button>
             </StackPanel>
         </DockPanel>
     </StackPanel>
