@@ -5,7 +5,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5", "tweetz5\tweetz5.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5UnitTests", "tweetz5UnitTests\tweetz5UnitTests.csproj", "{0DC800FD-087B-465A-ACA6-C8E4CEF78029}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{42BA029E-77DD-4BA6-96C2-E859144B49C1}"
+EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://blueonionsoftware.visualstudio.com/defaultcollection
+		SccProjectUniqueName0 = tweetz5\\tweetz5.csproj
+		SccProjectName0 = tweetz5
+		SccAuxPath0 = https://blueonionsoftware.visualstudio.com/defaultcollection
+		SccLocalPath0 = tweetz5
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = tweetz5UnitTests\\tweetz5UnitTests.csproj
+		SccProjectName1 = tweetz5UnitTests
+		SccAuxPath1 = https://blueonionsoftware.visualstudio.com/defaultcollection
+		SccLocalPath1 = tweetz5UnitTests
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

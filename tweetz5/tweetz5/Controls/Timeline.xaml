@@ -146,13 +146,6 @@
                   <Run Style="{StaticResource TweetActionsSymbol}">&#xE118;</Run>
                 </TextBlock>
               </Grid>
-
-              <Separator Grid.Row="3"
-                         Grid.ColumnSpan="2"
-                         Style="{StaticResource TweetSeparatorTop}" />
-              <Separator Grid.Row="4"
-                         Grid.ColumnSpan="2"
-                         Style="{StaticResource TweetSeparatorBottom}" />
             </Grid>
           </Border>
         </DataTemplate>
