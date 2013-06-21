@@ -6,8 +6,9 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using tweetz5.Controls;
 using tweetz5.Model;
-using tweetz5.Properties;
+using Settings = tweetz5.Properties.Settings;
 
 namespace tweetz5
 {
@@ -19,6 +20,8 @@ namespace tweetz5
         public static readonly RoutedCommand FavoritesCommand = new RoutedUICommand();
         public static readonly RoutedCommand DeleteTweetCommand = new RoutedUICommand();
         public static readonly RoutedCommand CopyCommand = new RoutedUICommand();
+        public static readonly RoutedCommand CopyLinkCommand = new RoutedUICommand();
+        public static readonly RoutedCommand OpenTweetLinkCommand = new RoutedUICommand();
         public static readonly RoutedCommand UpdateStatusHomeTimelineCommand = new RoutedUICommand();
         public static readonly RoutedCommand SwitchTimelinesCommand = new RoutedUICommand();
         public static readonly RoutedCommand ShowUserInformationCommand = new RoutedUICommand();
@@ -127,11 +130,26 @@ namespace tweetz5
             SettingsButton.IsEnabled = timelineName != "settings";
         }
 
-        private void CopyTweetCommandHandler(object target, ExecutedRoutedEventArgs ea)
+        private void CopyCommandHandler(object target, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
             var tweet = (Tweet)ea.Parameter;
             Timeline.Controller.CopyTweetToClipboard(tweet);
+        }
+
+        private void CopyLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)
+        {
+            ea.Handled = true;
+            var tweet = (Tweet)ea.Parameter;
+            Timeline.Controller.CopyLinkToClipboard(tweet);
+        }
+
+        private void OpenTweetLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)
+        {
+            ea.Handled = true;
+            var tweet = (Tweet)ea.Parameter;
+            var link = TimelineController.TweetLink(tweet);
+            OpenLinkCommand.Execute(link, this);
         }
 
         private void ReplyCommandHandler(object sender, ExecutedRoutedEventArgs ea)

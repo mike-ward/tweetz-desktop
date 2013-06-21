@@ -115,7 +115,11 @@
     <CommandBinding Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
                     Executed="FavoritesCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyCommand}"
-                    Executed="CopyTweetCommandHandler" />
+                    Executed="CopyCommandHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyLinkCommand}"
+                    Executed="CopyLinkCommandHandler" />
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.OpenTweetLinkCommand}"
+                    Executed="OpenTweetLinkCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateStatusHomeTimelineCommand}"
                     Executed="UpdateStatusHomeTimelineHandler" />
     <CommandBinding Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"

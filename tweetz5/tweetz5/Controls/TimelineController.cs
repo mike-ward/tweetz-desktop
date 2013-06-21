@@ -94,6 +94,15 @@ namespace tweetz5.Controls
             Clipboard.SetText(tweet.Text);
         }
 
+        public void CopyLinkToClipboard(Tweet tweet)
+        {
+            Clipboard.SetText(TweetLink(tweet));
+        }
+
+        public static string TweetLink(Tweet tweet)
+        {
+            return string.Format("https://twitter.com/{0}/status/{1}", tweet.ScreenName, tweet.StatusId);
+        }
         public void UpdateStatus(string[] timelines, Status[] statuses, string tweetType)
         {
             _timelinesModel.UpdateStatus(timelines, statuses, tweetType);

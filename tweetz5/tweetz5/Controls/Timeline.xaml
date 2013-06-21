@@ -16,10 +16,14 @@
                 CommandParameter="{Binding}" />
       <Separator />
       <MenuItem Header="Copy"
-                SnapsToDevicePixels="True"
                 Command="{x:Static tweetz5:MainWindow.CopyCommand}"
-                CommandParameter="{Binding}">
-      </MenuItem>
+                CommandParameter="{Binding}" />
+      <MenuItem Header="Copy Link"
+                Command="{x:Static tweetz5:MainWindow.CopyLinkCommand}"
+                CommandParameter="{Binding}"/>
+      <MenuItem Header="Open Link" 
+                Command="{x:Static tweetz5:MainWindow.OpenTweetLinkCommand}"
+                CommandParameter="{Binding}"/>
     </ContextMenu>
 
     <Storyboard x:Key="LoadItemAnimation">
