@@ -13,6 +13,7 @@ namespace tweetz5.Controls
     public partial class ComposeTweet
     {
         private string _inReplyToId;
+        private bool _directMessage;
 
         public ComposeTweet()
         {
@@ -23,7 +24,19 @@ namespace tweetz5.Controls
         {
             ComposeTitle.Text = "Compose a tweet";
             TextBox.Text = message;
+            _directMessage = false;
             _inReplyToId = inReplyToId;
+            SendButtonText.Text = "Tweet";
+            Visibility = Visibility.Visible;
+        }
+
+        public void ShowDirectMessage(string name, string screenName)
+        {
+            ComposeTitle.Text = name;
+            TextBox.Text = string.Empty;
+            _directMessage = true;
+            _inReplyToId = null;
+            SendButtonText.Text = "Send";
             Visibility = Visibility.Visible;
         }
 
@@ -58,7 +71,9 @@ namespace tweetz5.Controls
             try
             {
                 Send.IsEnabled = false;
-                var json = Twitter.UpdateStatus(TextBox.Text, _inReplyToId);
+                var json = _directMessage 
+                    ? Twitter.SendDirectMessage(TextBox.Text, _inReplyToId) 
+                    : Twitter.UpdateStatus(TextBox.Text, _inReplyToId);
                 if (json.Contains("id_str") == false)
                 {
                     ComposeTitle.Text = "Error";

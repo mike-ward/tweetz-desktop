@@ -291,6 +291,26 @@ namespace tweetz5.Model
             }
         }
 
+        public static string SendDirectMessage(string screenName, string text)
+        {
+            try
+            {
+                var parameters = new[]
+                {
+                    new[] { "screen_name", screenName },
+                    new[] { "text", text}
+                };
+
+                var json = Post("https://api.twitter.com/1.1/direct_messages/new.json", parameters);
+                return json;
+            }
+            catch (WebException e)
+            {
+                ShowAlert(e.Message);
+                return string.Empty;
+            }
+        }
+
         public static string Search(string query, string sinceId = "1")
         {
             var parameters = new[]

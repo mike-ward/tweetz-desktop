@@ -36,7 +36,7 @@
                         Click="OnShorten"><Run FontFamily="Segoe UI Symbol">&#xE167;</Run></Button>
                 <Button x:Name="Send"
                         Style="{StaticResource ComposeTweetButton}"
-                        Click="OnSend">Tweet</Button>
+                        Click="OnSend"><Run x:Name="SendButtonText">Tweet</Run></Button>
             </StackPanel>
         </DockPanel>
     </StackPanel>

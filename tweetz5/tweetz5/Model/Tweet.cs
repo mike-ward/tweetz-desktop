@@ -101,6 +101,11 @@ namespace tweetz5.Model
             }
         }
 
+        public bool IsDirectMesssage
+        {
+            get { return TweetType.Contains("d"); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

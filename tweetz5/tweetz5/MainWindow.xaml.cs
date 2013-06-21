@@ -97,6 +97,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             var timelineName = (string)ea.Parameter;
+            Compose.Visibility = Visibility.Collapsed;
             SettingsPanel.Visibility = Visibility.Collapsed;
             ResizeBar.Visibility = Visibility.Visible;
             Timeline.Visibility = Visibility.Visible;
@@ -129,8 +130,15 @@ namespace tweetz5
         {
             ea.Handled = true;
             var tweet = (Tweet)ea.Parameter;
-            var message = string.Format("@{0} ", tweet.ScreenName);
-            Compose.Show(message, tweet.StatusId);
+            if (tweet.IsDirectMesssage)
+            {
+                Compose.ShowDirectMessage(tweet.Name, tweet.ScreenName);
+            }
+            else
+            {
+                var message = string.Format("@{0} ", tweet.ScreenName);
+                Compose.Show(message, tweet.StatusId);
+            }
         }
 
         private void RetweetCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -160,7 +168,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             var statuses = (Status[])ea.Parameter;
-            Timeline.Controller.UpdateStatus(new[] {Timelines.HomeName, Timelines.UnifiedName}, statuses, "h");
+            Timeline.Controller.UpdateStatus(new[] { Timelines.HomeName, Timelines.UnifiedName }, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -193,7 +201,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             if (Settings.Default.Chirp == false) return;
-            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
+            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
             player.Play();
         }
 

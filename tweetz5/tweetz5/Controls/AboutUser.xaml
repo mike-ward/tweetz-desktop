@@ -41,7 +41,7 @@
       <DockPanel LastChildFill="True">
         <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Tweets, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/>tweets</TextBlock>
         <Border Style="{StaticResource VerticalSeparatorStyle}"/>
-        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Friends, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/>following</TextBlock>
+        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Friends, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/>friends</TextBlock>
         <Border Style="{StaticResource VerticalSeparatorStyle}"/>
         <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Followers, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/>followers</TextBlock>
         <Button DockPanel.Dock="Right"
