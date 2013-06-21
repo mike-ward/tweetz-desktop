@@ -43,6 +43,14 @@ namespace tweetz5
 
         public void SignIn()
         {
+            var buildDate = Utilities.System.BuildInfo.GetBuildDateTime();
+            if (DateTime.Now > buildDate.AddMonths(3))
+            {
+                Settings.Default.AccessToken = string.Empty;
+                Settings.Default.AccessTokenSecret = string.Empty;
+                AlertCommand.Execute("Expired", this);
+                return;
+            }
             SettingsPanel.Visibility = Visibility.Collapsed;
             if (string.IsNullOrWhiteSpace(Settings.Default.UserId))
             {

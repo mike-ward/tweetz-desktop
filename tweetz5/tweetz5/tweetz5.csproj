@@ -102,6 +102,7 @@
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\StringContainsConverter.cs" />
+    <Compile Include="Utilities\System\BuildInfo.cs" />
     <Compile Include="Utilities\System\SysTimer.cs" />
     <Page Include="Assets\Themes\Classic\Dark.xaml">
       <SubType>Designer</SubType>
