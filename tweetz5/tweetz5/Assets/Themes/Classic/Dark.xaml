@@ -197,6 +197,10 @@
     <Setter Property="Foreground" Value="#99bbee" />
   </Style>
 
+  <Style x:Key="TweetMediaStyle" TargetType="Image">
+    <Setter Property="Margin" Value="0 6 0 3" />
+  </Style>
+
   <!-- Compose -->
 
   <Style x:Key="ComposeTweet" TargetType="StackPanel">

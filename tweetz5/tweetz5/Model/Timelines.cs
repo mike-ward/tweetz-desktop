@@ -157,7 +157,8 @@ namespace tweetz5.Model
                     Favorited = status.Favorited,
                     IsRetweet = status.Retweeted,
                     RetweetedBy = RetweetedBy(status),
-                    RetweetStatusId = (status.RetweetedtStatus != null) ? status.RetweetedtStatus.Id : string.Empty
+                    RetweetStatusId = (status.RetweetedtStatus != null) ? status.RetweetedtStatus.Id : string.Empty,
+                    MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0]
                 };
 
                 var index = _tweets.IndexOf(tweet);
@@ -250,7 +251,7 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Media.Select(media => new MarkupItem
                 {
-                    Markup = string.Format("<a{0}>", media.Url),
+                    Markup = string.Format("<p{0}>", media.Url),
                     Start = media.Indices[0],
                     End = media.Indices[1]
                 }));

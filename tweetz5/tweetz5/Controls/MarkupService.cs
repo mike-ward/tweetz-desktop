@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
+
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -65,6 +67,10 @@ namespace tweetz5.Controls
                     case 'h':
                         inlines.Add(Hashtag(tagText));
                         break;
+
+                    case 'p':
+                        inlines.Add(Hyperlink("[media]", tagText));
+                        break;
                 }
                 start += 1;
             } while (start < text.Length);
@@ -106,7 +112,7 @@ namespace tweetz5.Controls
             };
             ToolTipService.SetInitialShowDelay(hyperlink, 0);
             ToolTipService.SetShowDuration(hyperlink, 30000);
-            hyperlink.ToolTipOpening += async (s, e) =>  hyperlink.ToolTip = await LongUrl.Lookup(link);
+            hyperlink.ToolTipOpening += async (s, e) => hyperlink.ToolTip = await LongUrl.Lookup(link);
             return hyperlink;
         }
 

@@ -69,7 +69,6 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
-                <RowDefinition />
               </Grid.RowDefinitions>
 
               <Rectangle Grid.Column="0" Style="{StaticResource TweetImageStyle}">
@@ -106,7 +105,27 @@
                 </TextBlock>
               </StackPanel>
 
-              <Grid Grid.Row="2"
+              <ItemsControl Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            ItemsSource="{Binding MediaLinks}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Image Source="{Binding}"
+                           StretchDirection="DownOnly"
+                           Style="{StaticResource TweetMediaStyle}"
+                           Cursor="Hand">
+                      <Image.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                      Command="{x:Static tweetz5:MainWindow.OpenLinkCommand}"
+                                      CommandParameter="{Binding}">
+                        </MouseBinding>
+                      </Image.InputBindings>
+                    </Image>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+
+              <Grid Grid.Row="3"
                     Grid.ColumnSpan="2"
                     SnapsToDevicePixels="True"
                     Style="{StaticResource TweetActions}">
@@ -116,6 +135,7 @@
                   <ColumnDefinition Width="Auto" />
                   <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                
                 <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="0">
                   <TextBlock.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.ReplyCommand}" CommandParameter="{Binding}"/>

@@ -26,6 +26,7 @@ namespace tweetz5.Model
         public string Text { get; set; }
         public string MarkupText { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string[] MediaLinks { get; set; }
 
         public bool IsRetweet
         {
