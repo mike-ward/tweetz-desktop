@@ -83,14 +83,15 @@
     <Compile Include="Controls\SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
+    <Compile Include="Controls\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\StatusAlert.xaml.cs">
       <DependentUpon>StatusAlert.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\OAuth.cs" />
     <Compile Include="Model\LongUrl.cs" />
+    <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -130,7 +131,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Settings.xaml">
+    <Page Include="Controls\SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

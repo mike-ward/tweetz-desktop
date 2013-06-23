@@ -81,7 +81,7 @@
           <Button Style="{StaticResource NavBarButton}"
                   Click="ComposeOnClick">&#xE104;</Button>
         </UniformGrid>
-        <controls:Settings x:Name="SettingsPanel" />
+        <controls:SettingsControl x:Name="SettingsPanel" />
         <controls:Timeline x:Name="Timeline"
                         Panel.ZIndex="-1"
                         Height="400" />

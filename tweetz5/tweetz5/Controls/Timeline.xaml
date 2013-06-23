@@ -29,6 +29,8 @@
     <Storyboard x:Key="LoadItemAnimation">
       <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1"/>
     </Storyboard>
+    
+    <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
   </UserControl.Resources>
 
   <UserControl.DataContext>
@@ -107,6 +109,7 @@
 
               <ItemsControl Grid.Row="2"
                             Grid.ColumnSpan="2"
+                            Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}"
                             ItemsSource="{Binding MediaLinks}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>

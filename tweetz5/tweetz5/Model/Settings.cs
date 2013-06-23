@@ -4,14 +4,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using tweetz5.Annotations;
 
-namespace tweetz5.Controls
+namespace tweetz5.Model
 {
-    public partial class Settings : INotifyPropertyChanged
+    public class Settings : INotifyPropertyChanged
     {
-        public Settings()
-        {
-            InitializeComponent();
-        }
+        public static Settings ApplicationSettings = new Settings();
 
         public bool Chirp
         {
@@ -21,6 +18,20 @@ namespace tweetz5.Controls
                 if (Properties.Settings.Default.Chirp != value)
                 {
                     Properties.Settings.Default.Chirp = value;
+                    Properties.Settings.Default.Save();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool ShowMedia
+        {
+            get { return Properties.Settings.Default.ShowMedia; }
+            set
+            {
+                if (Properties.Settings.Default.ShowMedia != value)
+                {
+                    Properties.Settings.Default.ShowMedia = value;
                     Properties.Settings.Default.Save();
                     OnPropertyChanged();
                 }
