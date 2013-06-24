@@ -9,35 +9,46 @@
              d:DesignHeight="300"
              d:DesignWidth="200"
              Focusable="True"
-             Height="153">
-    <UserControl.Resources>
-        <c:LengthToColorConverter x:Key="Converter" />
-    </UserControl.Resources>
-    <StackPanel Style="{StaticResource ComposeTweet}">
-        <TextBlock x:Name="ComposeTitle"
-                   Style="{StaticResource ComposeTweetTitleBlock}">Compose a tweet</TextBlock>
-        <TextBox x:Name="TextBox"
-                 AcceptsReturn="True"
-                 TextWrapping="Wrap"
-                 Style="{StaticResource ComposeTweetTextBox}"
-                 KeyUp="OnKeyUp"
-                 IsVisibleChanged="OnIsVisibleChanged" />
-        <DockPanel>
-            <TextBlock x:Name="Counter"
-                       DockPanel.Dock="Left"
-                       Style="{StaticResource ComposeCharCounter}"
-                       Text="{Binding ElementName=TextBox, Path=Text.Length}"
-                       Foreground="{Binding ElementName=TextBox, Path=Text.Length, Converter={StaticResource Converter}}" />
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        DockPanel.Dock="Right">
-                <Button x:Name="Shorten"
-                        Style="{StaticResource ComposeTweetButton}"
-                        Click="OnShorten"><Run FontFamily="Segoe UI Symbol">&#xE167;</Run></Button>
-                <Button x:Name="Send"
-                        Style="{StaticResource ComposeTweetButton}"
-                        Click="OnSend"><Run x:Name="SendButtonText">Tweet</Run></Button>
-            </StackPanel>
-        </DockPanel>
-    </StackPanel>
+             Height="Auto">
+  <UserControl.Resources>
+    <c:LengthToColorConverter x:Key="Converter" />
+  </UserControl.Resources>
+  <StackPanel Style="{StaticResource ComposeTweet}">
+    <TextBlock x:Name="ComposeTitle"
+               Style="{StaticResource ComposeTweetTitleBlock}">Compose a tweet</TextBlock>
+    <TextBox x:Name="TextBox"
+             AcceptsReturn="True"
+             TextWrapping="Wrap"
+             Style="{StaticResource ComposeTweetTextBox}"
+             KeyUp="OnKeyUp"
+             IsVisibleChanged="OnIsVisibleChanged" />
+    <DockPanel Margin="0 0 0 6">
+      <TextBlock x:Name="Counter"
+                 DockPanel.Dock="Left"
+                 Style="{StaticResource ComposeCharCounter}"
+                 Text="{Binding ElementName=TextBox, Path=Text.Length}"
+                 Foreground="{Binding ElementName=TextBox, Path=Text.Length, Converter={StaticResource Converter}}" />
+      <StackPanel Orientation="Horizontal"
+                  HorizontalAlignment="Right"
+                  DockPanel.Dock="Right">
+        <Button x:Name="Photo"
+                Style="{StaticResource ComposeTweetButton}"
+                ToolTip="Include Photo (Drag and Drop supported)"
+                Click="OnPhoto">
+          <Run FontFamily="Segoe UI Symbol">&#xE114;</Run>
+        </Button>
+        <Button x:Name="Shorten"
+                Style="{StaticResource ComposeTweetButton}"
+                ToolTip="Shorten links"
+                Click="OnShorten">
+          <Run FontFamily="Segoe UI Symbol">&#xE167;</Run>
+        </Button>
+        <Button x:Name="Send"
+                  Style="{StaticResource ComposeTweetButton}"
+                  Click="OnSend">
+          <Run x:Name="SendButtonText">Tweet</Run>
+        </Button>
+      </StackPanel>
+    </DockPanel>
+  </StackPanel>
 </UserControl>

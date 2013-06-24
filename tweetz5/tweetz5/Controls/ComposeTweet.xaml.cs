@@ -111,6 +111,11 @@ namespace tweetz5.Controls
                 Shorten.IsEnabled = true;
             }
         }
+
+        private void OnPhoto(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class LengthToColorConverter : IValueConverter

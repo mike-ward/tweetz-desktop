@@ -228,6 +228,7 @@
     <Setter Property="Foreground" Value="#cccccc" />
     <Setter Property="FontWeight" Value="Normal" />
     <Setter Property="Margin" Value="0 0 7 0" />
+    <Setter Property="ToolTipService.InitialShowDelay" Value="2000" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
