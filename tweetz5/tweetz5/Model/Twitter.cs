@@ -396,6 +396,56 @@ namespace tweetz5.Model
             }
         }
 
+        public static string UpdateStatusWithMedia(string message, byte[] media, string mediaName)
+        {
+            const string url = "https://api.twitter.com/1.1/statuses/update_with_media.json";
+            var oauth = new OAuth();
+            var nonce = OAuth.Nonce();
+            var timestamp = OAuth.TimeStamp();
+            var signature = OAuth.Signature("POST", url, nonce, timestamp, oauth.AccessToken, oauth.AccessTokenSecret, new string[0][]);
+            var authorizeHeader = OAuth.AuthorizationHeader(nonce, timestamp, oauth.AccessToken, signature);
+
+            var request = WebRequestWrapper.Create(new Uri(url));
+            request.Headers.Add("Authorization", authorizeHeader);
+            request.Method = "POST";
+
+            var formDataBoundary = String.Format("{0:N}", Guid.NewGuid());
+            var contentType = "multipart/form-data; boundary=" + formDataBoundary;
+            request.ContentType = contentType;
+
+            using (var requestStream = request.GetRequestStream())
+            {
+                var header = string.Format("--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n", formDataBoundary, "status");
+                var footer = string.Format("\r\n--{0}--\r\n", formDataBoundary);
+                WriteStream(requestStream, header);
+                WriteStream(requestStream, message);
+                WriteStream(requestStream, footer);
+
+                header = string.Format(
+                    "--{0}\r\nContent-Type: application/octet-stream\r\n" +
+                    "Content-Disposition: form-data; name=\"media[]\"; filename=\"{1}\"\r\n\r\n",
+                    formDataBoundary, mediaName);
+                WriteStream(requestStream, header);
+                requestStream.Write(media, 0, media.Length);
+                WriteStream(requestStream, footer);
+            }
+
+            using (var response = request.GetResponse())
+            {
+                using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
+                    var result = stream.ReadToEnd();
+                    return result;
+                }
+            }
+        }
+
+        private static void WriteStream(Stream stream, string text)
+        {
+            var buffer = Encoding.ASCII.GetBytes(text);
+            stream.Write(buffer, 0, buffer.Length);
+        }
+
         private static string Token(string pair)
         {
             return pair.Substring(pair.IndexOf('=') + 1);
