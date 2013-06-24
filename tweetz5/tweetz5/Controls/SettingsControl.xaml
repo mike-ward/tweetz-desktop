@@ -20,7 +20,8 @@
       <Label Style="{StaticResource SettingsPanelLabelStyle}">Show inline media</Label>
     </StackPanel>
     <Button Margin="40 20" Command="tweetz5:MainWindow.SignOutCommand">Sign Out</Button>
-        <TextBlock>tweetz Desktop, v: 0.3</TextBlock>
+        <TextBlock>tweetz Desktop, v: <Run Text="{Binding Version, Mode=OneTime}"></Run>
+      </TextBlock>
         <TextBlock><Hyperlink Command="tweetz5:MainWindow.OpenLinkCommand" CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink></TextBlock>
         <TextBlock>Copyright 2013, Mike Ward</TextBlock>
     </StackPanel>

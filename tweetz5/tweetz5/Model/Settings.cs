@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using tweetz5.Annotations;
 
@@ -36,6 +37,11 @@ namespace tweetz5.Model
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public static string Version
+        {
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
