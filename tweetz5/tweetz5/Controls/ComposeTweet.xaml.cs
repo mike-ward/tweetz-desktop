@@ -1,23 +1,43 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
+using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Win32;
+using tweetz5.Annotations;
 using tweetz5.Model;
 
 namespace tweetz5.Controls
 {
-    public partial class ComposeTweet
+    public partial class ComposeTweet : INotifyPropertyChanged
     {
         private string _inReplyToId;
         private bool _directMessage;
+        private string _image;
 
         public ComposeTweet()
         {
             InitializeComponent();
+            DataContext = this;
+            SizeChanged += (sender, args) => MainWindow.UpdateLayoutCommand.Execute(null, this);
+        }
+
+        public string Image
+        {
+            get { return _image; }
+            set
+            {
+                if (_image != value)
+                {
+                    _image = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public void Show(string message = "", string inReplyToId = null)
@@ -27,6 +47,7 @@ namespace tweetz5.Controls
             _directMessage = false;
             _inReplyToId = inReplyToId;
             SendButtonText.Text = "Tweet";
+            Image = null;
             Visibility = Visibility.Visible;
         }
 
@@ -37,6 +58,7 @@ namespace tweetz5.Controls
             _directMessage = true;
             _inReplyToId = null;
             SendButtonText.Text = "Send";
+            Image = null;
             Visibility = Visibility.Visible;
         }
 
@@ -71,8 +93,8 @@ namespace tweetz5.Controls
             try
             {
                 Send.IsEnabled = false;
-                var json = _directMessage 
-                    ? Twitter.SendDirectMessage(TextBox.Text, _inReplyToId) 
+                var json = _directMessage
+                    ? Twitter.SendDirectMessage(TextBox.Text, _inReplyToId)
                     : Twitter.UpdateStatus(TextBox.Text, _inReplyToId);
                 if (json.Contains("id_str") == false)
                 {
@@ -114,7 +136,24 @@ namespace tweetz5.Controls
 
         private void OnPhoto(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var dialog = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                Filter = "Images (*.png, *.jpg, *.jpeg, *.gif)|*.png;*.jpg;*.jpeg;*.gif"
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                Image = dialog.FileName;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 

@@ -75,7 +75,8 @@
 
               <Rectangle Grid.Column="0" Style="{StaticResource TweetImageStyle}">
                 <Rectangle.Fill>
-                  <ImageBrush ImageSource="{Binding ProfileImageUrl, Mode=OneTime}" />
+                  <ImageBrush ImageSource="{Binding ProfileImageUrl, Mode=OneTime}"
+                              RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Rectangle.Fill>
               </Rectangle>
 

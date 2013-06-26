@@ -95,6 +95,7 @@
     <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utilities\NullImageConverter.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
     <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />
     <Compile Include="Model\Timelines.cs" />

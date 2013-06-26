@@ -31,6 +31,7 @@ namespace tweetz5
         public static readonly RoutedCommand AlertCommand = new RoutedUICommand();
         public static readonly RoutedCommand SignOutCommand = new RoutedUICommand();
         public static readonly RoutedCommand SettingsCommand = new RoutedUICommand();
+        public static readonly RoutedCommand UpdateLayoutCommand = new RoutedCommand();
 
         public MainWindow()
         {
@@ -276,6 +277,12 @@ namespace tweetz5
             ResizeBar.Visibility = Visibility.Collapsed;
             Timeline.Visibility = Visibility.Collapsed;
             SetButtonStates("settings");
+        }
+
+        private void UpdateLayoutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            ea.Handled = true;
+            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
         }
     }
 }

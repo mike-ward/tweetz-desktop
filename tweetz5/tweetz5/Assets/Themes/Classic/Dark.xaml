@@ -255,6 +255,17 @@
     <Setter Property="FontSize" Value="14" />
   </Style>
 
+  <Style x:Key="ComposeImageStyle" TargetType="Image">
+    <Setter Property="StretchDirection" Value="DownOnly" />
+    <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+    <Setter Property="Margin" Value="7 0 7 5" />
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding Image}" Value="{x:Null}">
+        <Setter Property="Visibility" Value="Collapsed" />
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
   <!-- Scrollbar -->
   <SolidColorBrush x:Key="StandardBorderBrush" Color="#393939">
   </SolidColorBrush>

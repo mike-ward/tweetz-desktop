@@ -138,5 +138,7 @@
                     Executed="SignOutCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MainWindow.SettingsCommand}"
                     Executed="SettingsCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateLayoutCommand}"
+                    Executed="UpdateLayoutCommandHandler"/>
   </Window.CommandBindings>
 </Window>

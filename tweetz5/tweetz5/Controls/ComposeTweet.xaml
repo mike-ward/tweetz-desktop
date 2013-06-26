@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:c="clr-namespace:tweetz5.Controls"
+             xmlns:u="clr-namespace:tweetz5.Utilities"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="200"
@@ -12,6 +14,7 @@
              Height="Auto">
   <UserControl.Resources>
     <c:LengthToColorConverter x:Key="Converter" />
+    <u:NullImageConverter x:Key="NullImageConverter" />
   </UserControl.Resources>
   <StackPanel Style="{StaticResource ComposeTweet}">
     <TextBlock x:Name="ComposeTitle"
@@ -22,6 +25,8 @@
              Style="{StaticResource ComposeTweetTextBox}"
              KeyUp="OnKeyUp"
              IsVisibleChanged="OnIsVisibleChanged" />
+    <Image Source="{Binding Image, Converter={StaticResource NullImageConverter}}"
+           Style="{StaticResource ComposeImageStyle}" />
     <DockPanel Margin="0 0 0 6">
       <TextBlock x:Name="Counter"
                  DockPanel.Dock="Left"
