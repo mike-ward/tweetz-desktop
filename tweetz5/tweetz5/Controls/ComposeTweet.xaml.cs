@@ -93,14 +93,20 @@ namespace tweetz5.Controls
             try
             {
                 Send.IsEnabled = false;
-                var json = _directMessage
-                    ? Twitter.SendDirectMessage(TextBox.Text, _inReplyToId)
-                    : Twitter.UpdateStatus(TextBox.Text, _inReplyToId);
-                if (json.Contains("id_str") == false)
+                string json;
+
+                if (_directMessage)
                 {
-                    ComposeTitle.Text = "Error";
+                    json = Twitter.SendDirectMessage(TextBox.Text, _inReplyToId);
                 }
                 else
+                {
+                    json = string.IsNullOrWhiteSpace(Image) 
+                        ? Twitter.UpdateStatus(TextBox.Text, _inReplyToId) 
+                        : Twitter.UpdateStatusWithMedia(TextBox.Text, Image);
+                }
+
+                if (json.Contains("id_str"))
                 {
                     var status = Status.ParseJson("[" + json + "]");
                     MainWindow.UpdateStatusHomeTimelineCommand.Execute(status, this);
