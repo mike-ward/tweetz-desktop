@@ -49,12 +49,13 @@
           <Run FontFamily="Segoe UI Symbol">&#xE167;</Run>
         </Button>
         <Button x:Name="Send"
-                  Click="OnSend">
+                Click="OnSend">
           <Button.Style>
             <Style TargetType="Button" BasedOn="{StaticResource ComposeTweetButton}">
               <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=TextBox, Path=Text.Length}" Value="0">
                   <Setter Property="Button.IsEnabled" Value="False" />
+                  <Setter Property="Button.Foreground" Value="Black" />
                 </DataTrigger>
               </Style.Triggers>
             </Style>
