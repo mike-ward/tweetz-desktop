@@ -2,6 +2,8 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -283,6 +285,41 @@ namespace tweetz5
         {
             ea.Handled = true;
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
+        }
+
+        private void OnDragOver(object sender, DragEventArgs ea)
+        {
+            ea.Handled = true;
+            ea.Effects = DragDropEffects.None;
+            if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
+            {
+                var filenames = ea.Data.GetData(DataFormats.FileDrop, true) as string[];
+                if (filenames != null && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
+                {
+                    ea.Effects = DragDropEffects.Copy;
+                }
+            }
+        }
+
+        private void OnDrop(object sender, DragEventArgs ea)
+        {
+            if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
+            {
+                var filenames = ea.Data.GetData(DataFormats.FileDrop, true) as string[];
+                if (filenames != null && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
+                {
+                    Compose.Visibility = Visibility.Visible;
+                    Compose.Image = filenames[0];
+                    ea.Handled = true;
+                }
+            }
+        }
+
+        private static bool IsValidImageExtension(string filename)
+        {
+            var extension = Path.GetExtension(filename);
+            var extensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
+            return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

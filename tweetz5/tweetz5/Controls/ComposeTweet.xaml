@@ -49,8 +49,16 @@
           <Run FontFamily="Segoe UI Symbol">&#xE167;</Run>
         </Button>
         <Button x:Name="Send"
-                  Style="{StaticResource ComposeTweetButton}"
                   Click="OnSend">
+          <Button.Style>
+            <Style TargetType="Button" BasedOn="{StaticResource ComposeTweetButton}">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=TextBox, Path=Text.Length}" Value="0">
+                  <Setter Property="Button.IsEnabled" Value="False" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Button.Style>
           <Run x:Name="SendButtonText">Tweet</Run>
         </Button>
       </StackPanel>
