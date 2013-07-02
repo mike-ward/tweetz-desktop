@@ -7,7 +7,7 @@
   <SolidColorBrush x:Key="AppForegroundBrush">#bbbbbb</SolidColorBrush>
   <SolidColorBrush x:Key="AppBackgroundBrush">#333333</SolidColorBrush>
   <SolidColorBrush x:Key="TopBarBackgroundBrush">#333344</SolidColorBrush>
-  
+
   <Style x:Key="WindowStyle" TargetType="Window">
     <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
     <Setter Property="Background" Value="{StaticResource AppBackgroundBrush}" />
@@ -18,7 +18,7 @@
   <Style x:Key="SettingsPanelLabelStyle" TargetType="Label">
     <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
   </Style>
-  
+
   <Style x:Key="TopBarStyle" TargetType="DockPanel">
     <Setter Property="Background" Value="{StaticResource TopBarBackgroundBrush}" />
   </Style>
@@ -73,22 +73,40 @@
     <Setter Property="Margin" Value="0" />
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
   </Style>
-  
+
+  <Style x:Key="TweetListBoxItemStyle" TargetType="ListBoxItem">
+    <Setter Property="SnapsToDevicePixels" Value="true"/>
+    <Setter Property="OverridesDefaultStyle" Value="true"/>
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ListBoxItem">
+          <Border Name="Border" Padding="3 6 3 2" SnapsToDevicePixels="true" Background="Transparent" BorderThickness="0">
+            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=m}" Value="True">
+              <Setter TargetName="Border" Property="Background" Value="#223022" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=d}" Value="True">
+              <Setter TargetName="Border" Property="Background" Value="#222229" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsMyTweet, Mode=OneTime}" Value="True">
+              <Setter TargetName="Border" Property="Background" Value="#442222" />
+            </DataTrigger>
+            <Trigger Property="IsSelected" Value="true">
+              <Setter TargetName="Border" Property="Background" Value="#393940"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
   <Style x:Key="TweetItemStyle" TargetType="Border">
     <Setter Property="Padding" Value="3 6 3 2" />
-    <Style.Triggers>
-      <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=m}" Value="True">
-        <Setter Property="Background" Value="#223022" />
-      </DataTrigger>
-      <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=d}" Value="True">
-        <Setter Property="Background" Value="#222229" />
-      </DataTrigger>
-      <DataTrigger Binding="{Binding IsMyTweet, Mode=OneTime}" Value="True">
-        <Setter Property="Background" Value="#442222" />
-      </DataTrigger>
-    </Style.Triggers>
   </Style>
-  
+
   <Style x:Key="TweetImageStyle" TargetType="Rectangle">
     <Setter Property="Width" Value="33" />
     <Setter Property="Height" Value="33" />
@@ -98,20 +116,20 @@
     <Setter Property="VerticalAlignment" Value="Top" />
     <Setter Property="Margin" Value="0" />
   </Style>
-  
+
   <Style x:Key="TweetImageColumnStyle" TargetType="ColumnDefinition">
     <Setter Property="Width" Value="38" />
   </Style>
-  
+
   <Style x:Key="TweetTimeStyle" TargetType="TextBlock">
     <Setter Property="Foreground" Value="#888888" />
     <Setter Property="FontSize" Value="10" />
   </Style>
-  
+
   <Style x:Key="TweetStyle" TargetType="TextBlock">
     <Setter Property="TextWrapping" Value="Wrap" />
   </Style>
-  
+
   <Style x:Key="TweetRetweetedByStyle" TargetType="TextBlock">
     <Setter Property="Margin" Value="0 2 0 0"></Setter>
     <Setter Property="TextAlignment" Value="Right" />
@@ -124,13 +142,13 @@
       </DataTrigger>
     </Style.Triggers>
   </Style>
-  
+
   <Style x:Key="TweetActions" TargetType="Grid">
     <Setter Property="Margin" Value="0 2 0 0"></Setter>
     <Setter Property="HorizontalAlignment" Value="Right" />
   </Style>
-  
-  
+
+
   <Style x:Key="TweetActionsItem" TargetType="TextBlock">
     <Setter Property="FontSize" Value="10" />
     <Setter Property="Foreground" Value="#666666" />
@@ -150,7 +168,7 @@
       <DataTrigger Binding="{Binding IsMyTweet}" Value="True">
         <Setter Property="Visibility" Value="Collapsed" />
       </DataTrigger>
-    </Style.Triggers>  
+    </Style.Triggers>
   </Style>
 
   <Style x:Key="TweetActionsItemDelete"
@@ -188,11 +206,11 @@
     <Setter Property="Foreground" Value="#99bbee" />
     <Setter Property="TextDecorations" Value="{x:Null}" />
   </Style>
-  
+
   <Style x:Key="TweetMention" TargetType="Span">
     <Setter Property="Foreground" Value="#99bbee" />
   </Style>
-  
+
   <Style x:Key="TweetHashtag" TargetType="Span">
     <Setter Property="Foreground" Value="#99bbee" />
   </Style>
@@ -207,12 +225,12 @@
     <Setter Property="Background" Value="#484848" />
     <Setter Property="Margin" Value="4 0 6 1" />
   </Style>
-  
+
   <Style x:Key="ComposeTweetTitleBlock" TargetType="TextBlock">
     <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
     <Setter Property="Margin" Value="7 4 0 4" />
   </Style>
-  
+
   <Style x:Key="ComposeTweetTextBox" TargetType="TextBox">
     <Setter Property="FontSize" Value="14" />
     <Setter Property="Height" Value="101" />
@@ -222,7 +240,7 @@
     <Setter Property="Margin" Value="7 0 7 5" />
     <Setter Property="Padding" Value="3" />
   </Style>
-  
+
   <Style x:Key="ComposeTweetButton" TargetType="Button">
     <Setter Property="Cursor" Value="Hand" />
     <Setter Property="Foreground" Value="#cccccc" />
@@ -537,7 +555,7 @@
   </Style>
 
   <!--User Information Popup-->
-  
+
   <Style x:Key="UserInfoPopupStyle" TargetType="Border">
     <Setter Property="Background" Value="{StaticResource AppBackgroundBrush}" />
     <Setter Property="BorderThickness" Value="2" />
@@ -584,14 +602,14 @@
   </Style>
 
   <!-- Search box styles -->
-  
-  <Style x:Key="SearchControlStyle" 
+
+  <Style x:Key="SearchControlStyle"
          TargetType="UserControl">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="Margin" Value="4 0" />
     <Setter Property="Height" Value="18" />
   </Style>
-  
+
   <Style x:Key="SearchControlTextBoxStyle"
          TargetType="TextBox">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -601,34 +619,9 @@
     <Setter Property="Padding" Value="2" />
   </Style>
 
-  <!-- Turn off listbox select/hover -->
-
-  <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
-  <Setter Property="SnapsToDevicePixels" Value="true"/>
-  <Setter Property="OverridesDefaultStyle" Value="true"/>
-    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-  <Setter Property="Template">
-    <Setter.Value>
-      <ControlTemplate TargetType="ListBoxItem">
-        <Border Name="Border" Padding="0" SnapsToDevicePixels="true" Background="Transparent" BorderThickness="0">
-          <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-        </Border>
-        <ControlTemplate.Triggers>
-          <Trigger Property="IsSelected" Value="true">
-            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
-          </Trigger>
-          <Trigger Property="IsMouseOver" Value="true">
-            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
-          </Trigger>
-        </ControlTemplate.Triggers>
-      </ControlTemplate>
-    </Setter.Value>
-  </Setter>
-  </Style>
-
   <!-- Authenticate Styles -->
-  
+
   <Style x:Key="AuthenticatePanelStyle" TargetType="StackPanel">
-    
+
   </Style>
 </ResourceDictionary>

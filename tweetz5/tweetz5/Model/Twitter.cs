@@ -69,7 +69,7 @@ namespace tweetz5.Model
         {
             var parameters = new[]
             {
-                new[] {"count", "50"},
+                new[] {"count", "150"},
                 new[] {"include_rts", "true"},
                 new[] {"include_entities", "true"},
                 new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}

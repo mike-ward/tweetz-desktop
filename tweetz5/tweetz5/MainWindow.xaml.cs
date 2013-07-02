@@ -285,7 +285,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
-        }
+        }   
 
         private void OnDragOver(object sender, DragEventArgs ea)
         {
@@ -299,6 +299,7 @@ namespace tweetz5
                     ea.Effects = DragDropEffects.Copy;
                 }
             }
+
         }
 
         private void OnDrop(object sender, DragEventArgs ea)
