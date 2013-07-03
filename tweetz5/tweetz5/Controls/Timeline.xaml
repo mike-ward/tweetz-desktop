@@ -84,16 +84,24 @@
 
             <StackPanel Grid.Column="1">
               <Grid Margin="3 3 0 0">
+                <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*" />
                   <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0">
+                <TextBlock Grid.Column="0"
+                           Grid.Row="0"
+                           Margin="1 0 0 0">
                   <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
                              CommandParameter="{Binding ScreenName, Mode=OneTime}">
-                    <Run Text="{Binding Name, Mode=OneTime}" />
+                    <Run Text="{Binding Name, Mode=OneTime}"/>
                   </Hyperlink>
-                  <LineBreak />
+                </TextBlock>
+                <TextBlock Grid.Column="0"
+                           Grid.Row="1">
                   <Run Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}"
                         Style="{StaticResource TweetScreenNameStyle}"/>
                 </TextBlock>
