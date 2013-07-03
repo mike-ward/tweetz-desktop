@@ -96,6 +96,7 @@
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
+    <Compile Include="Utilities\ScreenNameConverter.cs" />
     <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />
     <Compile Include="Model\Timelines.cs" />
     <Compile Include="Model\Tweet.cs" />

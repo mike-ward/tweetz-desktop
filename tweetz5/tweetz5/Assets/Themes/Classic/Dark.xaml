@@ -117,6 +117,10 @@
     <Setter Property="Margin" Value="0" />
   </Style>
 
+  <Style x:Key="TweetScreenNameStyle" TargetType="Run">
+    <Setter Property="Foreground" Value="#888888"/>
+  </Style>
+  
   <Style x:Key="TweetImageColumnStyle" TargetType="ColumnDefinition">
     <Setter Property="Width" Value="38" />
   </Style>
