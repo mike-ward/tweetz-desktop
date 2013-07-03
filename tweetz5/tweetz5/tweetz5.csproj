@@ -95,7 +95,6 @@
     <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Utilities\NullImageConverter.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
     <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />
     <Compile Include="Model\Timelines.cs" />
@@ -112,6 +111,7 @@
     <Compile Include="Utilities\StringContainsConverter.cs" />
     <Compile Include="Utilities\System\BuildInfo.cs" />
     <Compile Include="Utilities\System\SysTimer.cs" />
+    <Compile Include="Utilities\UriToCachedImageConverter.cs" />
     <Page Include="Assets\Themes\Classic\Dark.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

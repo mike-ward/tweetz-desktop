@@ -92,10 +92,10 @@
               <Setter TargetName="Border" Property="Background" Value="#333339" />
             </DataTrigger>
             <DataTrigger Binding="{Binding IsMyTweet, Mode=OneTime}" Value="True">
-              <Setter TargetName="Border" Property="Background" Value="#393333" />
+              <Setter TargetName="Border" Property="Background" Value="#493333" />
             </DataTrigger>
             <Trigger Property="IsSelected" Value="true">
-              <Setter TargetName="Border" Property="Background" Value="#393950"/>
+              <Setter TargetName="Border" Property="Background" Value="#393949"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

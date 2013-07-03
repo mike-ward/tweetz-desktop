@@ -14,7 +14,7 @@
              Height="Auto">
   <UserControl.Resources>
     <c:LengthToColorConverter x:Key="Converter" />
-    <u:NullImageConverter x:Key="NullImageConverter" />
+    <u:UriToCachedImageConverter x:Key="UriToCachedImageConverter" />
   </UserControl.Resources>
   <StackPanel Style="{StaticResource ComposeTweet}">
     <TextBlock x:Name="ComposeTitle"
@@ -25,7 +25,7 @@
              Style="{StaticResource ComposeTweetTextBox}"
              KeyUp="OnKeyUp"
              IsVisibleChanged="OnIsVisibleChanged" />
-    <Image Source="{Binding Image, Converter={StaticResource NullImageConverter}}"
+    <Image Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}}"
            Style="{StaticResource ComposeImageStyle}" />
     <DockPanel Margin="0 0 0 6">
       <TextBlock x:Name="Counter"
