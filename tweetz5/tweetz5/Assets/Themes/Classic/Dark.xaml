@@ -86,16 +86,16 @@
           </Border>
           <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=m}" Value="True">
-              <Setter TargetName="Border" Property="Background" Value="#223022" />
+              <Setter TargetName="Border" Property="Background" Value="#333933" />
             </DataTrigger>
             <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=d}" Value="True">
-              <Setter TargetName="Border" Property="Background" Value="#222229" />
+              <Setter TargetName="Border" Property="Background" Value="#333339" />
             </DataTrigger>
             <DataTrigger Binding="{Binding IsMyTweet, Mode=OneTime}" Value="True">
-              <Setter TargetName="Border" Property="Background" Value="#442222" />
+              <Setter TargetName="Border" Property="Background" Value="#393333" />
             </DataTrigger>
             <Trigger Property="IsSelected" Value="true">
-              <Setter TargetName="Border" Property="Background" Value="#393940"/>
+              <Setter TargetName="Border" Property="Background" Value="#393950"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
