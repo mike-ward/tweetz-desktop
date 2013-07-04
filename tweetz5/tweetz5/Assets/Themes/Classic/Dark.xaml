@@ -123,9 +123,10 @@
     <Setter Property="Width" Value="38" />
   </Style>
 
-  <Style x:Key="TweetTimeStyle" TargetType="TextBlock">
+  <Style x:Key="TweetTimeStyle" TargetType="Hyperlink">
     <Setter Property="Foreground" Value="#888888" />
     <Setter Property="FontSize" Value="10" />
+    <Setter Property="TextDecorations" Value="{x:Null}"/>
   </Style>
 
   <Style x:Key="TweetStyle" TargetType="TextBlock">

@@ -22,9 +22,6 @@
       <MenuItem Header="Copy Link"
                 Command="{x:Static tweetz5:MainWindow.CopyLinkCommand}"
                 CommandParameter="{Binding}"/>
-      <MenuItem Header="Open Link"
-                Command="{x:Static tweetz5:MainWindow.OpenTweetLinkCommand}"
-                CommandParameter="{Binding}"/>
     </ContextMenu>
 
     <Storyboard x:Key="LoadItemAnimation">
@@ -104,9 +101,13 @@
                 <Run Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}"
                       Style="{StaticResource TweetScreenNameStyle}"/>
               </TextBlock>
-              <TextBlock Grid.Column="1"
-                          Style="{StaticResource TweetTimeStyle}"
-                          Text="{Binding TimeAgo}" />
+              <TextBlock Grid.Column="1">
+                <Hyperlink Style="{StaticResource TweetTimeStyle}"
+                           Command="{x:Static tweetz5:MainWindow.OpenTweetLinkCommand}"
+                           CommandParameter="{Binding}">
+                  <Run Text="{Binding TimeAgo}"/>
+                </Hyperlink>
+              </TextBlock>
             </Grid>
 
             <ItemsControl Grid.Row="1"

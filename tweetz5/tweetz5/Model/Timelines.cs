@@ -36,13 +36,38 @@ namespace tweetz5.Model
         private string _timelineName;
         private ObservableCollection<Tweet> _timeline;
         private readonly Dictionary<string, Timeline> _timelineMap;
-        private readonly Collection<Tweet> _tweets = new Collection<Tweet>(); 
-        private Timeline _unified { get { return _timelineMap[UnifiedName]; } }
-        private Timeline _home { get { return _timelineMap[HomeName]; } }
-        private Timeline _mentions { get { return _timelineMap[MentionsName]; } }
-        private Timeline _directMessages { get { return _timelineMap[MessagesName]; } }
-        private Timeline _favorites { get { return _timelineMap[FavoritesName]; } }
-        private Timeline _search { get { return _timelineMap[SearchName]; } }
+        private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
+
+        private Timeline _unified
+        {
+            get { return _timelineMap[UnifiedName]; }
+        }
+
+        private Timeline _home
+        {
+            get { return _timelineMap[HomeName]; }
+        }
+
+        private Timeline _mentions
+        {
+            get { return _timelineMap[MentionsName]; }
+        }
+
+        private Timeline _directMessages
+        {
+            get { return _timelineMap[MessagesName]; }
+        }
+
+        private Timeline _favorites
+        {
+            get { return _timelineMap[FavoritesName]; }
+        }
+
+        private Timeline _search
+        {
+            get { return _timelineMap[SearchName]; }
+        }
+
         private Visibility _searchVisibility;
 
         public const string UnifiedName = "unified";
@@ -132,7 +157,7 @@ namespace tweetz5.Model
             foreach (var status in statuses.Where(status => timelines.All(timeline => timeline.Tweets.All(t => t.StatusId != status.Id))))
             {
                 var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
-                                                    CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+                    CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
                 var displayStatus = status.RetweetedtStatus ?? status;
 
@@ -265,9 +290,8 @@ namespace tweetz5.Model
             markupItems.Sort((l, r) => r.Start - l.Start);
 
             return markupItems
-                .Aggregate(text, (current, markupItem) => current
-                                                              .Remove(markupItem.Start, markupItem.End - markupItem.Start)
-                                                              .Insert(markupItem.Start, markupItem.Markup));
+                .Aggregate(text, (current, markupItem) => current.Remove(markupItem.Start, markupItem.End - markupItem.Start)
+                                                                 .Insert(markupItem.Start, markupItem.Markup));
         }
 
         private static string TimeAgo(DateTime time)
@@ -315,7 +339,7 @@ namespace tweetz5.Model
             var twitter = new Twitter();
             var statuses = twitter.HomeTimeline(_home.SinceId);
             _home.SinceId = MaxSinceId(_home.SinceId, statuses);
-            UpdateStatus(new[] { HomeName, UnifiedName }, statuses, "h");
+            UpdateStatus(new[] {HomeName, UnifiedName}, statuses, "h");
         }
 
         public void UpdateStatus(string[] timelineNames, Status[] statuses, string tweetType)
@@ -336,13 +360,13 @@ namespace tweetz5.Model
             var statuses = twitter.MentionsTimeline(_mentions.SinceId);
             _mentions.SinceId = MaxSinceId(_mentions.SinceId, statuses);
             DispatchInvoker(() =>
+            {
+                if (UpdateTimelines(new[] {_mentions, _unified}, statuses, "m")) PlayNotification();
+                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                 {
-                    if (UpdateTimelines(new[] { _mentions, _unified }, statuses, "m")) PlayNotification();
-                    foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId)))
-                    {
-                        tweet.TweetType += "m";
-                    }
-                });
+                    tweet.TweetType += "m";
+                }
+            });
         }
 
         public void FavoritesTimeline()
@@ -366,24 +390,24 @@ namespace tweetz5.Model
             var statuses = twitter.DirectMessagesTimeline(_directMessages.SinceId);
             _directMessages.SinceId = MaxSinceId(_favorites.SinceId, statuses);
             DispatchInvoker(() =>
+            {
+                if (UpdateTimelines(new[] {_directMessages, _unified}, statuses, "d")) PlayNotification();
+                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                 {
-                    if (UpdateTimelines(new[] { _directMessages, _unified }, statuses, "d")) PlayNotification();
-                    foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId)))
-                    {
-                        tweet.TweetType += "d";
-                    }
-                });
+                    tweet.TweetType += "d";
+                }
+            });
         }
 
         public void UpdateTimeStamps()
         {
             DispatchInvoker(() =>
+            {
+                foreach (var tweet in Timeline)
                 {
-                    foreach (var tweet in Timeline)
-                    {
-                        tweet.TimeAgo = TimeAgo(tweet.CreatedAt);
-                    }
-                });
+                    tweet.TimeAgo = TimeAgo(tweet.CreatedAt);
+                }
+            });
         }
 
         public void AddFavorite(Tweet tweet)
@@ -405,7 +429,7 @@ namespace tweetz5.Model
             if (_favorites.Tweets.Contains(tweet) == false)
             {
                 _favorites.Tweets.Add(tweet);
-                SortTweetCollection(_favorites.Tweets);                
+                SortTweetCollection(_favorites.Tweets);
             }
         }
 
@@ -429,7 +453,7 @@ namespace tweetz5.Model
                 var indexOfItem = collection.IndexOf(item);
                 if (indexOfItem != i) collection.Move(indexOfItem, i);
                 i += 1;
-            }            
+            }
         }
 
         public void Search(string query)
@@ -439,7 +463,7 @@ namespace tweetz5.Model
             {
                 var json = Twitter.Search(query);
                 var statuses = SearchStatuses.ParseJson(json);
-                UpdateStatus(new[] { SearchName }, statuses, "s");
+                UpdateStatus(new[] {SearchName}, statuses, "s");
             });
         }
 
@@ -464,7 +488,7 @@ namespace tweetz5.Model
             {
                 Twitter.RetweetStatus(tweet.StatusId);
                 tweet.IsRetweet = true;
-            }            
+            }
         }
     }
 }
