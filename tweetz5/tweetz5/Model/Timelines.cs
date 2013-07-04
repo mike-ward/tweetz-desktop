@@ -181,9 +181,12 @@ namespace tweetz5.Model
                 }
                 updated = true;
             }
-            foreach (var timeline in timelines)
+            if (updated)
             {
-                SortTweetCollection(timeline.Tweets);
+                foreach (var timeline in timelines)
+                {
+                    SortTweetCollection(timeline.Tweets);
+                }
             }
             return updated;
         }
@@ -422,7 +425,10 @@ namespace tweetz5.Model
             var i = 0;
             foreach (var item in collection.OrderByDescending(s => s.CreatedAt))
             {
-                collection.Move(collection.IndexOf(item), i++);
+                // Move will trigger a properychanged event even if the indexes are the same.
+                var indexOfItem = collection.IndexOf(item);
+                if (indexOfItem != i) collection.Move(indexOfItem, i);
+                i += 1;
             }            
         }
 

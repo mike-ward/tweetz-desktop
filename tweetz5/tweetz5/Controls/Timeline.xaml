@@ -82,48 +82,34 @@
               </Rectangle.Fill>
             </Rectangle>
 
-            <StackPanel Grid.Column="1">
-              <Grid Margin="3 3 0 0">
-                <Grid.RowDefinitions>
-                  <RowDefinition />
-                  <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*" />
-                  <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0"
-                           Grid.Row="0"
-                           Margin="1 0 0 0">
-                  <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
-                             CommandParameter="{Binding ScreenName, Mode=OneTime}">
-                    <Run Text="{Binding Name, Mode=OneTime}"/>
-                  </Hyperlink>
-                </TextBlock>
-                <TextBlock Grid.Column="0"
-                           Grid.Row="1">
-                  <Run Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}"
-                        Style="{StaticResource TweetScreenNameStyle}"/>
-                </TextBlock>
-                <TextBlock Grid.Column="1"
-                           Style="{StaticResource TweetTimeStyle}"
-                           Text="{Binding TimeAgo}" />
-              </Grid>
-            </StackPanel>
-
-            <StackPanel Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="0 3 0 0">
-              <TextBlock controls:MarkupService.Text="{Binding MarkupText, Mode=OneTime}"
-                         Style="{StaticResource TweetStyle}" />
-              <TextBlock Style="{StaticResource TweetRetweetedByStyle}">
-                <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA; </Run>
-                <Run Text="{Binding RetweetedBy}" />
+            <Grid Grid.Column="1">
+              <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <TextBlock Grid.Column="0"
+                          Grid.Row="0"
+                          Margin="1 2 0 0">
+                <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
+                            CommandParameter="{Binding ScreenName, Mode=OneTime}">
+                  <Run Text="{Binding Name, Mode=OneTime}"/>
+                </Hyperlink>
               </TextBlock>
-            </StackPanel>
+              <TextBlock Grid.Column="0"
+                          Grid.Row="1">
+                <Run Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}"
+                      Style="{StaticResource TweetScreenNameStyle}"/>
+              </TextBlock>
+              <TextBlock Grid.Column="1"
+                          Style="{StaticResource TweetTimeStyle}"
+                          Text="{Binding TimeAgo}" />
+            </Grid>
 
-            <ItemsControl Grid.Row="2"
+            <ItemsControl Grid.Row="1"
                           Grid.ColumnSpan="2"
                           Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}"
                           ItemsSource="{Binding MediaLinks}">
@@ -143,6 +129,18 @@
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>
+
+            <StackPanel Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0 3 0 0">
+              <TextBlock controls:MarkupService.Text="{Binding MarkupText, Mode=OneTime}"
+                         Style="{StaticResource TweetStyle}" />
+              <TextBlock Style="{StaticResource TweetRetweetedByStyle}">
+                <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA; </Run>
+                <Run Text="{Binding RetweetedBy}" />
+              </TextBlock>
+            </StackPanel>
 
             <Grid Grid.Row="3"
                   Grid.ColumnSpan="2"
