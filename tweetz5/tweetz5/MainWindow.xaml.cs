@@ -5,12 +5,18 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using tweetz5.Controls;
 using tweetz5.Model;
+using tweetz5.Utilities.System;
 using Settings = tweetz5.Properties.Settings;
+
+// ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
 
 namespace tweetz5
 {
@@ -49,7 +55,7 @@ namespace tweetz5
 
         public void SignIn()
         {
-            var buildDate = Utilities.System.BuildInfo.GetBuildDateTime();
+            var buildDate = BuildInfo.GetBuildDateTime();
             if (DateTime.Now > buildDate.AddMonths(3))
             {
                 Settings.Default.AccessToken = string.Empty;
@@ -197,7 +203,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             var statuses = (Status[])ea.Parameter;
-            Timeline.Controller.UpdateStatus(new[] { Timelines.HomeName, Timelines.UnifiedName }, statuses, "h");
+            Timeline.Controller.UpdateStatus(new[] {Timelines.HomeName, Timelines.UnifiedName}, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -230,7 +236,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             if (Settings.Default.Chirp == false) return;
-            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
+            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
         }
 
@@ -285,13 +291,17 @@ namespace tweetz5
         {
             ea.Handled = true;
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
-        }   
+        }
 
         private void OnDragOver(object sender, DragEventArgs ea)
         {
             ea.Handled = true;
             ea.Effects = DragDropEffects.None;
-            if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
+            if (ea.Data.GetDataPresent("text/html"))
+            {
+                ea.Effects = DragDropEffects.Copy;
+            }
+            else if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
             {
                 var filenames = ea.Data.GetData(DataFormats.FileDrop, true) as string[];
                 if (filenames != null && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
@@ -299,12 +309,50 @@ namespace tweetz5
                     ea.Effects = DragDropEffects.Copy;
                 }
             }
-
         }
 
         private void OnDrop(object sender, DragEventArgs ea)
         {
-            if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
+            if (ea.Data.GetDataPresent("text/html"))
+            {
+                var html = string.Empty;
+                var data = ea.Data.GetData("text/html");
+                if (data is string)
+                {
+                    html = (string)data;
+                }
+                else if (data is MemoryStream)
+                {
+                    var stream = (MemoryStream)data;
+                    var buffer = new byte[stream.Length];
+                    stream.Read(buffer, 0, buffer.Length);
+                    html = (buffer[1] == (byte)0)
+                        ? Encoding.Unicode.GetString(buffer)
+                        : Encoding.ASCII.GetString(buffer);
+                }
+                var match = new Regex(@"<img[^>]+src=""([^""]*)""").Match(html);
+                if (match.Success)
+                {
+                    var uri = new Uri(match.Groups[1].Value);
+                    var filename = Path.GetTempFileName();
+                    var webClient = new WebClient();
+                    try
+                    {
+                        webClient.DownloadFileCompleted += (o, args) =>
+                        {
+                            Compose.Visibility = Visibility.Visible;
+                            Compose.Image = filename;
+                            webClient.Dispose();
+                        };
+                        webClient.DownloadFileAsync(uri, filename);
+                        ea.Handled = true;
+                    }
+                    catch (WebException)
+                    {
+                    }
+                }
+            }
+            else if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
             {
                 var filenames = ea.Data.GetData(DataFormats.FileDrop, true) as string[];
                 if (filenames != null && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
@@ -319,7 +367,7 @@ namespace tweetz5
         private static bool IsValidImageExtension(string filename)
         {
             var extension = Path.GetExtension(filename);
-            var extensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
+            var extensions = new[] {".png", ".jpg", ".jpeg", ".gif"};
             return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
         }
     }
