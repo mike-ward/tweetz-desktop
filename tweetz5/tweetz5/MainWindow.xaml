@@ -18,7 +18,6 @@
         SizeChanged="OnSizeChanged"
         Style="{StaticResource WindowStyle}"
         MouseLeftButtonDown="DragMoveWindow"
-        KeyDown="MainWindowOnKeyDown"
         Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
         Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
@@ -145,4 +144,12 @@
     <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateLayoutCommand}"
                     Executed="UpdateLayoutCommandHandler"/>
   </Window.CommandBindings>
+  <Window.InputBindings>
+    <KeyBinding Key="X" Modifiers="Control" Command="Close" />
+    <KeyBinding Key="R" Command="{x:Static tweetz5:MainWindow.ReplyCommand}"/>
+    <KeyBinding Key="T" Command="{x:Static tweetz5:MainWindow.RetweetCommand}"/>
+    <KeyBinding Key="F" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"/>
+    <KeyBinding Key="OemQuestion" Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
+    <KeyBinding Key="Divide" Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
+  </Window.InputBindings>
 </Window>

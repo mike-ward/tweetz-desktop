@@ -143,21 +143,23 @@ namespace tweetz5
         private void CopyCommandHandler(object target, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter;
+            var tweet = ea.Parameter as Tweet ?? Timeline.GetSelectedTweet;
+            if (tweet == null) return;
             Timeline.Controller.CopyTweetToClipboard(tweet);
         }
 
         private void CopyLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter;
+            var tweet = ea.Parameter as Tweet ?? Timeline.GetSelectedTweet;
+            if (tweet == null) return;
             Timeline.Controller.CopyLinkToClipboard(tweet);
         }
 
         private void OpenTweetLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter;
+            var tweet = (Tweet)ea.Parameter ?? Timeline.GetSelectedTweet;
             var link = TimelineController.TweetLink(tweet);
             OpenLinkCommand.Execute(link, this);
         }
@@ -165,7 +167,8 @@ namespace tweetz5
         private void ReplyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter;
+            var tweet = ea.Parameter as Tweet ?? Timeline.GetSelectedTweet;
+            if (tweet == null) return;
             if (tweet.IsDirectMesssage)
             {
                 Compose.ShowDirectMessage(tweet.Name, tweet.ScreenName);
@@ -180,14 +183,15 @@ namespace tweetz5
         private void RetweetCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter;
+            var tweet = ea.Parameter as Tweet ?? Timeline.GetSelectedTweet;
+            if (tweet == null) return;
             Timeline.Controller.Retweet(tweet);
         }
 
         private void RetweetClassicCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter;
+            var tweet = (Tweet)ea.Parameter ?? Timeline.GetSelectedTweet;
             var message = string.Format("RT @{0} {1}", tweet.ScreenName, tweet.Text);
             Compose.Show(message);
         }
@@ -195,7 +199,8 @@ namespace tweetz5
         private void FavoritesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter;
+            var tweet = ea.Parameter as Tweet ?? Timeline.GetSelectedTweet;
+            if (tweet == null) return;
             if (tweet.Favorited) Timeline.Controller.RemoveFavorite(tweet);
             else Timeline.Controller.AddFavorite(tweet);
         }
@@ -244,7 +249,8 @@ namespace tweetz5
         private void DeleteTweetCommandHander(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter;
+            var tweet = ea.Parameter as Tweet;
+            if (tweet == null) return;
             Timeline.Controller.DeleteTweet(tweet);
         }
 
@@ -370,27 +376,6 @@ namespace tweetz5
             var extension = Path.GetExtension(filename);
             var extensions = new[] {".png", ".jpg", ".jpeg", ".gif"};
             return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
-        }
-
-        private Dictionary<Key, Action> _accelerators;
-
-        private void MainWindowOnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (_accelerators == null)
-            {
-                _accelerators = new Dictionary<Key, Action>
-                {
-                    {Key.Divide, () => SwitchTimelinesCommand.Execute(Timelines.SearchName, this)},
-                    {Key.OemQuestion, () => SwitchTimelinesCommand.Execute(Timelines.SearchName, this)}
-                };
-            }
-
-            Action action;
-            if (_accelerators.TryGetValue(e.Key, out action))
-            {
-                action();
-                e.Handled = true;
-            }
         }
     }
 }

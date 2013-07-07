@@ -71,5 +71,10 @@ namespace tweetz5.Controls
             }
             return null;
         }
+
+        public Tweet GetSelectedTweet
+        {
+            get { return TimelineItems.SelectedItem as Tweet; }
+        }
     }
 }
