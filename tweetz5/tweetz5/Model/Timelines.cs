@@ -461,7 +461,7 @@ namespace tweetz5.Model
             _search.Clear();
             Task.Run(() =>
             {
-                var json = Twitter.Search(query);
+                var json = Twitter.Search(query + "+exclude:retweets");
                 var statuses = SearchStatuses.ParseJson(json);
                 UpdateStatus(new[] {SearchName}, statuses, "s");
             });
