@@ -18,6 +18,7 @@
         SizeChanged="OnSizeChanged"
         Style="{StaticResource WindowStyle}"
         MouseLeftButtonDown="DragMoveWindow"
+        KeyDown="MainWindowOnKeyDown"
         Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
         Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">

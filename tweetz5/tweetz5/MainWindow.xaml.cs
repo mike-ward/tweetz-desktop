@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -125,7 +126,7 @@ namespace tweetz5
             SetButtonStates(timelineName);
             Timeline.Controller.SwitchTimeline(timelineName);
             Timeline.ScrollToTop();
-            Timeline.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            Timeline.Focus();
         }
 
         private void SetButtonStates(string timelineName)
@@ -369,6 +370,27 @@ namespace tweetz5
             var extension = Path.GetExtension(filename);
             var extensions = new[] {".png", ".jpg", ".jpeg", ".gif"};
             return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private Dictionary<Key, Action> _accelerators;
+
+        private void MainWindowOnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (_accelerators == null)
+            {
+                _accelerators = new Dictionary<Key, Action>
+                {
+                    {Key.Divide, () => SwitchTimelinesCommand.Execute(Timelines.SearchName, this)},
+                    {Key.OemQuestion, () => SwitchTimelinesCommand.Execute(Timelines.SearchName, this)}
+                };
+            }
+
+            Action action;
+            if (_accelerators.TryGetValue(e.Key, out action))
+            {
+                action();
+                e.Handled = true;
+            }
         }
     }
 }

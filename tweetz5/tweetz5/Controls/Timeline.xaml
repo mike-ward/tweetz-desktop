@@ -8,6 +8,7 @@
              xmlns:u="clr-namespace:tweetz5.Utilities"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
+             Focusable="True"
              d:DesignHeight="300"
              d:DesignWidth="200">
   <UserControl.Resources>
@@ -36,7 +37,7 @@
     <model:Timelines />
   </UserControl.DataContext>
 
-  <Grid SnapsToDevicePixels="True">
+  <Grid SnapsToDevicePixels="True" Focusable="True">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>

@@ -30,6 +30,7 @@
 
   <Style TargetType="UniformGrid" x:Key="NavBar">
     <Setter Property="Margin" Value="3 0 3 0" />
+    <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
   </Style>
 
   <Style TargetType="Button" x:Key="NavBarButton">
@@ -37,6 +38,8 @@
     <Setter Property="FontSize" Value="14" />
     <Setter Property="Foreground" Value="#666666" />
     <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
