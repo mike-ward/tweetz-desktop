@@ -96,6 +96,7 @@
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
+    <Compile Include="Utilities\Run.cs" />
     <Compile Include="Utilities\ScreenNameConverter.cs" />
     <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />
     <Compile Include="Model\Timelines.cs" />
@@ -175,6 +176,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -190,9 +192,8 @@
     <Resource Include="twitter.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\notify.wav" />
+    <Content Include="Resources\notify.wav" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\Images\birdblue.png" />
   </ItemGroup>

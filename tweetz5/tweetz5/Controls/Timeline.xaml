@@ -8,7 +8,6 @@
              xmlns:u="clr-namespace:tweetz5.Utilities"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
-             Focusable="True"
              d:DesignHeight="300"
              d:DesignWidth="200">
   <UserControl.Resources>
@@ -37,7 +36,7 @@
     <model:Timelines />
   </UserControl.DataContext>
 
-  <Grid SnapsToDevicePixels="True" Focusable="True">
+  <Grid SnapsToDevicePixels="True">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
@@ -50,8 +49,8 @@
              Grid.Row="1"
              SnapsToDevicePixels="True"
              ItemsSource="{Binding Timeline}"
-             VirtualizingStackPanel.VirtualizationMode="Recycling"
              Style="{StaticResource TimelineStyle}"
+             VirtualizingStackPanel.VirtualizationMode="Recycling"
              ItemContainerStyle="{StaticResource TweetListBoxItemStyle}">
       <ListBox.ItemTemplate>
         <DataTemplate>
@@ -93,7 +92,7 @@
                           Grid.Row="0"
                           Margin="1 2 0 0">
                 <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
-                            CommandParameter="{Binding ScreenName, Mode=OneTime}">
+                           CommandParameter="{Binding ScreenName, Mode=OneTime}">
                   <Run Text="{Binding Name, Mode=OneTime}"/>
                 </Hyperlink>
               </TextBlock>
@@ -192,6 +191,20 @@
           </Grid>
         </DataTemplate>
       </ListBox.ItemTemplate>
+      <ListBox.InputBindings>
+        <KeyBinding Key="X" Modifiers="Control" Command="Close" />
+        <KeyBinding Key="R" Command="{x:Static tweetz5:MainWindow.ReplyCommand}"/>
+        <KeyBinding Key="T" Command="{x:Static tweetz5:MainWindow.RetweetCommand}"/>
+        <KeyBinding Key="F" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"/>
+        <KeyBinding Key="J" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="True"/>
+        <KeyBinding Key="K" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="False"/>
+        <KeyBinding Key="OemQuestion" Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
+        <KeyBinding Key="Divide" Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
+      </ListBox.InputBindings>
+      <ListBox.CommandBindings>
+        <CommandBinding Command="{x:Static controls:Timeline.SelectItemCommand}" 
+                        Executed="SelectItemCommandHandler" />
+      </ListBox.CommandBindings>
     </ListBox>
   </Grid>
 </UserControl>

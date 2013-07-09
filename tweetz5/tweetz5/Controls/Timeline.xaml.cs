@@ -1,15 +1,19 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
+using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using tweetz5.Model;
+using tweetz5.Utilities;
 
 namespace tweetz5.Controls
 {
     public partial class Timeline
     {
+        public static readonly RoutedCommand SelectItemCommand = new RoutedUICommand();
         public TimelineController Controller { get; private set; }
 
         public Timeline()
@@ -17,7 +21,33 @@ namespace tweetz5.Controls
             InitializeComponent();
             Controller = new TimelineController((Timelines)DataContext);
             TimelineItems.PreviewMouseWheel += TimelineItemsOnPreviewMouseWheel;
+            TimelineItems.Loaded += TimelineItemsOnLoaded;
             Unloaded += (sender, args) => Controller.Dispose();
+        }
+
+        private void TimelineItemsOnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var dpd = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof (ListBox));
+            if (dpd != null)
+            {
+                dpd.AddValueChanged(TimelineItems, OnItemsSourceChanged);
+            }
+        }
+
+        private void OnItemsSourceChanged(object sender, EventArgs eventArgs)
+        {
+            if (TimelineItems.Items.Count > 0)
+            {
+                TimelineItems.SelectedItem = null;
+                Run.Later(100, () =>
+                {
+                    var item = TimelineItems.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
+                    if (item != null)
+                    {
+                        Keyboard.Focus(item);
+                    }
+                });
+            }
         }
 
         private void MoreOnMouseDown(object sender, MouseButtonEventArgs e)
@@ -75,6 +105,27 @@ namespace tweetz5.Controls
         public Tweet GetSelectedTweet
         {
             get { return TimelineItems.SelectedItem as Tweet; }
+        }
+
+        private void SelectItemCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            var down = Convert.ToBoolean(ea.Parameter);
+            if (down)
+            {
+                if (TimelineItems.SelectedIndex < TimelineItems.Items.Count - 1)
+                {
+                    TimelineItems.SelectedIndex += 1;
+                    TimelineItems.ScrollIntoView(TimelineItems.SelectedItem);
+                }
+            }
+            else
+            {
+                if (TimelineItems.SelectedIndex > 0)
+                {
+                    TimelineItems.SelectedIndex -= 1;
+                    TimelineItems.ScrollIntoView(TimelineItems.SelectedItem);
+                }
+            }
         }
     }
 }

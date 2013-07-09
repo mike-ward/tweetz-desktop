@@ -1,8 +1,7 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
+using tweetz5.Utilities;
 
 namespace tweetz5.Controls
 {
@@ -21,11 +20,7 @@ namespace tweetz5.Controls
         private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             // It was the only way
-            Task.Run(() =>
-            {
-                Thread.Sleep(100);
-                Dispatcher.Invoke(() => SearchText.Focus());
-            });
+            Run.Later(100, () => SearchText.Focus());
         }
     }
-}   
+}
