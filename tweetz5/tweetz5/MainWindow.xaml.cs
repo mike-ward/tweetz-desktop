@@ -73,7 +73,6 @@ namespace tweetz5
             {
                 AuthenticatePanel.Visibility = Visibility.Collapsed;
                 Timeline.Controller.StartTimelines();
-                SwitchTimelinesCommand.Execute(Timelines.UnifiedName, this);
             }
         }
 
