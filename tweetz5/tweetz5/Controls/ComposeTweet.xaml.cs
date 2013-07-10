@@ -19,6 +19,7 @@ namespace tweetz5.Controls
         private string _inReplyToId;
         private bool _directMessage;
         private string _image;
+        private IInputElement _previousFocusedElement;
 
         public ComposeTweet()
         {
@@ -42,6 +43,7 @@ namespace tweetz5.Controls
 
         public void Show(string message = "", string inReplyToId = null)
         {
+            _previousFocusedElement = Keyboard.FocusedElement;
             ComposeTitle.Text = "Compose a tweet";
             TextBox.Text = message;
             _directMessage = false;
@@ -53,6 +55,7 @@ namespace tweetz5.Controls
 
         public void ShowDirectMessage(string name, string screenName)
         {
+            _previousFocusedElement = Keyboard.FocusedElement;
             ComposeTitle.Text = name;
             TextBox.Text = string.Empty;
             _directMessage = true;
@@ -66,6 +69,7 @@ namespace tweetz5.Controls
         {
             TextBox.Clear();
             Visibility = Visibility.Collapsed;
+            Keyboard.Focus(_previousFocusedElement);
         }
 
         public void Toggle()
@@ -101,8 +105,8 @@ namespace tweetz5.Controls
                 }
                 else
                 {
-                    json = string.IsNullOrWhiteSpace(Image) 
-                        ? Twitter.UpdateStatus(TextBox.Text, _inReplyToId) 
+                    json = string.IsNullOrWhiteSpace(Image)
+                        ? Twitter.UpdateStatus(TextBox.Text, _inReplyToId)
                         : Twitter.UpdateStatusWithMedia(TextBox.Text, Image);
                 }
 
