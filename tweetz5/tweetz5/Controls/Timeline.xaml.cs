@@ -109,13 +109,14 @@ namespace tweetz5.Controls
 
         private void SelectItemCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
+            var updated = false;
             var down = Convert.ToBoolean(ea.Parameter);
             if (down)
             {
                 if (TimelineItems.SelectedIndex < TimelineItems.Items.Count - 1)
                 {
                     TimelineItems.SelectedIndex += 1;
-                    TimelineItems.ScrollIntoView(TimelineItems.SelectedItem);
+                    updated = true;
                 }
             }
             else
@@ -123,8 +124,14 @@ namespace tweetz5.Controls
                 if (TimelineItems.SelectedIndex > 0)
                 {
                     TimelineItems.SelectedIndex -= 1;
-                    TimelineItems.ScrollIntoView(TimelineItems.SelectedItem);
+                    updated = true;
                 }
+            }
+            if (updated)
+            {
+                var listboxItem = TimelineItems.ItemContainerGenerator.ContainerFromIndex(TimelineItems.SelectedIndex) as ListBoxItem;
+                Keyboard.Focus(listboxItem);
+                TimelineItems.ScrollIntoView(TimelineItems.SelectedItem);
             }
         }
     }
