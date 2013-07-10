@@ -79,6 +79,7 @@
 
   <Style x:Key="TweetListBoxItemStyle" TargetType="ListBoxItem">
     <Setter Property="OverridesDefaultStyle" Value="True"/>
+    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ListBoxItem">

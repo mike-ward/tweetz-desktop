@@ -38,13 +38,13 @@ namespace tweetz5.Controls
         {
             if (TimelineItems.Items.Count > 0)
             {
-                TimelineItems.SelectedItem = null;
                 Run.Later(100, () =>
                 {
                     var item = TimelineItems.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
                     if (item != null)
                     {
                         Keyboard.Focus(item);
+                        TimelineItems.SelectedItem = null;
                     }
                 });
             }
