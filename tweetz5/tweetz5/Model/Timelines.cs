@@ -339,7 +339,6 @@ namespace tweetz5.Model
             var statuses = twitter.HomeTimeline(_home.SinceId);
             _home.SinceId = MaxSinceId(_home.SinceId, statuses);
             UpdateStatus(new[] {HomeName, UnifiedName}, statuses, "h");
-            if (_timeline == null) SwitchTimeline(UnifiedName);
         }
 
         public void UpdateStatus(string[] timelineNames, Status[] statuses, string tweetType)

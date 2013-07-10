@@ -23,6 +23,7 @@ namespace tweetz5.Controls
         {
             _checkTimelines = SysTimer.Factory();
             _checkTimelines.Interval = 100;
+            var firstTime = true;
             _checkTimelines.Elapsed += (s, e) =>
             {
                 try
@@ -32,6 +33,16 @@ namespace tweetz5.Controls
                     _timelinesModel.MentionsTimeline();
                     _timelinesModel.DirectMessagesTimeline();
                     _timelinesModel.FavoritesTimeline();
+
+                    if (firstTime)
+                    {
+                        firstTime = false;
+                        if (Application.Current != null)
+                        {
+                            Application.Current.Dispatcher.Invoke(
+                                () => MainWindow.SwitchTimelinesCommand.Execute(Timelines.UnifiedName, Application.Current.MainWindow));
+                        }
+                    }
                 }
                 catch (WebException ex)
                 {
@@ -103,6 +114,7 @@ namespace tweetz5.Controls
         {
             return string.Format("https://twitter.com/{0}/status/{1}", tweet.ScreenName, tweet.StatusId);
         }
+
         public void UpdateStatus(string[] timelines, Status[] statuses, string tweetType)
         {
             _timelinesModel.UpdateStatus(timelines, statuses, tweetType);

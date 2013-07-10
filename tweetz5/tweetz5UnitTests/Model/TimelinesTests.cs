@@ -31,6 +31,7 @@ namespace tweetz5UnitTests.Model
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
             mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
+            timelines.SwitchTimeline(Timelines.UnifiedName);
             timelines.Timeline.Count.Should().Be(0);
             timelines.HomeTimeline();
             mockWebRequest.VerifyAll();
@@ -50,6 +51,7 @@ namespace tweetz5UnitTests.Model
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
             mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
+            timelines.SwitchTimeline(Timelines.UnifiedName);
             timelines.Timeline.Count.Should().Be(0);
             timelines.MentionsTimeline();
             mockWebRequest.VerifyAll();
@@ -61,6 +63,7 @@ namespace tweetz5UnitTests.Model
         public void UpdateTimeStampsShouldReturnFriendlyTime()
         {
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
+            timelines.SwitchTimeline(Timelines.UnifiedName);
             timelines.Timeline.Add(new Tweet { CreatedAt = DateTime.UtcNow });
             timelines.Timeline[0].TimeAgo.Should().BeNull();
             timelines.UpdateTimeStamps();
