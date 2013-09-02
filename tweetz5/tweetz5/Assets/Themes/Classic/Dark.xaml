@@ -240,7 +240,7 @@
 
   <Style x:Key="ComposeTweetTextBox" TargetType="TextBox">
     <Setter Property="FontSize" Value="14" />
-    <Setter Property="Height" Value="101" />
+    <Setter Property="Height" Value="121" />
     <Setter Property="Foreground" Value="#dddddd" />
     <Setter Property="Background" Value="#585858" />
     <Setter Property="BorderThickness" Value="0" />
