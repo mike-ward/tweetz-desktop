@@ -40,6 +40,7 @@ namespace tweetz5
         public static readonly RoutedCommand SignOutCommand = new RoutedUICommand();
         public static readonly RoutedCommand SettingsCommand = new RoutedUICommand();
         public static readonly RoutedCommand UpdateLayoutCommand = new RoutedCommand();
+        public static readonly RoutedCommand OpenComposeCommand = new RoutedCommand();
 
         public MainWindow()
         {
@@ -99,11 +100,6 @@ namespace tweetz5
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - ResizeBar.ActualHeight;
-        }
-
-        private void ComposeOnClick(object sender, RoutedEventArgs e)
-        {
-            Compose.Toggle();
         }
 
         private void ComposeOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -290,6 +286,12 @@ namespace tweetz5
             ResizeBar.Visibility = Visibility.Collapsed;
             Timeline.Visibility = Visibility.Collapsed;
             SetButtonStates("settings");
+        }
+
+        private void OpenComposeCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            ea.Handled = true;
+            Compose.Toggle();
         }
 
         private void UpdateLayoutCommandHandler(object sender, ExecutedRoutedEventArgs ea)

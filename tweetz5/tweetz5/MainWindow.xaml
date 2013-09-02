@@ -82,7 +82,7 @@
                   Command="{x:Static tweetz5:MainWindow.SettingsCommand}">
             &#xE115;</Button>
           <Button Style="{StaticResource NavBarButton}"
-                  Click="ComposeOnClick">&#xE104;</Button>
+                  Command="{x:Static tweetz5:MainWindow.OpenComposeCommand}">&#xE104;</Button>
         </UniformGrid>
         <controls:SettingsControl x:Name="SettingsPanel" />
         <controls:Timeline x:Name="Timeline"
@@ -143,5 +143,7 @@
                     Executed="SettingsCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateLayoutCommand}"
                     Executed="UpdateLayoutCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.OpenComposeCommand}"
+                    Executed="OpenComposeCommandHandler"/>
   </Window.CommandBindings>
 </Window>
