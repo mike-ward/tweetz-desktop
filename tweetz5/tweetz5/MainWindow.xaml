@@ -99,6 +99,8 @@
                          StaysOpen="False"/>
         <controls:StatusAlert x:Name="StatusAlert" 
                            Placement="Center"/>
+        <controls:ShortcutHelp x:Name="ShortcutHelp"
+                               Placement="Center"/>
       </StackPanel>
     </StackPanel>
   </Border>
@@ -145,5 +147,7 @@
                     Executed="UpdateLayoutCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MainWindow.OpenComposeCommand}"
                     Executed="OpenComposeCommandHandler"/>
-  </Window.CommandBindings>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.ShortcutHelpCommand}"
+                    Executed="ShortcutHelpCommandHandler"/>
+    </Window.CommandBindings>
 </Window>

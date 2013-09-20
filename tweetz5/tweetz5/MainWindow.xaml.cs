@@ -39,8 +39,9 @@ namespace tweetz5
         public static readonly RoutedCommand AlertCommand = new RoutedUICommand();
         public static readonly RoutedCommand SignOutCommand = new RoutedUICommand();
         public static readonly RoutedCommand SettingsCommand = new RoutedUICommand();
-        public static readonly RoutedCommand UpdateLayoutCommand = new RoutedCommand();
-        public static readonly RoutedCommand OpenComposeCommand = new RoutedCommand();
+        public static readonly RoutedCommand UpdateLayoutCommand = new RoutedUICommand();
+        public static readonly RoutedCommand OpenComposeCommand = new RoutedUICommand();
+        public static readonly RoutedCommand ShortcutHelpCommand = new RoutedUICommand();
 
         public MainWindow()
         {
@@ -265,6 +266,12 @@ namespace tweetz5
             if (string.IsNullOrWhiteSpace(message)) return;
             StatusAlert.Message.Text = message;
             StatusAlert.IsOpen = true;
+        }
+
+        private void ShortcutHelpCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            ea.Handled = true;
+            ShortcutHelp.IsOpen = true;
         }
 
         private void SignOutCommandHandler(object sender, ExecutedRoutedEventArgs ea)

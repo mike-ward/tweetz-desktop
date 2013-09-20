@@ -86,6 +86,9 @@
     <Compile Include="Controls\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ShortcutHelp.xaml.cs">
+      <DependentUpon>ShortcutHelp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StatusAlert.xaml.cs">
       <DependentUpon>StatusAlert.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ShortcutHelp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

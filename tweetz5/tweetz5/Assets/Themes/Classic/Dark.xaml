@@ -631,4 +631,12 @@
   <Style x:Key="AuthenticatePanelStyle" TargetType="StackPanel">
 
   </Style>
+    
+  <!-- Shortcut Help -->
+  <Style x:Key="ShortcutHelpTitleStyle" TargetType="TextBlock">
+    <Setter Property="TextAlignment" Value="Center"/>
+    <Setter Property="Foreground" Value="Black" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Padding" Value="10 0 0 0"/>
+  </Style>
 </ResourceDictionary>
