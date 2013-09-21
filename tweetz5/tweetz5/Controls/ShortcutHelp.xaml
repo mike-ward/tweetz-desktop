@@ -6,15 +6,19 @@
        mc:Ignorable="d" 
        PopupAnimation="Fade"
        AllowsTransparency="True"
-       StaysOpen="True"
+       StaysOpen="False"
        Height="Auto" 
        Width="190"
+       Focusable="True"
        TextOptions.TextFormattingMode="Display"
        DataContext="{Binding RelativeSource={RelativeSource Self}}">
   <Popup.CommandBindings>
     <CommandBinding Command="Close" Executed="CloseCommandHandler"/>
   </Popup.CommandBindings>
-  <Border CornerRadius="8" Background="WhiteSmoke" BorderThickness="2" BorderBrush="Black">
+  <Popup.InputBindings>
+    <KeyBinding Key="Escape" Command="Close"/>
+  </Popup.InputBindings>
+  <Border CornerRadius="8" Background="WhiteSmoke" BorderThickness="2" BorderBrush="Black" Focusable="True">
     <StackPanel Margin="0,3,0,0">
       <Grid>
         <Grid.ColumnDefinitions>
@@ -29,6 +33,7 @@
                    Cursor="Hand">
           <TextBlock.InputBindings>
             <MouseBinding MouseAction="LeftClick" Command="Close" />
+            <KeyBinding Key="Escape" Command="Close"/>
           </TextBlock.InputBindings>
           &#xE10A;
         </TextBlock>

@@ -8,7 +8,7 @@
        Width="190"
        TextOptions.TextFormattingMode="Display">
   <Popup.CommandBindings>
-    <CommandBinding Command="Close" Executed="CloseCommandHandler"></CommandBinding>
+    <CommandBinding Command="Close" Executed="CloseCommandHandler"/>
   </Popup.CommandBindings>
   <Border Padding="5" CornerRadius="8" Background="Black" BorderThickness="2" BorderBrush="DarkGoldenrod">
       <StackPanel>

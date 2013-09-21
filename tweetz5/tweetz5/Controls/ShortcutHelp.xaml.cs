@@ -1,13 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 
 namespace tweetz5.Controls
 {
     public partial class ShortcutHelp
     {
+        private IInputElement _element;
+
         public ShortcutHelp()
         {
             InitializeComponent();
+            Loaded += (sender, args) => Child.IsVisibleChanged += (o, eventArgs) =>
+            {
+                if (Child.IsVisible)
+                {
+                    _element = Keyboard.FocusedElement;
+                    Keyboard.Focus(Child);
+                }
+            };
+            Closed += (sender, args) => Keyboard.Focus(_element);
         }
 
         public struct KeyboardShortcut
