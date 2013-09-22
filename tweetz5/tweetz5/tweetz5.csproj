@@ -80,6 +80,7 @@
       <DependentUpon>ComposeTweet.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MarkupService.cs" />
+    <Compile Include="Controls\PopupAllowKeyboardInput.cs" />
     <Compile Include="Controls\SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>

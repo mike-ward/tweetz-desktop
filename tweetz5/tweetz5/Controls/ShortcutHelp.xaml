@@ -3,14 +3,15 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+       xmlns:controls="clr-namespace:tweetz5.Controls"
        mc:Ignorable="d" 
        PopupAnimation="Fade"
        AllowsTransparency="True"
        StaysOpen="False"
        Height="Auto" 
        Width="190"
-       Focusable="True"
        TextOptions.TextFormattingMode="Display"
+       controls:PopupAllowKeyboardInput.IsEnabled="True"
        DataContext="{Binding RelativeSource={RelativeSource Self}}">
   <Popup.CommandBindings>
     <CommandBinding Command="Close" Executed="CloseCommandHandler"/>
@@ -18,7 +19,7 @@
   <Popup.InputBindings>
     <KeyBinding Key="Escape" Command="Close"/>
   </Popup.InputBindings>
-  <Border CornerRadius="8" Background="WhiteSmoke" BorderThickness="2" BorderBrush="Black" Focusable="True">
+  <Border CornerRadius="8" Background="WhiteSmoke" BorderThickness="2" BorderBrush="Black">
     <StackPanel Margin="0,3,0,0">
       <Grid>
         <Grid.ColumnDefinitions>
