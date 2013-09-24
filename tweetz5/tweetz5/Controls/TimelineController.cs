@@ -4,6 +4,7 @@ using System;
 using System.Net;
 using System.Windows;
 using tweetz5.Model;
+using tweetz5.Utilities;
 using tweetz5.Utilities.System;
 
 namespace tweetz5.Controls
@@ -102,12 +103,12 @@ namespace tweetz5.Controls
 
         public void CopyTweetToClipboard(Tweet tweet)
         {
-            Clipboard.SetText(tweet.Text);
+            CopyToClipboard.AsTextAndHtml(tweet.Text, tweet.AsHtml());
         }
 
         public void CopyLinkToClipboard(Tweet tweet)
         {
-            Clipboard.SetText(TweetLink(tweet));
+            CopyToClipboard.AsText(TweetLink(tweet));
         }
 
         public static string TweetLink(Tweet tweet)

@@ -25,6 +25,7 @@ namespace tweetz5.Model
         public string ProfileImageUrl { get; set; }
         public string Text { get; set; }
         public string MarkupText { get; set; }
+        public string Html { get; set; }
         public DateTime CreatedAt { get; set; }
         public string[] MediaLinks { get; set; }
 
@@ -105,6 +106,12 @@ namespace tweetz5.Model
         public bool IsDirectMesssage
         {
             get { return TweetType.Contains("d"); }
+        }
+
+        public string AsHtml()
+        {
+            return string.Format(@"<div><img src=""{0}"" style=""float:left; height:3em; width:3em; margin-right:1em"">{1} - <a href=""https://twitter.com/{2}"">{3}</a></div>", 
+                ProfileImageUrl, Html, ScreenName, Name);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

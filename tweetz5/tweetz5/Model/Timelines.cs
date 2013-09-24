@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
+// ReSharper disable InconsistentNaming
+
 namespace tweetz5.Model
 {
     public interface ITimelines : INotifyPropertyChanged
@@ -152,38 +154,9 @@ namespace tweetz5.Model
         private bool UpdateTimelines(Timeline[] timelines, IEnumerable<Status> statuses, string tweetType)
         {
             var updated = false;
-            var screenName = string.Empty;
             foreach (var status in statuses.Where(status => timelines.All(timeline => timeline.Tweets.All(t => t.StatusId != status.Id))))
             {
-                var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
-                                                    CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
-
-                var displayStatus = status.RetweetedtStatus ?? status;
-
-                // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
-                if (displayStatus.User == null)
-                {
-                    if (string.IsNullOrWhiteSpace(screenName)) screenName = new OAuth().ScreenName;
-                    displayStatus.User = (status.Recipient.ScreenName == screenName) ? status.Sender : status.Recipient;
-                }
-
-                var tweet = new Tweet
-                {
-                    StatusId = status.Id,
-                    Name = displayStatus.User.Name,
-                    ScreenName = displayStatus.User.ScreenName,
-                    ProfileImageUrl = displayStatus.User.ProfileImageUrl,
-                    Text = displayStatus.Text,
-                    MarkupText = MarkupText(displayStatus.Text, displayStatus.Entities),
-                    CreatedAt = createdAt,
-                    TimeAgo = TimeAgo(createdAt),
-                    TweetType = tweetType,
-                    Favorited = status.Favorited,
-                    IsRetweet = status.Retweeted,
-                    RetweetedBy = RetweetedBy(status),
-                    RetweetStatusId = (status.RetweetedtStatus != null) ? status.RetweetedtStatus.Id : string.Empty,
-                    MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0]
-                };
+                var tweet = CreateTweet(tweetType, status);
 
                 var index = _tweets.IndexOf(tweet);
                 if (tweetType != "s")
@@ -215,7 +188,42 @@ namespace tweetz5.Model
             return updated;
         }
 
-        private void PlayNotification()
+        public static Tweet CreateTweet(string tweetType, Status status)
+        {
+            var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
+                                                CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+
+            var displayStatus = status.RetweetedtStatus ?? status;
+
+            // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
+            if (displayStatus.User == null)
+            {
+                var screenName = new OAuth().ScreenName;
+                displayStatus.User = (status.Recipient.ScreenName == screenName) ? status.Sender : status.Recipient;
+            }
+
+            var tweet = new Tweet
+            {
+                StatusId = status.Id,
+                Name = displayStatus.User.Name,
+                ScreenName = displayStatus.User.ScreenName,
+                ProfileImageUrl = displayStatus.User.ProfileImageUrl,
+                Text = displayStatus.Text,
+                MarkupText = MarkupText(displayStatus.Text, displayStatus.Entities, false),
+                Html = MarkupText(displayStatus.Text, displayStatus.Entities, true),
+                CreatedAt = createdAt,
+                TimeAgo = TimeAgo(createdAt),
+                TweetType = tweetType,
+                Favorited = status.Favorited,
+                IsRetweet = status.Retweeted,
+                RetweetedBy = RetweetedBy(status),
+                RetweetStatusId = (status.RetweetedtStatus != null) ? status.RetweetedtStatus.Id : string.Empty,
+                MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0]
+            };
+            return tweet;
+        }
+
+        private static void PlayNotification()
         {
             if (Application.Current != null)
             {
@@ -240,7 +248,7 @@ namespace tweetz5.Model
             public int End { get; set; }
         }
 
-        private static string MarkupText(string text, Entities entities)
+        public static string MarkupText(string text, Entities entities, bool asHtml)
         {
             var markupItems = new List<MarkupItem>();
 
@@ -248,7 +256,9 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Urls.Select(url => new MarkupItem
                 {
-                    Markup = string.Format("<a{0}>", url.Url),
+                    Markup = asHtml
+                        ? string.Format(@"<a href=""{0}"">{0}</a>", url.DisplayUrl) 
+                        : string.Format("<a{0}>", url.Url),
                     Start = url.Indices[0],
                     End = url.Indices[1]
                 }));
@@ -258,7 +268,9 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Mentions.Select(mention => new MarkupItem
                 {
-                    Markup = string.Format("<m@{0}>", mention.ScreenName),
+                    Markup = asHtml 
+                        ? string.Format(@"<a href=""https://twitter.com/{0}"">@{0}</a>", mention.ScreenName) 
+                        : string.Format("<m@{0}>", mention.ScreenName),
                     Start = mention.Indices[0],
                     End = mention.Indices[1]
                 }));
@@ -268,7 +280,9 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.HashTags.Select(hashtag => new MarkupItem
                 {
-                    Markup = string.Format("<h#{0}>", hashtag.Text),
+                    Markup = asHtml
+                        ? string.Format(@"<a href=""https://twitter.com/search?q=%23{0}"">#{0}</a>", hashtag.Text)
+                        : string.Format("<h#{0}>", hashtag.Text),
                     Start = hashtag.Indices[0],
                     End = hashtag.Indices[1]
                 }));
@@ -278,7 +292,9 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Media.Select(media => new MarkupItem
                 {
-                    Markup = string.Format("<p{0}>", media.Url),
+                    Markup = asHtml 
+                        ? string.Format(@"<a href=""{0}"">[media]</a>", media.Url)
+                        : string.Format("<p{0}>", media.Url),
                     Start = media.Indices[0],
                     End = media.Indices[1]
                 }));

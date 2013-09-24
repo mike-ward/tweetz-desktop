@@ -99,6 +99,7 @@
     <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utilities\CopyToClipboard.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
     <Compile Include="Utilities\Run.cs" />
     <Compile Include="Utilities\ScreenNameConverter.cs" />
