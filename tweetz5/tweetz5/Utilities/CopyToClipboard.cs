@@ -44,12 +44,16 @@ namespace tweetz5.Utilities
                 , countBegin + countHtmlBegin + countHtml) 
                 + htmlBegin + htmlFragment + htmlEnd;
 
-            var obj = new DataObject();
+            var dataObject = new DataObject();
+            
             var textStream = new MemoryStream(enc.GetBytes(text));
-            obj.SetData(DataFormats.Text, textStream);
+            dataObject.SetData(DataFormats.Text, textStream);
+            
             var htmlStream = new MemoryStream(enc.GetBytes(htmlTotal));
-            obj.SetData(DataFormats.Html, htmlStream);
-            Clipboard.SetDataObject(obj, true);
+            dataObject.SetData(DataFormats.Html, htmlStream);
+
+            Clipboard.SetDataObject(dataObject, true);
+            
             textStream.Dispose();
             htmlStream.Dispose();
         }

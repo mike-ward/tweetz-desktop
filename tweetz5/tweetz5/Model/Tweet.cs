@@ -110,8 +110,10 @@ namespace tweetz5.Model
 
         public string AsHtml()
         {
-            return string.Format(@"<div><img src=""{0}"" style=""float:left; height:3em; width:3em; margin-right:1em"">{1} - <a href=""https://twitter.com/{2}"">{3}</a></div>", 
-                ProfileImageUrl, Html, ScreenName, Name);
+            return string.Format("<p class=\"tweetz5-tweet\">" +
+                                 "<img src=\"{0}\" style=\"float:left; height:2.6em; width:2.6em; margin-right:.5em; vertical-align:middle\">" +
+                                 "<a href=\"https://twitter.com/{1}\">{2}</a>" +
+                                 "<br>@{1}<br style=\"clear:both\">{3}</p>", ProfileImageUrl, ScreenName, Name, Html);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -172,7 +174,7 @@ namespace tweetz5.Model
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
                 var serializer = new DataContractJsonSerializer(typeof (Status[]));
-                return (Status[])serializer.ReadObject(stream);
+                return (Status[]) serializer.ReadObject(stream);
             }
         }
     }
@@ -188,7 +190,7 @@ namespace tweetz5.Model
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
                 var serializer = new DataContractJsonSerializer(typeof (SearchStatuses));
-                var searchStatuses = (SearchStatuses)serializer.ReadObject(stream);
+                var searchStatuses = (SearchStatuses) serializer.ReadObject(stream);
                 return searchStatuses.Statuses;
             }
         }

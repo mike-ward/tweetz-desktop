@@ -42,7 +42,7 @@ namespace tweetz5UnitTests.Model
             var status = Status.ParseJson(json);
             var tweet = Timelines.CreateTweet("tweet", status[0]);
             var html = tweet.AsHtml();
-            html.Should().Be("<div><img src=\"https://si0.twimg.com/profile_images/2821268990/664da59e79f1181eb4040f475708b2e3_normal.png\" style=\"float:left; height:3em; width:3em; margin-right:1em\">Seat warmers and steering wheel warmers were by far one of the best upgrades in my <a href=\"https://twitter.com/NissanLEAF\">@NissanLEAF</a> <a href=\"https://twitter.com/search?q=%23winteriscoming\">#winteriscoming</a> - <a href=\"https://twitter.com/itisbritt\">Britt Lighthizer</a></div>");
+            html.Should().Be("<p class=\"tweetz5-tweet\"><img src=\"https://si0.twimg.com/profile_images/2821268990/664da59e79f1181eb4040f475708b2e3_normal.png\" style=\"float:left; height:2.6em; width:2.6em; margin-right:.5em; vertical-align:middle\"><a href=\"https://twitter.com/itisbritt\">Britt Lighthizer</a><br>@itisbritt<br style=\"clear:both\">Seat warmers and steering wheel warmers were by far one of the best upgrades in my <a href=\"https://twitter.com/NissanLEAF\">@NissanLEAF</a> <a href=\"https://twitter.com/search?q=%23winteriscoming\">#winteriscoming</a></p>");
         }
     }
 }
