@@ -9,7 +9,6 @@ using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 // ReSharper disable PossibleMultipleEnumeration
 // ReSharper disable AssignNullToNotNullAttribute
@@ -348,7 +347,7 @@ namespace tweetz5.Model
             var signature = OAuth.Signature("POST", requestTokenUrl, nonce, timestamp, "", "", parameters);
             var authorizationHeader = OAuth.AuthorizationHeader(nonce, timestamp, null, signature, parameters);
 
-            var request = System.Net.WebRequest.Create(requestTokenUrl);
+            var request = System.Net.WebRequest.Create(new Uri(requestTokenUrl));
             request.Method = "POST";
             request.Headers.Add("Authorization", authorizationHeader);
             using (var response = request.GetResponse())
@@ -376,7 +375,7 @@ namespace tweetz5.Model
             var signature = OAuth.Signature("POST", requestTokenUrl, nonce, timestamp, accessToken, accessTokenSecret, parameters);
             var authorizationHeader = OAuth.AuthorizationHeader(nonce, timestamp, accessToken, signature, parameters);
 
-            var request = System.Net.WebRequest.Create(requestTokenUrl);
+            var request = System.Net.WebRequest.Create(new Uri(requestTokenUrl));
             request.Method = "POST";
             request.Headers.Add("Authorization", authorizationHeader);
 
@@ -408,10 +407,10 @@ namespace tweetz5.Model
                 var oauth = new OAuth();
                 var nonce = OAuth.Nonce();
                 var timestamp = OAuth.TimeStamp();
-                var signature = OAuth.Signature("POST", url, nonce, timestamp, oauth.AccessToken, oauth.AccessTokenSecret, new string[0][]);
+                var signature = OAuth.Signature("POST", url, nonce, timestamp, oauth.AccessToken, oauth.AccessTokenSecret, null);
                 var authorizeHeader = OAuth.AuthorizationHeader(nonce, timestamp, oauth.AccessToken, signature);
 
-                var request = WebRequestWrapper.Create(new Uri(url));
+                var request = System.Net.WebRequest.Create(new Uri(url));
                 request.Headers.Add("Authorization", authorizeHeader);
                 request.Method = "POST";
 
@@ -427,7 +426,7 @@ namespace tweetz5.Model
                     WriteStream(requestStream, message);
 
                     header = string.Format(
-                        "--{0}\r\nContent-Type: application/octet-stream\r\n" +
+                        "\r\n--{0}\r\nContent-Type: application/octet-stream\r\n" +
                             "Content-Disposition: form-data; name=\"media[]\"; filename=\"{1}\"\r\n\r\n",
                         formDataBoundary, mediaName);
                     WriteStream(requestStream, header);

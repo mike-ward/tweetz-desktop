@@ -37,8 +37,8 @@ namespace tweetz5UnitTests.Model
         {
             const string header = "OAuth oauth_consumer_key=\"ZScn2AEIQrfC48Zlw\"," +
                                   "oauth_nonce=\"123\"," +
-                                  "oauth_signature_method=\"HMAC-SHA1\"," +
                                   "oauth_signature=\"signature\"," +
+                                  "oauth_signature_method=\"HMAC-SHA1\"," +
                                   "oauth_timestamp=\"345\"," +
                                   "oauth_token=\"s8I\"," +
                                   "oauth_version=\"1.0\"";

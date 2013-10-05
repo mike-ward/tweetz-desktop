@@ -30,9 +30,6 @@ namespace tweetz5.Model
             AccessToken = Properties.Settings.Default.AccessToken;
             AccessTokenSecret = Properties.Settings.Default.AccessTokenSecret;
             ScreenName = Properties.Settings.Default.ScreenName;
-            //AccessToken = "14410002-tTUqt6ujPyLLcn3OjgdlmSdl9e6ta1OISAWS1Gs8I";
-            //AccessTokenSecret = "zaBS7G3f8n0F6zxGwNJEmlU4zg1P6VgL5cPyEgShI";
-            //ScreenName = "mikeward_aa";
         }
 
         public static string UrlEncode(string value)
@@ -61,22 +58,8 @@ namespace tweetz5.Model
 
         public static string Signature(string httpMethod, string url, string nonce, string timestamp, string accessToken, string accessTokenSecret, IEnumerable<string[]> parameters)
         {
-            const string format = "{0}={1}";
-            var parameterStrings = new List<string>
-            {
-                string.Format(format, "oauth_version", "1.0"),
-                string.Format(format, "oauth_nonce", nonce),
-                string.Format(format, "oauth_timestamp", timestamp),
-                string.Format(format, "oauth_signature_method", "HMAC-SHA1"),
-                string.Format(format, "oauth_consumer_key", UrlEncode(ConsumerKey)),
-            };
-            if (string.IsNullOrWhiteSpace(accessToken) == false)
-                parameterStrings.Add(string.Format(format, "oauth_token", UrlEncode(accessToken)));
-
-            if (parameters != null)
-                parameterStrings.AddRange(parameters.Select(par => string.Format(format, UrlEncode(par[0]), UrlEncode(par[1]))));
-            
-            parameterStrings.Sort();
+            var parameterList = OrderedParameters(nonce, timestamp, accessToken, null, parameters);
+            var parameterStrings = parameterList.Select(p => string.Format("{0}={1}", p.Item1, p.Item2));
             var parameterString = string.Join("&", parameterStrings);
             var signatureBaseString = string.Format("{0}&{1}&{2}", httpMethod, UrlEncode(url), UrlEncode(parameterString));
             var compositeKey = string.Format("{0}&{1}", UrlEncode(ConsumerSecret), UrlEncode(accessTokenSecret));
@@ -88,25 +71,37 @@ namespace tweetz5.Model
 
         public static string AuthorizationHeader(string nonce, string timestamp, string accessToken, string signature, IEnumerable<string[]> parameters = null)
         {
-            const string format = "{0}=\"{1}\"";
-            var parameterStrings = new List<string>
-            {
-                string.Format(format, "oauth_version", "1.0"),
-                string.Format(format, "oauth_nonce", UrlEncode(nonce)),
-                string.Format(format, "oauth_timestamp", UrlEncode(timestamp)),
-                string.Format(format, "oauth_signature", UrlEncode(signature)),
-                string.Format(format, "oauth_signature_method", "HMAC-SHA1"),
-                string.Format(format, "oauth_consumer_key", UrlEncode(ConsumerKey)),
-            };
-            if (string.IsNullOrWhiteSpace(accessToken) == false)
-                parameterStrings.Add(string.Format(format, "oauth_token", UrlEncode(accessToken)));
-            
-            if (parameters != null)
-                parameterStrings.AddRange(parameters.Select(par => string.Format(format, UrlEncode(par[0]), UrlEncode(par[1]))));
-
-            parameterStrings.Sort();
+            var parameterList = OrderedParameters(nonce, timestamp, accessToken, signature, parameters);
+            var parameterStrings = parameterList.Select(p => string.Format("{0}=\"{1}\"", p.Item1, p.Item2));
             var header = "OAuth " + string.Join(",", parameterStrings);
             return header;
+        }
+
+        private static IEnumerable<Tuple<string, string>> OrderedParameters(string nonce, string timestamp, string accessToken, string signature, IEnumerable<string[]> parameters)
+        {
+            var components = new List<Tuple<string, string>>
+            {
+                new Tuple<string, string>("oauth_version", "1.0"),
+                new Tuple<string, string>("oauth_nonce", UrlEncode(nonce)),
+                new Tuple<string, string>("oauth_timestamp", UrlEncode(timestamp)),
+                new Tuple<string, string>("oauth_signature_method", "HMAC-SHA1"),
+                new Tuple<string, string>("oauth_consumer_key", UrlEncode(ConsumerKey))
+            };
+
+            if (string.IsNullOrWhiteSpace(signature) == false)
+            {
+                components.Add(new Tuple<string, string>("oauth_signature", UrlEncode(signature)));                
+            }
+            if (string.IsNullOrWhiteSpace(accessToken) == false)
+            {
+                components.Add(new Tuple<string, string>("oauth_token", UrlEncode(accessToken)));
+            }
+
+            if (parameters != null)
+            {
+                components.AddRange(parameters.Select(par => new Tuple<string, string>(UrlEncode(par[0]), UrlEncode(par[1]))));
+            }
+            return components.OrderBy(c => c.Item1);
         }
     }
 }
