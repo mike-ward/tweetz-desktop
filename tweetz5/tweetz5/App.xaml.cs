@@ -17,7 +17,12 @@ namespace tweetz5
             }
         }
 
-        private void App_OnSessionEnding(object sender, SessionEndingCancelEventArgs e)
+        private void AppSessionEnding(object sender, SessionEndingCancelEventArgs e)
+        {
+            Settings.Default.Save();
+        }
+
+        private void AppExit(object sender, ExitEventArgs e)
         {
             Settings.Default.Save();
         }
