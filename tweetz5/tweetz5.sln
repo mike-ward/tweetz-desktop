@@ -11,19 +11,19 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Setup", "Setup\Setup.vcxpro
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://blueonionsoftware.visualstudio.com/defaultcollection
 		SccProjectUniqueName0 = tweetz5\\tweetz5.csproj
-		SccProjectName0 = tweetz5
-		SccAuxPath0 = https://blueonionsoftware.visualstudio.com/defaultcollection
+		SccProjectName0 = ../../tweetz5
 		SccLocalPath0 = tweetz5
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName1 = tweetz5UnitTests\\tweetz5UnitTests.csproj
-		SccProjectName1 = tweetz5UnitTests
-		SccAuxPath1 = https://blueonionsoftware.visualstudio.com/defaultcollection
+		SccProjectName1 = ../../tweetz5UnitTests
 		SccLocalPath1 = tweetz5UnitTests
-		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccLocalPath2 = .
+		SccProjectUniqueName3 = Setup\\Setup.vcxproj
+		SccProjectName3 = Setup
+		SccLocalPath3 = Setup
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
