@@ -94,18 +94,19 @@ namespace tweetz5
             {
                 ResizeBar.Visibility = Visibility.Visible;
                 Timeline.Visibility = Visibility.Visible;
-                OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
+                OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
             }
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - ResizeBar.ActualHeight;
+            Timeline.Width = e.NewSize.Width;
         }
 
         private void ComposeOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
+            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
             if (Compose.IsVisible) Compose.Focus();
         }
 
@@ -290,7 +291,6 @@ namespace tweetz5
         {
             ea.Handled = true;
             SettingsPanel.Visibility = Visibility.Visible;
-            ResizeBar.Visibility = Visibility.Collapsed;
             Timeline.Visibility = Visibility.Collapsed;
             SetButtonStates("settings");
         }
@@ -304,7 +304,7 @@ namespace tweetz5
         private void UpdateLayoutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), false, true));
+            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
         }
 
         private void OnDragOver(object sender, DragEventArgs ea)

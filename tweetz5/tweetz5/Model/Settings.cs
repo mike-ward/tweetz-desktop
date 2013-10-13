@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
+using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -33,6 +34,20 @@ namespace tweetz5.Model
                 if (Properties.Settings.Default.ShowMedia != value)
                 {
                     Properties.Settings.Default.ShowMedia = value;
+                    Properties.Settings.Default.Save();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double Width
+        {
+            get { return Properties.Settings.Default.Width; }
+            set
+            {
+                if (Math.Abs(Properties.Settings.Default.Width - value) > .0001)
+                {
+                    Properties.Settings.Default.Width = value;
                     Properties.Settings.Default.Save();
                     OnPropertyChanged();
                 }

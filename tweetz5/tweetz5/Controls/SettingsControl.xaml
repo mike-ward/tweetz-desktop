@@ -11,14 +11,26 @@
   <StackPanel Margin="10">
       <TextBlock HorizontalAlignment="Center" FontWeight="Bold">
           <Run FontFamily="Segoe UI Symbol">&#xE115;</Run> Settings</TextBlock>
+    
       <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <CheckBox VerticalAlignment="Center" IsChecked="{Binding Chirp}" />
             <Label Style="{StaticResource SettingsPanelLabelStyle}">Chirp on Timeline Updates</Label>
       </StackPanel>
+    
     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
       <CheckBox VerticalAlignment="Center" IsChecked="{Binding ShowMedia}" />
       <Label Style="{StaticResource SettingsPanelLabelStyle}">Show inline media</Label>
     </StackPanel>
+    
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 10 10 0">
+      <Label Style="{StaticResource SettingsPanelLabelStyle}" Padding="0 0 10 0">Width</Label>
+      <TextBox x:Name="UserWidth"
+               Text="{Binding Width}"
+               Width="51"
+               Style="{StaticResource SearchControlTextBoxStyle}"
+               VerticalAlignment="Center" />
+    </StackPanel>
+    
     <Button Margin="40 20" Command="tweetz5:MainWindow.SignOutCommand">Sign Out</Button>
         <TextBlock>tweetz Desktop, v: <Run Text="{Binding Version, Mode=OneTime}"></Run>
       </TextBlock>

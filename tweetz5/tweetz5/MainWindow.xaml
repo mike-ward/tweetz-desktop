@@ -10,7 +10,6 @@
         DragOver="OnDragOver"
         Title="tweetz"
         MinHeight="200"
-        Width="200"
         MinWidth="200"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -19,6 +18,7 @@
         Style="{StaticResource WindowStyle}"
         MouseLeftButtonDown="DragMoveWindow"
         Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
+        Width="{Binding Source={x:Static p:Settings.Default}, Path=Width, Mode=TwoWay}"
         Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
   <Border BorderBrush="Black"
