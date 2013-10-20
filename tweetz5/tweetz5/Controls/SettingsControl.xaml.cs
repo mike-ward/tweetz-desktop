@@ -7,6 +7,7 @@ namespace tweetz5.Controls
         public SettingsControl()
         {
             InitializeComponent();
-        }
+ 
+       }
     }
 }

@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             Margin="20"
+             Padding="20"
              HorizontalAlignment="Center"
              d:DesignWidth="200"
              mc:Ignorable="d">
-  <StackPanel>
+  <StackPanel Width="155">
     <TextBlock TextWrapping="Wrap">
       To get started, click the <Run FontWeight="Bold">Get PIN</Run> button.
       This opens a Web page where you'll authorize access.

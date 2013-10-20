@@ -556,6 +556,7 @@
             </Trigger>
             <Trigger Property="IsDragging" Value="True">
               <Setter TargetName="thumb" Property="Fill" Value="{StaticResource PressedBrush}" />
+              <Setter Property="Cursor" Value="SizeNS" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -575,6 +576,7 @@
           <ControlTemplate.Triggers>
             <Trigger Property="IsDragging" Value="True">
               <Setter TargetName="thumb" Property="Stroke" Value="{StaticResource PressedBrush}" />
+              <Setter Property="Cursor" Value="SizeWE" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

@@ -107,6 +107,11 @@ namespace tweetz5
         {
             Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - ResizeBar.ActualHeight;
             Timeline.Width = Math.Max(0, e.NewSize.Width - RightSizeBar.ActualWidth - 2);
+
+            SettingsPanel.Height = Timeline.Height;
+            SettingsPanel.Width = Timeline.Width;
+
+            AuthenticatePanel.Width = Timeline.Width;
         }
 
         private void ComposeOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -210,7 +215,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             var statuses = (Status[])ea.Parameter;
-            Timeline.Controller.UpdateStatus(new[] {Timelines.HomeName, Timelines.UnifiedName}, statuses, "h");
+            Timeline.Controller.UpdateStatus(new[] { Timelines.HomeName, Timelines.UnifiedName }, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -243,7 +248,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             if (Settings.Default.Chirp == false) return;
-            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
+            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
             player.Play();
         }
 
@@ -386,7 +391,7 @@ namespace tweetz5
         private static bool IsValidImageExtension(string filename)
         {
             var extension = Path.GetExtension(filename);
-            var extensions = new[] {".png", ".jpg", ".jpeg", ".gif"};
+            var extensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
             return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
         }
     }
