@@ -23,85 +23,105 @@
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
   <Border BorderBrush="Black"
           BorderThickness="1">
-    <StackPanel>
-      <DockPanel x:Name="Topbar"
-                 Style="{StaticResource TopBarStyle}">
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-          <Image Source="..\Assets\Images\birdblue.png" />
-          <Label Style="{StaticResource TopBarLabelStyle}">tweetz</Label>
+    <StackPanel Orientation="Horizontal">
+      <StackPanel>
+        <DockPanel x:Name="Topbar"
+                   Style="{StaticResource TopBarStyle}">
+          <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+            <Image Source="..\Assets\Images\birdblue.png" />
+            <Label Style="{StaticResource TopBarLabelStyle}">tweetz</Label>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal"
+                      HorizontalAlignment="Right"
+                      DockPanel.Dock="Right">
+            <Button Style="{StaticResource AppCloseButtonStyle}"
+                    Command="Close">&#xE10A;</Button>
+          </StackPanel>
+        </DockPanel>
+        
+        <controls:Authenticate x:Name="AuthenticatePanel"
+                            Visibility="Collapsed"/>
+        <StackPanel x:Name="MainPanel">
+          <UniformGrid x:Name="NavBar" Rows="1" Style="{StaticResource NavBar}">
+            <Button x:Name="UnifiedButton"
+                    Style="{StaticResource NavBarButton}"
+                    ToolTip="Unified timeline (home, mentions, messages)"
+                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    CommandParameter="{x:Static model:Timelines.UnifiedName}">
+              &#xE179;
+            </Button>
+            <Button x:Name="HomeButton"
+                    Style="{StaticResource NavBarButton}"
+                    ToolTip="Home timeline"
+                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    CommandParameter="{x:Static model:Timelines.HomeName}">
+              &#xE10F;
+            </Button>
+            <Button x:Name="MentionsButton"
+                    Style="{StaticResource NavBarButton}"
+                    ToolTip="Mentions timeline"
+                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    CommandParameter="{x:Static model:Timelines.MentionsName}">
+              &#xE168;
+            </Button>
+            <Button x:Name="MessagesButton"
+                    Style="{StaticResource NavBarButton}"
+                    ToolTip="Messages timeline"
+                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    CommandParameter="{x:Static model:Timelines.MessagesName}">
+              &#xE135;
+            </Button>
+            <Button x:Name="FavoritesButton"
+                    Style="{StaticResource NavBarButton}"
+                    ToolTip="Favorites timeline"
+                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    CommandParameter="{x:Static model:Timelines.FavoritesName}">
+              &#xE113;
+            </Button>
+            <Button x:Name="SearchButton"
+                    Style="{StaticResource NavBarButton}"
+                    ToolTip="Search"
+                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    CommandParameter="{x:Static model:Timelines.SearchName}">
+              &#xE11A;
+            </Button>
+            <Button x:Name="SettingsButton"
+                    Style="{StaticResource NavBarButton}"
+                    ToolTip="Settings"
+                    Command="{x:Static tweetz5:MainWindow.SettingsCommand}">
+              &#xE115;
+            </Button>
+            <Button Style="{StaticResource NavBarButton}"
+                    Command="{x:Static tweetz5:MainWindow.OpenComposeCommand}"
+                    ToolTip="Compose">
+              &#xE104;
+            </Button>
+          </UniformGrid>
+          <controls:SettingsControl x:Name="SettingsPanel" />
+          <controls:Timeline x:Name="Timeline"
+                          Panel.ZIndex="-1"
+                          Height="400" />
+          <controls:ComposeTweet x:Name="Compose"
+                              Visibility="Visible"
+                              IsVisibleChanged="ComposeOnIsVisibleChanged" />
+          <Thumb x:Name="ResizeBar"
+                 DragDelta="BottomSizeOnDragDelta"
+                 Style="{StaticResource VerticalSizeThumbStyle}" />
+          
+          <controls:AboutUser x:Name="UserInformationPopup"
+                           Placement="Left"
+                           StaysOpen="False"/>
+          
+          <controls:StatusAlert x:Name="StatusAlert"
+                             Placement="Center"/>
+          
+          <controls:ShortcutHelp x:Name="ShortcutHelp"
+                                 Placement="Center"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    DockPanel.Dock="Right">
-          <Button Style="{StaticResource AppCloseButtonStyle}"
-                  Command="Close">&#xE10A;</Button>
-        </StackPanel>
-      </DockPanel>
-      <controls:Authenticate x:Name="AuthenticatePanel"
-                          Visibility="Collapsed"/>
-      <StackPanel x:Name="MainPanel">
-        <UniformGrid x:Name="NavBar" Rows="1" Style="{StaticResource NavBar}">
-          <Button x:Name="UnifiedButton"
-                  Style="{StaticResource NavBarButton}"
-                  Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="{x:Static model:Timelines.UnifiedName}">
-            &#xE179;
-          </Button>
-          <Button x:Name="HomeButton"
-                  Style="{StaticResource NavBarButton}"
-                  Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="{x:Static model:Timelines.HomeName}">
-            &#xE10F;
-          </Button>
-          <Button x:Name="MentionsButton"
-                  Style="{StaticResource NavBarButton}"
-                  Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="{x:Static model:Timelines.MentionsName}">
-            &#xE168;
-          </Button>
-          <Button x:Name="MessagesButton"
-                  Style="{StaticResource NavBarButton}"
-                  Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="{x:Static model:Timelines.MessagesName}">
-            &#xE135;
-          </Button>
-          <Button x:Name="FavoritesButton"
-                  Style="{StaticResource NavBarButton}"
-                  Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="{x:Static model:Timelines.FavoritesName}">
-            &#xE113;
-          </Button>
-          <Button x:Name="SearchButton"
-                  Style="{StaticResource NavBarButton}"
-                  Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
-                  CommandParameter="{x:Static model:Timelines.SearchName}">
-            &#xE11A;
-          </Button>
-          <Button x:Name="SettingsButton"
-                  Style="{StaticResource NavBarButton}"
-                  Command="{x:Static tweetz5:MainWindow.SettingsCommand}">
-            &#xE115;</Button>
-          <Button Style="{StaticResource NavBarButton}"
-                  Command="{x:Static tweetz5:MainWindow.OpenComposeCommand}">&#xE104;</Button>
-        </UniformGrid>
-        <controls:SettingsControl x:Name="SettingsPanel" />
-        <controls:Timeline x:Name="Timeline"
-                        Panel.ZIndex="-1"
-                        Height="400" />
-        <controls:ComposeTweet x:Name="Compose"
-                            Visibility="Visible"
-                            IsVisibleChanged="ComposeOnIsVisibleChanged" />
-        <Thumb x:Name="ResizeBar"
-               DragDelta="ThumbOnDragDelta"
-               Style="{StaticResource SizeThumbStyle}" />
-        <controls:AboutUser x:Name="UserInformationPopup"
-                         Placement="Left"
-                         StaysOpen="False"/>
-        <controls:StatusAlert x:Name="StatusAlert" 
-                           Placement="Center"/>
-        <controls:ShortcutHelp x:Name="ShortcutHelp"
-                               Placement="Center"/>
       </StackPanel>
+      <Thumb x:Name="RightSizeBar" 
+             DragDelta="RightSizeBarOnDragDelta"
+             Style="{StaticResource HorizontalSizeThumbStyle}" />
     </StackPanel>
   </Border>
   <Window.CommandBindings>
@@ -149,5 +169,5 @@
                     Executed="OpenComposeCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MainWindow.ShortcutHelpCommand}"
                     Executed="ShortcutHelpCommandHandler"/>
-    </Window.CommandBindings>
+  </Window.CommandBindings>
 </Window>

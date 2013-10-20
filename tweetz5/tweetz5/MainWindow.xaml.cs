@@ -83,9 +83,14 @@ namespace tweetz5
             DragMove();
         }
 
-        private void ThumbOnDragDelta(object sender, DragDeltaEventArgs e)
+        private void BottomSizeOnDragDelta(object sender, DragDeltaEventArgs e)
         {
             Height = Math.Max(Height + e.VerticalChange, MinHeight);
+        }
+
+        private void RightSizeBarOnDragDelta(object sender, DragDeltaEventArgs e)
+        {
+            Width = Math.Max(Width + e.HorizontalChange, MinWidth);
         }
 
         private void MainPanelOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -101,7 +106,7 @@ namespace tweetz5
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - ResizeBar.ActualHeight;
-            Timeline.Width = e.NewSize.Width;
+            Timeline.Width = Math.Max(0, e.NewSize.Width - RightSizeBar.ActualWidth - 2);
         }
 
         private void ComposeOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

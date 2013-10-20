@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyCompany("Mike-Ward.Net")]
 [assembly: AssemblyProduct("tweetz Desktop")]
 [assembly: AssemblyCopyright("Copyright ©  2013 Mike-Ward.Net, All rights reserved")]
-[assembly: AssemblyTrademark("Tweetz is a trademark of Mike-Ward.Net")]
+[assembly: AssemblyTrademark("Tweetz is a trademark of Mike Ward")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
@@ -24,6 +24,6 @@ using System.Windows;
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None,ResourceDictionaryLocation.SourceAssembly)]
 
-[assembly: AssemblyVersion("0.5.0")]
-[assembly: AssemblyFileVersion("0.5.0")]
+[assembly: AssemblyVersion("0.5.1")]
+[assembly: AssemblyFileVersion("0.5.1")]
 [assembly: Guid("B21EBDFF-5222-451A-AB7D-F07EF6DF2813")]

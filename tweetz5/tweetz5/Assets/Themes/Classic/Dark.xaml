@@ -40,6 +40,8 @@
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Focusable" Value="False" />
     <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+    <Setter Property="ToolTipService.InitialShowDelay" Value="1000" />
+    <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
@@ -539,13 +541,13 @@
     </Style.Triggers>
   </Style>
 
-  <Style x:Key="SizeThumbStyle" TargetType="{x:Type Thumb}">
+  <Style x:Key="VerticalSizeThumbStyle" TargetType="{x:Type Thumb}">
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
-          <Rectangle Name="thumb" Height="5" Stroke="#333344" StrokeThickness="0.5" Cursor="SizeNS">
+          <Rectangle Name="thumb" Height="4" Stroke="{StaticResource AppBackgroundBrush}" StrokeThickness="0.5" Cursor="SizeNS">
             <Rectangle.Fill>
-              <SolidColorBrush Color="#333344" />
+              <SolidColorBrush Color="{StaticResource AppBackgroundColor}" />
             </Rectangle.Fill>
           </Rectangle>
           <ControlTemplate.Triggers>
@@ -554,6 +556,25 @@
             </Trigger>
             <Trigger Property="IsDragging" Value="True">
               <Setter TargetName="thumb" Property="Fill" Value="{StaticResource PressedBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="HorizontalSizeThumbStyle" TargetType="{x:Type Thumb}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <Rectangle Name="thumb" Width="1" Stroke="{StaticResource AppBackgroundBrush}" StrokeThickness="0.5" Cursor="SizeWE">
+            <Rectangle.Fill>
+              <SolidColorBrush Color="{StaticResource AppBackgroundColor}" />
+            </Rectangle.Fill>
+          </Rectangle>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsDragging" Value="True">
+              <Setter TargetName="thumb" Property="Stroke" Value="{StaticResource PressedBrush}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
