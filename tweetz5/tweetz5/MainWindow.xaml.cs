@@ -112,6 +112,7 @@ namespace tweetz5
             SettingsPanel.Width = Timeline.Width;
 
             AuthenticatePanel.Width = Timeline.Width;
+            Compose.Width = Timeline.Width;
         }
 
         private void ComposeOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
