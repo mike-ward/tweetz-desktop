@@ -20,8 +20,8 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-LicenseFile=C:\Projects\tweetz5\tweetz5\license.txt
-OutputDir=C:\Projects\tweetz5\tweetz5\Setup
+LicenseFile=C:\Projects\tweetz5\Setup\tweetz5\Setup\license.txt
+OutputDir=C:\Projects\tweetz5\Setup\tweetz5\Setup
 OutputBaseFilename=TweetzSetup
 Compression=lzma
 SolidCompression=yes
@@ -57,7 +57,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "C:\Projects\tweetz5\tweetz5\tweetz5\bin\Release\tweetz5.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Projects\tweetz5\tweetz5\bin\Release\tweetz5.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
