@@ -8,10 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{42BA029E-77DD-4BA6-96C2-E859144B49C1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Setup", "Setup\Setup.vcxproj", "{21AD956C-BE7F-4799-8969-572EF293178A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{2A7FFB62-91CD-4498-9F2D-8830B8B597C2} = {2A7FFB62-91CD-4498-9F2D-8830B8B597C2}
-		{0DC800FD-087B-465A-ACA6-C8E4CEF78029} = {0DC800FD-087B-465A-ACA6-C8E4CEF78029}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
