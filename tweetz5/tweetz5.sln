@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5", "tweetz5\tweetz5.csproj", "{2A7FFB62-91CD-4498-9F2D-8830B8B597C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5", "..\..\..\Projects\tweetz5\tweetz5\tweetz5\tweetz5.csproj", "{2A7FFB62-91CD-4498-9F2D-8830B8B597C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5UnitTests", "tweetz5UnitTests\tweetz5UnitTests.csproj", "{0DC800FD-087B-465A-ACA6-C8E4CEF78029}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5UnitTests", "..\..\..\Projects\tweetz5\tweetz5\tweetz5UnitTests\tweetz5UnitTests.csproj", "{0DC800FD-087B-465A-ACA6-C8E4CEF78029}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{42BA029E-77DD-4BA6-96C2-E859144B49C1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Setup", "Setup\Setup.vcxproj", "{21AD956C-BE7F-4799-8969-572EF293178A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Setup", "Setup\tweetz5\Setup\Setup.vcxproj", "{21AD956C-BE7F-4799-8969-572EF293178A}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -15,15 +15,15 @@ Global
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://blueonionsoftware.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = tweetz5\\tweetz5.csproj
+		SccProjectUniqueName1 = ..\\..\\..\\Projects\\tweetz5\\tweetz5\\tweetz5\\tweetz5.csproj
 		SccProjectName1 = tweetz5
-		SccLocalPath1 = tweetz5
-		SccProjectUniqueName2 = tweetz5UnitTests\\tweetz5UnitTests.csproj
+		SccLocalPath1 = ..\\..\\..\\Projects\\tweetz5\\tweetz5\\tweetz5
+		SccProjectUniqueName2 = ..\\..\\..\\Projects\\tweetz5\\tweetz5\\tweetz5UnitTests\\tweetz5UnitTests.csproj
 		SccProjectName2 = tweetz5UnitTests
-		SccLocalPath2 = tweetz5UnitTests
-		SccProjectUniqueName3 = Setup\\Setup.vcxproj
-		SccProjectName3 = Setup
-		SccLocalPath3 = Setup
+		SccLocalPath2 = ..\\..\\..\\Projects\\tweetz5\\tweetz5\\tweetz5UnitTests
+		SccProjectUniqueName3 = Setup\\tweetz5\\Setup\\Setup.vcxproj
+		SccProjectName3 = Setup/tweetz5/Setup
+		SccLocalPath3 = Setup\\tweetz5\\Setup
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
