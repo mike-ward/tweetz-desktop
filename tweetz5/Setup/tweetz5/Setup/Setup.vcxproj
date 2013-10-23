@@ -13,6 +13,9 @@
   <ItemGroup>
     <None Include="Setup.iss" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="license.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{21AD956C-BE7F-4799-8969-572EF293178A}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>

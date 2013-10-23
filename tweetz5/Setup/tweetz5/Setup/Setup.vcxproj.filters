@@ -3,4 +3,7 @@
   <ItemGroup>
     <None Include="Setup.iss" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="license.txt" />
+  </ItemGroup>
 </Project>
