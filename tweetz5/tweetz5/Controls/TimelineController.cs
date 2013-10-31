@@ -2,6 +2,7 @@
 
 using System;
 using System.Net;
+using System.Threading;
 using System.Windows;
 using tweetz5.Model;
 using tweetz5.Utilities;
@@ -57,6 +58,7 @@ namespace tweetz5.Controls
             _updateTimeStamps.Interval = 30000;
             _updateTimeStamps.Elapsed += (s, e) => _timelinesModel.UpdateTimeStamps();
             _updateTimeStamps.Start();
+            TwitterStream.User(new CancellationToken());
         }
 
         public void StopTimelines()
