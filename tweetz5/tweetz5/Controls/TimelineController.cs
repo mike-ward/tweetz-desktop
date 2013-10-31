@@ -58,7 +58,7 @@ namespace tweetz5.Controls
             _updateTimeStamps.Interval = 30000;
             _updateTimeStamps.Elapsed += (s, e) => _timelinesModel.UpdateTimeStamps();
             _updateTimeStamps.Start();
-            TwitterStream.User(new CancellationToken());
+            TwitterStream.User(_timelinesModel.CancellationToken);
         }
 
         public void StopTimelines()
@@ -73,6 +73,7 @@ namespace tweetz5.Controls
                 _updateTimeStamps.Dispose();
                 _updateTimeStamps = null;
             }
+            _timelinesModel.SignalCancel();
             _timelinesModel.ClearAllTimelines();
         }
 

@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -31,6 +32,8 @@ namespace tweetz5.Model
         void DeleteTweet(Tweet tweet);
         void Retweet(Tweet tweet);
         string TimelineName { get; set; }
+        CancellationToken CancellationToken { get; }
+        void SignalCancel();
     }
 
     public class Timelines : ITimelines
@@ -39,6 +42,7 @@ namespace tweetz5.Model
         private ObservableCollection<Tweet> _timeline;
         private readonly Dictionary<string, Timeline> _timelineMap;
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
+        private CancellationTokenSource _cancellationTokenSource;
 
         private Timeline _unified
         {
@@ -93,6 +97,8 @@ namespace tweetz5.Model
                 {FavoritesName, new Timeline()},
                 {SearchName, new Timeline()}
             };
+
+            _cancellationTokenSource = new CancellationTokenSource();
         }
 
         public ObservableCollection<Tweet> Timeline
@@ -507,6 +513,17 @@ namespace tweetz5.Model
                 Twitter.RetweetStatus(tweet.StatusId);
                 tweet.IsRetweet = true;
             }
+        }
+
+        public CancellationToken CancellationToken
+        {
+            get { return _cancellationTokenSource.Token; }
+        }
+
+        public void SignalCancel()
+        {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource = new CancellationTokenSource();
         }
     }
 }

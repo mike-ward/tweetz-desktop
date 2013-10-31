@@ -43,6 +43,7 @@ namespace tweetz5.Model
                                 while (true)
                                 {
                                     var json = stream.ReadLine();
+                                    if (cancelationToken.IsCancellationRequested) break;
                                     Debug.WriteLine(string.IsNullOrWhiteSpace(json) ? "{ Blankline }" : json);
                                     if (json == null) continue;
 
@@ -79,6 +80,8 @@ namespace tweetz5.Model
                             Debug.WriteLine(ex);
                         }
                     }
+
+                    Debug.WriteLine("{ Stream task ends }");
                 });
         }
     }
