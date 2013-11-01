@@ -182,7 +182,17 @@ namespace tweetz5
             }
             else
             {
-                var message = string.Format("@{0} ", tweet.ScreenName);
+                var matches = new Regex(@"(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9]+)")
+                    .Matches(tweet.Text);
+
+                var names = matches
+                    .Cast<Match>()
+                    .Where(m => m.Groups[0].Value != tweet.ScreenName)
+                    .Select(m => m.Groups[0].Value)
+                    .Distinct();
+
+                var replyTos = string.Join(" ", names);
+                var message = string.Format("@{0} {1}{2}", tweet.ScreenName, replyTos, (replyTos.Length > 0) ? " " : "");
                 Compose.Show(message, tweet.StatusId);
             }
         }
