@@ -19,7 +19,7 @@
   <Popup.InputBindings>
     <KeyBinding Key="Escape" Command="Close"/>
   </Popup.InputBindings>
-  <Border CornerRadius="8" Background="WhiteSmoke" BorderThickness="2" BorderBrush="Black">
+  <Border Background="WhiteSmoke" BorderThickness="2" BorderBrush="Black">
     <StackPanel Margin="0,3,0,0">
       <Grid>
         <Grid.ColumnDefinitions>
@@ -29,14 +29,23 @@
         <TextBlock Style="{StaticResource ShortcutHelpTitleStyle}"
                    Grid.Column="0">Keyboard Shortcuts</TextBlock>
         <TextBlock Grid.Column="1"
-                   Foreground="#bbbbbb" 
-                   FontFamily="Segoe UI Symbol" 
+                   Foreground="Gainsboro" 
+                   FontFamily="Segoe UI Symbol"
+                   Text="&#xE10A;"
                    Cursor="Hand">
           <TextBlock.InputBindings>
             <MouseBinding MouseAction="LeftClick" Command="Close" />
             <KeyBinding Key="Escape" Command="Close"/>
           </TextBlock.InputBindings>
-          &#xE10A;
+          <TextBlock.Style>
+            <Style TargetType="TextBlock">
+              <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter Property="Foreground" Value="Black" />
+                </Trigger>
+              </Style.Triggers>
+            </Style>
+          </TextBlock.Style>
         </TextBlock>
       </Grid>
       <ItemsControl ItemsSource="{Binding KeyboardShortcuts}" Margin="5" Foreground="Black">

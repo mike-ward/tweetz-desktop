@@ -178,7 +178,8 @@ namespace tweetz5.Model
                     }
                 }
 
-                foreach (var timeline in timelines.Where(timeline => timeline.Tweets.Any(t => t.StatusId == tweet.StatusId || t.StatusId == tweet.RetweetStatusId) == false))
+                foreach (var timeline in timelines
+                    .Where(timeline => timeline.Tweets.Any(t => t.StatusId == tweet.StatusId || t.StatusId == tweet.RetweetStatusId) == false))
                 {
                     timeline.Tweets.Add(tweet);
                 }

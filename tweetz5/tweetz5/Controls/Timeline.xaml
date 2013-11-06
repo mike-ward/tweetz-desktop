@@ -15,7 +15,6 @@
       <MenuItem Header="RT (Classic)"
                 Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
                 CommandParameter="{Binding}" />
-      <Separator />
       <MenuItem Header="Copy"
                 Command="{x:Static tweetz5:MainWindow.CopyCommand}"
                 CommandParameter="{Binding}" />
