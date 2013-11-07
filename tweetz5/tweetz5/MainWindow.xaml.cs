@@ -182,13 +182,14 @@ namespace tweetz5
             }
             else
             {
-                var matches = new Regex(@"(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9]+)")
+                var matches = new Regex(@"(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9_]+)")
                     .Matches(tweet.Text);
 
                 var names = matches
                     .Cast<Match>()
-                    .Where(m => m.Groups[0].Value != tweet.ScreenName)
-                    .Select(m => m.Groups[0].Value)
+                    .Where(m => m.Groups[1].Value != tweet.ScreenName)
+                    .Where(m => m.Groups[1].Value != Settings.Default.ScreenName)
+                    .Select(m => "@" + m.Groups[1].Value)
                     .Distinct();
 
                 var replyTos = string.Join(" ", names);
