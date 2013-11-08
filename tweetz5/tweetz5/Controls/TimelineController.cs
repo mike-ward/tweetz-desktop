@@ -2,7 +2,6 @@
 
 using System;
 using System.Net;
-using System.Threading;
 using System.Windows;
 using tweetz5.Model;
 using tweetz5.Utilities;
