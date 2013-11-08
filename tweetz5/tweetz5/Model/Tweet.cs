@@ -129,7 +129,7 @@ namespace tweetz5.Model
 
         public bool Equals(Tweet other)
         {
-            return other != null && other.StatusId == StatusId;
+            return other != null && (other.StatusId == StatusId || other.StatusId == RetweetStatusId);
         }
     }
 

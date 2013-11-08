@@ -74,7 +74,6 @@
   <Style x:Key="TimelineStyle" TargetType="ListBox">
     <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
     <Setter Property="Background" Value="{StaticResource AppBackgroundBrush}" />
-    <Setter Property="FontSize" Value="11" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Margin" Value="0" />
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />

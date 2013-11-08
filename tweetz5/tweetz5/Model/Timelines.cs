@@ -160,31 +160,28 @@ namespace tweetz5.Model
         private bool UpdateTimelines(Timeline[] timelines, IEnumerable<Status> statuses, string tweetType)
         {
             var updated = false;
-            foreach (var status in statuses.Where(status => timelines.All(timeline => timeline.Tweets.All(t => t.StatusId != status.Id))))
+            foreach (var tweetStatus in statuses.Select(status => CreateTweet(tweetType, status)))
             {
-                var tweet = CreateTweet(tweetType, status);
-
-                var index = _tweets.IndexOf(tweet);
+                var tweet = tweetStatus;
                 if (tweetType != "s")
                 {
+                    var index = _tweets.IndexOf(tweet);
                     if (index == -1)
-                    {
                         _tweets.Add(tweet);
-                    }
                     else
-                    {
                         tweet = _tweets[index];
-                        if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
-                    }
+
+                    if (tweet.TweetType.Contains(tweetType) == false) 
+                        tweet.TweetType += tweetType;
                 }
 
-                foreach (var timeline in timelines
-                    .Where(timeline => timeline.Tweets.Any(t => t.StatusId == tweet.StatusId || t.StatusId == tweet.RetweetStatusId) == false))
+                foreach (var timeline in timelines.Where(timeline => timeline.Tweets.IndexOf(tweet) == -1))
                 {
                     timeline.Tweets.Add(tweet);
+                    updated = true;
                 }
-                updated = true;
             }
+
             if (updated)
             {
                 foreach (var timeline in timelines)
@@ -264,8 +261,8 @@ namespace tweetz5.Model
                 markupItems.AddRange(entities.Urls.Select(url => new MarkupItem
                 {
                     Markup = asHtml
-                        ? string.Format(@"<a href=""{0}"">{0}</a>", url.DisplayUrl) 
-                        : string.Format("<a{0}>", url.Url),
+                                 ? string.Format(@"<a href=""{0}"">{0}</a>", url.DisplayUrl)
+                                 : string.Format("<a{0}>", url.Url),
                     Start = url.Indices[0],
                     End = url.Indices[1]
                 }));
@@ -275,9 +272,9 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Mentions.Select(mention => new MarkupItem
                 {
-                    Markup = asHtml 
-                        ? string.Format(@"<a href=""https://twitter.com/{0}"">@{0}</a>", mention.ScreenName) 
-                        : string.Format("<m@{0}>", mention.ScreenName),
+                    Markup = asHtml
+                                 ? string.Format(@"<a href=""https://twitter.com/{0}"">@{0}</a>", mention.ScreenName)
+                                 : string.Format("<m@{0}>", mention.ScreenName),
                     Start = mention.Indices[0],
                     End = mention.Indices[1]
                 }));
@@ -288,8 +285,8 @@ namespace tweetz5.Model
                 markupItems.AddRange(entities.HashTags.Select(hashtag => new MarkupItem
                 {
                     Markup = asHtml
-                        ? string.Format(@"<a href=""https://twitter.com/search?q=%23{0}"">#{0}</a>", hashtag.Text)
-                        : string.Format("<h#{0}>", hashtag.Text),
+                                 ? string.Format(@"<a href=""https://twitter.com/search?q=%23{0}"">#{0}</a>", hashtag.Text)
+                                 : string.Format("<h#{0}>", hashtag.Text),
                     Start = hashtag.Indices[0],
                     End = hashtag.Indices[1]
                 }));
@@ -299,9 +296,9 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Media.Select(media => new MarkupItem
                 {
-                    Markup = asHtml 
-                        ? string.Format(@"<a href=""{0}"">[media]</a>", media.Url)
-                        : string.Format("<p{0}>", media.Url),
+                    Markup = asHtml
+                                 ? string.Format(@"<a href=""{0}"">[media]</a>", media.Url)
+                                 : string.Format("<p{0}>", media.Url),
                     Start = media.Indices[0],
                     End = media.Indices[1]
                 }));
