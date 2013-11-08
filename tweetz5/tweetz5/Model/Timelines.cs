@@ -197,7 +197,7 @@ namespace tweetz5.Model
             var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
                                                 CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
-            var displayStatus = status.RetweetedtStatus ?? status;
+            var displayStatus = status.RetweetedStatus ?? status;
 
             // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
             if (displayStatus.User == null)
@@ -221,7 +221,7 @@ namespace tweetz5.Model
                 Favorited = status.Favorited,
                 IsRetweet = status.Retweeted,
                 RetweetedBy = RetweetedBy(status),
-                RetweetStatusId = (status.RetweetedtStatus != null) ? status.RetweetedtStatus.Id : string.Empty,
+                RetweetStatusId = (status.RetweetedStatus != null) ? status.RetweetedStatus.Id : string.Empty,
                 MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0]
             };
             return tweet;
@@ -237,7 +237,7 @@ namespace tweetz5.Model
 
         public static string RetweetedBy(Status status)
         {
-            if (status.RetweetedtStatus != null)
+            if (status.RetweetedStatus != null)
             {
                 var oauth = new OAuth();
                 return oauth.ScreenName != status.User.ScreenName ? status.User.Name : string.Empty;

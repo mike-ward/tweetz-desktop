@@ -129,7 +129,11 @@ namespace tweetz5.Model
 
         public bool Equals(Tweet other)
         {
-            return other != null && (other.StatusId == StatusId || other.StatusId == RetweetStatusId);
+            if (other == null) return false;
+            if (other.StatusId == StatusId) return true;
+            if (other.RetweetStatusId == StatusId) return true;
+            if (string.IsNullOrWhiteSpace(other.RetweetStatusId) == false && other.RetweetStatusId == RetweetStatusId) return true;
+            return false;
         }
     }
 
@@ -158,7 +162,7 @@ namespace tweetz5.Model
         public Entities Entities { get; set; }
 
         [DataMember(Name = "retweeted_status")]
-        public Status RetweetedtStatus { get; set; }
+        public Status RetweetedStatus { get; set; }
 
         [DataMember(Name = "favorited")]
         public bool Favorited { get; set; }
