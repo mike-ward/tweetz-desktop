@@ -106,7 +106,7 @@ namespace tweetz5.Controls
 
         public void CopyTweetToClipboard(Tweet tweet)
         {
-            CopyToClipboard.AsTextAndHtml(tweet.Text, tweet.AsHtml());
+            CopyToClipboard.AsText(tweet.Text);
         }
 
         public void CopyLinkToClipboard(Tweet tweet)
