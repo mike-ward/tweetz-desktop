@@ -54,6 +54,20 @@ namespace tweetz5.Model
             }
         }
 
+        public string FontSize
+        {
+            get { return Properties.Settings.Default.FontSize; }
+            set
+            {
+                if (Properties.Settings.Default.FontSize != value)
+                {
+                    Properties.Settings.Default.FontSize = value;
+                    Properties.Settings.Default.Save();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public static string Version
         {
             get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }

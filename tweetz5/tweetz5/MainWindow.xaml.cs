@@ -42,6 +42,7 @@ namespace tweetz5
         public static readonly RoutedCommand UpdateLayoutCommand = new RoutedUICommand();
         public static readonly RoutedCommand OpenComposeCommand = new RoutedUICommand();
         public static readonly RoutedCommand ShortcutHelpCommand = new RoutedUICommand();
+        public static readonly RoutedCommand SetFontSizeCommand = new RoutedCommand();
 
         public MainWindow()
         {
@@ -51,6 +52,7 @@ namespace tweetz5
             {
                 // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
                 Compose.Visibility = Visibility.Collapsed;
+                SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
                 SignIn();
             };
         }
@@ -406,5 +408,17 @@ namespace tweetz5
             var extensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
             return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
         }
+
+        private void SetFontSizeCommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        {
+            ea.Handled = true;
+            var size = double.Parse(ea.Parameter.ToString());
+            Application.Current.Resources["AppFontSize"] = size;
+            Application.Current.Resources["AppFontSizePlus1"] = size + 1;
+            Application.Current.Resources["AppFontSizePlus3"] = size + 3;
+            Application.Current.Resources["AppFontSizePlus7"] = size + 7;
+            Application.Current.Resources["AppFontSizeMinus1"] = size - 1;
+        }
+
     }
 }

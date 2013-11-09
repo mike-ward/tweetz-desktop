@@ -15,11 +15,11 @@
         <TextBlock Foreground="#bbbbbb" 
                    FontFamily="Segoe UI Symbol" 
                    HorizontalAlignment="Right" 
-                   Cursor="Hand">
+                   Cursor="Hand"
+                   Text="&#xE10A;">
           <TextBlock.InputBindings>
             <MouseBinding MouseAction="LeftClick" Command="Close" />
           </TextBlock.InputBindings>
-          &#xE10A;
         </TextBlock>
         <TextBlock Foreground="#bbbbbb"
                    FontSize="14"

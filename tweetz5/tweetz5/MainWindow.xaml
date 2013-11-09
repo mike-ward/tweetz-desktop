@@ -173,5 +173,7 @@
                     Executed="OpenComposeCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MainWindow.ShortcutHelpCommand}"
                     Executed="ShortcutHelpCommandHandler"/>
+    <CommandBinding Command="{x:Static tweetz5:MainWindow.SetFontSizeCommand}"
+                    Executed="SetFontSizeCommandHandler"/>
   </Window.CommandBindings>
 </Window>

@@ -35,5 +35,8 @@
     <Setting Name="Width" Type="System.Double" Scope="User">
       <Value Profile="(Default)">200</Value>
     </Setting>
+    <Setting Name="FontSize" Type="System.String" Scope="User">
+      <Value Profile="(Default)">11</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
