@@ -213,7 +213,7 @@ namespace tweetz5.Model
                 ScreenName = displayStatus.User.ScreenName,
                 ProfileImageUrl = displayStatus.User.ProfileImageUrl,
                 Text = displayStatus.Text,
-                MarkupNodes = MarkupText(displayStatus.Text, displayStatus.Entities),
+                MarkupNodes = BuildMarkupNodes(displayStatus.Text, displayStatus.Entities),
                 CreatedAt = createdAt,
                 TimeAgo = TimeAgo(createdAt),
                 TweetType = tweetType,
@@ -252,7 +252,7 @@ namespace tweetz5.Model
             public int End { get; set; }
         }
 
-        public static MarkupNode[] MarkupText(string text, Entities entities)
+        public static MarkupNode[] BuildMarkupNodes(string text, Entities entities)
         {
             var markupItems = new List<MarkupItem>();
 
