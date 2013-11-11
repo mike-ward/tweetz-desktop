@@ -1,7 +1,4 @@
-﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,68 +9,52 @@ namespace tweetz5.Controls
 {
     public class MarkupService
     {
-        public static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached(
-            "Text",
-            typeof (string),
+        public static readonly DependencyProperty MarkupNodesProperty = DependencyProperty.RegisterAttached(
+            "MarkupNodes",
+            typeof (IList<MarkupNode>),
             typeof (MarkupService),
             new PropertyMetadata(null, OnTextChanged)
             );
 
-        public static string GetText(DependencyObject d)
+        public static IList<MarkupNode> GetMarkupNodes(DependencyObject d)
         {
-            return d.GetValue(TextProperty) as string;
+            return d.GetValue(MarkupNodesProperty) as IList<MarkupNode>;
         }
 
-        public static void SetText(DependencyObject d, string value)
+        public static void SetMarkupNodes(DependencyObject d, IList<MarkupNode> value)
         {
-            d.SetValue(TextProperty, value);
+            d.SetValue(MarkupNodesProperty, value);
         }
 
         private static void OnTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs ea)
         {
-            MarkupToContent(sender as TextBlock, ea.NewValue as string);
+            MarkupToContent(sender as TextBlock, ea.NewValue as IList<MarkupNode>);
         }
 
-        public static void MarkupToContent(TextBlock textBlock, string text)
+        public static void MarkupToContent(TextBlock textBlock, IList<MarkupNode> nodes)
         {
             var inlines = new List<object>();
-            var start = 0;
-            do
+            foreach (var node in nodes)
             {
-                var index = text.IndexOf("<", start, StringComparison.Ordinal);
-                if (index == -1)
+                switch (node.NodeType)
                 {
-                    inlines.Add(Run(text.Substring(start)));
-                    break;
-                }
-                if (index > start)
-                {
-                    var run = Run(text.Substring(start, index - start));
-                    inlines.Add(run);
-                }
-                var tag = text[++index];
-                start = text.IndexOf('>', ++index);
-                var tagText = text.Substring(index, start - index);
-                switch (tag)
-                {
-                    case 'a':
-                        inlines.Add(Hyperlink("[link]", tagText));
+                    case "text":
+                        inlines.Add(Run(node.Text));
                         break;
-
-                    case 'm':
-                        inlines.Add(Mention(tagText));
+                    case "url":
+                        inlines.Add(Hyperlink("[link]", node.Text));
                         break;
-
-                    case 'h':
-                        inlines.Add(Hashtag(tagText));
+                    case "mention":
+                        inlines.Add(Mention(node.Text));
                         break;
-
-                    case 'p':
-                        inlines.Add(Hyperlink("[media]", tagText));
+                    case "hashtag":
+                        inlines.Add(Hashtag(node.Text));
+                        break;
+                    case "media":
+                        inlines.Add(Hyperlink("[link]", node.Text));
                         break;
                 }
-                start += 1;
-            } while (start < text.Length);
+            }
             textBlock.Inlines.Clear();
             textBlock.Inlines.AddRange(inlines);
             keybd_event(0x28, 0, 0x0002, 0);
@@ -118,16 +99,16 @@ namespace tweetz5.Controls
 
         private static Hyperlink Mention(string text)
         {
-            return new Hyperlink(new Run(text))
+            return new Hyperlink(new Run("@" + text))
             {
                 Command = Commands.ShowUserInformationCommand,
-                CommandParameter = text.Replace("@", "")
+                CommandParameter = text
             };
         }
 
         private static Hyperlink Hashtag(string text)
         {
-            return new Hyperlink(new Run(text))
+            return new Hyperlink(new Run("#" + text))
             {
                 Command = Commands.SearchCommand,
                 CommandParameter = text

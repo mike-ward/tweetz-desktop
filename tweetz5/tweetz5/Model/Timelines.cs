@@ -171,7 +171,7 @@ namespace tweetz5.Model
                     else
                         tweet = _tweets[index];
 
-                    if (tweet.TweetType.Contains(tweetType) == false) 
+                    if (tweet.TweetType.Contains(tweetType) == false)
                         tweet.TweetType += tweetType;
                 }
 
@@ -213,8 +213,7 @@ namespace tweetz5.Model
                 ScreenName = displayStatus.User.ScreenName,
                 ProfileImageUrl = displayStatus.User.ProfileImageUrl,
                 Text = displayStatus.Text,
-                MarkupText = MarkupText(displayStatus.Text, displayStatus.Entities, false),
-                Html = MarkupText(displayStatus.Text, displayStatus.Entities, true),
+                MarkupNodes = MarkupText(displayStatus.Text, displayStatus.Entities),
                 CreatedAt = createdAt,
                 TimeAgo = TimeAgo(createdAt),
                 TweetType = tweetType,
@@ -247,12 +246,13 @@ namespace tweetz5.Model
 
         internal class MarkupItem
         {
-            public string Markup { get; set; }
+            public string NodeType { get; set; }
+            public string Text { get; set; }
             public int Start { get; set; }
             public int End { get; set; }
         }
 
-        public static string MarkupText(string text, Entities entities, bool asHtml)
+        public static MarkupNode[] MarkupText(string text, Entities entities)
         {
             var markupItems = new List<MarkupItem>();
 
@@ -260,9 +260,8 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Urls.Select(url => new MarkupItem
                 {
-                    Markup = asHtml
-                                 ? string.Format(@"<a href=""{0}"">{0}</a>", url.DisplayUrl)
-                                 : string.Format("<a{0}>", url.Url),
+                    NodeType = "url",
+                    Text = url.Url,
                     Start = url.Indices[0],
                     End = url.Indices[1]
                 }));
@@ -272,9 +271,8 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Mentions.Select(mention => new MarkupItem
                 {
-                    Markup = asHtml
-                                 ? string.Format(@"<a href=""https://twitter.com/{0}"">@{0}</a>", mention.ScreenName)
-                                 : string.Format("<m@{0}>", mention.ScreenName),
+                    NodeType = "mention",
+                    Text = mention.ScreenName,
                     Start = mention.Indices[0],
                     End = mention.Indices[1]
                 }));
@@ -284,9 +282,8 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.HashTags.Select(hashtag => new MarkupItem
                 {
-                    Markup = asHtml
-                                 ? string.Format(@"<a href=""https://twitter.com/search?q=%23{0}"">#{0}</a>", hashtag.Text)
-                                 : string.Format("<h#{0}>", hashtag.Text),
+                    NodeType = "hashtag",
+                    Text = hashtag.Text,
                     Start = hashtag.Indices[0],
                     End = hashtag.Indices[1]
                 }));
@@ -296,30 +293,33 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Media.Select(media => new MarkupItem
                 {
-                    Markup = asHtml
-                                 ? string.Format(@"<a href=""{0}"">[media]</a>", media.Url)
-                                 : string.Format("<p{0}>", media.Url),
+                    NodeType = "media",
+                    Text = media.Url,
                     Start = media.Indices[0],
                     End = media.Indices[1]
                 }));
             }
 
-            // Sort list so largest start item is first. Filling in the items
-            // from the "back" of the text string preserves the indicies.
-            markupItems.Sort((l, r) => r.Start - l.Start);
-
-            return markupItems
-                .Aggregate(text, (current, markupItem) => current.Remove(markupItem.Start, markupItem.End - markupItem.Start)
-                                                                 .Insert(markupItem.Start, markupItem.Markup));
+            var start = 0;
+            var nodes = new List<MarkupNode>();
+            markupItems.Sort((l, r) => l.Start - r.Start);
+            foreach (var item in markupItems)
+            {
+                if (item.Start >= start) nodes.Add(new MarkupNode("text", text.Substring(start, item.Start - start)));
+                nodes.Add(new MarkupNode(item.NodeType, item.Text));
+                start = item.End;
+            }
+            if (start < text.Length) nodes.Add(new MarkupNode("text", text.Substring(start)));
+            return nodes.ToArray();
         }
 
         private static string TimeAgo(DateTime time)
         {
             var timespan = DateTime.UtcNow - time;
-            if (timespan.TotalSeconds < 60) return (int) timespan.TotalSeconds + "s";
-            if (timespan.TotalMinutes < 60) return (int) timespan.TotalMinutes + "m";
-            if (timespan.TotalHours < 24) return (int) timespan.TotalHours + "h";
-            if (timespan.TotalDays < 3) return (int) timespan.TotalDays + "d";
+            if (timespan.TotalSeconds < 60) return (int)timespan.TotalSeconds + "s";
+            if (timespan.TotalMinutes < 60) return (int)timespan.TotalMinutes + "m";
+            if (timespan.TotalHours < 24) return (int)timespan.TotalHours + "h";
+            if (timespan.TotalDays < 3) return (int)timespan.TotalDays + "d";
             return time.ToString("MMM d");
         }
 
@@ -358,7 +358,7 @@ namespace tweetz5.Model
             var twitter = new Twitter();
             var statuses = twitter.HomeTimeline(_home.SinceId);
             _home.SinceId = MaxSinceId(_home.SinceId, statuses);
-            UpdateStatus(new[] {HomeName, UnifiedName}, statuses, "h");
+            UpdateStatus(new[] { HomeName, UnifiedName }, statuses, "h");
         }
 
         public void UpdateStatus(string[] timelineNames, Status[] statuses, string tweetType)
@@ -380,7 +380,7 @@ namespace tweetz5.Model
             _mentions.SinceId = MaxSinceId(_mentions.SinceId, statuses);
             DispatchInvoker(() =>
                 {
-                    if (UpdateTimelines(new[] {_mentions, _unified}, statuses, "m")) PlayNotification();
+                    if (UpdateTimelines(new[] { _mentions, _unified }, statuses, "m")) PlayNotification();
                     foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                     {
                         tweet.TweetType += "m";
@@ -395,7 +395,7 @@ namespace tweetz5.Model
             _favorites.SinceId = MaxSinceId(_favorites.SinceId, statuses);
             DispatchInvoker(() =>
                 {
-                    UpdateTimelines(new[] {_favorites}, statuses, "f");
+                    UpdateTimelines(new[] { _favorites }, statuses, "f");
                     foreach (var tweet in _home.Tweets.Where(t => statuses.Any(s => s.Id == t.StatusId || s.Id == t.RetweetStatusId)))
                     {
                         tweet.Favorited = true;
@@ -410,7 +410,7 @@ namespace tweetz5.Model
             _directMessages.SinceId = MaxSinceId(_favorites.SinceId, statuses);
             DispatchInvoker(() =>
                 {
-                    if (UpdateTimelines(new[] {_directMessages, _unified}, statuses, "d")) PlayNotification();
+                    if (UpdateTimelines(new[] { _directMessages, _unified }, statuses, "d")) PlayNotification();
                     foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId)))
                     {
                         tweet.TweetType += "d";
@@ -485,7 +485,7 @@ namespace tweetz5.Model
                 {
                     var json = Twitter.Search(query + "+exclude:retweets");
                     var statuses = SearchStatuses.ParseJson(json);
-                    UpdateStatus(new[] {SearchName}, statuses, "s");
+                    UpdateStatus(new[] { SearchName }, statuses, "s");
                 });
         }
 

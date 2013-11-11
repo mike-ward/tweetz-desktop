@@ -105,12 +105,12 @@ namespace tweetz5.Controls
 
         public void CopyTweetToClipboard(Tweet tweet)
         {
-            CopyToClipboard.AsText(tweet.Text);
+            Clipboard.SetText(tweet.Text);
         }
 
         public void CopyLinkToClipboard(Tweet tweet)
         {
-            CopyToClipboard.AsText(TweetLink(tweet));
+            Clipboard.SetText(TweetLink(tweet));
         }
 
         public static string TweetLink(Tweet tweet)

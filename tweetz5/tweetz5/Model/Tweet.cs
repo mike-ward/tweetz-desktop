@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -24,8 +22,7 @@ namespace tweetz5.Model
         public string ScreenName { get; set; }
         public string ProfileImageUrl { get; set; }
         public string Text { get; set; }
-        public string MarkupText { get; set; }
-        public string Html { get; set; }
+        public MarkupNode[] MarkupNodes { get; set; }
         public DateTime CreatedAt { get; set; }
         public string[] MediaLinks { get; set; }
 
@@ -106,14 +103,6 @@ namespace tweetz5.Model
         public bool IsDirectMesssage
         {
             get { return TweetType.Contains("d"); }
-        }
-
-        public string AsHtml()
-        {
-            return string.Format("<p class=\"tweetz5-tweet\">" +
-                                 "<img src=\"{0}\" style=\"float:left; height:2.6em; width:2.6em; margin-right:.5em; vertical-align:middle\">" +
-                                 "<a href=\"https://twitter.com/{1}\">{2}</a>" +
-                                 "<br>@{1}<br style=\"clear:both\">{3}</p>", ProfileImageUrl, ScreenName, Name, Html);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -134,7 +134,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Margin="0 3 0 0">
-              <TextBlock controls:MarkupService.Text="{Binding MarkupText, Mode=OneTime}"
+              <TextBlock controls:MarkupService.MarkupNodes="{Binding MarkupNodes, Mode=OneTime}"
                          Style="{StaticResource TweetStyle}" />
               <TextBlock Style="{StaticResource TweetRetweetedByStyle}">
                 <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA; </Run>
