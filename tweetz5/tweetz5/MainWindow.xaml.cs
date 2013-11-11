@@ -28,23 +28,24 @@ namespace tweetz5
             MainPanel.IsVisibleChanged += MainPanelOnIsVisibleChanged;
             Loaded += (sender, args) =>
             {
+                var buildDate = BuildInfo.GetBuildDateTime();
+                if (DateTime.Now > buildDate.AddMonths(3))
+                {
+                    Settings.Default.AccessToken = string.Empty;
+                    Settings.Default.AccessTokenSecret = string.Empty;
+                    Commands.AlertCommand.Execute("Expired", this);
+                    return;
+                }
                 // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
                 Compose.Visibility = Visibility.Collapsed;
                 Commands.SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
-                SignIn();
+                Commands.SignInCommand.Execute(null, this);
             };
         }
 
-        public void SignIn()
+        private void SignInCommandHandler(object target, ExecutedRoutedEventArgs ea)
         {
-            var buildDate = BuildInfo.GetBuildDateTime();
-            if (DateTime.Now > buildDate.AddMonths(3))
-            {
-                Settings.Default.AccessToken = string.Empty;
-                Settings.Default.AccessTokenSecret = string.Empty;
-                Commands.AlertCommand.Execute("Expired", this);
-                return;
-            }
+            ea.Handled = true;
             SettingsPanel.Visibility = Visibility.Collapsed;
             if (string.IsNullOrWhiteSpace(Settings.Default.UserId))
             {
@@ -286,7 +287,7 @@ namespace tweetz5
             Settings.Default.ScreenName = "";
             Settings.Default.UserId = "";
             Settings.Default.Save();
-            SignIn();
+            Commands.SignInCommand.Execute(null, this);
         }
 
         private void SettingsCommandHandler(object sender, ExecutedRoutedEventArgs ea)

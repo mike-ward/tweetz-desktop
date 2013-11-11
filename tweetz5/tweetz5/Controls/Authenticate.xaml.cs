@@ -38,7 +38,7 @@ namespace tweetz5.Controls
             Properties.Settings.Default.UserId = tokens.UserId;
             Properties.Settings.Default.ScreenName = tokens.ScreenName;
             Properties.Settings.Default.Save();
-            ((MainWindow)Application.Current.MainWindow).SignIn();
+            Commands.SignInCommand.Execute(null, this);
         }
     }
 }

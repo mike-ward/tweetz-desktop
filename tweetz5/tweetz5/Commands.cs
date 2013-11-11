@@ -4,6 +4,7 @@ namespace tweetz5
 {
     internal static class Commands
     {
+        public static readonly RoutedCommand SignInCommand = new RoutedUICommand();
         public static readonly RoutedCommand ReplyCommand = new RoutedUICommand();
         public static readonly RoutedCommand RetweetCommand = new RoutedUICommand();
         public static readonly RoutedCommand RetweetClassicCommand = new RoutedUICommand();
