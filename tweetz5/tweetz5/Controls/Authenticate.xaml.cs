@@ -21,11 +21,11 @@ namespace tweetz5.Controls
             {
                 Tokens = Twitter.GetRequestToken();
                 var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + Tokens.OAuthToken;
-                MainWindow.OpenLinkCommand.Execute(url, this);
+                Commands.OpenLinkCommand.Execute(url, this);
             }
             catch (Exception ex)
             {
-                MainWindow.AlertCommand.Execute(ex.Message, this);
+                Commands.AlertCommand.Execute(ex.Message, this);
             }
         }
 

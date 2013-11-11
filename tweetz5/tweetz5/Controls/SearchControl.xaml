@@ -21,7 +21,7 @@
                Style="{StaticResource SearchControlTextBoxStyle}">
         <TextBox.InputBindings>
           <KeyBinding Key="Enter"
-                      Command="{x:Static tweetz5:MainWindow.SearchCommand}" 
+                      Command="{x:Static tweetz5:Commands.SearchCommand}" 
                       CommandParameter="{Binding ElementName=SearchText, Path=Text}"/>
         </TextBox.InputBindings>
       </TextBox>
@@ -29,7 +29,7 @@
                  KeyboardNavigation.TabNavigation="None"
                  FontFamily="Segoe UI Symbol" 
                  FontSize="13">
-        <Hyperlink Command="{x:Static tweetz5:MainWindow.SearchCommand}"
+        <Hyperlink Command="{x:Static tweetz5:Commands.SearchCommand}"
                    CommandParameter="{Binding ElementName=SearchText, Path=Text}">
           &#160;&#xE11A;
         </Hyperlink> 

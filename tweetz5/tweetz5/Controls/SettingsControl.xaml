@@ -36,22 +36,22 @@
 
     <GroupBox Header="Font Size" Width="170" Margin="0 5 0 0" HorizontalAlignment="Left" Padding="5 0 0 0">
       <StackPanel Orientation="Horizontal">
-        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}" FontSize="10" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MainWindow.SetFontSizeCommand}" CommandParameter="10" />
-        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=11}" FontSize="11" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MainWindow.SetFontSizeCommand}" CommandParameter="11" />
-        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=12}" FontSize="12" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MainWindow.SetFontSizeCommand}" CommandParameter="12" />
-        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=13}" FontSize="13" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MainWindow.SetFontSizeCommand}" CommandParameter="13" />
+        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}" FontSize="10" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="10" />
+        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=11}" FontSize="11" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="11" />
+        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=12}" FontSize="12" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="12" />
+        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=13}" FontSize="13" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="13" />
       </StackPanel>
     </GroupBox>
 
     <Button Margin="40 20"
-            Command="tweetz5:MainWindow.SignOutCommand">Sign Out</Button>
+            Command="tweetz5:Commands.SignOutCommand">Sign Out</Button>
 
     <TextBlock TextAlignment="Center">
       tweetz Desktop, v: <Run Text="{Binding Version, Mode=OneTime}"></Run>
     </TextBlock>
     <TextBlock TextAlignment="Center">
-      <Hyperlink Command="tweetz5:MainWindow.OpenLinkCommand"
-                              CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink>
+      <Hyperlink Command="tweetz5:Commands.OpenLinkCommand"
+                 CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink>
     </TextBlock>
     <TextBlock TextAlignment="Center">Copyright 2013, Mike Ward</TextBlock>
     <TextBlock TextAlignment="Center">Press ? for keyboard shortcuts</TextBlock>

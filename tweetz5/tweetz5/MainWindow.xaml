@@ -47,53 +47,53 @@
             <Button x:Name="UnifiedButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="Unified timeline (home, mentions, messages)"
-                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.UnifiedName}">
               &#xE179;
             </Button>
             <Button x:Name="HomeButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="Home timeline"
-                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.HomeName}">
               &#xE10F;
             </Button>
             <Button x:Name="MentionsButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="Mentions timeline"
-                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.MentionsName}">
               &#xE168;
             </Button>
             <Button x:Name="MessagesButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="Messages timeline"
-                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.MessagesName}">
               &#xE135;
             </Button>
             <Button x:Name="FavoritesButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="Favorites timeline"
-                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.FavoritesName}">
               &#xE113;
             </Button>
             <Button x:Name="SearchButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="Search"
-                    Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+                    Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.SearchName}">
               &#xE11A;
             </Button>
             <Button x:Name="SettingsButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="Settings"
-                    Command="{x:Static tweetz5:MainWindow.SettingsCommand}">
+                    Command="{x:Static tweetz5:Commands.SettingsCommand}">
               &#xE115;
             </Button>
             <Button Style="{StaticResource NavBarButton}"
-                    Command="{x:Static tweetz5:MainWindow.OpenComposeCommand}"
+                    Command="{x:Static tweetz5:Commands.OpenComposeCommand}"
                     ToolTip="Compose">
               &#xE104;
             </Button>
@@ -133,47 +133,47 @@
                     Executed="CloseCommandHandler"/>
     <CommandBinding Command="Play"
                     Executed="NotifyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.ReplyCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.ReplyCommand}"
                     Executed="ReplyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.RetweetCommand}"
                     Executed="RetweetCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.DeleteTweetCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.DeleteTweetCommand}"
                     Executed="DeleteTweetCommandHander"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.RetweetClassicCommand}"
                     Executed="RetweetClassicCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.FavoritesCommand}"
                     Executed="FavoritesCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.CopyCommand}"
                     Executed="CopyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.CopyLinkCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.CopyLinkCommand}"
                     Executed="CopyLinkCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.OpenTweetLinkCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.OpenTweetLinkCommand}"
                     Executed="OpenTweetLinkCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateStatusHomeTimelineCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.UpdateStatusHomeTimelineCommand}"
                     Executed="UpdateStatusHomeTimelineHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     Executed="SwitchTimeslinesCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.ShowUserInformationCommand}"
                     Executed="ShowUserInformationCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.OpenLinkCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.OpenLinkCommand}"
                     Executed="OpenLinkCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.FollowUserComand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.FollowUserComand}"
                     Executed="FollowCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.SearchCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.SearchCommand}"
                     Executed="SearchCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.AlertCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.AlertCommand}"
                     Executed="AlertCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.SignOutCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.SignOutCommand}"
                     Executed="SignOutCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.SettingsCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.SettingsCommand}"
                     Executed="SettingsCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.UpdateLayoutCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.UpdateLayoutCommand}"
                     Executed="UpdateLayoutCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.OpenComposeCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.OpenComposeCommand}"
                     Executed="OpenComposeCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.ShortcutHelpCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.ShortcutHelpCommand}"
                     Executed="ShortcutHelpCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MainWindow.SetFontSizeCommand}"
+    <CommandBinding Command="{x:Static tweetz5:Commands.SetFontSizeCommand}"
                     Executed="SetFontSizeCommandHandler"/>
   </Window.CommandBindings>
 </Window>

@@ -13,13 +13,13 @@
   <UserControl.Resources>
     <ContextMenu x:Key="MoreMenu">
       <MenuItem Header="RT (Classic)"
-                Command="{x:Static tweetz5:MainWindow.RetweetClassicCommand}"
+                Command="{x:Static tweetz5:Commands.RetweetClassicCommand}"
                 CommandParameter="{Binding}" />
       <MenuItem Header="Copy"
-                Command="{x:Static tweetz5:MainWindow.CopyCommand}"
+                Command="{x:Static tweetz5:Commands.CopyCommand}"
                 CommandParameter="{Binding}" />
       <MenuItem Header="Copy Link"
-                Command="{x:Static tweetz5:MainWindow.CopyLinkCommand}"
+                Command="{x:Static tweetz5:Commands.CopyLinkCommand}"
                 CommandParameter="{Binding}"/>
     </ContextMenu>
 
@@ -90,7 +90,7 @@
               <TextBlock Grid.Column="0"
                           Grid.Row="0"
                           Margin="1 2 0 0">
-                <Hyperlink Command="{x:Static tweetz5:MainWindow.ShowUserInformationCommand}"
+                <Hyperlink Command="{x:Static tweetz5:Commands.ShowUserInformationCommand}"
                            CommandParameter="{Binding ScreenName, Mode=OneTime}">
                   <Run Text="{Binding Name, Mode=OneTime}"/>
                 </Hyperlink>
@@ -102,7 +102,7 @@
               </TextBlock>
               <TextBlock Grid.Column="1">
                 <Hyperlink Style="{StaticResource TweetTimeStyle}"
-                           Command="{x:Static tweetz5:MainWindow.OpenTweetLinkCommand}"
+                           Command="{x:Static tweetz5:Commands.OpenTweetLinkCommand}"
                            CommandParameter="{Binding}">
                   <Run Text="{Binding TimeAgo}"/>
                 </Hyperlink>
@@ -121,7 +121,7 @@
                          Cursor="Hand">
                     <Image.InputBindings>
                       <MouseBinding MouseAction="LeftClick"
-                                    Command="{x:Static tweetz5:MainWindow.OpenLinkCommand}"
+                                    Command="{x:Static tweetz5:Commands.OpenLinkCommand}"
                                     CommandParameter="{Binding}">
                       </MouseBinding>
                     </Image.InputBindings>
@@ -155,28 +155,28 @@
 
               <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="0">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.ReplyCommand}" CommandParameter="{Binding}"/>
+                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.ReplyCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
                 <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> Reply
               </TextBlock>
 
               <TextBlock Style="{StaticResource TweetActionsItemRetweet}" Grid.Column="1">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.RetweetCommand}" CommandParameter="{Binding}"/>
+                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.RetweetCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
                 <Run Style="{StaticResource TweetActionsRetweetSymbol}">&#xE1CA;</Run> Retweet
               </TextBlock>
 
               <TextBlock Style="{StaticResource TweetActionsItemDelete}" Grid.Column="1">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.DeleteTweetCommand}" CommandParameter="{Binding}"/>
+                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.DeleteTweetCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
                 <Run Style="{StaticResource TweetActionsSymbol}">&#xE107;</Run> Delete
               </TextBlock>
 
               <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="2">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}" CommandParameter="{Binding}"/>
+                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.FavoritesCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
                 <Run Style="{StaticResource TweetActionsFavoritesSymbol}">&#xE082;</Run> Favorite
               </TextBlock>
@@ -192,15 +192,15 @@
       </ListBox.ItemTemplate>
       <ListBox.InputBindings>
         <KeyBinding Key="X" Modifiers="Control" Command="Close" />
-        <KeyBinding Key="R" Command="{x:Static tweetz5:MainWindow.ReplyCommand}"/>
-        <KeyBinding Key="T" Command="{x:Static tweetz5:MainWindow.RetweetCommand}"/>
-        <KeyBinding Key="F" Command="{x:Static tweetz5:MainWindow.FavoritesCommand}"/>
+        <KeyBinding Key="R" Command="{x:Static tweetz5:Commands.ReplyCommand}"/>
+        <KeyBinding Key="T" Command="{x:Static tweetz5:Commands.RetweetCommand}"/>
+        <KeyBinding Key="F" Command="{x:Static tweetz5:Commands.FavoritesCommand}"/>
         <KeyBinding Key="J" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="True"/>
         <KeyBinding Key="K" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="False"/>
-        <KeyBinding Key="N" Command="{x:Static tweetz5:MainWindow.OpenComposeCommand}"/>
-        <KeyBinding Key="Divide" Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
-        <KeyBinding Key="OemQuestion" Command="{x:Static tweetz5:MainWindow.SwitchTimelinesCommand}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
-        <KeyBinding Key="OemQuestion" Modifiers="Shift" Command="{x:Static tweetz5:MainWindow.ShortcutHelpCommand}"/>
+        <KeyBinding Key="N" Command="{x:Static tweetz5:Commands.OpenComposeCommand}"/>
+        <KeyBinding Key="Divide" Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
+        <KeyBinding Key="OemQuestion" Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
+        <KeyBinding Key="OemQuestion" Modifiers="Shift" Command="{x:Static tweetz5:Commands.ShortcutHelpCommand}"/>
       </ListBox.InputBindings>
       <ListBox.CommandBindings>
         <CommandBinding Command="{x:Static controls:Timeline.SelectItemCommand}" 

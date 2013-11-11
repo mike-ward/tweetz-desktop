@@ -27,7 +27,7 @@
       </TextBlock>
       <TextBlock Text="{Binding Name}" Style="{StaticResource UserInfoNameStyle}" />
       <TextBlock Style="{StaticResource UserInfoScreenNameStyle}">
-        <Hyperlink Command="{x:Static local:MainWindow.OpenLinkCommand}" 
+        <Hyperlink Command="{x:Static local:Commands.OpenLinkCommand}" 
                    CommandParameter="{Binding ScreenName, Converter={StaticResource ScreenNameToLinkConverter}}">
           @<Run Text="{Binding ScreenName}" />
         </Hyperlink>
@@ -35,7 +35,7 @@
       <TextBlock Text="{Binding Description}" Style="{StaticResource UserInfoTextBlockStyle}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}" Text="{Binding Location}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
-        <Hyperlink Command="{x:Static local:MainWindow.OpenLinkCommand}" CommandParameter="{Binding Url}"><Run Text="{Binding Url}" /></Hyperlink>
+        <Hyperlink Command="{x:Static local:Commands.OpenLinkCommand}" CommandParameter="{Binding Url}"><Run Text="{Binding Url}" /></Hyperlink>
       </TextBlock>
       <Separator Margin="0 10" />
       <DockPanel LastChildFill="True">
@@ -46,7 +46,7 @@
         <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Followers, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/>followers</TextBlock>
         <Button DockPanel.Dock="Right"
                 Width="70" Height="23"
-                Command="{x:Static local:MainWindow.FollowUserComand}"
+                Command="{x:Static local:Commands.FollowUserComand}"
                 CommandParameter="{Binding}">
           <Button.Style>
             <Style TargetType="Button">

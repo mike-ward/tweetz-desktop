@@ -22,28 +22,6 @@ namespace tweetz5
 {
     public partial class MainWindow
     {
-        public static readonly RoutedCommand ReplyCommand = new RoutedUICommand();
-        public static readonly RoutedCommand RetweetCommand = new RoutedUICommand();
-        public static readonly RoutedCommand RetweetClassicCommand = new RoutedUICommand();
-        public static readonly RoutedCommand FavoritesCommand = new RoutedUICommand();
-        public static readonly RoutedCommand DeleteTweetCommand = new RoutedUICommand();
-        public static readonly RoutedCommand CopyCommand = new RoutedUICommand();
-        public static readonly RoutedCommand CopyLinkCommand = new RoutedUICommand();
-        public static readonly RoutedCommand OpenTweetLinkCommand = new RoutedUICommand();
-        public static readonly RoutedCommand UpdateStatusHomeTimelineCommand = new RoutedUICommand();
-        public static readonly RoutedCommand SwitchTimelinesCommand = new RoutedUICommand();
-        public static readonly RoutedCommand ShowUserInformationCommand = new RoutedUICommand();
-        public static readonly RoutedCommand OpenLinkCommand = new RoutedUICommand();
-        public static readonly RoutedCommand FollowUserComand = new RoutedUICommand();
-        public static readonly RoutedCommand SearchCommand = new RoutedUICommand();
-        public static readonly RoutedCommand AlertCommand = new RoutedUICommand();
-        public static readonly RoutedCommand SignOutCommand = new RoutedUICommand();
-        public static readonly RoutedCommand SettingsCommand = new RoutedUICommand();
-        public static readonly RoutedCommand UpdateLayoutCommand = new RoutedUICommand();
-        public static readonly RoutedCommand OpenComposeCommand = new RoutedUICommand();
-        public static readonly RoutedCommand ShortcutHelpCommand = new RoutedUICommand();
-        public static readonly RoutedCommand SetFontSizeCommand = new RoutedCommand();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -52,7 +30,7 @@ namespace tweetz5
             {
                 // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
                 Compose.Visibility = Visibility.Collapsed;
-                SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
+                Commands.SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
                 SignIn();
             };
         }
@@ -64,7 +42,7 @@ namespace tweetz5
             {
                 Settings.Default.AccessToken = string.Empty;
                 Settings.Default.AccessTokenSecret = string.Empty;
-                AlertCommand.Execute("Expired", this);
+                Commands.AlertCommand.Execute("Expired", this);
                 return;
             }
             SettingsPanel.Visibility = Visibility.Collapsed;
@@ -170,7 +148,7 @@ namespace tweetz5
             ea.Handled = true;
             var tweet = (Tweet)ea.Parameter ?? Timeline.GetSelectedTweet;
             var link = TimelineController.TweetLink(tweet);
-            OpenLinkCommand.Execute(link, this);
+            Commands.OpenLinkCommand.Execute(link, this);
         }
 
         private void ReplyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -280,7 +258,7 @@ namespace tweetz5
             var query = ea.Parameter as string;
             if (string.IsNullOrWhiteSpace(query)) return;
             Timeline.SearchControl.SetSearchText(query);
-            SwitchTimelinesCommand.Execute(Timelines.SearchName, this);
+            Commands.SwitchTimelinesCommand.Execute(Timelines.SearchName, this);
             Timeline.Controller.Search(query);
         }
 
@@ -404,7 +382,7 @@ namespace tweetz5
 
         private static bool IsValidImageExtension(string filename)
         {
-            var extension = Path.GetExtension(filename);
+            var extension = Path.GetExtension(filename) ?? string.Empty;
             var extensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
             return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
         }
@@ -419,6 +397,5 @@ namespace tweetz5
             Application.Current.Resources["AppFontSizePlus7"] = size + 7;
             Application.Current.Resources["AppFontSizeMinus1"] = size - 1;
         }
-
     }
 }
