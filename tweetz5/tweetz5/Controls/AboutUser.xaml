@@ -13,6 +13,7 @@
     <utilities:NumberValueCommaConverter x:Key="NumberValueCommaConverter" />
     <controls:BoolToFollowingConverter x:Key="BoolToFollowingConverter" />
     <controls:BoolToUnfollowConverter x:Key="BoolToUnfollowConverter" />
+    <controls:BoolToFollowedByConverter x:Key="BoolToFollowedByConverter" />
     <utilities:ScreenNameToLinkConverter x:Key="ScreenNameToLinkConverter" />
   </Popup.Resources>
   <Border Style="{StaticResource UserInfoPopupStyle}">
@@ -31,6 +32,8 @@
                    CommandParameter="{Binding ScreenName, Converter={StaticResource ScreenNameToLinkConverter}}">
           @<Run Text="{Binding ScreenName}" />
         </Hyperlink>
+        <Run Style="{StaticResource UserInfoFollowsYouStyle}"
+             Text="{Binding FollowedBy, Converter={StaticResource BoolToFollowedByConverter}}" />
       </TextBlock>
       <TextBlock Text="{Binding Description}" Style="{StaticResource UserInfoTextBlockStyle}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}" Text="{Binding Location}" />

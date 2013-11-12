@@ -627,9 +627,15 @@
     <Setter Property="Margin" Value="0 0 0 6" />
   </Style>
 
+  <Style x:Key="UserInfoFollowsYouStyle" TargetType="Run">
+    <Setter Property="Foreground" Value="#888888"/>
+    <Setter Property="FontSize" Value="{DynamicResource AppFontSize}" />
+    <Setter Property="Typography.Capitals" Value="AllSmallCaps" />
+  </Style>
+  
   <Style x:Key="UserInfoNumberStyle" BasedOn="{StaticResource UserInfoTextBlockStyle}" TargetType="TextBlock">
     <Setter Property="FontWeight" Value="Bold" />
-    <Setter Property="Typography.Capitals" Value="AllSmallCaps"></Setter>
+    <Setter Property="Typography.Capitals" Value="AllSmallCaps" />
   </Style>
 
   <Style x:Key="VerticalSeparatorStyle" TargetType="Border">

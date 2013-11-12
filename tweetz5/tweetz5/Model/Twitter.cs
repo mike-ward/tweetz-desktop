@@ -234,18 +234,19 @@ namespace tweetz5.Model
             }
         }
 
-        public static bool Following(string screenName)
+        public static Friendship Friendship(string screenName)
         {
             try
             {
                 var parameters = new[] {new[] {"screen_name", screenName}};
                 var json = Get("https://api.twitter.com/1.1/friendships/lookup.json", parameters);
-                return json.Contains("\"following\"");
+                var friendship = new Friendship {Following = json.Contains("\"following\""), FollowedBy = json.Contains("\"followed_by\"")};
+                return friendship;
             }
             catch (WebException e)
             {
                 Console.WriteLine(e);
-                return false;
+                return new Friendship();
             }
         }
 

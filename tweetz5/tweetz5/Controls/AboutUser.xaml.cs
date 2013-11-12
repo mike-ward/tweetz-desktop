@@ -19,7 +19,9 @@ namespace tweetz5.Controls
             Opened += (sender, args) => Task.Run(() =>
                 {
                     var user = Twitter.GetUserInformation(ScreenName);
-                    user.Following = Twitter.Following(ScreenName);
+                    var friendship = Twitter.Friendship(ScreenName);
+                    user.Following = friendship.Following;
+                    user.FollowedBy = friendship.FollowedBy;
                     if (user.Entities != null && user.Entities.Url != null && user.Entities.Url.Urls != null && user.Entities.Url.Urls[0] != null)
                     {
                         user.Url = user.Entities.Url.Urls[0].ExpandedUrl;
@@ -49,6 +51,20 @@ namespace tweetz5.Controls
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return (bool) value ? "Unfollow!" : "Follow";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+
+    [ValueConversion(typeof(bool), typeof(string))]
+    public class BoolToFollowedByConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (bool)value ? " follows you" : "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

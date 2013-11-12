@@ -193,6 +193,7 @@ namespace tweetz5.Model
     public class User : INotifyPropertyChanged
     {
         private bool _following;
+        private bool _followedBy;
 
         [DataMember(Name = "name")]
         public string Name { get; set; }
@@ -235,6 +236,19 @@ namespace tweetz5.Model
                 if (_following != value)
                 {
                     _following = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool FollowedBy
+        {
+            get { return _followedBy; }
+            set
+            {
+                if (_followedBy != value)
+                {
+                    _followedBy = value;
                     OnPropertyChanged();
                 }
             }
@@ -347,5 +361,11 @@ namespace tweetz5.Model
     public class CurrentUserRetweet
     {
         [DataMember(Name = "id_str")] public string Id;
+    }
+
+    public class Friendship
+    {
+        public bool Following { get; set; }
+        public bool FollowedBy { get; set; }
     }
 }
