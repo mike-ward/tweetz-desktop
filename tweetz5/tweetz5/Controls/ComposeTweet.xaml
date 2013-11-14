@@ -24,7 +24,9 @@
              TextWrapping="Wrap"
              Style="{StaticResource ComposeTweetTextBox}"
              KeyUp="OnKeyUp"
-             IsVisibleChanged="OnIsVisibleChanged" />
+             PreviewKeyDown="OnPreviewKeyDown"
+             IsVisibleChanged="OnIsVisibleChanged"
+             SpellCheck.IsEnabled="True"/>
     <Image Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}}"
            Style="{StaticResource ComposeImageStyle}" />
     <DockPanel Margin="0 0 0 6">
@@ -64,5 +66,11 @@
         </Button>
       </StackPanel>
     </DockPanel>
+    <Popup x:Name="FriendsPopup"
+           Placement="Top">
+      <ListBox x:Name="FriendsListBox"
+               Style="{StaticResource ComposeScreenNameSuggestionListBox}"
+               ItemsSource="{Binding Friends}" />
+    </Popup>
   </StackPanel>
 </UserControl>

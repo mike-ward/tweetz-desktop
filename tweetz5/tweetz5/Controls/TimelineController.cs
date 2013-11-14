@@ -1,10 +1,10 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Windows;
 using tweetz5.Model;
-using tweetz5.Utilities;
 using tweetz5.Utilities.System;
 
 namespace tweetz5.Controls
@@ -26,31 +26,31 @@ namespace tweetz5.Controls
             _checkTimelines.Interval = 100;
             var firstTime = true;
             _checkTimelines.Elapsed += (s, e) =>
-            {
-                try
                 {
-                    _checkTimelines.Interval = 60000;
-                    _timelinesModel.HomeTimeline();
-                    _timelinesModel.MentionsTimeline();
-                    _timelinesModel.DirectMessagesTimeline();
-                    _timelinesModel.FavoritesTimeline();
-
-                    if (firstTime)
+                    try
                     {
-                        firstTime = false;
-                        if (Application.Current != null)
+                        _checkTimelines.Interval = 60000;
+                        _timelinesModel.HomeTimeline();
+                        _timelinesModel.MentionsTimeline();
+                        _timelinesModel.DirectMessagesTimeline();
+                        _timelinesModel.FavoritesTimeline();
+
+                        if (firstTime)
                         {
-                            Application.Current.Dispatcher.Invoke(
-                                () => Commands.SwitchTimelinesCommand.Execute(Timelines.UnifiedName, Application.Current.MainWindow));
+                            firstTime = false;
+                            if (Application.Current != null)
+                            {
+                                Application.Current.Dispatcher.Invoke(
+                                    () => Commands.SwitchTimelinesCommand.Execute(Timelines.UnifiedName, Application.Current.MainWindow));
+                            }
                         }
                     }
-                }
-                catch (WebException ex)
-                {
-                    // Offline, authorization error, exceeded rate limit, etc.
-                    Console.WriteLine(ex);
-                }
-            };
+                    catch (WebException ex)
+                    {
+                        // Offline, authorization error, exceeded rate limit, etc.
+                        Console.WriteLine(ex);
+                    }
+                };
             _checkTimelines.Start();
 
             _updateTimeStamps = SysTimer.Factory();
@@ -151,6 +151,11 @@ namespace tweetz5.Controls
         public void Retweet(Tweet tweet)
         {
             _timelinesModel.Retweet(tweet);
+        }
+
+        public IList<string> ScreenNames
+        {
+            get { return _timelinesModel.ScreenNames; }
         }
     }
 }

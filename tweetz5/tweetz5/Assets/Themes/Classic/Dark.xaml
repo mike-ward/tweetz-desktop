@@ -309,6 +309,14 @@
       </DataTrigger>
     </Style.Triggers>
   </Style>
+  
+  <Style x:Key="ComposeScreenNameSuggestionListBox" TargetType="ListBox">
+    <Setter Property="Width" Value="120" />
+    <Setter Property="Height" Value="200" />
+    <Setter Property="BorderBrush" Value="Black" />
+    <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
+    <Setter Property="Background" Value="{StaticResource AppBackgroundBrush}" />
+  </Style>
 
   <!-- Scrollbar -->
   <SolidColorBrush x:Key="StandardBorderBrush" Color="#393939">

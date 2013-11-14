@@ -105,7 +105,7 @@ namespace tweetz5
         private void SwitchTimeslinesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var timelineName = (string)ea.Parameter;
+            var timelineName = (string) ea.Parameter;
             Compose.Visibility = Visibility.Collapsed;
             SettingsPanel.Visibility = Visibility.Collapsed;
             ResizeBar.Visibility = Visibility.Visible;
@@ -147,7 +147,7 @@ namespace tweetz5
         private void OpenTweetLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter ?? Timeline.GetSelectedTweet;
+            var tweet = (Tweet) ea.Parameter ?? Timeline.GetSelectedTweet;
             var link = TimelineController.TweetLink(tweet);
             Commands.OpenLinkCommand.Execute(link, this);
         }
@@ -175,6 +175,7 @@ namespace tweetz5
 
                 var replyTos = string.Join(" ", names);
                 var message = string.Format("@{0} {1}{2}", tweet.ScreenName, replyTos, (replyTos.Length > 0) ? " " : "");
+                Compose.Friends = Timeline.Controller.ScreenNames;
                 Compose.Show(message, tweet.StatusId);
             }
         }
@@ -190,7 +191,7 @@ namespace tweetz5
         private void RetweetClassicCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var tweet = (Tweet)ea.Parameter ?? Timeline.GetSelectedTweet;
+            var tweet = (Tweet) ea.Parameter ?? Timeline.GetSelectedTweet;
             var message = string.Format("RT @{0} {1}", tweet.ScreenName, tweet.Text);
             Compose.Show(message);
         }
@@ -207,8 +208,8 @@ namespace tweetz5
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var statuses = (Status[])ea.Parameter;
-            Timeline.Controller.UpdateStatus(new[] { Timelines.HomeName, Timelines.UnifiedName }, statuses, "h");
+            var statuses = (Status[]) ea.Parameter;
+            Timeline.Controller.UpdateStatus(new[] {Timelines.HomeName, Timelines.UnifiedName}, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -227,13 +228,13 @@ namespace tweetz5
         private void OpenLinkCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            Process.Start(new ProcessStartInfo((string)ea.Parameter));
+            Process.Start(new ProcessStartInfo((string) ea.Parameter));
         }
 
         private void FollowCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var user = (User)ea.Parameter;
+            var user = (User) ea.Parameter;
             user.Following = user.Following ? !Twitter.Unfollow(user.ScreenName) : Twitter.Follow(user.ScreenName);
         }
 
@@ -241,7 +242,7 @@ namespace tweetz5
         {
             ea.Handled = true;
             if (Settings.Default.Chirp == false) return;
-            var player = new SoundPlayer { Stream = Properties.Resources.Notify };
+            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
         }
 
@@ -301,6 +302,7 @@ namespace tweetz5
         private void OpenComposeCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
+            Compose.Friends = Timeline.Controller.ScreenNames;
             Compose.Toggle();
         }
 
@@ -336,16 +338,16 @@ namespace tweetz5
                 var data = ea.Data.GetData("text/html");
                 if (data is string)
                 {
-                    html = (string)data;
+                    html = (string) data;
                 }
                 else if (data is MemoryStream)
                 {
-                    var stream = (MemoryStream)data;
+                    var stream = (MemoryStream) data;
                     var buffer = new byte[stream.Length];
                     stream.Read(buffer, 0, buffer.Length);
-                    html = (buffer[1] == (byte)0)
-                        ? Encoding.Unicode.GetString(buffer)
-                        : Encoding.ASCII.GetString(buffer);
+                    html = (buffer[1] == (byte) 0)
+                               ? Encoding.Unicode.GetString(buffer)
+                               : Encoding.ASCII.GetString(buffer);
                 }
                 var match = new Regex(@"<img[^>]+src=""([^""]*)""").Match(html);
                 if (match.Success)
@@ -384,7 +386,7 @@ namespace tweetz5
         private static bool IsValidImageExtension(string filename)
         {
             var extension = Path.GetExtension(filename) ?? string.Empty;
-            var extensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
+            var extensions = new[] {".png", ".jpg", ".jpeg", ".gif"};
             return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
         }
 

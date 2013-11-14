@@ -256,7 +256,7 @@ namespace tweetz5.Annotations
   /// </code></item>
   /// <item><code>
   /// [ContractAnnotation("s:null => true")]
-  /// public bool IsNullOrEmpty(string s) // String.IsNullOrEmpty
+  /// public bool IsNullOrEmpty(string s) // StringExtensions.IsNullOrEmpty
   /// </code></item>
   /// <item><code>
   /// // A method that returns null if the parameter is null, and not null if the parameter is not null
