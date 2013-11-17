@@ -63,9 +63,9 @@ namespace tweetz5.Model
             var parameterString = string.Join("&", parameterStrings);
             var signatureBaseString = string.Format("{0}&{1}&{2}", httpMethod, UrlEncode(url), UrlEncode(parameterString));
             var compositeKey = string.Format("{0}&{1}", UrlEncode(ConsumerSecret), UrlEncode(accessTokenSecret));
-            using (var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(compositeKey)))
+            using (var hmac = new HMACSHA1(Encoding.UTF8.GetBytes(compositeKey)))
             {
-                return Convert.ToBase64String(hmac.ComputeHash(Encoding.ASCII.GetBytes(signatureBaseString)));
+                return Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(signatureBaseString)));
             }
         }
 

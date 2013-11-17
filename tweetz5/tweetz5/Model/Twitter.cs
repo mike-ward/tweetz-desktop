@@ -46,7 +46,7 @@ namespace tweetz5.Model
                 request.ContentType = "application/x-www-form-urlencoded";
                 if (parameters != null)
                 {
-                    var buffer = Encoding.ASCII.GetBytes(string.Join("&", parameterStrings));
+                    var buffer = Encoding.UTF8.GetBytes(string.Join("&", parameterStrings));
                     using (var requestStream = request.GetRequestStream())
                     {
                         requestStream.Write(buffer, 0, buffer.Length);
@@ -453,7 +453,7 @@ namespace tweetz5.Model
 
         private static void WriteStream(Stream stream, string text)
         {
-            var buffer = Encoding.ASCII.GetBytes(text);
+            var buffer = Encoding.UTF8.GetBytes(text);
             stream.Write(buffer, 0, buffer.Length);
         }
 
