@@ -68,6 +68,21 @@ namespace tweetz5.Model
             }
         }
 
+
+        public bool SpellCheck
+        {
+            get { return Properties.Settings.Default.SpellCheck; }
+            set
+            {
+                if (Properties.Settings.Default.SpellCheck != value)
+                {
+                    Properties.Settings.Default.SpellCheck = value;
+                    Properties.Settings.Default.Save();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public static string Version
         {
             get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }

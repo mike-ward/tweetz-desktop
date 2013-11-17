@@ -54,6 +54,7 @@ namespace tweetz5.Controls
             _inReplyToId = inReplyToId;
             SendButtonText.Text = "Tweet";
             Image = null;
+            TextBox.SpellCheck.IsEnabled = Properties.Settings.Default.SpellCheck;
             Visibility = Visibility.Visible;
         }
 
