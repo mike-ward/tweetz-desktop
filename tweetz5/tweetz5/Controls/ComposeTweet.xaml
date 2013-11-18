@@ -70,6 +70,7 @@
            Placement="Top">
       <ListBox x:Name="FriendsListBox"
                Style="{StaticResource ComposeScreenNameSuggestionListBox}"
+               MouseLeftButtonUp="FriendsListBoxOnMouseLeftButtonUp"
                ItemsSource="{Binding Friends}" />
     </Popup>
   </StackPanel>

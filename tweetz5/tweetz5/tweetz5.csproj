@@ -108,6 +108,7 @@
     <Compile Include="Utilities\FontSizeToBoolConverter.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
     <Compile Include="Utilities\Run.cs" />
+    <Compile Include="Utilities\ReadSafeList.cs" />
     <Compile Include="Utilities\ScreenNameConverter.cs" />
     <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />
     <Compile Include="Model\Timelines.cs" />

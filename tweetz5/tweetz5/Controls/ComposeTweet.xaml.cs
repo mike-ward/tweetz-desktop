@@ -105,8 +105,9 @@ namespace tweetz5.Controls
             {
                 var friends = _friends
                     .Where(f => string.IsNullOrWhiteSpace(FriendsFilter) || f.StartsWith(FriendsFilter, StringComparison.CurrentCultureIgnoreCase))
+                    .OrderBy(f => f)
                     .Select(f => "@" + f);
-                return friends.Any() ? friends : new[] {"none"};
+                return friends;
             }
             set
             {
@@ -130,15 +131,20 @@ namespace tweetz5.Controls
                 }
                 if (FriendsListBox.SelectedIndex != -1)
                 {
-                    var index = TextBox.CaretIndex - FriendsFilter.Length - 1;
-                    var text = FriendsListBox.SelectedItem.ToString();
-                    TextBox.Text = TextBox.Text.Remove(index, FriendsFilter.Length + 1);
-                    TextBox.Text = TextBox.Text.Insert(index, text);
-                    TextBox.CaretIndex = index + text.Length;
+                    InsertSelectedFriend();
                 }
                 CloseFriendsPopup();
                 e.Handled = true;
             }
+        }
+
+        private void InsertSelectedFriend()
+        {
+            var index = TextBox.CaretIndex - FriendsFilter.Length - 1;
+            var text = FriendsListBox.SelectedItem.ToString();
+            TextBox.Text = TextBox.Text.Remove(index, FriendsFilter.Length + 1);
+            TextBox.Text = TextBox.Text.Insert(index, text);
+            TextBox.CaretIndex = index + text.Length;
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
@@ -191,6 +197,17 @@ namespace tweetz5.Controls
                 {
                     CloseFriendsPopup();
                 }
+            }
+        }
+
+        private void FriendsListBoxOnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (FriendsListBox.SelectedIndex != -1)
+            {
+                e.Handled = true;
+                InsertSelectedFriend();
+                CloseFriendsPopup();
+                TextBox.Focus();
             }
         }
 

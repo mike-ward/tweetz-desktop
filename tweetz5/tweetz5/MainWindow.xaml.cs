@@ -56,6 +56,7 @@ namespace tweetz5
             {
                 AuthenticatePanel.Visibility = Visibility.Collapsed;
                 Timeline.Controller.StartTimelines();
+                Compose.Friends = Timeline.Controller.ScreenNames;
             }
         }
 
@@ -175,7 +176,6 @@ namespace tweetz5
 
                 var replyTos = string.Join(" ", names);
                 var message = string.Format("@{0} {1}{2}", tweet.ScreenName, replyTos, (replyTos.Length > 0) ? " " : "");
-                Compose.Friends = Timeline.Controller.ScreenNames;
                 Compose.Show(message, tweet.StatusId);
             }
         }
@@ -302,7 +302,6 @@ namespace tweetz5
         private void OpenComposeCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            Compose.Friends = Timeline.Controller.ScreenNames;
             Compose.Toggle();
         }
 

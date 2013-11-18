@@ -71,6 +71,7 @@
     <Compile Include="Model\TwitterTests.cs" />
     <Compile Include="Controls\TimelineControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ReadSafeListTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
