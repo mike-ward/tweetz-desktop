@@ -185,6 +185,10 @@ namespace tweetz5.Model
                     updated = true;
                 }
 
+                if (ScreenNames.Contains(tweet.ScreenName) == false)
+                {
+                    ScreenNames.Add(tweet.ScreenName);
+                }
                 if (status.Entities.Mentions != null)
                 {
                     ScreenNames.AddRange(

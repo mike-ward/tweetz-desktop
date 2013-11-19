@@ -141,7 +141,7 @@ namespace tweetz5.Controls
         private void InsertSelectedFriend()
         {
             var index = TextBox.CaretIndex - FriendsFilter.Length - 1;
-            var text = FriendsListBox.SelectedItem.ToString();
+            var text = FriendsListBox.SelectedItem + " ";
             TextBox.Text = TextBox.Text.Remove(index, FriendsFilter.Length + 1);
             TextBox.Text = TextBox.Text.Insert(index, text);
             TextBox.CaretIndex = index + text.Length;
