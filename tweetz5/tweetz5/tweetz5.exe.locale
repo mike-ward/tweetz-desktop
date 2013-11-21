@@ -1,0 +1,9 @@
+﻿[
+   {
+      "Name": "en",
+      "Dictionary": {
+         "settings_show_media" : "Show inline media",
+         "settings_spell_check": "Spell check"
+      }
+   }
+]

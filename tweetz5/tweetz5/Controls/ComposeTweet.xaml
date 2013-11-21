@@ -6,7 +6,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:c="clr-namespace:tweetz5.Controls"
              xmlns:u="clr-namespace:tweetz5.Utilities"
-             xmlns:s="clr-namespace:tweetz5"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d"
              d:DesignHeight="300"
@@ -19,7 +18,7 @@
   </UserControl.Resources>
   <StackPanel Style="{StaticResource ComposeTweet}">
     <TextBlock x:Name="ComposeTitle"
-               Style="{StaticResource ComposeTweetTitleBlock}">Compose a tweet</TextBlock>
+               Style="{StaticResource ComposeTweetTitleBlock}" />
     <TextBox x:Name="TextBox"
              AcceptsReturn="True"
              TextWrapping="Wrap"
@@ -62,7 +61,7 @@
               </Style.Triggers>
             </Style>
           </Button.Style>
-          <Run x:Name="SendButtonText">Tweet</Run>
+          <Run x:Name="SendButtonText" />
         </Button>
       </StackPanel>
     </DockPanel>

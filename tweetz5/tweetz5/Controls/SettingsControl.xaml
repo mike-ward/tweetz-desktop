@@ -6,6 +6,7 @@
              xmlns:tweetz5="clr-namespace:tweetz5"
              xmlns:model="clr-namespace:tweetz5.Model"
              xmlns:utilities="clr-namespace:tweetz5.Utilities"
+             xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
              DataContext="{x:Static model:Settings.ApplicationSettings}"
              HorizontalAlignment="Center"
              Padding="10"
@@ -31,14 +32,14 @@
                 VerticalAlignment="Center">
       <CheckBox VerticalAlignment="Center"
                 IsChecked="{Binding ShowMedia}" />
-      <Label Style="{StaticResource SettingsPanelLabelStyle}">Show inline media</Label>
+      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_show_media}" />
     </StackPanel>
 
     <StackPanel Orientation="Horizontal"
                 VerticalAlignment="Center">
       <CheckBox VerticalAlignment="Center"
                 IsChecked="{Binding SpellCheck}" />
-      <Label Style="{StaticResource SettingsPanelLabelStyle}">Spell Check</Label>
+      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_spell_check}" />
     </StackPanel>
 
     <GroupBox Header="Font Size" Width="170" Margin="0 5 0 0" HorizontalAlignment="Left" Padding="5 0 0 0">

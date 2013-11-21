@@ -126,6 +126,12 @@
     <Compile Include="Utilities\System\BuildInfo.cs" />
     <Compile Include="Utilities\System\KeyboardExtensions.cs" />
     <Compile Include="Utilities\System\SysTimer.cs" />
+    <Compile Include="Utilities\Translate\ITranslationProvider.cs" />
+    <Compile Include="Utilities\Translate\LanguageChangedEventHandler.cs" />
+    <Compile Include="Utilities\Translate\TranslateExtension.cs" />
+    <Compile Include="Utilities\Translate\Translater.cs" />
+    <Compile Include="Utilities\Translate\TranslationService.cs" />
+    <Compile Include="Utilities\Translate\TranslationProviderJsonFile.cs" />
     <Compile Include="Utilities\UriToCachedImageConverter.cs" />
     <Page Include="Assets\Themes\Classic\Dark.xaml">
       <SubType>Designer</SubType>
@@ -201,6 +207,9 @@
       <SubType>Designer</SubType>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="tweetz5.exe.locale">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="tweetz5.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +224,7 @@
   <ItemGroup>
     <Resource Include="Assets\Images\birdblue.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

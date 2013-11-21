@@ -2,6 +2,7 @@
 
 using System.Windows;
 using tweetz5.Properties;
+using tweetz5.Utilities.Translate;
 
 namespace tweetz5
 {
@@ -9,6 +10,8 @@ namespace tweetz5
     {
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
+            TranslationService.Instance.TranslationProvider = new TranslationProviderJsonFile();
+
             if (Settings.Default.UpgradeSettings)
             {
                 Settings.Default.Upgrade();
