@@ -18,14 +18,15 @@
   <StackPanel Width="185">
     <TextBlock HorizontalAlignment="Center"
                FontWeight="Bold">
-      <Run FontFamily="Segoe UI Symbol">&#xE115;</Run> Settings
+      <Run FontFamily="Segoe UI Symbol">&#xE115;</Run>
+      <Run Text="{t:Translate settings_title}" />
     </TextBlock>
 
     <StackPanel Orientation="Horizontal"
                 VerticalAlignment="Center">
       <CheckBox VerticalAlignment="Center"
                 IsChecked="{Binding Chirp}" />
-      <Label Style="{StaticResource SettingsPanelLabelStyle}">Chirp on Timeline Updates</Label>
+      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_chirp_on_update}"></Label>
     </StackPanel>
 
     <StackPanel Orientation="Horizontal"
@@ -42,7 +43,7 @@
       <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_spell_check}" />
     </StackPanel>
 
-    <GroupBox Header="Font Size" Width="170" Margin="0 5 0 0" HorizontalAlignment="Left" Padding="5 0 0 0">
+    <GroupBox Header="{t:Translate settings_font_size}" Width="170" Margin="0 5 0 0" HorizontalAlignment="Left" Padding="5 0 0 0">
       <StackPanel Orientation="Horizontal">
         <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}" FontSize="10" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="10" />
         <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=11}" FontSize="11" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="11" />
@@ -52,7 +53,8 @@
     </GroupBox>
 
     <Button Margin="40 20"
-            Command="tweetz5:Commands.SignOutCommand">Sign Out</Button>
+            Content="{t:Translate settings_sign_out}"
+            Command="tweetz5:Commands.SignOutCommand" />
 
     <TextBlock TextAlignment="Center">
       tweetz Desktop, v: <Run Text="{Binding Version, Mode=OneTime}"></Run>
@@ -62,6 +64,6 @@
                  CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink>
     </TextBlock>
     <TextBlock TextAlignment="Center">Copyright 2013, Mike Ward</TextBlock>
-    <TextBlock TextAlignment="Center">Press ? for keyboard shortcuts</TextBlock>
+    <TextBlock TextAlignment="Center" Text="{t:Translate settings_keyboard_help}" />
   </StackPanel>
 </UserControl>

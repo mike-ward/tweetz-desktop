@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using tweetz5.Model;
+using tweetz5.Utilities.Translate;
 
 namespace tweetz5.Controls
 {
@@ -17,17 +18,17 @@ namespace tweetz5.Controls
         {
             InitializeComponent();
             Opened += (sender, args) => Task.Run(() =>
+            {
+                var user = Twitter.GetUserInformation(ScreenName);
+                var friendship = Twitter.Friendship(ScreenName);
+                user.Following = friendship.Following;
+                user.FollowedBy = friendship.FollowedBy;
+                if (user.Entities != null && user.Entities.Url != null && user.Entities.Url.Urls != null && user.Entities.Url.Urls[0] != null)
                 {
-                    var user = Twitter.GetUserInformation(ScreenName);
-                    var friendship = Twitter.Friendship(ScreenName);
-                    user.Following = friendship.Following;
-                    user.FollowedBy = friendship.FollowedBy;
-                    if (user.Entities != null && user.Entities.Url != null && user.Entities.Url.Urls != null && user.Entities.Url.Urls[0] != null)
-                    {
-                        user.Url = user.Entities.Url.Urls[0].ExpandedUrl;
-                    }
-                    Application.Current.Dispatcher.Invoke(() => DataContext = user);
-                });
+                    user.Url = user.Entities.Url.Urls[0].ExpandedUrl;
+                }
+                Application.Current.Dispatcher.Invoke(() => DataContext = user);
+            });
         }
     }
 
@@ -36,7 +37,9 @@ namespace tweetz5.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool) value ? "Following" : "Follow";
+            return (bool) value
+                ? TranslationService.Instance.Translate("profile_following")
+                : TranslationService.Instance.Translate("profile_follow");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -50,7 +53,9 @@ namespace tweetz5.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool) value ? "Unfollow!" : "Follow";
+            return (bool) value
+                ? TranslationService.Instance.Translate("profile_unfollow")
+                : TranslationService.Instance.Translate("profile_follow");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -59,12 +64,12 @@ namespace tweetz5.Controls
         }
     }
 
-    [ValueConversion(typeof(bool), typeof(string))]
+    [ValueConversion(typeof (bool), typeof (string))]
     public class BoolToFollowedByConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? " follows you" : "";
+            return (bool) value ? TranslationService.Instance.Translate("profile_follows_you") : "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

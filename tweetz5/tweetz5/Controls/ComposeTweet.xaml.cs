@@ -13,6 +13,7 @@ using System.Windows.Media;
 using Microsoft.Win32;
 using tweetz5.Annotations;
 using tweetz5.Model;
+using tweetz5.Utilities.Translate;
 
 namespace tweetz5.Controls
 {
@@ -48,11 +49,11 @@ namespace tweetz5.Controls
         {
             CloseFriendsPopup();
             _previousFocusedElement = Keyboard.FocusedElement;
-            ComposeTitle.Text = "Compose a tweet";
+            ComposeTitle.Text = TranslationService.Instance.Translate("compose_title_tweet") as string;
             TextBox.Text = message;
             _directMessage = false;
             _inReplyToId = inReplyToId;
-            SendButtonText.Text = "Tweet";
+            SendButtonText.Text = TranslationService.Instance.Translate("compose_send_button_tweet") as string;
             Image = null;
             TextBox.SpellCheck.IsEnabled = Properties.Settings.Default.SpellCheck;
             Visibility = Visibility.Visible;
@@ -65,7 +66,7 @@ namespace tweetz5.Controls
             TextBox.Text = string.Empty;
             _directMessage = true;
             _inReplyToId = null;
-            SendButtonText.Text = "Send";
+            SendButtonText.Text = TranslationService.Instance.Translate("compose_send_button_message") as string;
             Image = null;
             Visibility = Visibility.Visible;
         }
@@ -254,7 +255,7 @@ namespace tweetz5.Controls
             }
             catch (Exception)
             {
-                ComposeTitle.Text = "Error";
+                ComposeTitle.Text = TranslationService.Instance.Translate("compose_title_general_error") as string;
             }
             finally
             {
@@ -271,7 +272,7 @@ namespace tweetz5.Controls
             }
             catch (Exception)
             {
-                ComposeTitle.Text = "Error shortening urls";
+                ComposeTitle.Text = TranslationService.Instance.Translate("compose_title_shorten_error") as string;
             }
             finally
             {

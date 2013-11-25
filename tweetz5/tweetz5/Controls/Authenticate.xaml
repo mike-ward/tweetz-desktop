@@ -3,30 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
              Padding="20"
              HorizontalAlignment="Center"
              d:DesignWidth="200"
              mc:Ignorable="d">
   <StackPanel Width="155">
-    <TextBlock TextWrapping="Wrap">
-      To get started, click the <Run FontWeight="Bold">Get PIN</Run> button.
-      This opens a Web page where you'll authorize access.
-      Copy the PIN from the Web page to here and click <Run FontWeight="Bold">Authorize</Run>.
-    </TextBlock>
+    <TextBlock TextWrapping="Wrap" 
+               Text="{t:Translate authenticate_instructions}" />
 
         <StackPanel Margin="20 10">
-            <Button Click="GetPin_OnClick"
-                    FontSize="16"
-                    Padding="0 0 0 2"
-                    Margin="5">Get PIN</Button>
+      <Button Click="GetPin_OnClick"
+              Content="{t:Translate authenticate_get_pin}" FontSize="16"
+              Padding="0 0 0 2"
+              Margin="5" />
 
-            <TextBox x:Name="Pin"
-                     FontSize="18"
-                     FontWeight="Bold"
-                     TextAlignment="Center"
-                     Margin="10 20" />
+      <TextBox x:Name="Pin"
+               FontSize="18"
+               FontWeight="Bold"
+               TextAlignment="Center"
+               Margin="10 20" />
 
             <Button Click="SignIn_OnClick"
+                    Content="{t:Translate authenticate_signin}"
                     FontSize="16"
                     Margin="5">
                 <Button.Style>
@@ -38,12 +37,10 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
-                Sign In
             </Button>
         </StackPanel>
       
-        <TextBlock TextWrapping="Wrap">
-      PINs can only be used so there's no need to save them.
-    </TextBlock>
+        <TextBlock TextWrapping="Wrap"
+                   Text="{t:Translate authenticate_about_pins}" />
   </StackPanel>
 </UserControl>

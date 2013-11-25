@@ -78,7 +78,8 @@
               </Rectangle.Fill>
             </Rectangle>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Row="0" 
+                  Grid.Column="1">
               <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -100,7 +101,8 @@
                 <Run Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}"
                       Style="{StaticResource TweetScreenNameStyle}"/>
               </TextBlock>
-              <TextBlock Grid.Column="1">
+              <TextBlock Grid.Row="0" 
+                         Grid.Column="1">
                 <Hyperlink Style="{StaticResource TweetTimeStyle}"
                            Command="{x:Static tweetz5:Commands.OpenTweetLinkCommand}"
                            CommandParameter="{Binding}">
@@ -110,7 +112,8 @@
             </Grid>
 
             <ItemsControl Grid.Row="1"
-                          Grid.ColumnSpan="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2" 
                           Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}"
                           ItemsSource="{Binding MediaLinks}">
               <ItemsControl.ItemTemplate>
@@ -143,6 +146,7 @@
             </StackPanel>
 
             <Grid Grid.Row="3"
+                  Grid.Column="0"
                   Grid.ColumnSpan="2"
                   SnapsToDevicePixels="True"
                   Style="{StaticResource TweetActions}">

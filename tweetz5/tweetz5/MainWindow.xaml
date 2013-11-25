@@ -4,6 +4,7 @@
         xmlns:p="clr-namespace:tweetz5.Properties"
         xmlns:tweetz5="clr-namespace:tweetz5"
         xmlns:model="clr-namespace:tweetz5.Model"
+        xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
         x:Class="tweetz5.MainWindow"
         AllowDrop="True"
         Drop="OnDrop"
@@ -46,55 +47,55 @@
           <UniformGrid x:Name="NavBar" Rows="1" Style="{StaticResource NavBar}">
             <Button x:Name="UnifiedButton"
                     Style="{StaticResource NavBarButton}"
-                    ToolTip="Unified timeline (home, mentions, messages)"
+                    ToolTip="{t:Translate tooltip_unified_button}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.UnifiedName}">
               &#xE179;
             </Button>
             <Button x:Name="HomeButton"
                     Style="{StaticResource NavBarButton}"
-                    ToolTip="Home timeline"
+                    ToolTip="{t:Translate tooltip_home_button}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.HomeName}">
               &#xE10F;
             </Button>
             <Button x:Name="MentionsButton"
                     Style="{StaticResource NavBarButton}"
-                    ToolTip="Mentions timeline"
+                    ToolTip="{t:Translate tooltip_mentions_button}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.MentionsName}">
               &#xE168;
             </Button>
             <Button x:Name="MessagesButton"
                     Style="{StaticResource NavBarButton}"
-                    ToolTip="Messages timeline"
+                    ToolTip="{t:Translate tooltip_messages_button}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.MessagesName}">
               &#xE135;
             </Button>
             <Button x:Name="FavoritesButton"
                     Style="{StaticResource NavBarButton}"
-                    ToolTip="Favorites timeline"
+                    ToolTip="{t:Translate tooltip_favorites_button}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.FavoritesName}">
               &#xE113;
             </Button>
             <Button x:Name="SearchButton"
                     Style="{StaticResource NavBarButton}"
-                    ToolTip="Search"
+                    ToolTip="{t:Translate tooltip_search_button}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.SearchName}">
               &#xE11A;
             </Button>
             <Button x:Name="SettingsButton"
                     Style="{StaticResource NavBarButton}"
-                    ToolTip="Settings"
+                    ToolTip="{t:Translate tooltip_settings_button}"
                     Command="{x:Static tweetz5:Commands.SettingsCommand}">
               &#xE115;
             </Button>
             <Button Style="{StaticResource NavBarButton}"
                     Command="{x:Static tweetz5:Commands.OpenComposeCommand}"
-                    ToolTip="Compose">
+                    ToolTip="{t:Translate tooltip_compose_button}">
               &#xE104;
             </Button>
           </UniformGrid>

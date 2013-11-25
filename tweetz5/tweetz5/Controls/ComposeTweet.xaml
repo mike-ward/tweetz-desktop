@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:c="clr-namespace:tweetz5.Controls"
              xmlns:u="clr-namespace:tweetz5.Utilities"
+             xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d"
              d:DesignHeight="300"
@@ -39,13 +40,13 @@
                   DockPanel.Dock="Right">
         <Button x:Name="Photo"
                 Style="{StaticResource ComposeTweetButton}"
-                ToolTip="Include Photo (Drag and Drop supported)"
+                ToolTip="{t:Translate compose_tooltip_photo}"
                 Click="OnPhoto">
           <Run FontFamily="Segoe UI Symbol">&#xE114;</Run>
         </Button>
         <Button x:Name="Shorten"
                 Style="{StaticResource ComposeTweetButton}"
-                ToolTip="Shorten links"
+                ToolTip="{t:Translate compose_tooltip_shorten_links}"
                 Click="OnShorten">
           <Run FontFamily="Segoe UI Symbol">&#xE167;</Run>
         </Button>
