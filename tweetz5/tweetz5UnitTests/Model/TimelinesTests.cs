@@ -7,6 +7,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using tweetz5.Model;
+using tweetz5.Utilities.Translate;
 
 namespace tweetz5UnitTests.Model
 {
@@ -63,6 +64,7 @@ namespace tweetz5UnitTests.Model
         public void UpdateTimeStampsShouldReturnFriendlyTime()
         {
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
+            TranslationService.Instance.TranslationProvider = new TranslationProviderJsonFile();
             timelines.SwitchTimeline(Timelines.UnifiedName);
             timelines.Timeline.Add(new Tweet { CreatedAt = DateTime.UtcNow });
             timelines.Timeline[0].TimeAgo.Should().BeNull();

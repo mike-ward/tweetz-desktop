@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using tweetz5.Utilities;
+using tweetz5.Utilities.Translate;
 
 // ReSharper disable InconsistentNaming
 
@@ -193,8 +194,8 @@ namespace tweetz5.Model
                 {
                     ScreenNames.AddRange(
                         status.Entities.Mentions
-                              .Where(m => ScreenNames.Contains(m.ScreenName, StringComparer.CurrentCultureIgnoreCase) == false)
-                              .Select(m => m.ScreenName));
+                            .Where(m => ScreenNames.Contains(m.ScreenName, StringComparer.CurrentCultureIgnoreCase) == false)
+                            .Select(m => m.ScreenName));
                 }
             }
 
@@ -212,7 +213,7 @@ namespace tweetz5.Model
         public static Tweet CreateTweet(string tweetType, Status status)
         {
             var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
-                                                CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+                CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
             var displayStatus = status.RetweetedStatus ?? status;
 
@@ -334,11 +335,11 @@ namespace tweetz5.Model
         private static string TimeAgo(DateTime time)
         {
             var timespan = DateTime.UtcNow - time;
-            if (timespan.TotalSeconds < 60) return (int) timespan.TotalSeconds + "s";
-            if (timespan.TotalMinutes < 60) return (int) timespan.TotalMinutes + "m";
-            if (timespan.TotalHours < 24) return (int) timespan.TotalHours + "h";
-            if (timespan.TotalDays < 3) return (int) timespan.TotalDays + "d";
-            return time.ToString("MMM d");
+            if (timespan.TotalSeconds < 60) return string.Format((string) TranslationService.Instance.Translate("time_ago_seconds"), (int) timespan.TotalSeconds);
+            if (timespan.TotalMinutes < 60) return string.Format((string) TranslationService.Instance.Translate("time_ago_minutes"), (int) timespan.TotalMinutes);
+            if (timespan.TotalHours < 24) return string.Format((string) TranslationService.Instance.Translate("time_ago_hours"), (int) timespan.TotalHours);
+            if (timespan.TotalDays < 3) return string.Format((string) TranslationService.Instance.Translate("time_ago_days"), (int) timespan.TotalDays);
+            return time.ToString((string) TranslationService.Instance.Translate("time_ago_date"));
         }
 
         private void DispatchInvoker(Action callback)

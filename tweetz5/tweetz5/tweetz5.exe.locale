@@ -42,6 +42,12 @@
         "shortcut_help_search":           "Search",
         "shortcut_help_go_top":           "Go to Top",
         "shortcut_help_go_bottom":        "Go to Bottom",
+
+        "time_ago_seconds":               "{0}s",
+        "time_ago_minutes":               "{0}m",
+        "time_ago_hours":                 "{0}h",
+        "time_ago_days":                  "{0}d",
+        "time_ago_date":                  "MMM d",
                                           
         "tooltip_unified_button":         "Unified timeline (home, mentions, messages)",
         "tooltip_home_button":            "Home timeline",

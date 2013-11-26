@@ -99,6 +99,23 @@ namespace tweetz5.Utilities.Translate
             {"status_copy",                    "Copy"},     
             {"status_copy_link",               "Copy Link"},     
 
+            {"shortcut_help_close",            "Close"},
+            {"shortcut_help_next",             "Next Tweet"},
+            {"shortcut_help_previous",         "Previous Tweet"},
+            {"shortcut_help_reply",            "Reply"},
+            {"shortcut_help_retweet",          "Retweet"},
+            {"shortcut_help_favorite",         "Favorite"},
+            {"shortcut_help_new_status",       "New Tweet"},
+            {"shortcut_help_search",           "Search"},
+            {"shortcut_help_go_top",           "Go to Top"},
+            {"shortcut_help_go_bottom",        "Go to Bottom"},
+
+            {"time_ago_seconds",               "{0}s"},
+            {"time_ago_minutes",               "{0}m"},
+            {"time_ago_hours",                 "{0}h"},
+            {"time_ago_days",                  "{0}d"},
+            {"time_ago_date",                  "MMM d"},
+
             {"tooltip_unified_button",         "Unified timeline (home, mentions, messages)"},
             {"tooltip_home_button",            "Home timeline"},
             {"tooltip_mentions_button",        "Mentions timeline"},
