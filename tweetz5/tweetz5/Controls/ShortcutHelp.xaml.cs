@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using tweetz5.Utilities.Translate;
 
 namespace tweetz5.Controls
 {
@@ -16,18 +17,18 @@ namespace tweetz5.Controls
             public string Description { get; set; }
         }
 
-        private readonly KeyboardShortcut[] _keyboardShortcuts = new []
+        private readonly KeyboardShortcut[] _keyboardShortcuts = 
         {
-            new KeyboardShortcut {Shortcut = "Ctrl+X", Description = "Close"},
-            new KeyboardShortcut {Shortcut = "J", Description = "Next tweet"},
-            new KeyboardShortcut {Shortcut = "K", Description = "Previous tweet"},
-            new KeyboardShortcut {Shortcut = "R", Description = "Reply"},
-            new KeyboardShortcut {Shortcut = "T", Description = "Retweet"},
-            new KeyboardShortcut {Shortcut = "F", Description = "Favorite"},
-            new KeyboardShortcut {Shortcut = "N", Description = "New tweet"},
-            new KeyboardShortcut {Shortcut = "/", Description = "Search"},
-            new KeyboardShortcut {Shortcut = "Ctrl+Home", Description = "Go to top"},
-            new KeyboardShortcut {Shortcut = "Ctrl+End", Description = "Go to bottom"}
+            new KeyboardShortcut {Shortcut = "Ctrl+X", Description = TranslationService.Instance.Translate("shortcut_help_close") as string},
+            new KeyboardShortcut {Shortcut = "J", Description = TranslationService.Instance.Translate("shortcut_help_next") as string},
+            new KeyboardShortcut {Shortcut = "K", Description = TranslationService.Instance.Translate("shortcut_help_previous") as string},
+            new KeyboardShortcut {Shortcut = "R", Description = TranslationService.Instance.Translate("shortcut_help_reply") as string},
+            new KeyboardShortcut {Shortcut = "T", Description = TranslationService.Instance.Translate("shortcut_help_retweet") as string},
+            new KeyboardShortcut {Shortcut = "F", Description = TranslationService.Instance.Translate("shortcut_help_favorite") as string},
+            new KeyboardShortcut {Shortcut = "N", Description = TranslationService.Instance.Translate("shortcut_help_new_status") as string},
+            new KeyboardShortcut {Shortcut = "/", Description = TranslationService.Instance.Translate("shortcut_help_search") as string},
+            new KeyboardShortcut {Shortcut = "Ctrl+Home", Description = TranslationService.Instance.Translate("shortcut_help_go_top") as string},
+            new KeyboardShortcut {Shortcut = "Ctrl+End", Description = TranslationService.Instance.Translate("shortcut_help_go_bottom") as string}
         };
 
         public IEnumerable<KeyboardShortcut> KeyboardShortcuts

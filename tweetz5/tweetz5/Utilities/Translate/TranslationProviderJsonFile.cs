@@ -91,6 +91,14 @@ namespace tweetz5.Utilities.Translate
             {"compose_tooltip_photo",          "Include Photo (Drag and Drop supported)"},
             {"compose_tooltip_shorten_links",  "Shorten links"}, 
 
+            {"status_reply",                   "Reply"},
+            {"status_retweet",                 "Retweet"},
+            {"status_favorite",                "Favorite"},     
+            {"status_delete",                  "Delete"},     
+            {"status_retweet_classic",         "RT (Classic)"},     
+            {"status_copy",                    "Copy"},     
+            {"status_copy_link",               "Copy Link"},     
+
             {"tooltip_unified_button",         "Unified timeline (home, mentions, messages)"},
             {"tooltip_home_button",            "Home timeline"},
             {"tooltip_mentions_button",        "Mentions timeline"},

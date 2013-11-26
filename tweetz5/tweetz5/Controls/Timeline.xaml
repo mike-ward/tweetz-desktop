@@ -6,19 +6,20 @@
              xmlns:model="clr-namespace:tweetz5.Model"
              xmlns:tweetz5="clr-namespace:tweetz5"
              xmlns:u="clr-namespace:tweetz5.Utilities"
+             xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="200">
   <UserControl.Resources>
     <ContextMenu x:Key="MoreMenu">
-      <MenuItem Header="RT (Classic)"
+      <MenuItem Header="{t:Translate status_retweet_classic}"
                 Command="{x:Static tweetz5:Commands.RetweetClassicCommand}"
                 CommandParameter="{Binding}" />
-      <MenuItem Header="Copy"
+      <MenuItem Header="{t:Translate status_copy}"
                 Command="{x:Static tweetz5:Commands.CopyCommand}"
                 CommandParameter="{Binding}" />
-      <MenuItem Header="Copy Link"
+      <MenuItem Header="{t:Translate status_copy_link}"
                 Command="{x:Static tweetz5:Commands.CopyLinkCommand}"
                 CommandParameter="{Binding}"/>
     </ContextMenu>
@@ -161,28 +162,32 @@
                 <TextBlock.InputBindings>
                   <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.ReplyCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> Reply
+                <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> 
+                <Run Text="{t:Translate status_reply}" />
               </TextBlock>
 
               <TextBlock Style="{StaticResource TweetActionsItemRetweet}" Grid.Column="1">
                 <TextBlock.InputBindings>
                   <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.RetweetCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsRetweetSymbol}">&#xE1CA;</Run> Retweet
+                <Run Style="{StaticResource TweetActionsRetweetSymbol}">&#xE1CA;</Run>
+                <Run Text="{t:Translate status_retweet}" />
               </TextBlock>
 
               <TextBlock Style="{StaticResource TweetActionsItemDelete}" Grid.Column="1">
                 <TextBlock.InputBindings>
                   <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.DeleteTweetCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsSymbol}">&#xE107;</Run> Delete
+                <Run Style="{StaticResource TweetActionsSymbol}">&#xE107;</Run>
+                <Run Text="{t:Translate status_delete}" />
               </TextBlock>
 
               <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="2">
                 <TextBlock.InputBindings>
                   <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.FavoritesCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsFavoritesSymbol}">&#xE082;</Run> Favorite
+                <Run Style="{StaticResource TweetActionsFavoritesSymbol}">&#xE082;</Run>
+                <Run Text="{t:Translate status_favorite}" />
               </TextBlock>
 
               <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="3"
