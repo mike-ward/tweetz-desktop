@@ -34,15 +34,7 @@ namespace tweetz5.Model
 
         public static string UrlEncode(string value)
         {
-            var result = new StringBuilder();
-            const string unreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
-            foreach (var val in value)
-            {
-                result.Append((unreservedChars.IndexOf(val) != -1)
-                    ? val.ToString(CultureInfo.InvariantCulture)
-                    : String.Format("%{0:X2}", (int)val));
-            }
-            return result.ToString();
+            return Uri.EscapeDataString(value);
         }
 
         public static string Nonce()

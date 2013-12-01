@@ -19,6 +19,14 @@ namespace tweetz5UnitTests.Model
         }
 
         [TestMethod]
+        public void UrlEncodeArabic()
+        {
+            OAuth.UrlEncode("الخيال اهلا وسهلا بكم في عالم")
+                .Should()
+                .Be("%D8%A7%D9%84%D8%AE%D9%8A%D8%A7%D9%84%20%D8%A7%D9%87%D9%84%D8%A7%20%D9%88%D8%B3%D9%87%D9%84%D8%A7%20%D8%A8%D9%83%D9%85%20%D9%81%D9%8A%20%D8%B9%D8%A7%D9%84%D9%85");
+        }
+
+        [TestMethod]
         public void NounceReturnsDifferntValuesOnEachCall()
         {
             OAuth.Nonce().Should().NotBe(OAuth.Nonce());

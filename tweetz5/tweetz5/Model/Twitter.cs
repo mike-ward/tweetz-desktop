@@ -43,13 +43,13 @@ namespace tweetz5.Model
 
             if (post)
             {
+                System.Diagnostics.Debug.WriteLine(string.Join("&", parameterStrings));
                 request.ContentType = "application/x-www-form-urlencoded";
                 if (parameters != null)
                 {
-                    var buffer = Encoding.UTF8.GetBytes(string.Join("&", parameterStrings));
                     using (var requestStream = request.GetRequestStream())
                     {
-                        requestStream.Write(buffer, 0, buffer.Length);
+                        WriteStream(requestStream, string.Join("&", parameterStrings));
                     }
                 }
             }
