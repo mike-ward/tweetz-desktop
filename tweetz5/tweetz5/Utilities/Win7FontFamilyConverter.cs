@@ -9,7 +9,7 @@ namespace tweetz5.Utilities
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return !BuildInfo.IsWindows8OrNewer ? "Segoe UI Symbol" : "FontAwesome";
+            return (BuildInfo.IsWindows8OrNewer) ? "Segoe UI Symbol" : "FontAwesome";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

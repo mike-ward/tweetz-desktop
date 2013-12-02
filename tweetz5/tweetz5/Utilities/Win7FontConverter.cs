@@ -31,7 +31,7 @@ namespace tweetz5.Utilities
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!BuildInfo.IsWindows8OrNewer) return parameter;
+            if (BuildInfo.IsWindows8OrNewer) return parameter;
             string newValue;
             return (FontDictionary.TryGetValue((string) parameter, out newValue)) ? newValue : parameter;
         }
