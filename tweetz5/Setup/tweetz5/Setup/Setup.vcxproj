@@ -16,6 +16,9 @@
   <ItemGroup>
     <Text Include="license.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="fontawesome-webfont.ttf" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{21AD956C-BE7F-4799-8969-572EF293178A}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>

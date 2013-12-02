@@ -6,4 +6,7 @@
   <ItemGroup>
     <Text Include="license.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="fontawesome-webfont.ttf" />
+  </ItemGroup>
 </Project>
