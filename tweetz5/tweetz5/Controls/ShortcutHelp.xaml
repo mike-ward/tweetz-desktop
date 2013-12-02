@@ -4,6 +4,7 @@
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
        xmlns:controls="clr-namespace:tweetz5.Controls"
+       xmlns:utilities="clr-namespace:tweetz5.Utilities"
        mc:Ignorable="d" 
        PopupAnimation="Fade"
        AllowsTransparency="True"
@@ -13,6 +14,9 @@
        TextOptions.TextFormattingMode="Display"
        controls:PopupAllowKeyboardInput.IsEnabled="True"
        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+  <Popup.Resources>
+    <utilities:Win7FontConverter x:Key="Win7FontConverter" />
+  </Popup.Resources>
   <Popup.CommandBindings>
     <CommandBinding Command="Close" Executed="CloseCommandHandler"/>
   </Popup.CommandBindings>
@@ -30,8 +34,8 @@
                    Grid.Column="0">Keyboard Shortcuts</TextBlock>
         <TextBlock Grid.Column="1"
                    Foreground="Gainsboro" 
-                   FontFamily="Segoe UI Symbol"
-                   Text="&#xE10A;"
+                   FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
+                   Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;', Mode=OneWay}"
                    Cursor="Hand">
           <TextBlock.InputBindings>
             <MouseBinding MouseAction="LeftClick" Command="Close" />

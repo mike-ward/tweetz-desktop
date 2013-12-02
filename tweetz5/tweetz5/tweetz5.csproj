@@ -105,6 +105,7 @@
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Model\TwitterStream.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utilities\Win7FontFamilyConverter.cs" />
     <Compile Include="Utilities\FontSizeToBoolConverter.cs" />
     <Compile Include="Utilities\NumberValueCommaConverter.cs" />
     <Compile Include="Utilities\Run.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Utilities\Translate\TranslationService.cs" />
     <Compile Include="Utilities\Translate\TranslationProviderJsonFile.cs" />
     <Compile Include="Utilities\UriToCachedImageConverter.cs" />
+    <Compile Include="Utilities\Win7FontConverter.cs" />
     <Page Include="Assets\Themes\Classic\Dark.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

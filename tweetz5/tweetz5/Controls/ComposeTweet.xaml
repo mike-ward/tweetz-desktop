@@ -16,6 +16,7 @@
   <UserControl.Resources>
     <c:LengthToColorConverter x:Key="Converter" />
     <u:UriToCachedImageConverter x:Key="UriToCachedImageConverter" />
+    <u:Win7FontConverter x:Key="Win7FontConverter" />
   </UserControl.Resources>
   <StackPanel Style="{StaticResource ComposeTweet}">
     <TextBlock x:Name="ComposeTitle"
@@ -42,13 +43,15 @@
                 Style="{StaticResource ComposeTweetButton}"
                 ToolTip="{t:Translate compose_tooltip_photo}"
                 Click="OnPhoto">
-          <Run FontFamily="Segoe UI Symbol">&#xE114;</Run>
+          <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
+               Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE114;', Mode=OneWay}"/>
         </Button>
         <Button x:Name="Shorten"
                 Style="{StaticResource ComposeTweetButton}"
                 ToolTip="{t:Translate compose_tooltip_shorten_links}"
                 Click="OnShorten">
-          <Run FontFamily="Segoe UI Symbol">&#xE167;</Run>
+          <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
+               Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE167;', Mode=OneWay}"/>
         </Button>
         <Button x:Name="Send"
                 Click="OnSend">

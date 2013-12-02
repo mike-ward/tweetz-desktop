@@ -11,6 +11,14 @@ namespace tweetz5.Utilities.System
 {
     internal static class BuildInfo
     {
+        public static bool IsWindows8OrNewer { get; private set; }
+
+        static BuildInfo()
+        {
+            var os = Environment.OSVersion;
+            IsWindows8OrNewer = os.Platform == PlatformID.Win32NT && (os.Version.Major > 6 || (os.Version.Major == 6 && os.Version.Minor >= 2));
+        }
+
         // http://msdn.microsoft.com/en-us/library/ms680313
 
         private struct _IMAGE_FILE_HEADER

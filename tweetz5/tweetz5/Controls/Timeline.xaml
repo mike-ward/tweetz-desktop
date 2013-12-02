@@ -30,6 +30,7 @@
 
     <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     <u:ScreenNameConverter x:Key="ScreenNameConverter" />
+    <u:Win7FontConverter x:Key="Win7FontConverter" />
   </UserControl.Resources>
 
   <UserControl.DataContext>
@@ -141,7 +142,8 @@
               <TextBlock controls:MarkupService.MarkupNodes="{Binding MarkupNodes, Mode=OneTime}"
                          Style="{StaticResource TweetStyle}" />
               <TextBlock Style="{StaticResource TweetRetweetedByStyle}">
-                <Run Style="{StaticResource TweetActionsSymbol}">&#xE1CA; </Run>
+                <Run Style="{StaticResource TweetActionsSymbol}"
+                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}"/>
                 <Run Text="{Binding RetweetedBy}" />
               </TextBlock>
             </StackPanel>
@@ -162,7 +164,8 @@
                 <TextBlock.InputBindings>
                   <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.ReplyCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsSymbol}">&#xE248;</Run> 
+                <Run Style="{StaticResource TweetActionsSymbol}" 
+                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE248;', Mode=OneWay}"/> 
                 <Run Text="{t:Translate status_reply}" />
               </TextBlock>
 
@@ -170,7 +173,8 @@
                 <TextBlock.InputBindings>
                   <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.RetweetCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsRetweetSymbol}">&#xE1CA;</Run>
+                <Run Style="{StaticResource TweetActionsRetweetSymbol}"
+                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}"/> 
                 <Run Text="{t:Translate status_retweet}" />
               </TextBlock>
 
@@ -178,7 +182,8 @@
                 <TextBlock.InputBindings>
                   <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.DeleteTweetCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsSymbol}">&#xE107;</Run>
+                <Run Style="{StaticResource TweetActionsSymbol}" 
+                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE107;', Mode=OneWay}"/>
                 <Run Text="{t:Translate status_delete}" />
               </TextBlock>
 
@@ -186,14 +191,16 @@
                 <TextBlock.InputBindings>
                   <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:Commands.FavoritesCommand}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsFavoritesSymbol}">&#xE082;</Run>
+                <Run Style="{StaticResource TweetActionsFavoritesSymbol}"
+                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE082;', Mode=OneWay}"/> 
                 <Run Text="{t:Translate status_favorite}" />
               </TextBlock>
 
               <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="3"
                          ContextMenu="{StaticResource MoreMenu}"
                          PreviewMouseLeftButtonDown="MoreOnMouseDown">
-                <Run Style="{StaticResource TweetActionsSymbol}">&#xE118;</Run>
+                <Run Style="{StaticResource TweetActionsSymbol}"
+                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE118;', Mode=OneWay}"/> 
               </TextBlock>
             </Grid>
           </Grid>

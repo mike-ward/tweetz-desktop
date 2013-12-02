@@ -14,11 +14,13 @@
              d:DesignWidth="200">
   <UserControl.Resources>
     <utilities:FontSizeToBoolConverter x:Key="FontSizeToBoolConverter" />
+    <utilities:Win7FontConverter x:Key="Win7FontConverter" />
   </UserControl.Resources>
   <StackPanel Width="185">
     <TextBlock HorizontalAlignment="Center"
                FontWeight="Bold">
-      <Run FontFamily="Segoe UI Symbol">&#xE115;</Run>
+      <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
+           Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE115;', Mode=OneWay}"/>
       <Run Text="{t:Translate settings_title}" />
     </TextBlock>
 

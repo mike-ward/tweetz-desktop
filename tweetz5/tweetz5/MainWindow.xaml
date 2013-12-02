@@ -4,6 +4,7 @@
         xmlns:p="clr-namespace:tweetz5.Properties"
         xmlns:tweetz5="clr-namespace:tweetz5"
         xmlns:model="clr-namespace:tweetz5.Model"
+        xmlns:u="clr-namespace:tweetz5.Utilities"
         xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
         x:Class="tweetz5.MainWindow"
         AllowDrop="True"
@@ -22,6 +23,9 @@
         Width="{Binding Source={x:Static p:Settings.Default}, Path=Width, Mode=TwoWay}"
         Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
+  <Window.Resources>
+    <u:Win7FontConverter x:Key="Win7FontConverter" />
+  </Window.Resources>
   <Border BorderBrush="Black"
           BorderThickness="1">
     <StackPanel Orientation="Horizontal">
@@ -36,7 +40,8 @@
                       HorizontalAlignment="Right"
                       DockPanel.Dock="Right">
             <Button Style="{StaticResource AppCloseButtonStyle}"
-                    Command="Close">&#xE10A;</Button>
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;'}"
+                    Command="Close"/>
           </StackPanel>
         </DockPanel>
         
@@ -48,56 +53,48 @@
             <Button x:Name="UnifiedButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_unified_button}"
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE179;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
-                    CommandParameter="{x:Static model:Timelines.UnifiedName}">
-              &#xE179;
-            </Button>
+                    CommandParameter="{x:Static model:Timelines.UnifiedName}"/>
             <Button x:Name="HomeButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_home_button}"
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10F;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
-                    CommandParameter="{x:Static model:Timelines.HomeName}">
-              &#xE10F;
-            </Button>
+                    CommandParameter="{x:Static model:Timelines.HomeName}"/>
             <Button x:Name="MentionsButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_mentions_button}"
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE168;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
-                    CommandParameter="{x:Static model:Timelines.MentionsName}">
-              &#xE168;
-            </Button>
+                    CommandParameter="{x:Static model:Timelines.MentionsName}"/>
             <Button x:Name="MessagesButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_messages_button}"
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE135;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
-                    CommandParameter="{x:Static model:Timelines.MessagesName}">
-              &#xE135;
-            </Button>
+                    CommandParameter="{x:Static model:Timelines.MessagesName}"/>
             <Button x:Name="FavoritesButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_favorites_button}"
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE113;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
-                    CommandParameter="{x:Static model:Timelines.FavoritesName}">
-              &#xE113;
-            </Button>
+                    CommandParameter="{x:Static model:Timelines.FavoritesName}"/>
             <Button x:Name="SearchButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_search_button}"
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE11A;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
-                    CommandParameter="{x:Static model:Timelines.SearchName}">
-              &#xE11A;
-            </Button>
+                    CommandParameter="{x:Static model:Timelines.SearchName}" />
             <Button x:Name="SettingsButton"
                     Style="{StaticResource NavBarButton}"
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE115;'}"
                     ToolTip="{t:Translate tooltip_settings_button}"
-                    Command="{x:Static tweetz5:Commands.SettingsCommand}">
-              &#xE115;
-            </Button>
+                    Command="{x:Static tweetz5:Commands.SettingsCommand}"/>
             <Button Style="{StaticResource NavBarButton}"
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE104;'}"
                     Command="{x:Static tweetz5:Commands.OpenComposeCommand}"
-                    ToolTip="{t:Translate tooltip_compose_button}">
-              &#xE104;
-            </Button>
+                    ToolTip="{t:Translate tooltip_compose_button}"/>
           </UniformGrid>
           
           <controls:SettingsControl x:Name="SettingsPanel" />

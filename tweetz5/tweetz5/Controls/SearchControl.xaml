@@ -4,35 +4,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:tweetz5="clr-namespace:tweetz5"
+             xmlns:u="clr-namespace:tweetz5.Utilities"
              IsVisibleChanged="OnIsVisibleChanged"
              mc:Ignorable="d" 
              d:DesignHeight="300" 
              d:DesignWidth="300">
+    <UserControl.Resources>
+      <u:Win7FontConverter x:Key="Win7FontConverter" />
+    </UserControl.Resources>
     <Grid>
-      <Grid.Resources>
-      </Grid.Resources>
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="9*"/>
-        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="8*"/>
+        <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
       <TextBox Grid.Column="0"
                FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
                x:Name="SearchText"
-               Style="{StaticResource SearchControlTextBoxStyle}">
+               Style="{StaticResource SearchControlTextBoxStyle}"
+               Margin="0 0 5 0">
         <TextBox.InputBindings>
           <KeyBinding Key="Enter"
                       Command="{x:Static tweetz5:Commands.SearchCommand}" 
                       CommandParameter="{Binding ElementName=SearchText, Path=Text}"/>
         </TextBox.InputBindings>
       </TextBox>
-      <TextBlock Grid.Column="1"
+    <TextBlock Grid.Column="1"
                  KeyboardNavigation.TabNavigation="None"
-                 FontFamily="Segoe UI Symbol" 
+                 FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}" 
                  FontSize="13">
         <Hyperlink Command="{x:Static tweetz5:Commands.SearchCommand}"
                    CommandParameter="{Binding ElementName=SearchText, Path=Text}">
-          &#160;&#xE11A;
-        </Hyperlink> 
-      </TextBlock>
+          <Run Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE11A;', Mode=OneWay}"/>
+        </Hyperlink>
+    </TextBlock>
     </Grid>
 </UserControl>

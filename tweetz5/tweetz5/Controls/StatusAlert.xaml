@@ -1,23 +1,27 @@
 ﻿<Popup x:Class="tweetz5.Controls.StatusAlert"
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:utilities="clr-namespace:tweetz5.Utilities"
        PopupAnimation="Fade"
        AllowsTransparency="True"
        StaysOpen="True"
        Height="Auto" 
        Width="190"
        TextOptions.TextFormattingMode="Display">
+  <Popup.Resources>
+    <utilities:Win7FontConverter x:Key="Win7FontConverter" />
+  </Popup.Resources>
   <Popup.CommandBindings>
     <CommandBinding Command="Close" Executed="CloseCommandHandler"/>
   </Popup.CommandBindings>
   <Border Padding="5" CornerRadius="8" Background="Black" BorderThickness="2" BorderBrush="DarkGoldenrod">
       <StackPanel>
-        <TextBlock Foreground="#bbbbbb" 
-                   FontFamily="Segoe UI Symbol" 
+      <TextBlock Foreground="#bbbbbb" 
+                   FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
+                   Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;', Mode=OneWay}"
                    HorizontalAlignment="Right" 
-                   Cursor="Hand"
-                   Text="&#xE10A;">
-          <TextBlock.InputBindings>
+                   Cursor="Hand">
+        <TextBlock.InputBindings>
             <MouseBinding MouseAction="LeftClick" Command="Close" />
           </TextBlock.InputBindings>
         </TextBlock>
