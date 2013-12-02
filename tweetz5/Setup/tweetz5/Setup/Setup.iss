@@ -58,6 +58,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "..\..\..\tweetz5\bin\Release\tweetz5.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\..\tweetz5\bin\Release\tweetz5.exe.locale"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
