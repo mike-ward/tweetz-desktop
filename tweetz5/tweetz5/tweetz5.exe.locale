@@ -77,7 +77,7 @@
         "profile_title":                  "Zusammenfassung",
         "profile_tweets":                 "tweets",
         "profile_friends":                "freunde",
-        "profile_followers":              "anhänger",
+        "profile_followers":              "follower",
         "profile_follow":                 "Folgen",
         "profile_following":              "Folge ich",
         "profile_unfollow":               "Entfolgen",
@@ -91,13 +91,13 @@
         "compose_tooltip_photo":          "Foto einfügen (Drag&Drop verfügbar)",
         "compose_tooltip_shorten_links":  "Links kürzen", 
                                           
-        "status_reply":                   "AW",
-        "status_retweet":                 "RT",
-        "status_favorite":                "Fav",     
-        "status_delete":                  "Del",     
-        "status_retweet_classic":         "RT (Classic)",     
-        "status_copy":                    "CP",     
-        "status_copy_link":               "URI CP",     
+        "status_reply":                   "Antworten",
+        "status_retweet":                 "Retweeten",
+        "status_favorite":                "Favorisieren",     
+        "status_delete":                  "Löschen",     
+        "status_retweet_classic":         "Retweeten (klassisch)",     
+        "status_copy":                    "Kopieren",     
+        "status_copy_link":               "Link kopieren",     
 
         "shortcut_help_close":            "Schliessen",
         "shortcut_help_next":             "nächster Tweet",
@@ -131,7 +131,7 @@
         "settings_spell_check":           "Rechtschreibprüfung",
         "settings_font_size":             "Schriftgröße",
         "settings_sign_out":              "Abmelden",
-        "settings_keyboard_help":         "drücke [?] zum Anzeigen der Tastaturkurzbefehle"
+        "settings_keyboard_help":         "\nDrücke [?] zum Anzeigen der\nTastaturkurzbefehle"
       }
    }
 ]
