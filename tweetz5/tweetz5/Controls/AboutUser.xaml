@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+       xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
        xmlns:local="clr-namespace:tweetz5"
        xmlns:controls="clr-namespace:tweetz5.Controls"
        xmlns:utilities="clr-namespace:tweetz5.Utilities"
@@ -43,11 +44,20 @@
       </TextBlock>
       <Separator Margin="0 10" />
       <DockPanel LastChildFill="True">
-        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Tweets, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/><Run>tweets</Run></TextBlock>
+        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Tweets, Converter={StaticResource NumberValueCommaConverter}}"></Run>
+          <LineBreak/>
+          <Run Text="{t:Translate profile_tweets}" />
+        </TextBlock>
         <Border Style="{StaticResource VerticalSeparatorStyle}"/>
-        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Friends, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/><Run>friends</Run></TextBlock>
+        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Friends, Converter={StaticResource NumberValueCommaConverter}}"></Run>
+          <LineBreak/>
+          <Run  Text="{t:Translate profile_friends}" />
+        </TextBlock>
         <Border Style="{StaticResource VerticalSeparatorStyle}"/>
-        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Followers, Converter={StaticResource NumberValueCommaConverter}}"></Run><LineBreak/><Run>followers</Run></TextBlock>
+        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Followers, Converter={StaticResource NumberValueCommaConverter}}"></Run>
+          <LineBreak/>
+          <Run Text="{t:Translate profile_followers}"/>
+        </TextBlock>
         <Button DockPanel.Dock="Right"
                 Width="70" Height="23"
                 Command="{x:Static local:Commands.FollowUserComand}"
