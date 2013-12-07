@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,6 +32,11 @@ namespace tweetz5.Controls
             {
                 dpd.AddValueChanged(TimelineItems, OnItemsSourceChanged);
             }
+        }
+
+        private void DragMoveWindow(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.DragMove();
         }
 
         private void OnItemsSourceChanged(object sender, EventArgs eventArgs)

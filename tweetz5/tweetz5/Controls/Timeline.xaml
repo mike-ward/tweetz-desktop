@@ -61,7 +61,7 @@
             </EventTrigger>
           </DataTemplate.Triggers>
 
-          <Grid>
+          <Grid MouseLeftButtonDown="DragMoveWindow">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
               <ColumnDefinition Width="*" />
