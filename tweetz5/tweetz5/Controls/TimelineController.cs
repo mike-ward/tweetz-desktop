@@ -29,7 +29,7 @@ namespace tweetz5.Controls
                 {
                     try
                     {
-                        _checkTimelines.Interval = 60000;
+                        _checkTimelines.Interval = 90000;
                         _timelinesModel.HomeTimeline();
                         _timelinesModel.MentionsTimeline();
                         _timelinesModel.DirectMessagesTimeline();
