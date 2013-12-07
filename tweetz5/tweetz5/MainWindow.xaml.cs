@@ -63,6 +63,7 @@ namespace tweetz5
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+            e.Handled = true;
         }
 
         private void BottomSizeOnDragDelta(object sender, DragDeltaEventArgs e)
