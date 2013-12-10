@@ -6,11 +6,13 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Interop;
 using tweetz5.Controls;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
@@ -40,6 +42,9 @@ namespace tweetz5
                 Compose.Visibility = Visibility.Collapsed;
                 Commands.SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
                 Commands.SignInCommand.Execute(null, this);
+
+                // ReSharper disable once PossibleNullReferenceException
+                HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
                 Utilities.Run.Later(100, () => OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true)));
             };
         }
@@ -69,12 +74,19 @@ namespace tweetz5
 
         private void BottomSizeOnDragDelta(object sender, DragDeltaEventArgs e)
         {
-            Height = Math.Max(Height + e.VerticalChange, MinHeight);
+            Height = Math.Max(Height + Screen.VerticalPixelToDpi(this, e.VerticalChange), MinHeight);
         }
 
         private void RightSizeBarOnDragDelta(object sender, DragDeltaEventArgs e)
         {
-            Width = Math.Max(Width + e.HorizontalChange, MinWidth);
+            Width = Math.Max(Width + Screen.HorizontalPixelToDpi(this, e.HorizontalChange), MinWidth);
+        }
+
+        private void LeftSizeBarOnDragDelta(object sender, DragDeltaEventArgs e)
+        {
+            var oldWidth = Width;
+            Width = Math.Max(Width - Screen.HorizontalPixelToDpi(this, e.HorizontalChange), MinWidth);
+            Left += Screen.HorizontalDpiToPixel(this, oldWidth - Width);
         }
 
         private void MainPanelOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -90,7 +102,7 @@ namespace tweetz5
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - ResizeBar.ActualHeight;
-            Timeline.Width = Math.Max(0, e.NewSize.Width - RightSizeBar.ActualWidth - 2);
+            Timeline.Width = Math.Max(0, e.NewSize.Width - LeftSizeBar.ActualWidth - RightSizeBar.ActualWidth - 2);
 
             SettingsPanel.Height = Timeline.Height;
             SettingsPanel.Width = Timeline.Width;
@@ -347,8 +359,8 @@ namespace tweetz5
                     var buffer = new byte[stream.Length];
                     stream.Read(buffer, 0, buffer.Length);
                     html = (buffer[1] == (byte) 0)
-                               ? Encoding.Unicode.GetString(buffer)
-                               : Encoding.ASCII.GetString(buffer);
+                        ? Encoding.Unicode.GetString(buffer)
+                        : Encoding.ASCII.GetString(buffer);
                 }
                 var match = new Regex(@"<img[^>]+src=""([^""]*)""").Match(html);
                 if (match.Success)
@@ -400,6 +412,36 @@ namespace tweetz5
             Application.Current.Resources["AppFontSizePlus3"] = size + 3;
             Application.Current.Resources["AppFontSizePlus7"] = size + 7;
             Application.Current.Resources["AppFontSizeMinus1"] = size - 1;
+        }
+
+        // ReSharper disable InconsistentNaming
+        public struct WINDOWPOS
+        {
+            public IntPtr hwnd;
+            public IntPtr hwndInsertAfter;
+            public int x;
+            public int y;
+            public int cx;
+            public int cy;
+            public UInt32 flags;
+        };
+
+        private static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            switch (msg)
+            {
+                // Allow window to move above top of screen
+                // http://stackoverflow.com/questions/328127/how-do-i-move-a-wpf-window-into-a-negative-top-value
+                case 0x46: //WM_WINDOWPOSCHANGING
+                    if (Mouse.LeftButton != MouseButtonState.Pressed)
+                    {
+                        var wp = (WINDOWPOS) Marshal.PtrToStructure(lParam, typeof (WINDOWPOS));
+                        wp.flags = wp.flags | 2; //SWP_NOMOVE
+                        Marshal.StructureToPtr(wp, lParam, false);
+                    }
+                    break;
+            }
+            return IntPtr.Zero;
         }
     }
 }

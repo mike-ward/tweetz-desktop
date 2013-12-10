@@ -29,6 +29,9 @@
   <Border BorderBrush="Black"
           BorderThickness="1">
     <StackPanel Orientation="Horizontal">
+      <Thumb x:Name="LeftSizeBar" 
+             DragDelta="LeftSizeBarOnDragDelta"
+             Style="{StaticResource HorizontalSizeThumbStyle}" />
       <StackPanel>
         <DockPanel x:Name="Topbar"
                    Style="{StaticResource TopBarStyle}">
