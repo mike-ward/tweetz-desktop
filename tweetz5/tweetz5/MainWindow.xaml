@@ -28,7 +28,12 @@
   </Window.Resources>
   <Border BorderBrush="Black"
           BorderThickness="1">
-    <StackPanel Orientation="Horizontal">
+    <StackPanel>
+      <Thumb x:Name="TopResizeBar"
+             DragDelta="TopSizeOnDragDelta"
+             Style="{StaticResource VerticalSizeThumbStyle}" />
+      
+      <StackPanel Orientation="Horizontal">
       <Thumb x:Name="LeftSizeBar" 
              DragDelta="LeftSizeBarOnDragDelta"
              Style="{StaticResource HorizontalSizeThumbStyle}" />
@@ -108,10 +113,6 @@
           <controls:ComposeTweet x:Name="Compose"
                               Visibility="Visible"
                               IsVisibleChanged="ComposeOnIsVisibleChanged" />
-          <Thumb x:Name="ResizeBar"
-                 DragDelta="BottomSizeOnDragDelta"
-                 Style="{StaticResource VerticalSizeThumbStyle}" />
-          
           <controls:AboutUser x:Name="UserInformationPopup"
                            Placement="Left"
                            StaysOpen="False"/>
@@ -128,6 +129,11 @@
              DragDelta="RightSizeBarOnDragDelta"
              Style="{StaticResource HorizontalSizeThumbStyle}" />
     </StackPanel>
+      <Thumb x:Name="BottomResizeBar"
+             DragDelta="BottomSizeOnDragDelta"
+             Style="{StaticResource VerticalSizeThumbStyle}" />
+
+    </StackPanel>  
   </Border>
   <Window.CommandBindings>
     <CommandBinding Command="Close"

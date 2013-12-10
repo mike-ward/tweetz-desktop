@@ -72,6 +72,13 @@ namespace tweetz5
             e.Handled = true;
         }
 
+        private void TopSizeOnDragDelta(object sender, DragDeltaEventArgs e)
+        {
+            var oldHeight = Height;
+            Height = Math.Max(Height - Screen.VerticalPixelToDpi(this, e.VerticalChange), MinHeight);
+            Top += Screen.VerticalDpiToPixel(this, oldHeight - Height);
+        }
+
         private void BottomSizeOnDragDelta(object sender, DragDeltaEventArgs e)
         {
             Height = Math.Max(Height + Screen.VerticalPixelToDpi(this, e.VerticalChange), MinHeight);
@@ -93,7 +100,7 @@ namespace tweetz5
         {
             if (MainPanel.IsVisible)
             {
-                ResizeBar.Visibility = Visibility.Visible;
+                BottomResizeBar.Visibility = Visibility.Visible;
                 Timeline.Visibility = Visibility.Visible;
                 OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
             }
@@ -101,7 +108,7 @@ namespace tweetz5
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Timeline.Height = e.NewSize.Height - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - ResizeBar.ActualHeight;
+            Timeline.Height = Math.Max(0, e.NewSize.Height - TopResizeBar.ActualHeight - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - BottomResizeBar.ActualHeight - 2);
             Timeline.Width = Math.Max(0, e.NewSize.Width - LeftSizeBar.ActualWidth - RightSizeBar.ActualWidth - 2);
 
             SettingsPanel.Height = Timeline.Height;
@@ -123,7 +130,7 @@ namespace tweetz5
             var timelineName = (string) ea.Parameter;
             Compose.Visibility = Visibility.Collapsed;
             SettingsPanel.Visibility = Visibility.Collapsed;
-            ResizeBar.Visibility = Visibility.Visible;
+            BottomResizeBar.Visibility = Visibility.Visible;
             Timeline.Visibility = Visibility.Visible;
             MainPanel.Visibility = Visibility.Visible;
             SetButtonStates(timelineName);

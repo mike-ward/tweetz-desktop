@@ -571,7 +571,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
-          <Rectangle Name="thumb" Height="4" Stroke="{StaticResource AppBackgroundBrush}" StrokeThickness="0.5" Cursor="SizeNS">
+          <Rectangle Name="thumb" Height="2" Stroke="{StaticResource AppBackgroundBrush}" StrokeThickness="0.5" Cursor="SizeNS">
             <Rectangle.Fill>
               <SolidColorBrush Color="{StaticResource AppBackgroundColor}" />
             </Rectangle.Fill>

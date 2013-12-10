@@ -24,6 +24,6 @@ using System.Windows;
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None,ResourceDictionaryLocation.SourceAssembly)]
 
-[assembly: AssemblyVersion("0.7.4")]
-[assembly: AssemblyFileVersion("0.7.4")]
+[assembly: AssemblyVersion("0.7.5")]
+[assembly: AssemblyFileVersion("0.7.5")]
 [assembly: Guid("B21EBDFF-5222-451A-AB7D-F07EF6DF2813")]
