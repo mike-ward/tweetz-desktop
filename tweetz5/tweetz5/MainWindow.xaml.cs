@@ -40,6 +40,7 @@ namespace tweetz5
                 Compose.Visibility = Visibility.Collapsed;
                 Commands.SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
                 Commands.SignInCommand.Execute(null, this);
+                Utilities.Run.Later(100, () => OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true)));
             };
         }
 
