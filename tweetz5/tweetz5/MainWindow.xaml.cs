@@ -45,7 +45,6 @@ namespace tweetz5
 
                 // ReSharper disable once PossibleNullReferenceException
                 HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
-                Utilities.Run.Later(100, () => OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true)));
             };
         }
 
@@ -449,6 +448,11 @@ namespace tweetz5
                     break;
             }
             return IntPtr.Zero;
+        }
+
+        private void TopBarOnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
         }
     }
 }

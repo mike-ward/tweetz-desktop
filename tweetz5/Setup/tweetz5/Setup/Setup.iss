@@ -1,5 +1,5 @@
 #define MyAppName "Tweetz Desktop"
-#define MyAppVersion "0.7.5"
+#define MyAppVersion "0.7.6"
 #define MyAppPublisher "Mike Ward"
 #define MyAppURL "http://mike-ward.net"
 #define MyAppExeName "tweetz5.exe"

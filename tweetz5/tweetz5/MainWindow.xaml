@@ -39,6 +39,7 @@
              Style="{StaticResource HorizontalSizeThumbStyle}" />
       <StackPanel>
         <DockPanel x:Name="Topbar"
+                   SizeChanged="TopBarOnSizeChanged"
                    Style="{StaticResource TopBarStyle}">
           <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
             <Image Source="..\Assets\Images\birdblue.png" />
