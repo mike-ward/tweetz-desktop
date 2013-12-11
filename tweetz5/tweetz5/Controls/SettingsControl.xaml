@@ -45,6 +45,13 @@
       <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_spell_check}" />
     </StackPanel>
 
+    <StackPanel Orientation="Horizontal"
+                VerticalAlignment="Center">
+      <CheckBox VerticalAlignment="Center"
+                IsChecked="{Binding IsRegisteredInStartup}" />
+      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_run_on_windows_start}" />
+    </StackPanel>
+
     <GroupBox Header="{t:Translate settings_font_size}" Width="170" Margin="0 5 0 0" HorizontalAlignment="Left" Padding="5 0 0 0">
       <StackPanel Orientation="Horizontal">
         <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}" FontSize="10" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="10" />

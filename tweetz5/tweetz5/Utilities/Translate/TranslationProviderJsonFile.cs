@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Web.Script.Serialization;
@@ -131,12 +132,16 @@ namespace tweetz5.Utilities.Translate
             {"settings_spell_check",           "Spell check"},
             {"settings_font_size",             "Font Size"},
             {"settings_sign_out",              "Sign Out"},
-            {"settings_keyboard_help",         "Press ? for keyboard shortcuts"}
+            {"settings_keyboard_help",         "Press ? for keyboard shortcuts"},
+            {"settings_run_on_windows_start",  "Run on windows start"}
         };
 
+        [DataContract]
         public class Language
         {
+            [DataMember]
             public string Name { get; set; }
+            [DataMember]
             public Dictionary<string, string> Dictionary = new Dictionary<string, string>();
         }
     }

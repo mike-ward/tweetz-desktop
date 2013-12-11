@@ -88,6 +88,19 @@ namespace tweetz5.Model
             get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
 
+        public bool IsRegisteredInStartup
+        {
+            get { return Utilities.System.RegistryHelper.IsRegisteredInStartup(); }
+            set
+            {
+                if (IsRegisteredInStartup != value)
+                {
+                    Utilities.System.RegistryHelper.RegisterInStartup(value);
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

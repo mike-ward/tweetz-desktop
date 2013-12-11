@@ -105,6 +105,7 @@
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Model\TwitterStream.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utilities\System\RegistryHelper.cs" />
     <Compile Include="Utilities\System\Screen.cs" />
     <Compile Include="Utilities\Win7FontFamilyConverter.cs" />
     <Compile Include="Utilities\FontSizeToBoolConverter.cs" />
