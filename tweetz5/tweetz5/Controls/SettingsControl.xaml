@@ -11,12 +11,12 @@
              HorizontalAlignment="Center"
              Padding="10"
              mc:Ignorable="d"
-             d:DesignWidth="200">
+             d:DesignWidth="185">
   <UserControl.Resources>
     <utilities:FontSizeToBoolConverter x:Key="FontSizeToBoolConverter" />
     <utilities:Win7FontConverter x:Key="Win7FontConverter" />
   </UserControl.Resources>
-  <StackPanel Width="185">
+  <StackPanel Width="180">
     <TextBlock HorizontalAlignment="Center"
                FontWeight="Bold">
       <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"

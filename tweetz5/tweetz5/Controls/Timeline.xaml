@@ -10,7 +10,7 @@
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="200">
+             d:DesignWidth="190">
   <UserControl.Resources>
     <ContextMenu x:Key="MoreMenu">
       <MenuItem Header="{t:Translate status_retweet_classic}"

@@ -26,115 +26,117 @@
   <Window.Resources>
     <u:Win7FontConverter x:Key="Win7FontConverter" />
   </Window.Resources>
-  <Border BorderBrush="Black"
-          BorderThickness="1">
+  <Border BorderThickness="0">
     <StackPanel>
       <Thumb x:Name="TopResizeBar"
              DragDelta="TopSizeOnDragDelta"
              Style="{StaticResource VerticalSizeThumbStyle}" />
-      
+
       <StackPanel Orientation="Horizontal">
-      <Thumb x:Name="LeftSizeBar" 
+        <Thumb x:Name="LeftSizeBar" 
              DragDelta="LeftSizeBarOnDragDelta"
              Style="{StaticResource HorizontalSizeThumbStyle}" />
-      <StackPanel>
-        <DockPanel x:Name="Topbar"
+        <StackPanel>
+          <Grid x:Name="Topbar"
                    SizeChanged="TopBarOnSizeChanged"
                    Style="{StaticResource TopBarStyle}">
-          <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-            <Image Source="..\Assets\Images\birdblue.png" />
-            <Label Style="{StaticResource TopBarLabelStyle}">tweetz</Label>
-          </StackPanel>
-          <StackPanel Orientation="Horizontal"
-                      HorizontalAlignment="Right"
-                      DockPanel.Dock="Right">
+            <Image Source="..\Assets\Images\birdblue.png"
+                   HorizontalAlignment="Left"
+                   Height="11" 
+                   Margin="4 0 0 0" />
+            <Label Style="{StaticResource TopBarLabelStyle}"
+                   HorizontalAlignment="Left"
+                   Content="Tweetz" />
             <Button Style="{StaticResource AppCloseButtonStyle}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;'}"
                     Command="Close"/>
-          </StackPanel>
-        </DockPanel>
-        
-        <controls:Authenticate x:Name="AuthenticatePanel"
+          </Grid>
+
+          <Border x:Name="TopBarSpacer" BorderBrush="{StaticResource TopBarBackgroundBrush}" BorderThickness=".8" />
+          <Border x:Name="NavBarSpacer" BorderBrush="{StaticResource AppBackgroundBrush}" BorderThickness="2" />
+          
+          <controls:Authenticate x:Name="AuthenticatePanel"
                                Visibility="Collapsed"/>
-        
-        <StackPanel x:Name="MainPanel">
-          <UniformGrid x:Name="NavBar" Rows="1" Style="{StaticResource NavBar}">
-            <Button x:Name="UnifiedButton"
+
+          <StackPanel x:Name="MainPanel">
+            <UniformGrid x:Name="NavBar" Rows="1" Style="{StaticResource NavBar}">
+              <Button x:Name="UnifiedButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_unified_button}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE179;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.UnifiedName}"/>
-            <Button x:Name="HomeButton"
+              <Button x:Name="HomeButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_home_button}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10F;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.HomeName}"/>
-            <Button x:Name="MentionsButton"
+              <Button x:Name="MentionsButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_mentions_button}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE168;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.MentionsName}"/>
-            <Button x:Name="MessagesButton"
+              <Button x:Name="MessagesButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_messages_button}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE135;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.MessagesName}"/>
-            <Button x:Name="FavoritesButton"
+              <Button x:Name="FavoritesButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_favorites_button}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE113;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.FavoritesName}"/>
-            <Button x:Name="SearchButton"
+              <Button x:Name="SearchButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_search_button}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE11A;'}"
                     Command="{x:Static tweetz5:Commands.SwitchTimelinesCommand}"
                     CommandParameter="{x:Static model:Timelines.SearchName}" />
-            <Button x:Name="SettingsButton"
+              <Button x:Name="SettingsButton"
                     Style="{StaticResource NavBarButton}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE115;'}"
                     ToolTip="{t:Translate tooltip_settings_button}"
                     Command="{x:Static tweetz5:Commands.SettingsCommand}"/>
-            <Button Style="{StaticResource NavBarButton}"
+              <Button Style="{StaticResource NavBarButton}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE104;'}"
                     Command="{x:Static tweetz5:Commands.OpenComposeCommand}"
                     ToolTip="{t:Translate tooltip_compose_button}"/>
-          </UniformGrid>
-          
-          <controls:SettingsControl x:Name="SettingsPanel" />
-          
-          <controls:Timeline x:Name="Timeline"
+            </UniformGrid>
+
+            <controls:SettingsControl x:Name="SettingsPanel" />
+
+            <controls:Timeline x:Name="Timeline"
                           Panel.ZIndex="-1"
                           Height="400" />
-          <controls:ComposeTweet x:Name="Compose"
+            <controls:ComposeTweet x:Name="Compose"
                               Visibility="Visible"
                               IsVisibleChanged="ComposeOnIsVisibleChanged" />
-          <controls:AboutUser x:Name="UserInformationPopup"
+            <controls:AboutUser x:Name="UserInformationPopup"
                            Placement="Left"
                            StaysOpen="False"/>
-          
-          <controls:StatusAlert x:Name="StatusAlert"
+
+            <controls:StatusAlert x:Name="StatusAlert"
                              Placement="Center"/>
-          
-          <controls:ShortcutHelp x:Name="ShortcutHelp"
+
+            <controls:ShortcutHelp x:Name="ShortcutHelp"
                                  Placement="Center"/>
+          </StackPanel>
         </StackPanel>
-      </StackPanel>
-      
-      <Thumb x:Name="RightSizeBar" 
+
+        <Thumb x:Name="RightSizeBar" 
              DragDelta="RightSizeBarOnDragDelta"
              Style="{StaticResource HorizontalSizeThumbStyle}" />
-    </StackPanel>
+      </StackPanel>
+      
       <Thumb x:Name="BottomResizeBar"
              DragDelta="BottomSizeOnDragDelta"
              Style="{StaticResource VerticalSizeThumbStyle}" />
 
-    </StackPanel>  
+    </StackPanel>
   </Border>
   <Window.CommandBindings>
     <CommandBinding Command="Close"

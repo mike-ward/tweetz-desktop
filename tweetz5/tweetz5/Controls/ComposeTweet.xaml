@@ -10,7 +10,7 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="200"
+             d:DesignWidth="190"
              Focusable="True"
              Height="Auto">
   <UserControl.Resources>

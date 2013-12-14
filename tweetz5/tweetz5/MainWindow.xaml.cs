@@ -107,8 +107,16 @@ namespace tweetz5
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Timeline.Height = Math.Max(0, e.NewSize.Height - TopResizeBar.ActualHeight - Topbar.ActualHeight - NavBar.ActualHeight - Compose.ActualHeight - BottomResizeBar.ActualHeight - 2);
-            Timeline.Width = Math.Max(0, e.NewSize.Width - LeftSizeBar.ActualWidth - RightSizeBar.ActualWidth - 2);
+            Timeline.Height = Math.Max(0, 
+                e.NewSize.Height 
+                - TopResizeBar.ActualHeight 
+                - TopBarSpacer.ActualHeight
+                - NavBarSpacer.ActualHeight
+                - Topbar.ActualHeight 
+                - NavBar.ActualHeight 
+                - Compose.ActualHeight 
+                - BottomResizeBar.ActualHeight);
+            Timeline.Width = Math.Max(0, e.NewSize.Width - LeftSizeBar.ActualWidth - RightSizeBar.ActualWidth);
 
             SettingsPanel.Height = Timeline.Height;
             SettingsPanel.Width = Timeline.Width;

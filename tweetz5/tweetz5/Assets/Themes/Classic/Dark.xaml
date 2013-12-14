@@ -19,7 +19,8 @@
   <Color x:Key="AppBackgroundColor">#333333</Color>
   <SolidColorBrush x:Key="AppForegroundBrush">#bbbbbb</SolidColorBrush>
   <SolidColorBrush x:Key="AppBackgroundBrush">#333333</SolidColorBrush>
-  <SolidColorBrush x:Key="TopBarBackgroundBrush">#333344</SolidColorBrush>
+  <SolidColorBrush x:Key="TopBarBackgroundBrush">#3C3C3C</SolidColorBrush>
+  <Color x:Key="TopBarBackgroundColor">#3C3C3C</Color>
 
   <Style x:Key="WindowStyle" TargetType="Window">
     <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
@@ -38,13 +39,14 @@
     <Setter Property="Content" Value="Aa" />
   </Style>
 
-  <Style x:Key="TopBarStyle" TargetType="DockPanel">
+  <Style x:Key="TopBarStyle" TargetType="Grid">
     <Setter Property="Background" Value="{StaticResource TopBarBackgroundBrush}" />
   </Style>
 
   <Style x:Key="TopBarLabelStyle" TargetType="Label">
     <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}" />
-    <Setter Property="Padding" Value="5,0,0,1" />
+    <Setter Property="Padding" Value="22 0 0 0" />
+    <Setter Property="FontFamily" Value="Verdana"/>
   </Style>
 
   <Style TargetType="UniformGrid" x:Key="NavBar">
@@ -87,6 +89,8 @@
 
   <Style x:Key="AppCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource NavBarButton}">
     <Setter Property="FontSize" Value="{DynamicResource AppFontSizePlus1}" />
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="Margin" Value="0 0 2 0" />
   </Style>
 
   <Style x:Key="TimelineStyle" TargetType="ListBox">
@@ -571,9 +575,9 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
-          <Rectangle Name="thumb" Height="2" Stroke="{StaticResource AppBackgroundBrush}" StrokeThickness="0.5" Cursor="SizeNS">
+          <Rectangle Name="thumb" Height="2" Stroke="{StaticResource TopBarBackgroundBrush}" StrokeThickness="0.5" Cursor="SizeNS">
             <Rectangle.Fill>
-              <SolidColorBrush Color="{StaticResource AppBackgroundColor}" />
+              <SolidColorBrush Color="{StaticResource TopBarBackgroundColor}" />
             </Rectangle.Fill>
           </Rectangle>
           <ControlTemplate.Triggers>
