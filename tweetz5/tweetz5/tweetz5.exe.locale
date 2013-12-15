@@ -1,4 +1,4 @@
-﻿[
+[
   { "Name": "your two letter language code here, then modify strings below",
     "Dictionary": {
       "authenticate_instructions":      "To get started, click the Get PIN button. This opens a Web page where you'll authorize access. Copy the PIN from the Web page to here and click Sign In",
@@ -200,7 +200,7 @@
       "settings_font_size":             "Schriftgröße",
       "settings_sign_out":              "Abmelden",
       "settings_keyboard_help":         "\nDrücke [?] zum Anzeigen der\nTastaturkurzbefehle",
-      "settings_run_on_windows_start":  "Führen Sie auf Windows beginnen"
+      "settings_run_on_windows_start":  "Mit Windows starten"
     }
   }
 ]
