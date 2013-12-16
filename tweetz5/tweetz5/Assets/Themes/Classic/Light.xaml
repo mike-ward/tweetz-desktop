@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Color x:Key="AppForegroundColor">#000000</Color>
+  <Color x:Key="AppBackgroundColor">#ffffff</Color>
+  <SolidColorBrush x:Key="AppForegroundBrush">#000000</SolidColorBrush>
+  <SolidColorBrush x:Key="AppBackgroundBrush">#ffffff</SolidColorBrush>
+
+  <SolidColorBrush x:Key="TitleBarBrush">#efefef</SolidColorBrush>
+  
+  <SolidColorBrush x:Key="HyperLinkBrush">#114477</SolidColorBrush>
+
+  <Color x:Key="TopBarBackgroundColor">#007acc</Color>
+  <SolidColorBrush x:Key="TopBarBackgroundBrush">#007acc</SolidColorBrush>
+  
+  <SolidColorBrush x:Key="NavBarForegroundBrush">#666666</SolidColorBrush>
+  <SolidColorBrush x:Key="NavBarMouseOverBrush">#557799</SolidColorBrush>
+
+</ResourceDictionary>

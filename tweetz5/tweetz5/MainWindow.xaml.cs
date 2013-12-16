@@ -163,6 +163,13 @@ namespace tweetz5
             var tweet = ea.Parameter as Tweet ?? Timeline.GetSelectedTweet;
             if (tweet == null) return;
             Timeline.Controller.CopyTweetToClipboard(tweet);
+
+            var lightDictionary = Application.LoadComponent(new Uri("/Assets/Themes/Classic/Light.xaml", UriKind.Relative)) as ResourceDictionary;
+            var commonDictionary = Application.LoadComponent(new Uri("/Assets/Themes/Classic/Common.xaml", UriKind.Relative)) as ResourceDictionary;
+
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(lightDictionary);
+            Application.Current.Resources.MergedDictionaries.Add(commonDictionary);
         }
 
         private void CopyLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)

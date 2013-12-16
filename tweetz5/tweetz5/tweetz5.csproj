@@ -138,7 +138,15 @@
     <Compile Include="Utilities\Translate\TranslationProviderJsonFile.cs" />
     <Compile Include="Utilities\UriToCachedImageConverter.cs" />
     <Compile Include="Utilities\Win7FontConverter.cs" />
+    <Page Include="Assets\Themes\Classic\Common.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Assets\Themes\Classic\Dark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\Themes\Classic\Light.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
