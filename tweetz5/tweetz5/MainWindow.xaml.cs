@@ -431,7 +431,9 @@ namespace tweetz5
         // ReSharper disable InconsistentNaming
         public struct WINDOWPOS
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
             public IntPtr hwnd;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
             public IntPtr hwndInsertAfter;
             public int x;
             public int y;

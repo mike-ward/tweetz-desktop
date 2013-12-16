@@ -39,8 +39,9 @@ namespace tweetz5.Model
         ReadSafeList<string> ScreenNames { get; }
     }
 
-    public class Timelines : ITimelines
+    public class Timelines : ITimelines, IDisposable
     {
+        private bool _disposed;
         private string _timelineName;
         private ObservableCollection<Tweet> _timeline;
         private readonly Dictionary<string, Timeline> _timelineMap;
@@ -505,7 +506,7 @@ namespace tweetz5.Model
                 var json = Twitter.Search(query + "+exclude:retweets");
                 var statuses = SearchStatuses.ParseJson(json);
                 UpdateStatus(new[] {SearchName}, statuses, "s");
-            });
+            }, CancellationToken);
         }
 
         public void DeleteTweet(Tweet tweet)
@@ -541,6 +542,20 @@ namespace tweetz5.Model
         {
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource = new CancellationTokenSource();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed) return;
+            _disposed = true;
+            if (disposing == false) return;
+            if (_cancellationTokenSource != null) _cancellationTokenSource.Dispose();
         }
     }
 }

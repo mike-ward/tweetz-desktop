@@ -33,7 +33,7 @@ namespace tweetz5.Model
             GC.SuppressFinalize(this);
         }
 
-        public virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed) return;
             _disposed = true;

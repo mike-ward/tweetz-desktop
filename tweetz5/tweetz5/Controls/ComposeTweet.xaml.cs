@@ -155,7 +155,7 @@ namespace tweetz5.Controls
                 if (_atPressed) CloseFriendsPopup();
                 else Hide();
             }
-            var ch = Utilities.System.KeyboardExtensions.GetCharFromKey(e.Key);
+            var ch = Utilities.System.NativeMethods.GetCharFromKey(e.Key);
             if (ch == '@')
             {
                 _atPressed = true;

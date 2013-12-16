@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,11 +58,8 @@ namespace tweetz5.Controls
             }
             textBlock.Inlines.Clear();
             textBlock.Inlines.AddRange(inlines);
-            keybd_event(0x28, 0, 0x0002, 0);
+            Utilities.System.NativeMethods.keybd_event(0x28, 0, 0x0002, IntPtr.Zero);
         }
-
-        [DllImport("user32.dll")]
-        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
 
         private static Run Run(string text)
         {

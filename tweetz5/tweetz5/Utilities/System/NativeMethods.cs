@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input;
 
@@ -6,7 +7,7 @@ using System.Windows.Input;
 
 namespace tweetz5.Utilities.System
 {
-    public class KeyboardExtensions
+    public class NativeMethods
     {
         public enum MapType : uint
         {
@@ -17,7 +18,7 @@ namespace tweetz5.Utilities.System
         }
 
         [DllImport("user32.dll")]
-        public static extern int ToUnicode(
+        internal static extern int ToUnicode(
             uint wVirtKey,
             uint wScanCode,
             byte[] lpKeyState,
@@ -26,10 +27,10 @@ namespace tweetz5.Utilities.System
             uint wFlags);
 
         [DllImport("user32.dll")]
-        public static extern bool GetKeyboardState(byte[] lpKeyState);
+        internal static extern bool GetKeyboardState(byte[] lpKeyState);
 
         [DllImport("user32.dll")]
-        public static extern uint MapVirtualKey(uint uCode, MapType uMapType);
+        internal static extern uint MapVirtualKey(uint uCode, MapType uMapType);
 
         public static char GetCharFromKey(Key key)
         {
@@ -46,5 +47,8 @@ namespace tweetz5.Utilities.System
             }
             return ch;
         }
+
+        [DllImport("user32.dll")]
+        internal static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, IntPtr dwExtraInfo);
     }
 }

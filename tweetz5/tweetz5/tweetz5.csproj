@@ -29,6 +29,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>true</Prefer32Bit>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -127,7 +128,7 @@
     </Compile>
     <Compile Include="Utilities\StringContainsConverter.cs" />
     <Compile Include="Utilities\System\BuildInfo.cs" />
-    <Compile Include="Utilities\System\KeyboardExtensions.cs" />
+    <Compile Include="Utilities\System\NativeMethods.cs" />
     <Compile Include="Utilities\System\SysTimer.cs" />
     <Compile Include="Utilities\Translate\ITranslationProvider.cs" />
     <Compile Include="Utilities\Translate\LanguageChangedEventHandler.cs" />
