@@ -6,14 +6,21 @@
   <SolidColorBrush x:Key="AppForegroundBrush">#bbbbbb</SolidColorBrush>
   <SolidColorBrush x:Key="AppBackgroundBrush">#333333</SolidColorBrush>
 
-  <SolidColorBrush x:Key="TitleBarBrush">#bbbbbb</SolidColorBrush>
+  <SolidColorBrush x:Key="TitleBarForegroundBrush">#bbbbbb</SolidColorBrush>
+  <Color x:Key="TitleBarBackgroundColor">#3C3C3C</Color>
+  <SolidColorBrush x:Key="TitleBarBackgroundBrush">#3C3C3C</SolidColorBrush>
 
   <SolidColorBrush x:Key="HyperLinkBrush">#99bbee</SolidColorBrush>
 
-  <Color x:Key="TopBarBackgroundColor">#3C3C3C</Color>
-  <SolidColorBrush x:Key="TopBarBackgroundBrush">#3C3C3C</SolidColorBrush>
-
   <SolidColorBrush x:Key="NavBarForegroundBrush">#666666</SolidColorBrush>
   <SolidColorBrush x:Key="NavBarMouseOverBrush">#557799</SolidColorBrush>
+
+  <SolidColorBrush x:Key="TweetMentionBackgroundBrush">#333933</SolidColorBrush>
+
+  <SolidColorBrush x:Key="StandardBorderBrush" Color="#393939" />
+  <SolidColorBrush x:Key="StandardBrush" Color="#393939" />
+  <SolidColorBrush x:Key="PressedBrush" Color="#777777" />
+  <SolidColorBrush x:Key="HoverBrush" Color="#888888" />
+  <SolidColorBrush x:Key="GlyphBrush" Color="{DynamicResource AppBackgroundColor}" />
 
 </ResourceDictionary>

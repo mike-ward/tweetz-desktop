@@ -26,11 +26,11 @@
   <Window.Resources>
     <u:Win7FontConverter x:Key="Win7FontConverter" />
   </Window.Resources>
-  <Border BorderThickness="0">
+  <Border BorderThickness="0" Background="{DynamicResource AppBackgroundBrush}">
     <StackPanel>
       <Thumb x:Name="TopResizeBar"
              DragDelta="TopSizeOnDragDelta"
-             Style="{StaticResource VerticalSizeThumbStyle}" />
+             Style="{StaticResource VerticalSizeThumbStyleTop}" />
 
       <StackPanel Orientation="Horizontal">
         <Thumb x:Name="LeftSizeBar" 
@@ -52,8 +52,8 @@
                     Command="Close"/>
           </Grid>
 
-          <Border x:Name="TopBarSpacer" BorderBrush="{StaticResource TopBarBackgroundBrush}" BorderThickness=".8" />
-          <Border x:Name="NavBarSpacer" BorderBrush="{StaticResource AppBackgroundBrush}" BorderThickness="2" />
+          <Border x:Name="TopBarSpacer" Background="{DynamicResource TitleBarBackgroundBrush}" BorderBrush="{DynamicResource TitleBarBackgroundBrush}" BorderThickness=".8" />
+          <Border x:Name="NavBarSpacer" Background="{DynamicResource AppBackgroundBrush}" BorderBrush="{DynamicResource AppBackgroundBrush}" BorderThickness="2" />
           
           <controls:Authenticate x:Name="AuthenticatePanel"
                                Visibility="Collapsed"/>
@@ -134,7 +134,7 @@
       
       <Thumb x:Name="BottomResizeBar"
              DragDelta="BottomSizeOnDragDelta"
-             Style="{StaticResource VerticalSizeThumbStyle}" />
+             Style="{StaticResource VerticalSizeThumbStyleBottom}" />
 
     </StackPanel>
   </Border>
