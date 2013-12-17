@@ -6,12 +6,12 @@
   <SolidColorBrush x:Key="AppForegroundBrush">#000000</SolidColorBrush>
   <SolidColorBrush x:Key="AppBackgroundBrush">#ffffff</SolidColorBrush>
 
-  <SolidColorBrush x:Key="TitleBarBrush">#efefef</SolidColorBrush>
-  
-  <SolidColorBrush x:Key="HyperLinkBrush">#114477</SolidColorBrush>
+  <SolidColorBrush x:Key="TitleBarBrush">#ffffff</SolidColorBrush>
 
-  <Color x:Key="TopBarBackgroundColor">#007acc</Color>
-  <SolidColorBrush x:Key="TopBarBackgroundBrush">#007acc</SolidColorBrush>
+  <SolidColorBrush x:Key="HyperLinkBrush">#0171a1</SolidColorBrush>
+
+  <Color x:Key="TopBarBackgroundColor">#41b1e1</Color>
+  <SolidColorBrush x:Key="TopBarBackgroundBrush">#41b1e1</SolidColorBrush>
   
   <SolidColorBrush x:Key="NavBarForegroundBrush">#666666</SolidColorBrush>
   <SolidColorBrush x:Key="NavBarMouseOverBrush">#557799</SolidColorBrush>
