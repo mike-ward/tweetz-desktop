@@ -109,13 +109,13 @@
               <Setter TargetName="Border" Property="Background" Value="{DynamicResource TweetMentionBackgroundBrush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=d}" Value="True">
-              <Setter TargetName="Border" Property="Background" Value="#333339" />
+              <Setter TargetName="Border" Property="Background" Value="{DynamicResource TweetMessageBackgroundBrush}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding IsMyTweet, Mode=OneTime}" Value="True">
-              <Setter TargetName="Border" Property="Background" Value="#493333" />
+              <Setter TargetName="Border" Property="Background" Value="{DynamicResource TweetMyTweetBackgroundBrush}" />
             </DataTrigger>
             <Trigger Property="IsSelected" Value="true">
-              <Setter TargetName="Border" Property="Background" Value="#393949"/>
+              <Setter TargetName="Border" Property="Background" Value="{DynamicResource TweetSelectedTweetBackgroundBrush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -138,7 +138,7 @@
   </Style>
 
   <Style x:Key="TweetScreenNameStyle" TargetType="Run">
-    <Setter Property="Foreground" Value="#888888"/>
+    <Setter Property="Foreground" Value="{DynamicResource TweetMetaInfoForegroundBrush}"/>
   </Style>
   
   <Style x:Key="TweetImageColumnStyle" TargetType="ColumnDefinition">
@@ -146,7 +146,7 @@
   </Style>
 
   <Style x:Key="TweetTimeStyle" TargetType="Hyperlink">
-    <Setter Property="Foreground" Value="#888888" />
+    <Setter Property="Foreground" Value="{DynamicResource TweetMetaInfoForegroundBrush}" />
     <Setter Property="FontSize" Value="{DynamicResource AppFontSizeMinus1}" />
     <Setter Property="TextDecorations" Value="{x:Null}"/>
   </Style>
@@ -159,7 +159,7 @@
     <Setter Property="Margin" Value="0 2 0 0"></Setter>
     <Setter Property="TextAlignment" Value="Right" />
     <Setter Property="FontStyle" Value="Italic" />
-    <Setter Property="Foreground" Value="#888888" />
+    <Setter Property="Foreground" Value="{DynamicResource TweetMetaInfoForegroundBrush}" />
     <Setter Property="FontSize" Value="{DynamicResource AppFontSizeMinus1}" />
     <Style.Triggers>
       <DataTrigger Binding="{Binding RetweetedBy}" Value="{x:Static sys:String.Empty}">
@@ -176,7 +176,7 @@
 
   <Style x:Key="TweetActionsItem" TargetType="TextBlock">
     <Setter Property="FontSize" Value="{DynamicResource AppFontSizeMinus1}" />
-    <Setter Property="Foreground" Value="#666666" />
+    <Setter Property="Foreground" Value="{DynamicResource TweetActionsForegroundBrush}" />
     <Setter Property="Margin" Value="5 0 0 0" />
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
@@ -214,7 +214,7 @@
   <Style x:Key="TweetActionsFavoritesSymbol" TargetType="Run" BasedOn="{StaticResource TweetActionsSymbol}">
     <Style.Triggers>
       <DataTrigger Binding="{Binding Favorited}" Value="True" >
-        <Setter Property="Foreground" Value="DarkGoldenrod" />
+        <Setter Property="Foreground" Value="{DynamicResource TweetActionsFavoritesSymbolForegroundBrush}" />
       </DataTrigger>
     </Style.Triggers>
   </Style>
@@ -222,7 +222,7 @@
   <Style x:Key="TweetActionsRetweetSymbol" TargetType="Run" BasedOn="{StaticResource TweetActionsSymbol}">
     <Style.Triggers>
       <DataTrigger Binding="{Binding IsRetweet}" Value="True" >
-        <Setter Property="Foreground" Value="Green" />
+        <Setter Property="Foreground" Value="{DynamicResource TweetActionsRetweetSymbolForegroundBrush}" />
       </DataTrigger>
     </Style.Triggers>
   </Style>
@@ -247,7 +247,7 @@
   <!-- Compose -->
 
   <Style x:Key="ComposeTweet" TargetType="StackPanel">
-    <Setter Property="Background" Value="#484848" />
+    <Setter Property="Background" Value="{DynamicResource ComposeBackgroundBrush}" />
     <Setter Property="Margin" Value="4 0 6 1" />
   </Style>
 
@@ -259,8 +259,8 @@
   <Style x:Key="ComposeTweetTextBox" TargetType="TextBox">
     <Setter Property="FontSize" Value="{DynamicResource AppFontSizePlus3}" />
     <Setter Property="Height" Value="121" />
-    <Setter Property="Foreground" Value="#dddddd" />
-    <Setter Property="Background" Value="#585858" />
+    <Setter Property="Foreground" Value="{DynamicResource ComposeTextBoxForegroundBrush}" />
+    <Setter Property="Background" Value="{DynamicResource ComposeTextBoxBackgroundBrush}" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Margin" Value="7 0 7 5" />
     <Setter Property="Padding" Value="3" />
@@ -268,14 +268,14 @@
 
   <Style x:Key="ComposeTweetButton" TargetType="Button">
     <Setter Property="Cursor" Value="Hand" />
-    <Setter Property="Foreground" Value="#cccccc" />
+    <Setter Property="Foreground" Value="{DynamicResource ComposeButtonForegroundBrush}" />
     <Setter Property="FontWeight" Value="Normal" />
     <Setter Property="Margin" Value="0 0 7 0" />
     <Setter Property="ToolTipService.InitialShowDelay" Value="2000" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
-          <Border x:Name="border" CornerRadius="5" Background="#FF415360">
+          <Border x:Name="border" CornerRadius="5" Background="{DynamicResource ComposeButtonBorderBrush}">
             <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center">
               <ContentPresenter.Resources>
                 <Style TargetType="TextBlock">
@@ -293,7 +293,7 @@
   <Style x:Key="ComposeCharCounter" TargetType="TextBlock">
     <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="TextAlignment" Value="Left" />
-    <Setter Property="Foreground" Value="#cccccc" />
+    <Setter Property="Foreground" Value="{DynamicResource ComposeCharacterCounterForegroundBrush}" />
     <Setter Property="Margin" Value="10 0 0 0" />
     <Setter Property="FontSize" Value="{DynamicResource AppFontSizePlus3}" />
   </Style>
@@ -312,7 +312,7 @@
   <Style x:Key="ComposeScreenNameSuggestionListBox" TargetType="ListBox">
     <Setter Property="Width" Value="120" />
     <Setter Property="Height" Value="200" />
-    <Setter Property="BorderBrush" Value="Black" />
+    <Setter Property="BorderBrush" Value="{DynamicResource StandardBorderBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource AppForegroundBrush}" />
     <Setter Property="Background" Value="{DynamicResource AppBackgroundBrush}" />
   </Style>
