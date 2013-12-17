@@ -21,11 +21,11 @@ namespace tweetz5.Controls
             {
                 Tokens = Twitter.GetRequestToken();
                 var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + Tokens.OAuthToken;
-                Commands.OpenLinkCommand.Execute(url, this);
+                MyCommands.OpenLinkCommand.Execute(url, this);
             }
             catch (Exception ex)
             {
-                Commands.AlertCommand.Execute(ex.Message, this);
+                MyCommands.AlertCommand.Execute(ex.Message, this);
             }
         }
 
@@ -38,7 +38,7 @@ namespace tweetz5.Controls
             Properties.Settings.Default.UserId = tokens.UserId;
             Properties.Settings.Default.ScreenName = tokens.ScreenName;
             Properties.Settings.Default.Save();
-            Commands.SignInCommand.Execute(null, this);
+            MyCommands.SignInCommand.Execute(null, this);
         }
     }
 }

@@ -74,7 +74,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands.cs" />
+    <Compile Include="MyCommands.cs" />
+    <Compile Include="Commands\ChangeThemeCommand.cs" />
     <Compile Include="Controls\AboutUser.xaml.cs">
       <DependentUpon>AboutUser.xaml</DependentUpon>
     </Compile>

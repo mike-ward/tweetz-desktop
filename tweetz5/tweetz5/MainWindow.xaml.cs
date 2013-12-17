@@ -35,13 +35,13 @@ namespace tweetz5
                 {
                     Settings.Default.AccessToken = string.Empty;
                     Settings.Default.AccessTokenSecret = string.Empty;
-                    Commands.AlertCommand.Execute("Expired", this);
+                    MyCommands.AlertCommand.Execute("Expired", this);
                     return;
                 }
                 // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
                 Compose.Visibility = Visibility.Collapsed;
-                Commands.SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
-                Commands.SignInCommand.Execute(null, this);
+                MyCommands.SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
+                MyCommands.SignInCommand.Execute(null, this);
 
                 // ReSharper disable once PossibleNullReferenceException
                 HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
@@ -163,13 +163,6 @@ namespace tweetz5
             var tweet = ea.Parameter as Tweet ?? Timeline.GetSelectedTweet;
             if (tweet == null) return;
             Timeline.Controller.CopyTweetToClipboard(tweet);
-
-            var lightDictionary = Application.LoadComponent(new Uri("/Assets/Themes/Classic/Light.xaml", UriKind.Relative)) as ResourceDictionary;
-            var commonDictionary = Application.LoadComponent(new Uri("/Assets/Themes/Classic/Common.xaml", UriKind.Relative)) as ResourceDictionary;
-
-            Application.Current.Resources.MergedDictionaries.Clear();
-            Application.Current.Resources.MergedDictionaries.Add(lightDictionary);
-            Application.Current.Resources.MergedDictionaries.Add(commonDictionary);
         }
 
         private void CopyLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)
@@ -185,7 +178,7 @@ namespace tweetz5
             ea.Handled = true;
             var tweet = (Tweet) ea.Parameter ?? Timeline.GetSelectedTweet;
             var link = TimelineController.TweetLink(tweet);
-            Commands.OpenLinkCommand.Execute(link, this);
+            MyCommands.OpenLinkCommand.Execute(link, this);
         }
 
         private void ReplyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -295,7 +288,7 @@ namespace tweetz5
             var query = ea.Parameter as string;
             if (string.IsNullOrWhiteSpace(query)) return;
             Timeline.SearchControl.SetSearchText(query);
-            Commands.SwitchTimelinesCommand.Execute(Timelines.SearchName, this);
+            MyCommands.SwitchTimelinesCommand.Execute(Timelines.SearchName, this);
             Timeline.Controller.Search(query);
         }
 
@@ -323,7 +316,7 @@ namespace tweetz5
             Settings.Default.ScreenName = "";
             Settings.Default.UserId = "";
             Settings.Default.Save();
-            Commands.SignInCommand.Execute(null, this);
+            MyCommands.SignInCommand.Execute(null, this);
         }
 
         private void SettingsCommandHandler(object sender, ExecutedRoutedEventArgs ea)

@@ -27,11 +27,15 @@
   </Style>
 
   <Style x:Key="SettingsRadioButton" TargetType="RadioButton">
-    <Setter Property="Foreground" Value="{DynamicResource AppForegroundBrush}"/>
-    <Setter Property="Margin" Value="2 5"/>
     <Setter Property="Content" Value="Aa" />
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="Foreground" Value="{DynamicResource AppForegroundBrush}"/>
   </Style>
 
+  <Style x:Key="SettingsUniformGrid" TargetType="UniformGrid">
+    <Setter Property="Margin" Value="0 5 0 0" />
+  </Style>
+  
   <Style x:Key="TopBarStyle" TargetType="Grid">
     <Setter Property="Background" Value="{DynamicResource TitleBarBackgroundBrush}" />
   </Style>

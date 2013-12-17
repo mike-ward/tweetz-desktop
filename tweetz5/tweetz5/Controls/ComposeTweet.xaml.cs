@@ -29,7 +29,7 @@ namespace tweetz5.Controls
         {
             InitializeComponent();
             DataContext = this;
-            SizeChanged += (sender, args) => Commands.UpdateLayoutCommand.Execute(null, this);
+            SizeChanged += (sender, args) => MyCommands.UpdateLayoutCommand.Execute(null, this);
         }
 
         public string Image
@@ -249,7 +249,7 @@ namespace tweetz5.Controls
                 if (json.Contains("id_str"))
                 {
                     var status = Status.ParseJson("[" + json + "]");
-                    Commands.UpdateStatusHomeTimelineCommand.Execute(status, this);
+                    MyCommands.UpdateStatusHomeTimelineCommand.Execute(status, this);
                     Hide();
                 }
             }

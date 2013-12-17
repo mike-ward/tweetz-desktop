@@ -7,6 +7,7 @@
              xmlns:model="clr-namespace:tweetz5.Model"
              xmlns:utilities="clr-namespace:tweetz5.Utilities"
              xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
+             xmlns:commands="clr-namespace:tweetz5.Commands"
              DataContext="{x:Static model:Settings.ApplicationSettings}"
              HorizontalAlignment="Center"
              Padding="10"
@@ -52,24 +53,31 @@
       <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_run_on_windows_start}" />
     </StackPanel>
 
-    <GroupBox Header="{t:Translate settings_font_size}" Width="170" Margin="0 5 0 0" HorizontalAlignment="Left" Padding="5 0 0 0">
-      <StackPanel Orientation="Horizontal">
-        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}" FontSize="10" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="10" />
-        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=11}" FontSize="11" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="11" />
-        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=12}" FontSize="12" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="12" />
-        <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=13}" FontSize="13" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:Commands.SetFontSizeCommand}" CommandParameter="13" />
-      </StackPanel>
-    </GroupBox>
+    <TextBlock Text="{t:Translate settings_font_size}" Margin="0 10 0 0" />
+    <Separator />
+    <UniformGrid Style="{StaticResource SettingsUniformGrid}" Columns="4">
+      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}" FontSize="10" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}" CommandParameter="10" />
+      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=11}" FontSize="11" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}" CommandParameter="11" />
+      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=12}" FontSize="12" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}" CommandParameter="12" />
+      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=13}" FontSize="13" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}" CommandParameter="13" />
+    </UniformGrid>
+
+    <TextBlock Text="Theme" Margin="0 10 0 0" />
+    <Separator />
+    <UniformGrid Style="{StaticResource SettingsUniformGrid}">
+      <RadioButton GroupName="th" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:ChangeTheme.Command}" CommandParameter="Dark">Dark</RadioButton>
+      <RadioButton GroupName="th" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:ChangeTheme.Command}" CommandParameter="Light">Light</RadioButton>
+    </UniformGrid>
 
     <Button Margin="40 20"
             Content="{t:Translate settings_sign_out}"
-            Command="tweetz5:Commands.SignOutCommand" />
+            Command="tweetz5:MyCommands.SignOutCommand" />
 
     <TextBlock TextAlignment="Center">
       tweetz Desktop, v: <Run Text="{Binding Version, Mode=OneTime}"></Run>
     </TextBlock>
     <TextBlock TextAlignment="Center">
-      <Hyperlink Command="tweetz5:Commands.OpenLinkCommand"
+      <Hyperlink Command="tweetz5:MyCommands.OpenLinkCommand"
                  CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink>
     </TextBlock>
     <TextBlock TextAlignment="Center">Copyright 2013, Mike Ward</TextBlock>

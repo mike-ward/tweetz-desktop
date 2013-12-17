@@ -464,7 +464,7 @@ namespace tweetz5.Model
 
         private static void ShowAlert(string message)
         {
-            Application.Current.Dispatcher.Invoke(() => Commands.AlertCommand.Execute(message, Application.Current.MainWindow));
+            Application.Current.Dispatcher.Invoke(() => MyCommands.AlertCommand.Execute(message, Application.Current.MainWindow));
         }
     }
 }

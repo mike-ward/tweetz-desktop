@@ -85,7 +85,7 @@ namespace tweetz5.Controls
         {
             var hyperlink = new Hyperlink(new Run(text))
             {
-                Command = Commands.OpenLinkCommand,
+                Command = MyCommands.OpenLinkCommand,
                 CommandParameter = link,
                 ToolTip = link
             };
@@ -99,7 +99,7 @@ namespace tweetz5.Controls
         {
             return new Hyperlink(new Run("@" + text))
             {
-                Command = Commands.ShowUserInformationCommand,
+                Command = MyCommands.ShowUserInformationCommand,
                 CommandParameter = text
             };
         }
@@ -108,7 +108,7 @@ namespace tweetz5.Controls
         {
             return new Hyperlink(new Run("#" + text))
             {
-                Command = Commands.SearchCommand,
+                Command = MyCommands.SearchCommand,
                 CommandParameter = text
             };
         }
