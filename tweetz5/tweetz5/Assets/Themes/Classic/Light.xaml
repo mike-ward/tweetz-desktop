@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-  <Color x:Key="AppForegroundColor">#000000</Color>
+  <Color x:Key="AppForegroundColor">#333333</Color>
   <Color x:Key="AppBackgroundColor">#ffffff</Color>
-  <SolidColorBrush x:Key="AppForegroundBrush">#000000</SolidColorBrush>
+  <SolidColorBrush x:Key="AppForegroundBrush">#333333</SolidColorBrush>
   <SolidColorBrush x:Key="AppBackgroundBrush">#ffffff</SolidColorBrush>
 
   <SolidColorBrush x:Key="TitleBarForegroundBrush">#ffffff</SolidColorBrush>
@@ -14,10 +14,10 @@
   <SolidColorBrush x:Key="NavBarForegroundBrush">#666666</SolidColorBrush>
   <SolidColorBrush x:Key="NavBarMouseOverBrush">#557799</SolidColorBrush>
 
-  <SolidColorBrush x:Key="TweetMentionBackgroundBrush">#333933</SolidColorBrush>
-  <SolidColorBrush x:Key="TweetMessageBackgroundBrush">#333339</SolidColorBrush>
-  <SolidColorBrush x:Key="TweetMyTweetBackgroundBrush">#493333</SolidColorBrush>
-  <SolidColorBrush x:Key="TweetSelectedTweetBackgroundBrush">#393949</SolidColorBrush>
+  <SolidColorBrush x:Key="TweetMentionBackgroundBrush">#eef3ee</SolidColorBrush>
+  <SolidColorBrush x:Key="TweetMessageBackgroundBrush">#eeeef3</SolidColorBrush>
+  <SolidColorBrush x:Key="TweetMyTweetBackgroundBrush">#f3eeee</SolidColorBrush>
+  <SolidColorBrush x:Key="TweetSelectedTweetBackgroundBrush">#f6f6e9</SolidColorBrush>
   <SolidColorBrush x:Key="TweetMetaInfoForegroundBrush">#888888</SolidColorBrush>
   <SolidColorBrush x:Key="TweetActionsForegroundBrush">#666666</SolidColorBrush>
   <SolidColorBrush x:Key="TweetActionsFavoritesSymbolForegroundBrush">DarkGoldenrod</SolidColorBrush>
@@ -26,7 +26,7 @@
   <SolidColorBrush x:Key="ComposeBackgroundBrush">#eeeeee</SolidColorBrush>
   <SolidColorBrush x:Key="ComposeTextBoxForegroundBrush">#222222</SolidColorBrush>
   <SolidColorBrush x:Key="ComposeTextBoxBackgroundBrush">#dddddd</SolidColorBrush>
-  <SolidColorBrush x:Key="ComposeButtonForegroundBrush">#000000</SolidColorBrush>
+  <SolidColorBrush x:Key="ComposeButtonForegroundBrush">#222222</SolidColorBrush>
   <SolidColorBrush x:Key="ComposeButtonBackgroundBrush">#dddddd</SolidColorBrush>
   <SolidColorBrush x:Key="ComposeCharacterCounterForegroundBrush">#222222</SolidColorBrush>
 
@@ -36,7 +36,7 @@
   <SolidColorBrush x:Key="UserInfoProfileImageBorderBrush">DarkGoldenrod</SolidColorBrush>
 
   <SolidColorBrush x:Key="SearchTextBoxForegroundBrush">#585858</SolidColorBrush>
-  <SolidColorBrush x:Key="SearchTextBoxBackgroundBrush">#dddddd</SolidColorBrush>
+  <SolidColorBrush x:Key="SearchTextBoxBackgroundBrush">#f3f3f3</SolidColorBrush>
 
   <SolidColorBrush x:Key="StandardBorderBrush" Color="#f3f3f3" />
   <SolidColorBrush x:Key="StandardBrush" Color="#f3f3f3" />
