@@ -28,8 +28,16 @@
   <SolidColorBrush x:Key="ComposeTextBoxForegroundBrush">#dddddd</SolidColorBrush>
   <SolidColorBrush x:Key="ComposeTextBoxBackgroundBrush">#585858</SolidColorBrush>
   <SolidColorBrush x:Key="ComposeButtonForegroundBrush">#cccccc</SolidColorBrush>
-  <SolidColorBrush x:Key="ComposeButtonBorderBrush">#FF415360</SolidColorBrush>
+  <SolidColorBrush x:Key="ComposeButtonBackgroundBrush">#585858</SolidColorBrush>
   <SolidColorBrush x:Key="ComposeCharacterCounterForegroundBrush">#cccccc</SolidColorBrush>
+
+  <SolidColorBrush x:Key="UserInfoBorderBrush">#404040</SolidColorBrush>
+  <SolidColorBrush x:Key="UserInfoFollowsYouForegroundBrush">#888888</SolidColorBrush>
+  <SolidColorBrush x:Key="UserInfoVerticalBarBorderBrush">#999999</SolidColorBrush>
+  <SolidColorBrush x:Key="UserInfoProfileImageBorderBrush">DarkGoldenrod</SolidColorBrush>
+
+  <SolidColorBrush x:Key="SearchTextBoxForegroundBrush">#dddddd</SolidColorBrush>
+  <SolidColorBrush x:Key="SearchTextBoxBackgroundBrush">#585858</SolidColorBrush>
 
   <SolidColorBrush x:Key="StandardBorderBrush" Color="#393939" />
   <SolidColorBrush x:Key="StandardBrush" Color="#393939" />

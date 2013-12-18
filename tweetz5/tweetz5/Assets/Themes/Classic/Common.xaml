@@ -85,10 +85,10 @@
   </Style>
 
   <Style x:Key="AppCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource NavBarButton}">
+    <Setter Property="Foreground" Value="{DynamicResource TitleBarForegroundBrush}" />
     <Setter Property="FontSize" Value="{DynamicResource AppFontSizePlus1}" />
     <Setter Property="HorizontalAlignment" Value="Right" />
     <Setter Property="Margin" Value="0 0 2 0" />
-    <Setter Property="Foreground" Value="{DynamicResource TitleBarForegroundBrush}" />
   </Style>
 
   <Style x:Key="TimelineStyle" TargetType="ListBox">
@@ -279,7 +279,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
-          <Border x:Name="border" CornerRadius="5" Background="{DynamicResource ComposeButtonBorderBrush}">
+          <Border x:Name="border" CornerRadius="5" Background="{DynamicResource ComposeButtonBackgroundBrush}">
             <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center">
               <ContentPresenter.Resources>
                 <Style TargetType="TextBlock">
@@ -630,7 +630,7 @@
   <Style x:Key="UserInfoPopupStyle" TargetType="Border">
     <Setter Property="Background" Value="{DynamicResource AppBackgroundBrush}" />
     <Setter Property="BorderThickness" Value="2" />
-    <Setter Property="BorderBrush" Value="#404040" />
+    <Setter Property="BorderBrush" Value="{DynamicResource UserInfoBorderBrush}" />
   </Style>
 
   <Style x:Key="UserInfoTextBlockStyle" TargetType="TextBlock">
@@ -652,7 +652,7 @@
   </Style>
 
   <Style x:Key="UserInfoFollowsYouStyle" TargetType="Run">
-    <Setter Property="Foreground" Value="#888888"/>
+    <Setter Property="Foreground" Value="{DynamicResource UserInfoFollowsYouForegroundBrush}"/>
     <Setter Property="FontSize" Value="{DynamicResource AppFontSize}" />
     <Setter Property="Typography.Capitals" Value="AllSmallCaps" />
   </Style>
@@ -665,7 +665,7 @@
   <Style x:Key="VerticalSeparatorStyle" TargetType="Border">
     <Setter Property="Width" Value="1" />
     <Setter Property="BorderThickness" Value="1" />
-    <Setter Property="BorderBrush" Value="#999999" />
+    <Setter Property="BorderBrush" Value="{DynamicResource UserInfoVerticalBarBorderBrush}" />
     <Setter Property="Margin" Value="5 0" />
   </Style>
 
@@ -674,7 +674,7 @@
     <Setter Property="Height" Value="64" />
     <Setter Property="CornerRadius" Value="6" />
     <Setter Property="BorderThickness" Value="2" />
-    <Setter Property="BorderBrush" Value="DarkGoldenrod" />
+    <Setter Property="BorderBrush" Value="{DynamicResource UserInfoProfileImageBorderBrush}" />
     <Setter Property="HorizontalAlignment" Value="Center" />
   </Style>
 
@@ -690,8 +690,8 @@
   <Style x:Key="SearchControlTextBoxStyle"
          TargetType="TextBox">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
-    <Setter Property="Foreground" Value="#dddddd" />
-    <Setter Property="Background" Value="#585858" />
+    <Setter Property="Foreground" Value="{DynamicResource SearchTextBoxForegroundBrush}" />
+    <Setter Property="Background" Value="{DynamicResource SearchTextBoxBackgroundBrush}" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="2" />
   </Style>
@@ -715,7 +715,7 @@
     <Setter Property="Padding" Value="10 3"/>
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Background" Value="Gainsboro" />
+        <Setter Property="Background" Value="{DynamicResource HoverBrush}" />
       </Trigger>
     </Style.Triggers>  
   </Style>
@@ -735,15 +735,15 @@
     <Setter Property="SnapsToDevicePixels" Value="True" />
     <Setter Property="OverridesDefaultStyle" Value="True" />
     <Setter Property="Grid.IsSharedSizeScope" Value="true" />
-    <Setter Property="Foreground" Value="{DynamicResource AppBackgroundBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource AppForegroundBrush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ContextMenu}">
           <Border x:Name="Border"
-                  Background="WhiteSmoke"
-                  BorderThickness="2">
+                  Background="{DynamicResource AppBackgroundBrush}"
+                  BorderThickness="1">
             <Border.BorderBrush>
-              <SolidColorBrush Color="Black" />
+              <SolidColorBrush Color="{DynamicResource AppForegroundColor}" />
             </Border.BorderBrush>
             <StackPanel IsItemsHost="True"
                         KeyboardNavigation.DirectionalNavigation="Cycle" />
@@ -752,79 +752,5 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
-  <!-- GroupBox -->
-  <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
-  <Style x:Key="{x:Type GroupBox}"
-         TargetType="{x:Type GroupBox}">
-    <Setter Property="BorderBrush"
-            Value="{DynamicResource AppForegroundBrush}"/>
-    <Setter Property="Foreground"
-            Value="{DynamicResource AppForegroundBrush}"/>
-    <Setter Property="BorderThickness"
-            Value="1"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type GroupBox}">
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="4"/>
-              <ColumnDefinition Width="Auto"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="4"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="Auto"/>
-              <RowDefinition Height="Auto"/>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="4"/>
-            </Grid.RowDefinitions>
-            <Border CornerRadius="4"
-                    Grid.Row="1"
-                    Grid.RowSpan="3"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="4"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    BorderBrush="Transparent"
-                    Background="{TemplateBinding Background}"/>
-            <!-- ContentPresenter for the header -->
-            <Border x:Name="Header"
-                    Padding="6,0,6,0"
-                    Grid.Row="0"
-                    Grid.RowSpan="2"
-                    Grid.Column="1">
-              <ContentPresenter ContentSource="Header"
-                                RecognizesAccessKey="True" />
-            </Border>
-            <!-- Primary content for GroupBox -->
-            <ContentPresenter Grid.Row="2"
-                              Grid.Column="1"
-                              Grid.ColumnSpan="2"
-                              Margin="{TemplateBinding Padding}"/>
-            <Border CornerRadius="4"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Grid.RowSpan="3"
-                    Grid.ColumnSpan="4" 
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    BorderBrush="{TemplateBinding BorderBrush}">
-              <Border.OpacityMask>
-                <MultiBinding Converter=
-                            "{StaticResource BorderGapMaskConverter}"
-                              ConverterParameter="6">
-                  <Binding ElementName="Header"
-                           Path="ActualWidth"/>
-                  <Binding RelativeSource="{RelativeSource Self}"
-                           Path="ActualWidth"/>
-                  <Binding RelativeSource="{RelativeSource Self}"
-                           Path="ActualHeight"/>
-                </MultiBinding>
-              </Border.OpacityMask>
-            </Border>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style> 
-  
+    
 </ResourceDictionary>

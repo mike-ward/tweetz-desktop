@@ -14,7 +14,7 @@
              Focusable="True"
              Height="Auto">
   <UserControl.Resources>
-    <c:LengthToColorConverter x:Key="Converter" />
+    <c:LengthToColorConverter x:Key="LengthToColorConverter" />
     <u:UriToCachedImageConverter x:Key="UriToCachedImageConverter" />
     <u:Win7FontConverter x:Key="Win7FontConverter" />
   </UserControl.Resources>
@@ -35,7 +35,8 @@
                  DockPanel.Dock="Left"
                  Style="{StaticResource ComposeCharCounter}"
                  Text="{Binding ElementName=TextBox, Path=Text.Length}"
-                 Foreground="{Binding ElementName=TextBox, Path=Text.Length, Converter={StaticResource Converter}}" />
+                 Foreground="{Binding ElementName=TextBox, Path=Text.Length, Converter={StaticResource LengthToColorConverter}}">
+      </TextBlock>
       <StackPanel Orientation="Horizontal"
                   HorizontalAlignment="Right"
                   DockPanel.Dock="Right">
@@ -60,7 +61,6 @@
               <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=TextBox, Path=Text.Length}" Value="0">
                   <Setter Property="Button.IsEnabled" Value="False" />
-                  <Setter Property="Button.Foreground" Value="Black" />
                 </DataTrigger>
               </Style.Triggers>
             </Style>

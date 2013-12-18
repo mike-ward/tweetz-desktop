@@ -24,12 +24,20 @@
   <SolidColorBrush x:Key="TweetActionsFavoritesSymbolForegroundBrush">DarkGoldenrod</SolidColorBrush>
   <SolidColorBrush x:Key="TweetActionsRetweetSymbolForegroundBrush">Green</SolidColorBrush>
 
-  <SolidColorBrush x:Key="ComposeBackgroundBrush">#484848</SolidColorBrush>
-  <SolidColorBrush x:Key="ComposeTextBoxForegroundBrush">#dddddd</SolidColorBrush>
-  <SolidColorBrush x:Key="ComposeTextBoxBackgroundBrush">#585858</SolidColorBrush>
-  <SolidColorBrush x:Key="ComposeButtonForegroundBrush">#cccccc</SolidColorBrush>
-  <SolidColorBrush x:Key="ComposeButtonBorderBrush">#FF415360</SolidColorBrush>
-  <SolidColorBrush x:Key="ComposeCharacterCounterForegroundBrush">#cccccc</SolidColorBrush>
+  <SolidColorBrush x:Key="ComposeBackgroundBrush">#eeeeee</SolidColorBrush>
+  <SolidColorBrush x:Key="ComposeTextBoxForegroundBrush">#222222</SolidColorBrush>
+  <SolidColorBrush x:Key="ComposeTextBoxBackgroundBrush">#dddddd</SolidColorBrush>
+  <SolidColorBrush x:Key="ComposeButtonForegroundBrush">#000000</SolidColorBrush>
+  <SolidColorBrush x:Key="ComposeButtonBackgroundBrush">#dddddd</SolidColorBrush>
+  <SolidColorBrush x:Key="ComposeCharacterCounterForegroundBrush">#222222</SolidColorBrush>
+
+  <SolidColorBrush x:Key="UserInfoBorderBrush">#404040</SolidColorBrush>
+  <SolidColorBrush x:Key="UserInfoFollowsYouForegroundBrush">#888888</SolidColorBrush>
+  <SolidColorBrush x:Key="UserInfoVerticalBarBorderBrush">#999999</SolidColorBrush>
+  <SolidColorBrush x:Key="UserInfoProfileImageBorderBrush">DarkGoldenrod</SolidColorBrush>
+
+  <SolidColorBrush x:Key="SearchTextBoxForegroundBrush">#585858</SolidColorBrush>
+  <SolidColorBrush x:Key="SearchTextBoxBackgroundBrush">#dddddd</SolidColorBrush>
 
   <SolidColorBrush x:Key="StandardBorderBrush" Color="#393939" />
   <SolidColorBrush x:Key="StandardBrush" Color="#393939" />
