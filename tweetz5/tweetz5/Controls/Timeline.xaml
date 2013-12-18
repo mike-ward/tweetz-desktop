@@ -95,7 +95,7 @@
                           Margin="1 2 0 0">
                 <Hyperlink Command="{x:Static tweetz5:MyCommands.ShowUserInformationCommand}"
                            CommandParameter="{Binding ScreenName, Mode=OneTime}">
-                  <Run Text="{Binding Name, Mode=OneTime}"/>
+                  <Run Text="{Binding Name, Mode=OneTime}" FontWeight="Bold" />
                 </Hyperlink>
               </TextBlock>
               <TextBlock Grid.Column="0"

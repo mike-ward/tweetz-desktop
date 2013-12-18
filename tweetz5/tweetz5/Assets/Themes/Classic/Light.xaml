@@ -6,7 +6,7 @@
   <SolidColorBrush x:Key="AppForegroundBrush">#333333</SolidColorBrush>
   <SolidColorBrush x:Key="AppBackgroundBrush">#ffffff</SolidColorBrush>
 
-  <SolidColorBrush x:Key="TitleBarForegroundBrush">#ffffff</SolidColorBrush>
+  <SolidColorBrush x:Key="TitleBarForegroundBrush">#dddddd</SolidColorBrush>
   <SolidColorBrush x:Key="TitleBarBackgroundBrush">#0066cc</SolidColorBrush>
 
   <SolidColorBrush x:Key="HyperLinkBrush">#003366</SolidColorBrush>
@@ -40,7 +40,7 @@
 
   <SolidColorBrush x:Key="StandardBorderBrush" Color="#f3f3f3" />
   <SolidColorBrush x:Key="StandardBrush" Color="#f3f3f3" />
-  <SolidColorBrush x:Key="PressedBrush" Color="#777777" />
+  <SolidColorBrush x:Key="PressedBrush" Color="#cccccc" />
   <SolidColorBrush x:Key="HoverBrush" Color="#dddddd" />
   <SolidColorBrush x:Key="GlyphBrush" Color="{DynamicResource AppBackgroundColor}" />
 
