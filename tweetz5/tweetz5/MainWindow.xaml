@@ -32,29 +32,30 @@
              DragDelta="TopSizeOnDragDelta"
              Style="{StaticResource VerticalSizeThumbStyleTop}" />
 
+      <Grid x:Name="Topbar"
+                   SizeChanged="TopBarOnSizeChanged"
+                   Style="{StaticResource TopBarStyle}">
+        <Image Source="..\Assets\Images\birdblue.png"
+                   HorizontalAlignment="Left"
+                   Height="11" 
+                   Margin="4 0 0 0" />
+        <Label Style="{StaticResource TopBarLabelStyle}"
+                   HorizontalAlignment="Left"
+                   Content="Tweetz" />
+        <Button Style="{StaticResource AppCloseButtonStyle}"
+                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;'}"
+                    Command="Close"/>
+      </Grid>
+
+      <Border x:Name="TopBarSpacer" Background="{DynamicResource TitleBarBackgroundBrush}" BorderBrush="{DynamicResource TitleBarBackgroundBrush}" BorderThickness="1" />
+      <Border x:Name="NavBarSpacer" Background="{DynamicResource AppBackgroundBrush}" BorderBrush="{DynamicResource AppBackgroundBrush}" BorderThickness="2" />
+
       <StackPanel Orientation="Horizontal">
         <Thumb x:Name="LeftSizeBar" 
              DragDelta="LeftSizeBarOnDragDelta"
              Style="{StaticResource HorizontalSizeThumbStyle}" />
         <StackPanel>
-          <Grid x:Name="Topbar"
-                   SizeChanged="TopBarOnSizeChanged"
-                   Style="{StaticResource TopBarStyle}">
-            <Image Source="..\Assets\Images\birdblue.png"
-                   HorizontalAlignment="Left"
-                   Height="11" 
-                   Margin="4 0 0 0" />
-            <Label Style="{StaticResource TopBarLabelStyle}"
-                   HorizontalAlignment="Left"
-                   Content="Tweetz" />
-            <Button Style="{StaticResource AppCloseButtonStyle}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;'}"
-                    Command="Close"/>
-          </Grid>
 
-          <Border x:Name="TopBarSpacer" Background="{DynamicResource TitleBarBackgroundBrush}" BorderBrush="{DynamicResource TitleBarBackgroundBrush}" BorderThickness=".8" />
-          <Border x:Name="NavBarSpacer" Background="{DynamicResource AppBackgroundBrush}" BorderBrush="{DynamicResource AppBackgroundBrush}" BorderThickness="2" />
-          
           <controls:Authenticate x:Name="AuthenticatePanel"
                                Visibility="Collapsed"/>
 
@@ -131,7 +132,7 @@
              DragDelta="RightSizeBarOnDragDelta"
              Style="{StaticResource HorizontalSizeThumbStyle}" />
       </StackPanel>
-      
+
       <Thumb x:Name="BottomResizeBar"
              DragDelta="BottomSizeOnDragDelta"
              Style="{StaticResource VerticalSizeThumbStyleBottom}" />

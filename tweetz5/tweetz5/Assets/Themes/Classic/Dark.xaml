@@ -7,7 +7,6 @@
   <SolidColorBrush x:Key="AppBackgroundBrush">#333333</SolidColorBrush>
 
   <SolidColorBrush x:Key="TitleBarForegroundBrush">#bbbbbb</SolidColorBrush>
-  <Color x:Key="TitleBarBackgroundColor">#3C3C3C</Color>
   <SolidColorBrush x:Key="TitleBarBackgroundBrush">#3C3C3C</SolidColorBrush>
 
   <SolidColorBrush x:Key="HyperLinkBrush">#99bbee</SolidColorBrush>
