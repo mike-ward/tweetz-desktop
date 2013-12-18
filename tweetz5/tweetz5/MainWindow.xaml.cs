@@ -45,6 +45,9 @@ namespace tweetz5
 
                 // ReSharper disable once PossibleNullReferenceException
                 HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
+
+                CommandBindings.Add(new CommandBinding(Commands.ChangeTheme.Command, Commands.ChangeTheme.CommandHandler));
+                Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
             };
         }
 

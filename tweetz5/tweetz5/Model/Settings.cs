@@ -101,6 +101,20 @@ namespace tweetz5.Model
             }
         }
 
+        public string Theme
+        {
+            get { return Properties.Settings.Default.Theme; }
+            set
+            {
+                if (Properties.Settings.Default.Theme != value)
+                {
+                    Properties.Settings.Default.Theme = value;
+                    Properties.Settings.Default.Save();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

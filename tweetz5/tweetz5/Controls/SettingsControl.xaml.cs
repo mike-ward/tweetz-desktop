@@ -1,4 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace tweetz5.Controls
 {
@@ -7,7 +10,19 @@ namespace tweetz5.Controls
         public SettingsControl()
         {
             InitializeComponent();
-            CommandBindings.Add(new CommandBinding(Commands.ChangeTheme.Command, Commands.ChangeTheme.CommandHandler));
+        }
+    }
+
+    public class ThemeToBooleanConverter: IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value.Equals(parameter);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (value.Equals(true)) ? parameter : "";
         }
     }
 }

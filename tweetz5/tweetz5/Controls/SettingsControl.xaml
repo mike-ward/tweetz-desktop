@@ -8,6 +8,7 @@
              xmlns:utilities="clr-namespace:tweetz5.Utilities"
              xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
              xmlns:commands="clr-namespace:tweetz5.Commands"
+             xmlns:controls="clr-namespace:tweetz5.Controls"
              DataContext="{x:Static model:Settings.ApplicationSettings}"
              HorizontalAlignment="Center"
              Padding="10"
@@ -16,6 +17,7 @@
   <UserControl.Resources>
     <utilities:FontSizeToBoolConverter x:Key="FontSizeToBoolConverter" />
     <utilities:Win7FontConverter x:Key="Win7FontConverter" />
+    <controls:ThemeToBooleanConverter x:Key="ThemeToBooleanConverter"/>
   </UserControl.Resources>
   <StackPanel Width="180">
     <TextBlock HorizontalAlignment="Center"
@@ -62,11 +64,21 @@
       <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=13}" FontSize="13" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}" CommandParameter="13" />
     </UniformGrid>
 
-    <TextBlock Text="Theme" Margin="0 10 0 0" />
+    <TextBlock Text="{t:Translate settings_theme}" Margin="0 10 0 0" />
     <Separator />
     <UniformGrid Style="{StaticResource SettingsUniformGrid}">
-      <RadioButton GroupName="th" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:ChangeTheme.Command}" CommandParameter="Dark">Dark</RadioButton>
-      <RadioButton GroupName="th" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:ChangeTheme.Command}" CommandParameter="Light">Light</RadioButton>
+      <RadioButton GroupName="th" 
+                   Content="{t:Translate settings_theme_dark}"
+                   IsChecked="{Binding Theme, Converter={StaticResource ThemeToBooleanConverter}, ConverterParameter=Dark}"
+                   Style="{StaticResource SettingsRadioButton}" 
+                   Command="{x:Static commands:ChangeTheme.Command}" 
+                   CommandParameter="Dark" />
+      <RadioButton GroupName="th" 
+                   Content="{t:Translate settings_theme_light}"
+                   IsChecked="{Binding Theme, Converter={StaticResource ThemeToBooleanConverter}, ConverterParameter=Light}"
+                   Style="{StaticResource SettingsRadioButton}" 
+                   Command="{x:Static commands:ChangeTheme.Command}" 
+                   CommandParameter="Light" />
     </UniformGrid>
 
     <Button Margin="40 20"

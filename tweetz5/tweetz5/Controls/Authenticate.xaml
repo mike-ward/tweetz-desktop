@@ -12,7 +12,7 @@
     <TextBlock TextWrapping="Wrap" 
                Text="{t:Translate authenticate_instructions}" />
 
-        <StackPanel Margin="20 10">
+    <StackPanel Margin="20 10">
       <Button Click="GetPin_OnClick"
               Content="{t:Translate authenticate_get_pin}" FontSize="16"
               Padding="0 0 0 2"
@@ -24,23 +24,23 @@
                TextAlignment="Center"
                Margin="10 20" />
 
-            <Button Click="SignIn_OnClick"
+      <Button Click="SignIn_OnClick"
                     Content="{t:Translate authenticate_signin}"
                     FontSize="16"
                     Margin="5">
-                <Button.Style>
-                    <Style>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=Pin, Path=Text.Length}" Value="0">
-                                <Setter Property="UIElement.IsEnabled" Value="False" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-        </StackPanel>
-      
-        <TextBlock TextWrapping="Wrap"
-                   Text="{t:Translate authenticate_about_pins}" />
+        <Button.Style>
+          <Style>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding ElementName=Pin, Path=Text.Length}" Value="0">
+                <Setter Property="UIElement.IsEnabled" Value="False" />
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Button.Style>
+      </Button>
+    </StackPanel>
+
+    <TextBlock TextWrapping="Wrap"
+               Text="{t:Translate authenticate_about_pins}" />
   </StackPanel>
 </UserControl>

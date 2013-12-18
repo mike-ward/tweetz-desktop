@@ -133,7 +133,10 @@ namespace tweetz5.Utilities.Translate
             {"settings_font_size",             "Font Size"},
             {"settings_sign_out",              "Sign Out"},
             {"settings_keyboard_help",         "Press ? for keyboard shortcuts"},
-            {"settings_run_on_windows_start",  "Run on windows start"}
+            {"settings_run_on_windows_start",  "Run on windows start"},
+            {"settings_theme",                 "Theme"},
+            {"settings_theme_dark",            "Dark"},
+            {"settings_theme_light",           "Light"}
         };
 
         [DataContract]

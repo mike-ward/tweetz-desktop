@@ -41,5 +41,8 @@
     <Setting Name="SpellCheck" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Dark</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
