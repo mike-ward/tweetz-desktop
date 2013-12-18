@@ -9,7 +9,7 @@
   <SolidColorBrush x:Key="TitleBarForegroundBrush">#dddddd</SolidColorBrush>
   <SolidColorBrush x:Key="TitleBarBackgroundBrush">#0066cc</SolidColorBrush>
 
-  <SolidColorBrush x:Key="HyperLinkBrush">#003366</SolidColorBrush>
+  <SolidColorBrush x:Key="HyperLinkBrush">DarkSlateGray</SolidColorBrush>
 
   <SolidColorBrush x:Key="NavBarForegroundBrush">#666666</SolidColorBrush>
   <SolidColorBrush x:Key="NavBarMouseOverBrush">#557799</SolidColorBrush>
