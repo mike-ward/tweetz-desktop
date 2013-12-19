@@ -182,7 +182,5 @@
                     Executed="OpenComposeCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MyCommands.ShortcutHelpCommand}"
                     Executed="ShortcutHelpCommandHandler"/>
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}"
-                    Executed="SetFontSizeCommandHandler"/>
   </Window.CommandBindings>
 </Window>

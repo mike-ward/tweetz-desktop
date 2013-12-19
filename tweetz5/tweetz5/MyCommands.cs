@@ -23,6 +23,5 @@ namespace tweetz5
         public static readonly RoutedCommand UpdateLayoutCommand = new RoutedUICommand();
         public static readonly RoutedCommand OpenComposeCommand = new RoutedUICommand();
         public static readonly RoutedCommand ShortcutHelpCommand = new RoutedUICommand();
-        public static readonly RoutedCommand SetFontSizeCommand = new RoutedCommand();
     }
 }

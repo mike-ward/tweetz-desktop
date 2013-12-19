@@ -18,8 +18,6 @@ using tweetz5.Model;
 using tweetz5.Utilities.System;
 using Settings = tweetz5.Properties.Settings;
 
-// ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
-
 namespace tweetz5
 {
     public partial class MainWindow
@@ -31,9 +29,17 @@ namespace tweetz5
             Loaded += (sender, args) =>
             {
                 CommandBindings.Add(new CommandBinding(Commands.ChangeTheme.Command, Commands.ChangeTheme.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.SetFontSizeCommand.Command, Commands.SetFontSizeCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.SignInCommand.Command, Commands.SignInCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.ReplyCommand.Command, Commands.ReplyCommand.CommandHandler));
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
+                Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
+
+                // WPF HACK: Compose.Toggle does not work the first time unless the control is initially visible.
+                Compose.Visibility = Visibility.Collapsed;
+
+                // ReSharper disable once PossibleNullReferenceException
+                HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
 
                 var buildDate = BuildInfo.GetBuildDateTime();
                 if (DateTime.Now > buildDate.AddMonths(3))
@@ -43,13 +49,8 @@ namespace tweetz5
                     MyCommands.AlertCommand.Execute("Expired", this);
                     return;
                 }
-                // WPF HACK: Compose.Toggle does not work the first time unless the control is initially visible.
-                Compose.Visibility = Visibility.Collapsed;
-                MyCommands.SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
+                
                 Commands.SignInCommand.Command.Execute(null, this);
-
-                // ReSharper disable once PossibleNullReferenceException
-                HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
             };
         }
 
@@ -376,17 +377,6 @@ namespace tweetz5
             var extension = Path.GetExtension(filename) ?? string.Empty;
             var extensions = new[] {".png", ".jpg", ".jpeg", ".gif"};
             return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
-        }
-
-        private void SetFontSizeCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var size = double.Parse(ea.Parameter.ToString());
-            Application.Current.Resources["AppFontSize"] = size;
-            Application.Current.Resources["AppFontSizePlus1"] = size + 1;
-            Application.Current.Resources["AppFontSizePlus3"] = size + 3;
-            Application.Current.Resources["AppFontSizePlus7"] = size + 7;
-            Application.Current.Resources["AppFontSizeMinus1"] = size - 1;
         }
 
         // ReSharper disable InconsistentNaming

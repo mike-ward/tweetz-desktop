@@ -58,10 +58,10 @@
     <TextBlock Text="{t:Translate settings_font_size}" Margin="0 10 0 0" />
     <Separator />
     <UniformGrid Style="{StaticResource SettingsUniformGrid}" Columns="4">
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}" FontSize="10" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}" CommandParameter="10" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=11}" FontSize="11" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}" CommandParameter="11" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=12}" FontSize="12" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}" CommandParameter="12" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=13}" FontSize="13" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static tweetz5:MyCommands.SetFontSizeCommand}" CommandParameter="13" />
+      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}" FontSize="10" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="10" />
+      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=11}" FontSize="11" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="11" />
+      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=12}" FontSize="12" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="12" />
+      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=13}" FontSize="13" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="13" />
     </UniformGrid>
 
     <TextBlock Text="{t:Translate settings_theme}" Margin="0 10 0 0" />
