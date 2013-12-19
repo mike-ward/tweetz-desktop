@@ -102,7 +102,7 @@
                     Style="{StaticResource NavBarButton}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE115;'}"
                     ToolTip="{t:Translate tooltip_settings_button}"
-                    Command="{x:Static tweetz5:MyCommands.SettingsCommand}"/>
+                    Command="{x:Static commands:SettingsCommand.Command}"/>
               <Button Style="{StaticResource NavBarButton}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE104;'}"
                     Command="{x:Static tweetz5:MyCommands.OpenComposeCommand}"
@@ -145,8 +145,6 @@
                     Executed="CloseCommandHandler"/>
     <CommandBinding Command="Play"
                     Executed="NotifyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.SettingsCommand}"
-                    Executed="SettingsCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MyCommands.UpdateLayoutCommand}"
                     Executed="UpdateLayoutCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MyCommands.OpenComposeCommand}"

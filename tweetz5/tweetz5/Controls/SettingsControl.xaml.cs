@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using System.Windows.Input;
 
 namespace tweetz5.Controls
 {
@@ -13,7 +12,7 @@ namespace tweetz5.Controls
         }
     }
 
-    public class ThemeToBooleanConverter: IValueConverter
+    public class ThemeToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
