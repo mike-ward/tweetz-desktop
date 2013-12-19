@@ -47,6 +47,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(SettingsCommand.Command, SettingsCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(UpdateLayoutCommand.Command, UpdateLayoutCommandHandler));
                 CommandBindings.Add(new CommandBinding(OpenComposeCommand.Command, OpenComposeCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(ShortcutHelpCommand.Command, ShortcutHelpCommand.CommandHandler));
 
                 ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -164,12 +165,6 @@ namespace tweetz5
             if (Settings.Default.Chirp == false) return;
             var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
-        }
-
-        private void ShortcutHelpCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            ShortcutHelp.IsOpen = true;
         }
 
         private void UpdateLayoutCommandHandler(object sender, ExecutedRoutedEventArgs ea)

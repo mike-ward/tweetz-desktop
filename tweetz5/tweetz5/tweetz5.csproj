@@ -89,6 +89,7 @@
     <Compile Include="Commands\SearchCommand.cs" />
     <Compile Include="Commands\SetFontSizeCommand.cs" />
     <Compile Include="Commands\SettingsCommand.cs" />
+    <Compile Include="Commands\ShortcutHelpCommand.cs" />
     <Compile Include="Commands\ShowUserInformationCommand.cs" />
     <Compile Include="Commands\SignInCommand.cs" />
     <Compile Include="Commands\SignOutCommand.cs" />

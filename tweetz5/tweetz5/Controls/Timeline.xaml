@@ -217,7 +217,7 @@
         <KeyBinding Key="N" Command="{x:Static commands:OpenComposeCommand.Command}"/>
         <KeyBinding Key="Divide" Command="{x:Static commands:SwitchTimelinesCommand.Command}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
         <KeyBinding Key="OemQuestion" Command="{x:Static commands:SwitchTimelinesCommand.Command}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
-        <KeyBinding Key="OemQuestion" Modifiers="Shift" Command="{x:Static tweetz5:MyCommands.ShortcutHelpCommand}"/>
+        <KeyBinding Key="OemQuestion" Modifiers="Shift" Command="{x:Static commands:ShortcutHelpCommand.Command}"/>
       </ListBox.InputBindings>
       <ListBox.CommandBindings>
         <CommandBinding Command="{x:Static controls:Timeline.SelectItemCommand}" 
