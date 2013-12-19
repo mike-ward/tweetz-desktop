@@ -107,7 +107,7 @@
               <TextBlock Grid.Row="0" 
                          Grid.Column="1">
                 <Hyperlink Style="{StaticResource TweetTimeStyle}"
-                           Command="{x:Static tweetz5:MyCommands.OpenTweetLinkCommand}"
+                           Command="{x:Static commands:OpenTweetLinkCommand.Command}"
                            CommandParameter="{Binding}">
                   <Run Text="{Binding TimeAgo}"/>
                 </Hyperlink>

@@ -78,6 +78,7 @@
     <Compile Include="Commands\CopyLinkCommand.cs" />
     <Compile Include="Commands\DeleteTweetCommand.cs" />
     <Compile Include="Commands\FavoritesCommand.cs" />
+    <Compile Include="Commands\OpenTweetLinkCommand.cs" />
     <Compile Include="Commands\ReplyCommand.cs" />
     <Compile Include="Commands\RetweetClassicCommand.cs" />
     <Compile Include="Commands\RetweetCommand.cs" />

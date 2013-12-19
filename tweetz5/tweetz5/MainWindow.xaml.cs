@@ -36,6 +36,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.DeleteTweetCommand.Command, Commands.DeleteTweetCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.CopyCommand.Command, Commands.CopyCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.CopyLinkCommand.Command, Commands.CopyLinkCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.OpenTweetLinkCommand.Command, Commands.OpenTweetLinkCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -153,14 +154,6 @@ namespace tweetz5
             FavoritesButton.IsEnabled = timelineName != Timelines.FavoritesName;
             SearchButton.IsEnabled = timelineName != Timelines.SearchName;
             SettingsButton.IsEnabled = timelineName != "settings";
-        }
-
-        private void OpenTweetLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var tweet = (Tweet) ea.Parameter ?? Timeline.GetSelectedTweet;
-            var link = TimelineController.TweetLink(tweet);
-            MyCommands.OpenLinkCommand.Execute(link, this);
         }
 
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
