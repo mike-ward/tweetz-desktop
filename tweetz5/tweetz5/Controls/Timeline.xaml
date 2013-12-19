@@ -172,7 +172,7 @@
 
               <TextBlock Style="{StaticResource TweetActionsItemRetweet}" Grid.Column="1">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MyCommands.RetweetCommand}" CommandParameter="{Binding}"/>
+                  <MouseBinding MouseAction="LeftClick" Command="{x:Static commands:RetweetCommand.Command}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
                 <Run Style="{StaticResource TweetActionsRetweetSymbol}"
                      Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}"/> 
@@ -210,7 +210,7 @@
       <ListBox.InputBindings>
         <KeyBinding Key="X" Modifiers="Control" Command="Close" />
         <KeyBinding Key="R" Command="{x:Static commands:ReplyCommand.Command}"/>
-        <KeyBinding Key="T" Command="{x:Static tweetz5:MyCommands.RetweetCommand}"/>
+        <KeyBinding Key="T" Command="{x:Static commands:RetweetCommand.Command}"/>
         <KeyBinding Key="F" Command="{x:Static tweetz5:MyCommands.FavoritesCommand}"/>
         <KeyBinding Key="J" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="True"/>
         <KeyBinding Key="K" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="False"/>
