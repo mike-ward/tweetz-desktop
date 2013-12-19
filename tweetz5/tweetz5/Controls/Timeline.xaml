@@ -190,7 +190,7 @@
 
               <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="2">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MyCommands.FavoritesCommand}" CommandParameter="{Binding}"/>
+                  <MouseBinding MouseAction="LeftClick" Command="{x:Static commands:FavoritesCommand.Command}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
                 <Run Style="{StaticResource TweetActionsFavoritesSymbol}"
                      Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE082;', Mode=OneWay}"/> 
@@ -211,7 +211,7 @@
         <KeyBinding Key="X" Modifiers="Control" Command="Close" />
         <KeyBinding Key="R" Command="{x:Static commands:ReplyCommand.Command}"/>
         <KeyBinding Key="T" Command="{x:Static commands:RetweetCommand.Command}"/>
-        <KeyBinding Key="F" Command="{x:Static tweetz5:MyCommands.FavoritesCommand}"/>
+        <KeyBinding Key="F" Command="{x:Static commands:FavoritesCommand.Command}"/>
         <KeyBinding Key="J" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="True"/>
         <KeyBinding Key="K" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="False"/>
         <KeyBinding Key="N" Command="{x:Static tweetz5:MyCommands.OpenComposeCommand}"/>

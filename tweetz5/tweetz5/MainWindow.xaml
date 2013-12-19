@@ -146,8 +146,6 @@
                     Executed="NotifyCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.DeleteTweetCommand}"
                     Executed="DeleteTweetCommandHander"/>
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.FavoritesCommand}"
-                    Executed="FavoritesCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.CopyCommand}"
                     Executed="CopyCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.CopyLinkCommand}"

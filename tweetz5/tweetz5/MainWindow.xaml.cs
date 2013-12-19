@@ -32,6 +32,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.ReplyCommand.Command, Commands.ReplyCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.RetweetCommand.Command, Commands.RetweetCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.RetweetClassicCommand.Command, Commands.RetweetClassicCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.FavoritesCommand.Command, Commands.FavoritesCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -173,15 +174,6 @@ namespace tweetz5
             var tweet = (Tweet) ea.Parameter ?? Timeline.GetSelectedTweet;
             var link = TimelineController.TweetLink(tweet);
             MyCommands.OpenLinkCommand.Execute(link, this);
-        }
-
-        private void FavoritesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var tweet = ea.Parameter as Tweet ?? Timeline.GetSelectedTweet;
-            if (tweet == null) return;
-            if (tweet.Favorited) Timeline.Controller.RemoveFavorite(tweet);
-            else Timeline.Controller.AddFavorite(tweet);
         }
 
         private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
