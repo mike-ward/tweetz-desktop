@@ -144,8 +144,6 @@
                     Executed="CloseCommandHandler"/>
     <CommandBinding Command="Play"
                     Executed="NotifyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.CopyLinkCommand}"
-                    Executed="CopyLinkCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.OpenTweetLinkCommand}"
                     Executed="OpenTweetLinkCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.UpdateStatusHomeTimelineCommand}"

@@ -21,7 +21,7 @@
                 Command="{x:Static commands:CopyCommand.Command}"
                 CommandParameter="{Binding}" />
       <MenuItem Header="{t:Translate status_copy_link}"
-                Command="{x:Static tweetz5:MyCommands.CopyLinkCommand}"
+                Command="{x:Static commands:CopyLinkCommand.Command}"
                 CommandParameter="{Binding}"/>
     </ContextMenu>
 

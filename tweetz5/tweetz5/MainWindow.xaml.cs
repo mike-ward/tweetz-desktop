@@ -35,6 +35,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.FavoritesCommand.Command, Commands.FavoritesCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.DeleteTweetCommand.Command, Commands.DeleteTweetCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.CopyCommand.Command, Commands.CopyCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.CopyLinkCommand.Command, Commands.CopyLinkCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -152,14 +153,6 @@ namespace tweetz5
             FavoritesButton.IsEnabled = timelineName != Timelines.FavoritesName;
             SearchButton.IsEnabled = timelineName != Timelines.SearchName;
             SettingsButton.IsEnabled = timelineName != "settings";
-        }
-
-        private void CopyLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var tweet = ea.Parameter as Tweet ?? Timeline.GetSelectedTweet;
-            if (tweet == null) return;
-            Timeline.Controller.CopyLinkToClipboard(tweet);
         }
 
         private void OpenTweetLinkCommandHandler(object target, ExecutedRoutedEventArgs ea)
