@@ -61,7 +61,7 @@
         </TextBlock>
         <Button DockPanel.Dock="Right"
                 Width="70" Height="23"
-                Command="{x:Static local:MyCommands.FollowUserComand}"
+                Command="{x:Static commands:FollowUserCommand.Command}"
                 CommandParameter="{Binding}">
           <Button.Style>
             <Style TargetType="Button">

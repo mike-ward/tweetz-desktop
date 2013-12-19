@@ -39,6 +39,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.SwitchTimelinesCommand.Command, Commands.SwitchTimelinesCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.ShowUserInformationCommand.Command, Commands.ShowUserInformationCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.OpenLinkCommand.Command, Commands.OpenLinkCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.FollowUserCommand.Command, Commands.FollowUserCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -148,13 +149,6 @@ namespace tweetz5
         {
             ea.Handled = true;
             Close();
-        }
-
-        private void FollowCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var user = (User) ea.Parameter;
-            user.Following = user.Following ? !Twitter.Unfollow(user.ScreenName) : Twitter.Follow(user.ScreenName);
         }
 
         private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
