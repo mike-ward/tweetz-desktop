@@ -7,6 +7,7 @@
              xmlns:tweetz5="clr-namespace:tweetz5"
              xmlns:u="clr-namespace:tweetz5.Utilities"
              xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
+             xmlns:commands="clr-namespace:tweetz5.Commands"
              x:Class="tweetz5.Controls.Timeline"
              mc:Ignorable="d"
              d:DesignHeight="300"
@@ -162,7 +163,7 @@
 
               <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="0">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MyCommands.ReplyCommand}" CommandParameter="{Binding}"/>
+                  <MouseBinding MouseAction="LeftClick" Command="{x:Static commands:ReplyCommand.Command}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
                 <Run Style="{StaticResource TweetActionsSymbol}" 
                      Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE248;', Mode=OneWay}"/> 
@@ -208,7 +209,7 @@
       </ListBox.ItemTemplate>
       <ListBox.InputBindings>
         <KeyBinding Key="X" Modifiers="Control" Command="Close" />
-        <KeyBinding Key="R" Command="{x:Static tweetz5:MyCommands.ReplyCommand}"/>
+        <KeyBinding Key="R" Command="{x:Static commands:ReplyCommand.Command}"/>
         <KeyBinding Key="T" Command="{x:Static tweetz5:MyCommands.RetweetCommand}"/>
         <KeyBinding Key="F" Command="{x:Static tweetz5:MyCommands.FavoritesCommand}"/>
         <KeyBinding Key="J" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="True"/>
