@@ -24,7 +24,7 @@ namespace tweetz5.Utilities
             {"\xE248", "\xF112"},
             {"\xE1CA", "\xF079"},
             {"\xE082", "\xF005"},
-            {"\xE118", "\xF142"},
+            {"\xE10C", "\xF142"},
             {"\xE114", "\xF030"},
             {"\xE167", "\xF0C1"}
         };

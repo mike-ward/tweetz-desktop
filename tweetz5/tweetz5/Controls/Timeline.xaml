@@ -200,7 +200,7 @@
                          ContextMenu="{StaticResource MoreMenu}"
                          PreviewMouseLeftButtonDown="MoreOnMouseDown">
                 <Run Style="{StaticResource TweetActionsSymbol}"
-                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE118;', Mode=OneWay}"/> 
+                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10C;', Mode=OneWay}"/> 
               </TextBlock>
             </Grid>
           </Grid>
