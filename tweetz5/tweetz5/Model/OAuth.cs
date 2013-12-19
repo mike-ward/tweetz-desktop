@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -82,13 +80,12 @@ namespace tweetz5.Model
 
             if (string.IsNullOrWhiteSpace(signature) == false)
             {
-                components.Add(new Tuple<string, string>("oauth_signature", UrlEncode(signature)));                
+                components.Add(new Tuple<string, string>("oauth_signature", UrlEncode(signature)));
             }
             if (string.IsNullOrWhiteSpace(accessToken) == false)
             {
                 components.Add(new Tuple<string, string>("oauth_token", UrlEncode(accessToken)));
             }
-
             if (parameters != null)
             {
                 components.AddRange(parameters.Select(par => new Tuple<string, string>(UrlEncode(par[0]), UrlEncode(par[1]))));
