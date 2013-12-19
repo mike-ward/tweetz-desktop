@@ -7,6 +7,10 @@ namespace tweetz5.Commands
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
 
+        private SwitchTimelinesCommand()
+        {
+        }
+
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;

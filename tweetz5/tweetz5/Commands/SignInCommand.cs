@@ -8,6 +8,10 @@ namespace tweetz5.Commands
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
 
+        private SignInCommand()
+        {
+        }
+
         public static void CommandHandler(object target, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;

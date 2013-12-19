@@ -38,6 +38,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.OpenTweetLinkCommand.Command, Commands.OpenTweetLinkCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.UpdateStatusHomeTimelineCommand.Command, Commands.UpdateStatusHomeTimelineCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.SwitchTimelinesCommand.Command, Commands.SwitchTimelinesCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.ShowUserInformationCommand.Command, Commands.ShowUserInformationCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -147,13 +148,6 @@ namespace tweetz5
         {
             ea.Handled = true;
             Close();
-        }
-
-        private void ShowUserInformationCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            UserInformationPopup.ScreenName = ea.Parameter as string;
-            UserInformationPopup.IsOpen = true;
         }
 
         private void OpenLinkCommandHandler(object sender, ExecutedRoutedEventArgs ea)

@@ -83,6 +83,7 @@
     <Compile Include="Commands\RetweetClassicCommand.cs" />
     <Compile Include="Commands\RetweetCommand.cs" />
     <Compile Include="Commands\SetFontSizeCommand.cs" />
+    <Compile Include="Commands\ShowUserInformationCommand.cs" />
     <Compile Include="Commands\SignInCommand.cs" />
     <Compile Include="Commands\SwitchTimelinesCommand.cs" />
     <Compile Include="Commands\UpdateStatusHomeTimelineCommand.cs" />

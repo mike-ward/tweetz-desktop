@@ -99,7 +99,7 @@ namespace tweetz5.Controls
         {
             return new Hyperlink(new Run("@" + text))
             {
-                Command = MyCommands.ShowUserInformationCommand,
+                Command = Commands.ShowUserInformationCommand.Command,
                 CommandParameter = text
             };
         }

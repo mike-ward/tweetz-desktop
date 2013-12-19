@@ -11,6 +11,10 @@ namespace tweetz5.Commands
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
 
+        private ReplyCommand()
+        {
+        }
+
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
