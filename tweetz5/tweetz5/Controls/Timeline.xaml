@@ -15,7 +15,7 @@
   <UserControl.Resources>
     <ContextMenu x:Key="MoreMenu">
       <MenuItem Header="{t:Translate status_retweet_classic}"
-                Command="{x:Static tweetz5:MyCommands.RetweetClassicCommand}"
+                Command="{x:Static commands:RetweetClassicCommand.Command}"
                 CommandParameter="{Binding}" />
       <MenuItem Header="{t:Translate status_copy}"
                 Command="{x:Static tweetz5:MyCommands.CopyCommand}"
