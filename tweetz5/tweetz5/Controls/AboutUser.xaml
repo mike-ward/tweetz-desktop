@@ -7,6 +7,7 @@
        xmlns:local="clr-namespace:tweetz5"
        xmlns:controls="clr-namespace:tweetz5.Controls"
        xmlns:utilities="clr-namespace:tweetz5.Utilities"
+       xmlns:commands="clr-namespace:tweetz5.Commands"
        mc:Ignorable="d"
        Width="300"
        d:DesignHeight="300" d:DesignWidth="300">
@@ -29,7 +30,7 @@
       </TextBlock>
       <TextBlock Text="{Binding Name}" Style="{StaticResource UserInfoNameStyle}" />
       <TextBlock Style="{StaticResource UserInfoScreenNameStyle}">
-        <Hyperlink Command="{x:Static local:MyCommands.OpenLinkCommand}" 
+        <Hyperlink Command="{x:Static commands:OpenLinkCommand.Command}" 
                    CommandParameter="{Binding ScreenName, Converter={StaticResource ScreenNameToLinkConverter}}">
           @<Run Text="{Binding ScreenName}" />
         </Hyperlink>
@@ -40,7 +41,7 @@
       <TextBlock Text="{Binding Description}" Style="{StaticResource UserInfoTextBlockStyle}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}" Text="{Binding Location}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
-        <Hyperlink Command="{x:Static local:MyCommands.OpenLinkCommand}" CommandParameter="{Binding Url}"><Run Text="{Binding Url}" /></Hyperlink>
+        <Hyperlink Command="{x:Static commands:OpenLinkCommand.Command}" CommandParameter="{Binding Url}"><Run Text="{Binding Url}" /></Hyperlink>
       </TextBlock>
       <Separator Margin="0 10" />
       <DockPanel LastChildFill="True">

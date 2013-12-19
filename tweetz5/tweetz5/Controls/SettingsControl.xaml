@@ -89,7 +89,7 @@
       tweetz Desktop, v: <Run Text="{Binding Version, Mode=OneTime}"></Run>
     </TextBlock>
     <TextBlock TextAlignment="Center">
-      <Hyperlink Command="tweetz5:MyCommands.OpenLinkCommand"
+      <Hyperlink Command="commands:OpenLinkCommand.Command"
                  CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink>
     </TextBlock>
     <TextBlock TextAlignment="Center">Copyright 2013, Mike Ward</TextBlock>

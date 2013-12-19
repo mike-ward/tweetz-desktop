@@ -145,8 +145,6 @@
                     Executed="CloseCommandHandler"/>
     <CommandBinding Command="Play"
                     Executed="NotifyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.OpenLinkCommand}"
-                    Executed="OpenLinkCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.FollowUserComand}"
                     Executed="FollowCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MyCommands.SearchCommand}"

@@ -85,7 +85,7 @@ namespace tweetz5.Controls
         {
             var hyperlink = new Hyperlink(new Run(text))
             {
-                Command = MyCommands.OpenLinkCommand,
+                Command = Commands.OpenLinkCommand.Command,
                 CommandParameter = link,
                 ToolTip = link
             };

@@ -127,7 +127,7 @@
                          Cursor="Hand">
                     <Image.InputBindings>
                       <MouseBinding MouseAction="LeftClick"
-                                    Command="{x:Static tweetz5:MyCommands.OpenLinkCommand}"
+                                    Command="{x:Static commands:OpenLinkCommand.Command}"
                                     CommandParameter="{Binding}">
                       </MouseBinding>
                     </Image.InputBindings>

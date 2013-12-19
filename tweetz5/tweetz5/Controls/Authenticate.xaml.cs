@@ -21,7 +21,7 @@ namespace tweetz5.Controls
             {
                 Tokens = Twitter.GetRequestToken();
                 var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + Tokens.OAuthToken;
-                MyCommands.OpenLinkCommand.Execute(url, this);
+                Commands.OpenLinkCommand.Command.Execute(url, this);
             }
             catch (Exception ex)
             {
