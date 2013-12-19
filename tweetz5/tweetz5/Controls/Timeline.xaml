@@ -18,7 +18,7 @@
                 Command="{x:Static commands:RetweetClassicCommand.Command}"
                 CommandParameter="{Binding}" />
       <MenuItem Header="{t:Translate status_copy}"
-                Command="{x:Static tweetz5:MyCommands.CopyCommand}"
+                Command="{x:Static commands:CopyCommand.Command}"
                 CommandParameter="{Binding}" />
       <MenuItem Header="{t:Translate status_copy_link}"
                 Command="{x:Static tweetz5:MyCommands.CopyLinkCommand}"
