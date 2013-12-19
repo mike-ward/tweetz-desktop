@@ -144,8 +144,6 @@
                     Executed="CloseCommandHandler"/>
     <CommandBinding Command="Play"
                     Executed="NotifyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.UpdateStatusHomeTimelineCommand}"
-                    Executed="UpdateStatusHomeTimelineHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.SwitchTimelinesCommand}"
                     Executed="SwitchTimeslinesCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.ShowUserInformationCommand}"

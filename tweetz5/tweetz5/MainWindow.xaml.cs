@@ -37,6 +37,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.CopyCommand.Command, Commands.CopyCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.CopyLinkCommand.Command, Commands.CopyLinkCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.OpenTweetLinkCommand.Command, Commands.OpenTweetLinkCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.UpdateStatusHomeTimelineCommand.Command, Commands.UpdateStatusHomeTimelineCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -154,13 +155,6 @@ namespace tweetz5
             FavoritesButton.IsEnabled = timelineName != Timelines.FavoritesName;
             SearchButton.IsEnabled = timelineName != Timelines.SearchName;
             SettingsButton.IsEnabled = timelineName != "settings";
-        }
-
-        private void UpdateStatusHomeTimelineHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var statuses = (Status[]) ea.Parameter;
-            Timeline.Controller.UpdateStatus(new[] {Timelines.HomeName, Timelines.UnifiedName}, statuses, "h");
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs ea)

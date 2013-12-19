@@ -4,7 +4,6 @@ namespace tweetz5
 {
     internal static class MyCommands
     {
-        public static readonly RoutedCommand UpdateStatusHomeTimelineCommand = new RoutedUICommand();
         public static readonly RoutedCommand SwitchTimelinesCommand = new RoutedUICommand();
         public static readonly RoutedCommand ShowUserInformationCommand = new RoutedUICommand();
         public static readonly RoutedCommand OpenLinkCommand = new RoutedUICommand();

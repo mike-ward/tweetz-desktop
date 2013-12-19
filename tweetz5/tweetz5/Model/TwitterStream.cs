@@ -54,7 +54,7 @@ namespace tweetz5.Model
                                         Debug.WriteLine("{ tweet identified }");
                                         var statuses = Status.ParseJson("[" + json + "]");
                                         Application.Current.Dispatcher.Invoke
-                                            (() => MyCommands.UpdateStatusHomeTimelineCommand.Execute(statuses, Application.Current.MainWindow));
+                                            (() => Commands.UpdateStatusHomeTimelineCommand.Command.Execute(statuses, Application.Current.MainWindow));
                                     }
                                 }
                             }

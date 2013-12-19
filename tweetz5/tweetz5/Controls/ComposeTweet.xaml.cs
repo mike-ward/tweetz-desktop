@@ -249,7 +249,7 @@ namespace tweetz5.Controls
                 if (json.Contains("id_str"))
                 {
                     var status = Status.ParseJson("[" + json + "]");
-                    MyCommands.UpdateStatusHomeTimelineCommand.Execute(status, this);
+                    Commands.UpdateStatusHomeTimelineCommand.Command.Execute(status, this);
                     Hide();
                 }
             }
