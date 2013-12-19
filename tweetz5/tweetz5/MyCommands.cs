@@ -4,7 +4,6 @@ namespace tweetz5
 {
     internal static class MyCommands
     {
-        public static readonly RoutedCommand DeleteTweetCommand = new RoutedUICommand();
         public static readonly RoutedCommand CopyCommand = new RoutedUICommand();
         public static readonly RoutedCommand CopyLinkCommand = new RoutedUICommand();
         public static readonly RoutedCommand OpenTweetLinkCommand = new RoutedUICommand();

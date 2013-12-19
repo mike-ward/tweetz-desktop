@@ -33,6 +33,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.RetweetCommand.Command, Commands.RetweetCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.RetweetClassicCommand.Command, Commands.RetweetClassicCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.FavoritesCommand.Command, Commands.FavoritesCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.DeleteTweetCommand.Command, Commands.DeleteTweetCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -215,14 +216,6 @@ namespace tweetz5
             if (Settings.Default.Chirp == false) return;
             var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
-        }
-
-        private void DeleteTweetCommandHander(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var tweet = ea.Parameter as Tweet;
-            if (tweet == null) return;
-            Timeline.Controller.DeleteTweet(tweet);
         }
 
         private void SearchCommandHandler(object sender, ExecutedRoutedEventArgs ea)

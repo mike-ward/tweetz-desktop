@@ -181,7 +181,7 @@
 
               <TextBlock Style="{StaticResource TweetActionsItemDelete}" Grid.Column="1">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static tweetz5:MyCommands.DeleteTweetCommand}" CommandParameter="{Binding}"/>
+                  <MouseBinding MouseAction="LeftClick" Command="{x:Static commands:DeleteTweetCommand.Command}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
                 <Run Style="{StaticResource TweetActionsSymbol}" 
                      Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE107;', Mode=OneWay}"/>

@@ -74,6 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\DeleteTweetCommand.cs" />
     <Compile Include="Commands\FavoritesCommand.cs" />
     <Compile Include="Commands\ReplyCommand.cs" />
     <Compile Include="Commands\RetweetClassicCommand.cs" />
