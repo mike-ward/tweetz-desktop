@@ -82,7 +82,7 @@ namespace tweetz5.Model
                     }
 
                     Debug.WriteLine("{ Stream task ends }");
-                });
+                }, cancelationToken);
         }
     }
 }
