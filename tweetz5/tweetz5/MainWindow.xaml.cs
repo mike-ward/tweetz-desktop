@@ -25,30 +25,7 @@ namespace tweetz5
             MainPanel.IsVisibleChanged += MainPanelOnIsVisibleChanged;
             Loaded += (sender, args) =>
             {
-                CommandBindings.Add(new CommandBinding(ChangeTheme.Command, ChangeTheme.CommandHandler));
-                CommandBindings.Add(new CommandBinding(SetFontSizeCommand.Command, SetFontSizeCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(SignInCommand.Command, SignInCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(ReplyCommand.Command, ReplyCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(RetweetCommand.Command, RetweetCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(RetweetClassicCommand.Command, RetweetClassicCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(FavoritesCommand.Command, FavoritesCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(DeleteTweetCommand.Command, DeleteTweetCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(CopyCommand.Command, CopyCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(CopyLinkCommand.Command, CopyLinkCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(OpenTweetLinkCommand.Command, OpenTweetLinkCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(UpdateStatusHomeTimelineCommand.Command, UpdateStatusHomeTimelineCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(SwitchTimelinesCommand.Command, SwitchTimelinesCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(ShowUserInformationCommand.Command, ShowUserInformationCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(OpenLinkCommand.Command, OpenLinkCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(FollowUserCommand.Command, FollowUserCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(SearchCommand.Command, SearchCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(AlertCommand.Command, AlertCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(SignOutCommand.Command, SignOutCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(SettingsCommand.Command, SettingsCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(UpdateLayoutCommand.Command, UpdateLayoutCommandHandler));
-                CommandBindings.Add(new CommandBinding(OpenComposeCommand.Command, OpenComposeCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(ShortcutHelpCommand.Command, ShortcutHelpCommand.CommandHandler));
-
+                AddCommandBindings();
                 ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
 
@@ -60,6 +37,33 @@ namespace tweetz5
 
                 if (HasExpired() == false) SignInCommand.Command.Execute(null, this);
             };
+        }
+
+        private void AddCommandBindings()
+        {
+            CommandBindings.Add(new CommandBinding(ChangeTheme.Command, ChangeTheme.CommandHandler));
+            CommandBindings.Add(new CommandBinding(SetFontSizeCommand.Command, SetFontSizeCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(SignInCommand.Command, SignInCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(ReplyCommand.Command, ReplyCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(RetweetCommand.Command, RetweetCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(RetweetClassicCommand.Command, RetweetClassicCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(FavoritesCommand.Command, FavoritesCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(DeleteTweetCommand.Command, DeleteTweetCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(CopyCommand.Command, CopyCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(CopyLinkCommand.Command, CopyLinkCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(OpenTweetLinkCommand.Command, OpenTweetLinkCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(UpdateStatusHomeTimelineCommand.Command, UpdateStatusHomeTimelineCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(SwitchTimelinesCommand.Command, SwitchTimelinesCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(ShowUserInformationCommand.Command, ShowUserInformationCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(OpenLinkCommand.Command, OpenLinkCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(FollowUserCommand.Command, FollowUserCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(SearchCommand.Command, SearchCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(AlertCommand.Command, AlertCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(SignOutCommand.Command, SignOutCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(SettingsCommand.Command, SettingsCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(UpdateLayoutCommand.Command, UpdateLayoutCommandHandler));
+            CommandBindings.Add(new CommandBinding(OpenComposeCommand.Command, OpenComposeCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(ShortcutHelpCommand.Command, ShortcutHelpCommand.CommandHandler));
         }
 
         private bool HasExpired()
