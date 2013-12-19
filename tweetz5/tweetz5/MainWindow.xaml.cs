@@ -11,7 +11,6 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
-using tweetz5.Controls;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
 using Settings = tweetz5.Properties.Settings;
@@ -38,6 +37,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.CopyLinkCommand.Command, Commands.CopyLinkCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.OpenTweetLinkCommand.Command, Commands.OpenTweetLinkCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.UpdateStatusHomeTimelineCommand.Command, Commands.UpdateStatusHomeTimelineCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.SwitchTimelinesCommand.Command, Commands.SwitchTimelinesCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -131,22 +131,8 @@ namespace tweetz5
             if (Compose.IsVisible) Compose.Focus();
         }
 
-        private void SwitchTimeslinesCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var timelineName = (string) ea.Parameter;
-            Compose.Visibility = Visibility.Collapsed;
-            SettingsPanel.Visibility = Visibility.Collapsed;
-            BottomResizeBar.Visibility = Visibility.Visible;
-            Timeline.Visibility = Visibility.Visible;
-            MainPanel.Visibility = Visibility.Visible;
-            SetButtonStates(timelineName);
-            Timeline.Controller.SwitchTimeline(timelineName);
-            Timeline.ScrollToTop();
-            Timeline.Focus();
-        }
 
-        private void SetButtonStates(string timelineName)
+        internal void SetButtonStates(string timelineName)
         {
             UnifiedButton.IsEnabled = timelineName != Timelines.UnifiedName;
             HomeButton.IsEnabled = timelineName != Timelines.HomeName;
@@ -197,7 +183,7 @@ namespace tweetz5
             var query = ea.Parameter as string;
             if (string.IsNullOrWhiteSpace(query)) return;
             Timeline.SearchControl.SetSearchText(query);
-            MyCommands.SwitchTimelinesCommand.Execute(Timelines.SearchName, this);
+            Commands.SwitchTimelinesCommand.Command.Execute(Timelines.SearchName, this);
             Timeline.Controller.Search(query);
         }
 
