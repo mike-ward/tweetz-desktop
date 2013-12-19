@@ -30,6 +30,10 @@ namespace tweetz5
             MainPanel.IsVisibleChanged += MainPanelOnIsVisibleChanged;
             Loaded += (sender, args) =>
             {
+                CommandBindings.Add(new CommandBinding(Commands.ChangeTheme.Command, Commands.ChangeTheme.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.SignInCommand.Command, Commands.SignInCommand.CommandHandler));
+                Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
+
                 var buildDate = BuildInfo.GetBuildDateTime();
                 if (DateTime.Now > buildDate.AddMonths(3))
                 {
@@ -38,34 +42,14 @@ namespace tweetz5
                     MyCommands.AlertCommand.Execute("Expired", this);
                     return;
                 }
-                // HACK: Compose.Toggle does not work the first time unless the control is initially visible.
+                // WPF HACK: Compose.Toggle does not work the first time unless the control is initially visible.
                 Compose.Visibility = Visibility.Collapsed;
                 MyCommands.SetFontSizeCommand.Execute(Settings.Default.FontSize, this);
-                MyCommands.SignInCommand.Execute(null, this);
+                Commands.SignInCommand.Command.Execute(null, this);
 
                 // ReSharper disable once PossibleNullReferenceException
                 HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
-
-                CommandBindings.Add(new CommandBinding(Commands.ChangeTheme.Command, Commands.ChangeTheme.CommandHandler));
-                Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
             };
-        }
-
-        private void SignInCommandHandler(object target, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            SettingsPanel.Visibility = Visibility.Collapsed;
-            if (string.IsNullOrWhiteSpace(Settings.Default.UserId))
-            {
-                AuthenticatePanel.Visibility = Visibility.Visible;
-                MainPanel.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                AuthenticatePanel.Visibility = Visibility.Collapsed;
-                Timeline.Controller.StartTimelines();
-                Compose.Friends = Timeline.Controller.ScreenNames;
-            }
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
@@ -319,7 +303,7 @@ namespace tweetz5
             Settings.Default.ScreenName = "";
             Settings.Default.UserId = "";
             Settings.Default.Save();
-            MyCommands.SignInCommand.Execute(null, this);
+            Commands.SignInCommand.Command.Execute(null, this) ;
         }
 
         private void SettingsCommandHandler(object sender, ExecutedRoutedEventArgs ea)

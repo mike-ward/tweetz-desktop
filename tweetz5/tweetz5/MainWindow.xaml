@@ -144,8 +144,6 @@
                     Executed="CloseCommandHandler"/>
     <CommandBinding Command="Play"
                     Executed="NotifyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.SignInCommand}"
-                    Executed="SignInCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.ReplyCommand}"
                     Executed="ReplyCommandHandler" />
     <CommandBinding Command="{x:Static tweetz5:MyCommands.RetweetCommand}"

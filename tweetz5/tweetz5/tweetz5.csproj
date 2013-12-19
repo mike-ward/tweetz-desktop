@@ -74,6 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\SignInCommand.cs" />
     <Compile Include="MyCommands.cs" />
     <Compile Include="Commands\ChangeThemeCommand.cs" />
     <Compile Include="Controls\AboutUser.xaml.cs">
@@ -109,13 +110,13 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\System\RegistryHelper.cs" />
     <Compile Include="Utilities\System\Screen.cs" />
-    <Compile Include="Utilities\Win7FontFamilyConverter.cs" />
-    <Compile Include="Utilities\FontSizeToBoolConverter.cs" />
-    <Compile Include="Utilities\NumberValueCommaConverter.cs" />
+    <Compile Include="Utilities\Converters\Win7FontFamilyConverter.cs" />
+    <Compile Include="Utilities\Converters\FontSizeToBoolConverter.cs" />
+    <Compile Include="Utilities\Converters\NumberValueCommaConverter.cs" />
     <Compile Include="Utilities\Run.cs" />
     <Compile Include="Utilities\ReadSafeList.cs" />
-    <Compile Include="Utilities\ScreenNameConverter.cs" />
-    <Compile Include="Utilities\ScreenNameToLinkConverter.cs" />
+    <Compile Include="Utilities\Converters\ScreenNameConverter.cs" />
+    <Compile Include="Utilities\Converters\ScreenNameToLinkConverter.cs" />
     <Compile Include="Model\Timelines.cs" />
     <Compile Include="Model\Tweet.cs" />
     <Compile Include="Model\Twitter.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="Controls\TimelineController.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\StringContainsConverter.cs" />
+    <Compile Include="Utilities\Converters\StringContainsConverter.cs" />
     <Compile Include="Utilities\System\BuildInfo.cs" />
     <Compile Include="Utilities\System\NativeMethods.cs" />
     <Compile Include="Utilities\System\SysTimer.cs" />
@@ -137,8 +138,8 @@
     <Compile Include="Utilities\Translate\Translater.cs" />
     <Compile Include="Utilities\Translate\TranslationService.cs" />
     <Compile Include="Utilities\Translate\TranslationProviderJsonFile.cs" />
-    <Compile Include="Utilities\UriToCachedImageConverter.cs" />
-    <Compile Include="Utilities\Win7FontConverter.cs" />
+    <Compile Include="Utilities\Converters\UriToCachedImageConverter.cs" />
+    <Compile Include="Utilities\Converters\Win7FontConverter.cs" />
     <Page Include="Assets\Themes\Classic\Common.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
