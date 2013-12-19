@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -32,6 +30,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.SetFontSizeCommand.Command, Commands.SetFontSizeCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.SignInCommand.Command, Commands.SignInCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.ReplyCommand.Command, Commands.ReplyCommand.CommandHandler));
+
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
 
@@ -41,17 +40,21 @@ namespace tweetz5
                 // ReSharper disable once PossibleNullReferenceException
                 HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
 
-                var buildDate = BuildInfo.GetBuildDateTime();
-                if (DateTime.Now > buildDate.AddMonths(3))
-                {
-                    Settings.Default.AccessToken = string.Empty;
-                    Settings.Default.AccessTokenSecret = string.Empty;
-                    MyCommands.AlertCommand.Execute("Expired", this);
-                    return;
-                }
-                
-                Commands.SignInCommand.Command.Execute(null, this);
+                if (HasExpired() == false) Commands.SignInCommand.Command.Execute(null, this);
             };
+        }
+
+        private bool HasExpired()
+        {
+            var buildDate = BuildInfo.GetBuildDateTime();
+            if (DateTime.Now > buildDate.AddMonths(3))
+            {
+                Settings.Default.AccessToken = string.Empty;
+                Settings.Default.AccessTokenSecret = string.Empty;
+                MyCommands.AlertCommand.Execute("Expired", this);
+                return true;
+            }
+            return false;
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
