@@ -4,7 +4,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:tweetz5.Controls"
              xmlns:model="clr-namespace:tweetz5.Model"
-             xmlns:tweetz5="clr-namespace:tweetz5"
              xmlns:u="clr-namespace:tweetz5.Utilities"
              xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
              xmlns:commands="clr-namespace:tweetz5.Commands"
