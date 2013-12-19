@@ -145,8 +145,6 @@
                     Executed="CloseCommandHandler"/>
     <CommandBinding Command="Play"
                     Executed="NotifyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.UpdateLayoutCommand}"
-                    Executed="UpdateLayoutCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MyCommands.OpenComposeCommand}"
                     Executed="OpenComposeCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MyCommands.ShortcutHelpCommand}"

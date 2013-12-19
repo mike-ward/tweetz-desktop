@@ -29,7 +29,7 @@ namespace tweetz5.Controls
         {
             InitializeComponent();
             DataContext = this;
-            SizeChanged += (sender, args) => MyCommands.UpdateLayoutCommand.Execute(null, this);
+            SizeChanged += (sender, args) => Commands.UpdateLayoutCommand.Command.Execute(null, this);
         }
 
         public string Image

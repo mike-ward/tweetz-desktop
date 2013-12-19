@@ -44,6 +44,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.AlertCommand.Command, Commands.AlertCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.SignOutCommand.Command, Commands.SignOutCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.SettingsCommand.Command, Commands.SettingsCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.UpdateLayoutCommand.Command, UpdateLayoutCommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
