@@ -214,7 +214,7 @@
         <KeyBinding Key="F" Command="{x:Static commands:FavoritesCommand.Command}"/>
         <KeyBinding Key="J" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="True"/>
         <KeyBinding Key="K" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="False"/>
-        <KeyBinding Key="N" Command="{x:Static tweetz5:MyCommands.OpenComposeCommand}"/>
+        <KeyBinding Key="N" Command="{x:Static commands:OpenComposeCommand.Command}"/>
         <KeyBinding Key="Divide" Command="{x:Static commands:SwitchTimelinesCommand.Command}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
         <KeyBinding Key="OemQuestion" Command="{x:Static commands:SwitchTimelinesCommand.Command}" CommandParameter="{x:Static model:Timelines.SearchName}"/>
         <KeyBinding Key="OemQuestion" Modifiers="Shift" Command="{x:Static tweetz5:MyCommands.ShortcutHelpCommand}"/>

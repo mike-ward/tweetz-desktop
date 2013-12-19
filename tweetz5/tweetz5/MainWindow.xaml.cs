@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
+using tweetz5.Commands;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
 using Settings = tweetz5.Properties.Settings;
@@ -24,30 +25,31 @@ namespace tweetz5
             MainPanel.IsVisibleChanged += MainPanelOnIsVisibleChanged;
             Loaded += (sender, args) =>
             {
-                CommandBindings.Add(new CommandBinding(Commands.ChangeTheme.Command, Commands.ChangeTheme.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.SetFontSizeCommand.Command, Commands.SetFontSizeCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.SignInCommand.Command, Commands.SignInCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.ReplyCommand.Command, Commands.ReplyCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.RetweetCommand.Command, Commands.RetweetCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.RetweetClassicCommand.Command, Commands.RetweetClassicCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.FavoritesCommand.Command, Commands.FavoritesCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.DeleteTweetCommand.Command, Commands.DeleteTweetCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.CopyCommand.Command, Commands.CopyCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.CopyLinkCommand.Command, Commands.CopyLinkCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.OpenTweetLinkCommand.Command, Commands.OpenTweetLinkCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.UpdateStatusHomeTimelineCommand.Command, Commands.UpdateStatusHomeTimelineCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.SwitchTimelinesCommand.Command, Commands.SwitchTimelinesCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.ShowUserInformationCommand.Command, Commands.ShowUserInformationCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.OpenLinkCommand.Command, Commands.OpenLinkCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.FollowUserCommand.Command, Commands.FollowUserCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.SearchCommand.Command, Commands.SearchCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.AlertCommand.Command, Commands.AlertCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.SignOutCommand.Command, Commands.SignOutCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.SettingsCommand.Command, Commands.SettingsCommand.CommandHandler));
-                CommandBindings.Add(new CommandBinding(Commands.UpdateLayoutCommand.Command, UpdateLayoutCommandHandler));
+                CommandBindings.Add(new CommandBinding(ChangeTheme.Command, ChangeTheme.CommandHandler));
+                CommandBindings.Add(new CommandBinding(SetFontSizeCommand.Command, SetFontSizeCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(SignInCommand.Command, SignInCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(ReplyCommand.Command, ReplyCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(RetweetCommand.Command, RetweetCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(RetweetClassicCommand.Command, RetweetClassicCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(FavoritesCommand.Command, FavoritesCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(DeleteTweetCommand.Command, DeleteTweetCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(CopyCommand.Command, CopyCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(CopyLinkCommand.Command, CopyLinkCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(OpenTweetLinkCommand.Command, OpenTweetLinkCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(UpdateStatusHomeTimelineCommand.Command, UpdateStatusHomeTimelineCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(SwitchTimelinesCommand.Command, SwitchTimelinesCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(ShowUserInformationCommand.Command, ShowUserInformationCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(OpenLinkCommand.Command, OpenLinkCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(FollowUserCommand.Command, FollowUserCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(SearchCommand.Command, SearchCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(AlertCommand.Command, AlertCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(SignOutCommand.Command, SignOutCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(SettingsCommand.Command, SettingsCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(UpdateLayoutCommand.Command, UpdateLayoutCommandHandler));
+                CommandBindings.Add(new CommandBinding(OpenComposeCommand.Command, OpenComposeCommand.CommandHandler));
 
-                Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
-                Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
+                ChangeTheme.Command.Execute(Settings.Default.Theme, this);
+                SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
 
                 // WPF HACK: Compose.Toggle does not work the first time unless the control is initially visible.
                 Compose.Visibility = Visibility.Collapsed;
@@ -55,7 +57,7 @@ namespace tweetz5
                 // ReSharper disable once PossibleNullReferenceException
                 HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
 
-                if (HasExpired() == false) Commands.SignInCommand.Command.Execute(null, this);
+                if (HasExpired() == false) SignInCommand.Command.Execute(null, this);
             };
         }
 
@@ -66,7 +68,7 @@ namespace tweetz5
             {
                 Settings.Default.AccessToken = string.Empty;
                 Settings.Default.AccessTokenSecret = string.Empty;
-                Commands.AlertCommand.Command.Execute("Expired", this);
+                AlertCommand.Command.Execute("Expired", this);
                 return true;
             }
             return false;
@@ -114,14 +116,14 @@ namespace tweetz5
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Timeline.Height = Math.Max(0, 
-                e.NewSize.Height 
-                - TopResizeBar.ActualHeight 
+            Timeline.Height = Math.Max(0,
+                e.NewSize.Height
+                - TopResizeBar.ActualHeight
                 - TopBarSpacer.ActualHeight
                 - NavBarSpacer.ActualHeight
-                - Topbar.ActualHeight 
-                - NavBar.ActualHeight 
-                - Compose.ActualHeight 
+                - Topbar.ActualHeight
+                - NavBar.ActualHeight
+                - Compose.ActualHeight
                 - BottomResizeBar.ActualHeight);
             Timeline.Width = Math.Max(0, e.NewSize.Width - LeftSizeBar.ActualWidth - RightSizeBar.ActualWidth);
 
@@ -168,12 +170,6 @@ namespace tweetz5
         {
             ea.Handled = true;
             ShortcutHelp.IsOpen = true;
-        }
-
-        private void OpenComposeCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            Compose.Toggle();
         }
 
         private void UpdateLayoutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
@@ -263,10 +259,8 @@ namespace tweetz5
         // ReSharper disable InconsistentNaming
         public struct WINDOWPOS
         {
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
-            public IntPtr hwnd;
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
-            public IntPtr hwndInsertAfter;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")] public IntPtr hwnd;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")] public IntPtr hwndInsertAfter;
             public int x;
             public int y;
             public int cx;
@@ -278,8 +272,8 @@ namespace tweetz5
         {
             switch (msg)
             {
-                // Allow window to move above top of screen
-                // http://stackoverflow.com/questions/328127/how-do-i-move-a-wpf-window-into-a-negative-top-value
+                    // Allow window to move above top of screen
+                    // http://stackoverflow.com/questions/328127/how-do-i-move-a-wpf-window-into-a-negative-top-value
                 case 0x46: //WM_WINDOWPOSCHANGING
                     if (Mouse.LeftButton != MouseButtonState.Pressed)
                     {

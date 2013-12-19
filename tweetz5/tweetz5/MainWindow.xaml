@@ -105,7 +105,7 @@
                     Command="{x:Static commands:SettingsCommand.Command}"/>
               <Button Style="{StaticResource NavBarButton}"
                     Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE104;'}"
-                    Command="{x:Static tweetz5:MyCommands.OpenComposeCommand}"
+                    Command="{x:Static commands:OpenComposeCommand.Command}"
                     ToolTip="{t:Translate tooltip_compose_button}"/>
             </UniformGrid>
 
@@ -145,8 +145,6 @@
                     Executed="CloseCommandHandler"/>
     <CommandBinding Command="Play"
                     Executed="NotifyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.OpenComposeCommand}"
-                    Executed="OpenComposeCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MyCommands.ShortcutHelpCommand}"
                     Executed="ShortcutHelpCommandHandler"/>
   </Window.CommandBindings>
