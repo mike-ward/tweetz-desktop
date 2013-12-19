@@ -25,7 +25,7 @@ namespace tweetz5.Controls
             }
             catch (Exception ex)
             {
-                MyCommands.AlertCommand.Execute(ex.Message, this);
+                Commands.AlertCommand.Command.Execute(ex.Message, this);
             }
         }
 

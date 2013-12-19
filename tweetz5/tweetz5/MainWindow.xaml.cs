@@ -41,6 +41,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.OpenLinkCommand.Command, Commands.OpenLinkCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.FollowUserCommand.Command, Commands.FollowUserCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.SearchCommand.Command, Commands.SearchCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.AlertCommand.Command, Commands.AlertCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -62,7 +63,7 @@ namespace tweetz5
             {
                 Settings.Default.AccessToken = string.Empty;
                 Settings.Default.AccessTokenSecret = string.Empty;
-                MyCommands.AlertCommand.Execute("Expired", this);
+                Commands.AlertCommand.Command.Execute("Expired", this);
                 return true;
             }
             return false;
@@ -158,15 +159,6 @@ namespace tweetz5
             if (Settings.Default.Chirp == false) return;
             var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
-        }
-
-        private void AlertCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var message = ea.Parameter as string;
-            if (string.IsNullOrWhiteSpace(message)) return;
-            StatusAlert.Message.Text = message;
-            StatusAlert.IsOpen = true;
         }
 
         private void ShortcutHelpCommandHandler(object sender, ExecutedRoutedEventArgs ea)
