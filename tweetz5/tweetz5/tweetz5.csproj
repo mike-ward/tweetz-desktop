@@ -84,6 +84,7 @@
     <Compile Include="Commands\ReplyCommand.cs" />
     <Compile Include="Commands\RetweetClassicCommand.cs" />
     <Compile Include="Commands\RetweetCommand.cs" />
+    <Compile Include="Commands\SearchCommand.cs" />
     <Compile Include="Commands\SetFontSizeCommand.cs" />
     <Compile Include="Commands\ShowUserInformationCommand.cs" />
     <Compile Include="Commands\SignInCommand.cs" />

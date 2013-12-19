@@ -40,6 +40,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.ShowUserInformationCommand.Command, Commands.ShowUserInformationCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.OpenLinkCommand.Command, Commands.OpenLinkCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.FollowUserCommand.Command, Commands.FollowUserCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.SearchCommand.Command, Commands.SearchCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -157,16 +158,6 @@ namespace tweetz5
             if (Settings.Default.Chirp == false) return;
             var player = new SoundPlayer {Stream = Properties.Resources.Notify};
             player.Play();
-        }
-
-        private void SearchCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            var query = ea.Parameter as string;
-            if (string.IsNullOrWhiteSpace(query)) return;
-            Timeline.SearchControl.SetSearchText(query);
-            Commands.SwitchTimelinesCommand.Command.Execute(Timelines.SearchName, this);
-            Timeline.Controller.Search(query);
         }
 
         private void AlertCommandHandler(object sender, ExecutedRoutedEventArgs ea)

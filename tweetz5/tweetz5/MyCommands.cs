@@ -4,7 +4,6 @@ namespace tweetz5
 {
     internal static class MyCommands
     {
-        public static readonly RoutedCommand SearchCommand = new RoutedUICommand();
         public static readonly RoutedCommand AlertCommand = new RoutedUICommand();
         public static readonly RoutedCommand SignOutCommand = new RoutedUICommand();
         public static readonly RoutedCommand SettingsCommand = new RoutedUICommand();

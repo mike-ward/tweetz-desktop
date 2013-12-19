@@ -108,7 +108,7 @@ namespace tweetz5.Controls
         {
             return new Hyperlink(new Run("#" + text))
             {
-                Command = MyCommands.SearchCommand,
+                Command = Commands.SearchCommand.Command,
                 CommandParameter = text
             };
         }

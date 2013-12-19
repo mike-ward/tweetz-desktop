@@ -4,7 +4,6 @@
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
        xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
-       xmlns:local="clr-namespace:tweetz5"
        xmlns:controls="clr-namespace:tweetz5.Controls"
        xmlns:utilities="clr-namespace:tweetz5.Utilities"
        xmlns:commands="clr-namespace:tweetz5.Commands"
