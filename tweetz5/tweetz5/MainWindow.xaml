@@ -145,8 +145,6 @@
                     Executed="CloseCommandHandler"/>
     <CommandBinding Command="Play"
                     Executed="NotifyCommandHandler" />
-    <CommandBinding Command="{x:Static tweetz5:MyCommands.SignOutCommand}"
-                    Executed="SignOutCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MyCommands.SettingsCommand}"
                     Executed="SettingsCommandHandler"/>
     <CommandBinding Command="{x:Static tweetz5:MyCommands.UpdateLayoutCommand}"

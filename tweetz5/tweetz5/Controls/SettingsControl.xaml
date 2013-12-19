@@ -83,7 +83,7 @@
 
     <Button Margin="40 20"
             Content="{t:Translate settings_sign_out}"
-            Command="tweetz5:MyCommands.SignOutCommand" />
+            Command="commands:SignOutCommand.Command" />
 
     <TextBlock TextAlignment="Center">
       tweetz Desktop, v: <Run Text="{Binding Version, Mode=OneTime}"></Run>

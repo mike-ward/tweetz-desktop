@@ -42,6 +42,7 @@ namespace tweetz5
                 CommandBindings.Add(new CommandBinding(Commands.FollowUserCommand.Command, Commands.FollowUserCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.SearchCommand.Command, Commands.SearchCommand.CommandHandler));
                 CommandBindings.Add(new CommandBinding(Commands.AlertCommand.Command, Commands.AlertCommand.CommandHandler));
+                CommandBindings.Add(new CommandBinding(Commands.SignOutCommand.Command, Commands.SignOutCommand.CommandHandler));
 
                 Commands.ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 Commands.SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
@@ -165,18 +166,6 @@ namespace tweetz5
         {
             ea.Handled = true;
             ShortcutHelp.IsOpen = true;
-        }
-
-        private void SignOutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            Timeline.Controller.StopTimelines();
-            Settings.Default.AccessToken = "";
-            Settings.Default.AccessTokenSecret = "";
-            Settings.Default.ScreenName = "";
-            Settings.Default.UserId = "";
-            Settings.Default.Save();
-            Commands.SignInCommand.Command.Execute(null, this) ;
         }
 
         private void SettingsCommandHandler(object sender, ExecutedRoutedEventArgs ea)
