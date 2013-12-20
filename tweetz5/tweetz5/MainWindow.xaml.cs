@@ -129,6 +129,11 @@ namespace tweetz5
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
         }
 
+        private void NavBarOnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
+        }
+
         private void ComposeOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));

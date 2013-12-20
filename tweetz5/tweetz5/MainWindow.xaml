@@ -4,7 +4,6 @@
         xmlns:p="clr-namespace:tweetz5.Properties"
         xmlns:model="clr-namespace:tweetz5.Model"
         xmlns:u="clr-namespace:tweetz5.Utilities"
-        xmlns:us="clr-namespace:tweetz5.Utilities.System"
         xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
         xmlns:commands="clr-namespace:tweetz5.Commands"
         x:Class="tweetz5.MainWindow"
@@ -46,7 +45,7 @@
                     Command="Close"/>
       </Grid>
 
-      <Border x:Name="TopBarSpacer" Background="{DynamicResource TitleBarBackgroundBrush}" BorderBrush="{DynamicResource TitleBarBackgroundBrush}" BorderThickness="1" />
+      <Border x:Name="TopBarSpacer" Background="{DynamicResource TitleBarBackgroundBrush}" BorderBrush="{DynamicResource TitleBarBackgroundBrush}" BorderThickness="2" />
       <Border x:Name="NavBarSpacer" Background="{DynamicResource AppBackgroundBrush}" BorderBrush="{DynamicResource AppBackgroundBrush}" BorderThickness="2" />
 
       <StackPanel Orientation="Horizontal">
@@ -59,7 +58,10 @@
                                Visibility="Collapsed"/>
 
           <StackPanel x:Name="MainPanel">
-            <UniformGrid x:Name="NavBar" Rows="1" Style="{StaticResource NavBar}">
+            <UniformGrid x:Name="NavBar" 
+                         Rows="1" 
+                         Style="{StaticResource NavBar}"
+                         SizeChanged="NavBarOnSizeChanged">
               <Button x:Name="UnifiedButton"
                     Style="{StaticResource NavBarButton}"
                     ToolTip="{t:Translate tooltip_unified_button}"
@@ -109,9 +111,7 @@
 
             <controls:SettingsControl x:Name="SettingsPanel" />
 
-            <controls:Timeline x:Name="Timeline"
-                          Panel.ZIndex="-1"
-                          Height="400" />
+            <controls:Timeline x:Name="Timeline" Panel.ZIndex="-1" />
             <controls:ComposeTweet x:Name="Compose"
                               Visibility="Visible"
                               IsVisibleChanged="ComposeOnIsVisibleChanged" />

@@ -86,7 +86,7 @@
 
   <Style x:Key="AppCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource NavBarButton}">
     <Setter Property="Foreground" Value="{DynamicResource TitleBarForegroundBrush}" />
-    <Setter Property="FontSize" Value="{DynamicResource AppFontSizePlus1}" />
+    <Setter Property="FontSize" Value="{DynamicResource AppFontSizeMinus1}" />
     <Setter Property="HorizontalAlignment" Value="Right" />
     <Setter Property="Margin" Value="0 0 2 0" />
   </Style>
