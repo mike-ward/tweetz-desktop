@@ -250,7 +250,7 @@ namespace tweetz5.Model
         {
             if (Application.Current != null)
             {
-                MediaCommands.Play.Execute(string.Empty, Application.Current.MainWindow);
+                Commands.ChirpCommand.Command.Execute(string.Empty, Application.Current.MainWindow);
             }
         }
 

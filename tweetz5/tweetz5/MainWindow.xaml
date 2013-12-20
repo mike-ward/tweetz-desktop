@@ -143,7 +143,5 @@
   <Window.CommandBindings>
     <CommandBinding Command="Close"
                     Executed="CloseCommandHandler"/>
-    <CommandBinding Command="Play"
-                    Executed="NotifyCommandHandler" />
   </Window.CommandBindings>
 </Window>

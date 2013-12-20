@@ -64,6 +64,7 @@ namespace tweetz5
             CommandBindings.Add(new CommandBinding(UpdateLayoutCommand.Command, UpdateLayoutCommandHandler));
             CommandBindings.Add(new CommandBinding(OpenComposeCommand.Command, OpenComposeCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(ShortcutHelpCommand.Command, ShortcutHelpCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(ChirpCommand.Command, ChirpCommand.CommandHandler));
         }
 
         private bool HasExpired()
@@ -163,13 +164,6 @@ namespace tweetz5
             Close();
         }
 
-        private void NotifyCommandHandler(object sender, ExecutedRoutedEventArgs ea)
-        {
-            ea.Handled = true;
-            if (Settings.Default.Chirp == false) return;
-            var player = new SoundPlayer {Stream = Properties.Resources.Notify};
-            player.Play();
-        }
 
         private void UpdateLayoutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
