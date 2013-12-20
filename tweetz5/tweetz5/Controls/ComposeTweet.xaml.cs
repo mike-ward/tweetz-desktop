@@ -11,7 +11,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
-using tweetz5.Annotations;
 using tweetz5.Model;
 using tweetz5.Utilities.Translate;
 
@@ -295,7 +294,6 @@ namespace tweetz5.Controls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;

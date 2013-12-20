@@ -128,7 +128,7 @@
     <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Model\TwitterStream.cs" />
-    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Utilities\System\DragAndDrop.cs" />
     <Compile Include="Utilities\System\RegistryHelper.cs" />
     <Compile Include="Utilities\System\Screen.cs" />
     <Compile Include="Utilities\Converters\Win7FontFamilyConverter.cs" />

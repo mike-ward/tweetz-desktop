@@ -1,11 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Media;
-using System.Net;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -25,7 +19,9 @@ namespace tweetz5
             MainPanel.IsVisibleChanged += MainPanelOnIsVisibleChanged;
             Loaded += (sender, args) =>
             {
-                AddCommandBindings();
+                ApplyCommandBindings();
+                Drop += DragAndDrop.OnDrop;
+                DragOver += DragAndDrop.OnDragOver;
                 ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
 
@@ -35,11 +31,12 @@ namespace tweetz5
                 // ReSharper disable once PossibleNullReferenceException
                 HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
 
-                if (HasExpired() == false) SignInCommand.Command.Execute(null, this);
+                if (BuildInfo.HasExpired()) return;
+                SignInCommand.Command.Execute(null, this);
             };
         }
 
-        private void AddCommandBindings()
+        private void ApplyCommandBindings()
         {
             CommandBindings.Add(new CommandBinding(ChangeTheme.Command, ChangeTheme.CommandHandler));
             CommandBindings.Add(new CommandBinding(SetFontSizeCommand.Command, SetFontSizeCommand.CommandHandler));
@@ -65,19 +62,6 @@ namespace tweetz5
             CommandBindings.Add(new CommandBinding(OpenComposeCommand.Command, OpenComposeCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(ShortcutHelpCommand.Command, ShortcutHelpCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(ChirpCommand.Command, ChirpCommand.CommandHandler));
-        }
-
-        private bool HasExpired()
-        {
-            var buildDate = BuildInfo.GetBuildDateTime();
-            if (DateTime.Now > buildDate.AddMonths(3))
-            {
-                Settings.Default.AccessToken = string.Empty;
-                Settings.Default.AccessTokenSecret = string.Empty;
-                AlertCommand.Command.Execute("Expired", this);
-                return true;
-            }
-            return false;
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
@@ -140,12 +124,16 @@ namespace tweetz5
             Compose.Width = Timeline.Width;
         }
 
+        private void TopBarOnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
+        }
+
         private void ComposeOnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
             if (Compose.IsVisible) Compose.Focus();
         }
-
 
         internal void SetButtonStates(string timelineName)
         {
@@ -164,92 +152,14 @@ namespace tweetz5
             Close();
         }
 
-
         private void UpdateLayoutCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
             OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
         }
 
-        private void OnDragOver(object sender, DragEventArgs ea)
-        {
-            ea.Handled = true;
-            ea.Effects = DragDropEffects.None;
-            if (ea.Data.GetDataPresent("text/html"))
-            {
-                ea.Effects = DragDropEffects.Copy;
-            }
-            else if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
-            {
-                var filenames = ea.Data.GetData(DataFormats.FileDrop, true) as string[];
-                if (filenames != null && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
-                {
-                    ea.Effects = DragDropEffects.Copy;
-                }
-            }
-        }
-
-        private void OnDrop(object sender, DragEventArgs ea)
-        {
-            if (ea.Data.GetDataPresent("text/html"))
-            {
-                var html = string.Empty;
-                var data = ea.Data.GetData("text/html");
-                if (data is string)
-                {
-                    html = (string) data;
-                }
-                else if (data is MemoryStream)
-                {
-                    var stream = (MemoryStream) data;
-                    var buffer = new byte[stream.Length];
-                    stream.Read(buffer, 0, buffer.Length);
-                    html = (buffer[1] == (byte) 0)
-                        ? Encoding.Unicode.GetString(buffer)
-                        : Encoding.ASCII.GetString(buffer);
-                }
-                var match = new Regex(@"<img[^>]+src=""([^""]*)""").Match(html);
-                if (match.Success)
-                {
-                    var uri = new Uri(match.Groups[1].Value);
-                    var filename = Path.GetTempFileName();
-                    var webClient = new WebClient();
-                    try
-                    {
-                        webClient.DownloadFileCompleted += (o, args) =>
-                        {
-                            Compose.Visibility = Visibility.Visible;
-                            Compose.Image = filename;
-                            webClient.Dispose();
-                        };
-                        webClient.DownloadFileAsync(uri, filename);
-                        ea.Handled = true;
-                    }
-                    catch (WebException)
-                    {
-                    }
-                }
-            }
-            else if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
-            {
-                var filenames = ea.Data.GetData(DataFormats.FileDrop, true) as string[];
-                if (filenames != null && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
-                {
-                    Compose.Visibility = Visibility.Visible;
-                    Compose.Image = filenames[0];
-                    ea.Handled = true;
-                }
-            }
-        }
-
-        private static bool IsValidImageExtension(string filename)
-        {
-            var extension = Path.GetExtension(filename) ?? string.Empty;
-            var extensions = new[] {".png", ".jpg", ".jpeg", ".gif"};
-            return extensions.Any(e => extension.Equals(e, StringComparison.OrdinalIgnoreCase));
-        }
-
         // ReSharper disable InconsistentNaming
+
         public struct WINDOWPOS
         {
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")] public IntPtr hwnd;
@@ -277,11 +187,6 @@ namespace tweetz5
                     break;
             }
             return IntPtr.Zero;
-        }
-
-        private void TopBarOnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            OnRenderSizeChanged(new SizeChangedInfo(this, new Size(Width, Height), true, true));
         }
     }
 }

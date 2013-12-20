@@ -2,6 +2,9 @@
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows;
+using tweetz5.Commands;
+using tweetz5.Properties;
 
 #pragma warning disable 169
 #pragma warning disable 649
@@ -9,8 +12,12 @@ using System.Runtime.InteropServices;
 
 namespace tweetz5.Utilities.System
 {
-    internal static class BuildInfo
+    internal class BuildInfo
     {
+        private BuildInfo()
+        {
+        }
+
         public static bool IsWindows8OrNewer { get; private set; }
 
         static BuildInfo()
@@ -59,6 +66,20 @@ namespace tweetz5.Utilities.System
                 }
             }
             return new DateTime();
+        }
+
+        public static bool HasExpired()
+        {
+            var buildDate = GetBuildDateTime();
+            if (DateTime.Now > buildDate.AddMonths(3))
+            {
+                Settings.Default.AccessToken = string.Empty;
+                Settings.Default.AccessTokenSecret = string.Empty;
+                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                AlertCommand.Command.Execute("Expired", mainWindow);
+                return true;
+            }
+            return false;
         }
     }
 }

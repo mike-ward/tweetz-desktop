@@ -4,7 +4,6 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using tweetz5.Annotations;
 
 namespace tweetz5.Model
 {
@@ -117,7 +116,6 @@ namespace tweetz5.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
