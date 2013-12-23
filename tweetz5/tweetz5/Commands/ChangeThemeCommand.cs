@@ -20,7 +20,7 @@ namespace tweetz5.Commands
             }
             catch (Exception)
             {
-                SetTheme("Dark");
+                SetTheme("Light");
             }
         }
 

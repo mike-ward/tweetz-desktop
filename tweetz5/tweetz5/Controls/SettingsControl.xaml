@@ -67,17 +67,17 @@
     <Separator />
     <UniformGrid Style="{StaticResource SettingsUniformGrid}">
       <RadioButton GroupName="th" 
-                   Content="{t:Translate settings_theme_dark}"
-                   IsChecked="{Binding Theme, Converter={StaticResource ThemeToBooleanConverter}, ConverterParameter=Dark}"
-                   Style="{StaticResource SettingsRadioButton}" 
-                   Command="{x:Static commands:ChangeTheme.Command}" 
-                   CommandParameter="Dark" />
-      <RadioButton GroupName="th" 
                    Content="{t:Translate settings_theme_light}"
                    IsChecked="{Binding Theme, Converter={StaticResource ThemeToBooleanConverter}, ConverterParameter=Light}"
                    Style="{StaticResource SettingsRadioButton}" 
                    Command="{x:Static commands:ChangeTheme.Command}" 
                    CommandParameter="Light" />
+      <RadioButton GroupName="th" 
+                   Content="{t:Translate settings_theme_dark}"
+                   IsChecked="{Binding Theme, Converter={StaticResource ThemeToBooleanConverter}, ConverterParameter=Dark}"
+                   Style="{StaticResource SettingsRadioButton}" 
+                   Command="{x:Static commands:ChangeTheme.Command}" 
+                   CommandParameter="Dark" />
     </UniformGrid>
 
     <Button Margin="40 20"
