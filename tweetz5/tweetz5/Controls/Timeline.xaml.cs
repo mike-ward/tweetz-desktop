@@ -39,7 +39,7 @@ namespace tweetz5.Controls
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
         {
             Application.Current.MainWindow.DragMove();
-            e.Handled = true;
+            e.Handled = false; // listbox item needs this to select item
         }
 
         private void OnItemsSourceChanged(object sender, EventArgs eventArgs)
