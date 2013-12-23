@@ -247,9 +247,9 @@ namespace tweetz5.Controls
 
                 if (json.Contains("id_str"))
                 {
+                    Hide();
                     var status = Status.ParseJson("[" + json + "]");
                     Commands.UpdateStatusHomeTimelineCommand.Command.Execute(status, this);
-                    Hide();
                 }
             }
             catch (Exception)
