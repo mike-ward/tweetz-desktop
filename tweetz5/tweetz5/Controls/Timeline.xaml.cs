@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,7 +12,7 @@ using tweetz5.Utilities;
 
 namespace tweetz5.Controls
 {
-    public partial class Timeline
+    public partial class Timeline : INotifyPropertyChanged
     {
         public static readonly RoutedCommand SelectItemCommand = new RoutedUICommand();
         public TimelineController Controller { get; private set; }
@@ -22,6 +23,7 @@ namespace tweetz5.Controls
             Controller = new TimelineController((Timelines)DataContext);
             TimelineItems.PreviewMouseWheel += TimelineItemsOnPreviewMouseWheel;
             TimelineItems.Loaded += TimelineItemsOnLoaded;
+            TimelineItems.SizeChanged += TimelineItemsOnSizeChanged;
             Unloaded += (sender, args) => Controller.Dispose();
         }
 
@@ -139,6 +141,34 @@ namespace tweetz5.Controls
                 Keyboard.Focus(listboxItem);
                 TimelineItems.ScrollIntoView(TimelineItems.SelectedItem);
             }
+        }
+
+        private Thickness _tweetMargin;
+
+        public Thickness TweetMargin
+        {
+            get { return _tweetMargin; }
+            set
+            {
+                if (_tweetMargin != value)
+                {
+                    _tweetMargin = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void TimelineItemsOnSizeChanged(object sender, SizeChangedEventArgs sizeChangedEventArgs)
+        {
+            TweetMargin = (sizeChangedEventArgs.NewSize.Width > 260) ? new Thickness(40, 0, 0, 0) : new Thickness();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

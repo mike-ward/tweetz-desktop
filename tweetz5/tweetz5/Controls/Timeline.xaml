@@ -116,6 +116,7 @@
             <ItemsControl Grid.Row="1"
                           Grid.Column="0"
                           Grid.ColumnSpan="2" 
+                          Margin="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=TweetMargin}"
                           Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}"
                           ItemsSource="{Binding MediaLinks}">
               <ItemsControl.ItemTemplate>
@@ -138,7 +139,7 @@
             <StackPanel Grid.Row="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        Margin="0 3 0 0">
+                        Margin="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=TweetMargin}">
               <TextBlock controls:MarkupService.MarkupNodes="{Binding MarkupNodes, Mode=OneTime}"
                          Style="{StaticResource TweetStyle}" />
               <TextBlock Style="{StaticResource TweetRetweetedByStyle}">

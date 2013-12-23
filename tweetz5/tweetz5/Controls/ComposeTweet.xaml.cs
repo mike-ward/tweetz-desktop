@@ -94,6 +94,7 @@ namespace tweetz5.Controls
                 if (_friendsFilter != value)
                 {
                     _friendsFilter = value;
+                    // ReSharper disable once ExplicitCallerInfoArgument
                     OnPropertyChanged("Friends");
                 }
             }
