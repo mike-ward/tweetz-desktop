@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
+using tweetz5.Commands;
 using tweetz5.Utilities;
 using tweetz5.Utilities.Translate;
 
@@ -47,6 +45,7 @@ namespace tweetz5.Model
         private readonly Dictionary<string, Timeline> _timelineMap;
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
         private CancellationTokenSource _cancellationTokenSource;
+
         public ReadSafeList<string> ScreenNames { get; private set; }
 
         private Timeline _unified
@@ -89,6 +88,7 @@ namespace tweetz5.Model
         public const string SearchName = "search";
 
         public Action<Action> DispatchInvokerOverride { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Timelines()
@@ -172,13 +172,10 @@ namespace tweetz5.Model
                 if (tweetType != "s")
                 {
                     var index = _tweets.IndexOf(tweet);
-                    if (index == -1)
-                        _tweets.Add(tweet);
-                    else
-                        tweet = _tweets[index];
+                    if (index == -1) _tweets.Add(tweet);
+                    else tweet = _tweets[index];
 
-                    if (tweet.TweetType.Contains(tweetType) == false)
-                        tweet.TweetType += tweetType;
+                    if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
                 }
 
                 foreach (var timeline in timelines.Where(timeline => timeline.Tweets.IndexOf(tweet) == -1))
@@ -250,7 +247,7 @@ namespace tweetz5.Model
         {
             if (Application.Current != null)
             {
-                Commands.ChirpCommand.Command.Execute(string.Empty, Application.Current.MainWindow);
+                ChirpCommand.Command.Execute(string.Empty, Application.Current.MainWindow);
             }
         }
 
@@ -336,11 +333,12 @@ namespace tweetz5.Model
         private static string TimeAgo(DateTime time)
         {
             var timespan = DateTime.UtcNow - time;
-            if (timespan.TotalSeconds < 60) return string.Format((string) TranslationService.Instance.Translate("time_ago_seconds"), (int) timespan.TotalSeconds);
-            if (timespan.TotalMinutes < 60) return string.Format((string) TranslationService.Instance.Translate("time_ago_minutes"), (int) timespan.TotalMinutes);
-            if (timespan.TotalHours < 24) return string.Format((string) TranslationService.Instance.Translate("time_ago_hours"), (int) timespan.TotalHours);
-            if (timespan.TotalDays < 3) return string.Format((string) TranslationService.Instance.Translate("time_ago_days"), (int) timespan.TotalDays);
-            return time.ToString((string) TranslationService.Instance.Translate("time_ago_date"));
+            Func<string, double, string> format = (s, t) => string.Format((string)TranslationService.Instance.Translate(s), (int)t);
+            if (timespan.TotalSeconds < 60) return format("time_ago_seconds", timespan.TotalSeconds);
+            if (timespan.TotalMinutes < 60) return format("time_ago_minutes", timespan.TotalMinutes);
+            if (timespan.TotalHours < 24) return format("time_ago_hours", timespan.TotalHours);
+            if (timespan.TotalDays < 3) return format("time_ago_days", timespan.TotalDays);
+            return time.ToString((string)TranslationService.Instance.Translate("time_ago_date"));
         }
 
         private void DispatchInvoker(Action callback)

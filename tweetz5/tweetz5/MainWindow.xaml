@@ -24,112 +24,120 @@
   <Window.Resources>
     <u:Win7FontConverter x:Key="Win7FontConverter" />
   </Window.Resources>
-  <Border BorderThickness="0" Background="{DynamicResource AppBackgroundBrush}">
+  <Border BorderThickness="0"
+          Background="{DynamicResource AppBackgroundBrush}">
     <StackPanel>
       <Thumb x:Name="TopResizeBar"
              DragDelta="TopSizeOnDragDelta"
              Style="{StaticResource VerticalSizeThumbStyleTop}" />
 
       <Grid x:Name="Topbar"
-                   SizeChanged="TopBarOnSizeChanged"
-                   Style="{StaticResource TopBarStyle}">
+            SizeChanged="TopBarOnSizeChanged"
+            Style="{StaticResource TopBarStyle}">
         <Image Source="..\Assets\Images\birdblue.png"
-                   HorizontalAlignment="Left"
-                   Height="11" 
-                   Margin="4 0 0 0" />
+               HorizontalAlignment="Left"
+               Height="11"
+               Margin="4 0 0 0" />
         <Label Style="{StaticResource TopBarLabelStyle}"
-                   HorizontalAlignment="Left"
-                   Content="Tweetz" />
+               HorizontalAlignment="Left"
+               Content="Tweetz" />
         <Button Style="{StaticResource AppCloseButtonStyle}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;'}"
-                    Command="Close"/>
+                Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;'}"
+                Command="Close" />
       </Grid>
 
-      <Border x:Name="TopBarSpacer" Background="{DynamicResource TitleBarBackgroundBrush}" BorderBrush="{DynamicResource TitleBarBackgroundBrush}" BorderThickness="2" />
-      <Border x:Name="NavBarSpacer" Background="{DynamicResource AppBackgroundBrush}" BorderBrush="{DynamicResource AppBackgroundBrush}" BorderThickness="2" />
+      <Border x:Name="TopBarSpacer"
+              Background="{DynamicResource TitleBarBackgroundBrush}"
+              BorderBrush="{DynamicResource TitleBarBackgroundBrush}"
+              BorderThickness="2" />
+      <Border x:Name="NavBarSpacer"
+              Background="{DynamicResource AppBackgroundBrush}"
+              BorderBrush="{DynamicResource AppBackgroundBrush}"
+              BorderThickness="2" />
 
       <StackPanel Orientation="Horizontal">
-        <Thumb x:Name="LeftSizeBar" 
-             DragDelta="LeftSizeBarOnDragDelta"
-             Style="{StaticResource HorizontalSizeThumbStyle}" />
+        <Thumb x:Name="LeftSizeBar"
+               DragDelta="LeftSizeBarOnDragDelta"
+               Style="{StaticResource HorizontalSizeThumbStyle}" />
         <StackPanel>
 
           <controls:Authenticate x:Name="AuthenticatePanel"
-                               Visibility="Collapsed"/>
+                                 Visibility="Collapsed" />
 
           <StackPanel x:Name="MainPanel">
-            <UniformGrid x:Name="NavBar" 
-                         Rows="1" 
+            <UniformGrid x:Name="NavBar"
+                         Rows="1"
                          Style="{StaticResource NavBar}"
                          SizeChanged="NavBarOnSizeChanged">
               <Button x:Name="UnifiedButton"
-                    Style="{StaticResource NavBarButton}"
-                    ToolTip="{t:Translate tooltip_unified_button}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE179;'}"
-                    Command="{x:Static commands:SwitchTimelinesCommand.Command}"
-                    CommandParameter="{x:Static model:Timelines.UnifiedName}"/>
+                      Style="{StaticResource NavBarButton}"
+                      ToolTip="{t:Translate tooltip_unified_button}"
+                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE179;'}"
+                      Command="{x:Static commands:SwitchTimelinesCommand.Command}"
+                      CommandParameter="{x:Static model:Timelines.UnifiedName}" />
               <Button x:Name="HomeButton"
-                    Style="{StaticResource NavBarButton}"
-                    ToolTip="{t:Translate tooltip_home_button}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10F;'}"
-                    Command="{x:Static commands:SwitchTimelinesCommand.Command}"
-                    CommandParameter="{x:Static model:Timelines.HomeName}"/>
+                      Style="{StaticResource NavBarButton}"
+                      ToolTip="{t:Translate tooltip_home_button}"
+                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10F;'}"
+                      Command="{x:Static commands:SwitchTimelinesCommand.Command}"
+                      CommandParameter="{x:Static model:Timelines.HomeName}" />
               <Button x:Name="MentionsButton"
-                    Style="{StaticResource NavBarButton}"
-                    ToolTip="{t:Translate tooltip_mentions_button}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE168;'}"
-                    Command="{x:Static commands:SwitchTimelinesCommand.Command}"
-                    CommandParameter="{x:Static model:Timelines.MentionsName}"/>
+                      Style="{StaticResource NavBarButton}"
+                      ToolTip="{t:Translate tooltip_mentions_button}"
+                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE168;'}"
+                      Command="{x:Static commands:SwitchTimelinesCommand.Command}"
+                      CommandParameter="{x:Static model:Timelines.MentionsName}" />
               <Button x:Name="MessagesButton"
-                    Style="{StaticResource NavBarButton}"
-                    ToolTip="{t:Translate tooltip_messages_button}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE135;'}"
-                    Command="{x:Static commands:SwitchTimelinesCommand.Command}"
-                    CommandParameter="{x:Static model:Timelines.MessagesName}"/>
+                      Style="{StaticResource NavBarButton}"
+                      ToolTip="{t:Translate tooltip_messages_button}"
+                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE135;'}"
+                      Command="{x:Static commands:SwitchTimelinesCommand.Command}"
+                      CommandParameter="{x:Static model:Timelines.MessagesName}" />
               <Button x:Name="FavoritesButton"
-                    Style="{StaticResource NavBarButton}"
-                    ToolTip="{t:Translate tooltip_favorites_button}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE113;'}"
-                    Command="{x:Static commands:SwitchTimelinesCommand.Command}"
-                    CommandParameter="{x:Static model:Timelines.FavoritesName}"/>
+                      Style="{StaticResource NavBarButton}"
+                      ToolTip="{t:Translate tooltip_favorites_button}"
+                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE113;'}"
+                      Command="{x:Static commands:SwitchTimelinesCommand.Command}"
+                      CommandParameter="{x:Static model:Timelines.FavoritesName}" />
               <Button x:Name="SearchButton"
-                    Style="{StaticResource NavBarButton}"
-                    ToolTip="{t:Translate tooltip_search_button}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE11A;'}"
-                    Command="{x:Static commands:SwitchTimelinesCommand.Command}"
-                    CommandParameter="{x:Static model:Timelines.SearchName}" />
+                      Style="{StaticResource NavBarButton}"
+                      ToolTip="{t:Translate tooltip_search_button}"
+                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE11A;'}"
+                      Command="{x:Static commands:SwitchTimelinesCommand.Command}"
+                      CommandParameter="{x:Static model:Timelines.SearchName}" />
               <Button x:Name="SettingsButton"
-                    Style="{StaticResource NavBarButton}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE115;'}"
-                    ToolTip="{t:Translate tooltip_settings_button}"
-                    Command="{x:Static commands:SettingsCommand.Command}"/>
+                      Style="{StaticResource NavBarButton}"
+                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE115;'}"
+                      ToolTip="{t:Translate tooltip_settings_button}"
+                      Command="{x:Static commands:SettingsCommand.Command}" />
               <Button Style="{StaticResource NavBarButton}"
-                    Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE104;'}"
-                    Command="{x:Static commands:OpenComposeCommand.Command}"
-                    ToolTip="{t:Translate tooltip_compose_button}"/>
+                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE104;'}"
+                      Command="{x:Static commands:OpenComposeCommand.Command}"
+                      ToolTip="{t:Translate tooltip_compose_button}" />
             </UniformGrid>
 
             <controls:SettingsControl x:Name="SettingsPanel" />
 
-            <controls:Timeline x:Name="Timeline" Panel.ZIndex="-1" />
+            <controls:Timeline x:Name="Timeline"
+                               Panel.ZIndex="-1" />
             <controls:ComposeTweet x:Name="Compose"
-                              Visibility="Visible"
-                              IsVisibleChanged="ComposeOnIsVisibleChanged" />
+                                   Visibility="Visible"
+                                   IsVisibleChanged="ComposeOnIsVisibleChanged" />
             <controls:AboutUser x:Name="UserInformationPopup"
-                           Placement="Left"
-                           StaysOpen="False"/>
+                                Placement="Left"
+                                StaysOpen="False" />
 
             <controls:StatusAlert x:Name="StatusAlert"
-                             Placement="Center"/>
+                                  Placement="Center" />
 
             <controls:ShortcutHelp x:Name="ShortcutHelp"
-                                 Placement="Center"/>
+                                   Placement="Center" />
           </StackPanel>
         </StackPanel>
 
-        <Thumb x:Name="RightSizeBar" 
-             DragDelta="RightSizeBarOnDragDelta"
-             Style="{StaticResource HorizontalSizeThumbStyle}" />
+        <Thumb x:Name="RightSizeBar"
+               DragDelta="RightSizeBarOnDragDelta"
+               Style="{StaticResource HorizontalSizeThumbStyle}" />
       </StackPanel>
 
       <Thumb x:Name="BottomResizeBar"
@@ -140,6 +148,6 @@
   </Border>
   <Window.CommandBindings>
     <CommandBinding Command="Close"
-                    Executed="CloseCommandHandler"/>
+                    Executed="CloseCommandHandler" />
   </Window.CommandBindings>
 </Window>

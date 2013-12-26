@@ -38,10 +38,14 @@
   <SolidColorBrush x:Key="SearchTextBoxForegroundBrush">#585858</SolidColorBrush>
   <SolidColorBrush x:Key="SearchTextBoxBackgroundBrush">#f3f3f3</SolidColorBrush>
 
-  <SolidColorBrush x:Key="StandardBorderBrush" Color="#f3f3f3" />
-  <SolidColorBrush x:Key="StandardBrush" Color="#f3f3f3" />
-  <SolidColorBrush x:Key="PressedBrush" Color="#cccccc" />
-  <SolidColorBrush x:Key="HoverBrush" Color="#dddddd" />
-  <SolidColorBrush x:Key="GlyphBrush" Color="{DynamicResource AppBackgroundColor}" />
-
+  <SolidColorBrush x:Key="StandardBorderBrush"
+                   Color="#f3f3f3" />
+  <SolidColorBrush x:Key="StandardBrush"
+                   Color="#f3f3f3" />
+  <SolidColorBrush x:Key="PressedBrush"
+                   Color="#cccccc" />
+  <SolidColorBrush x:Key="HoverBrush"
+                   Color="#dddddd" />
+  <SolidColorBrush x:Key="GlyphBrush"
+                   Color="{DynamicResource AppBackgroundColor}" />
 </ResourceDictionary>

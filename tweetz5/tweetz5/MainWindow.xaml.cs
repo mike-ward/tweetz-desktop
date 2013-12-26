@@ -167,8 +167,12 @@ namespace tweetz5
 
         public struct WINDOWPOS
         {
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")] public IntPtr hwnd;
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")] public IntPtr hwndInsertAfter;
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
+            public IntPtr hwnd;
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
+            public IntPtr hwndInsertAfter;
+
             public int x;
             public int y;
             public int cx;
@@ -180,12 +184,12 @@ namespace tweetz5
         {
             switch (msg)
             {
-                    // Allow window to move above top of screen
-                    // http://stackoverflow.com/questions/328127/how-do-i-move-a-wpf-window-into-a-negative-top-value
+                // Allow window to move above top of screen
+                // http://stackoverflow.com/questions/328127/how-do-i-move-a-wpf-window-into-a-negative-top-value
                 case 0x46: //WM_WINDOWPOSCHANGING
                     if (Mouse.LeftButton != MouseButtonState.Pressed)
                     {
-                        var wp = (WINDOWPOS) Marshal.PtrToStructure(lParam, typeof (WINDOWPOS));
+                        var wp = (WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(WINDOWPOS));
                         wp.flags = wp.flags | 2; //SWP_NOMOVE
                         Marshal.StructureToPtr(wp, lParam, false);
                     }
