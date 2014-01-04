@@ -1,8 +1,9 @@
 ﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
 
-using System;
 using System.Windows;
+using tweetz5.Commands;
 using tweetz5.Model;
+using Settings = tweetz5.Properties.Settings;
 
 namespace tweetz5.Controls
 {
@@ -17,28 +18,21 @@ namespace tweetz5.Controls
 
         private void GetPin_OnClick(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Tokens = Twitter.GetRequestToken();
-                var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + Tokens.OAuthToken;
-                Commands.OpenLinkCommand.Command.Execute(url, this);
-            }
-            catch (Exception ex)
-            {
-                Commands.AlertCommand.Command.Execute(ex.Message, this);
-            }
+            Tokens = Twitter.GetRequestToken();
+            var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + Tokens.OAuthToken;
+            OpenLinkCommand.Command.Execute(url, this);
         }
 
         private void SignIn_OnClick(object sender, RoutedEventArgs e)
         {
             var tokens = Twitter.GetAccessToken(Tokens.OAuthToken, Tokens.OAuthSecret, Pin.Text);
             Pin.Text = string.Empty;
-            Properties.Settings.Default.AccessToken = tokens.OAuthToken;
-            Properties.Settings.Default.AccessTokenSecret = tokens.OAuthSecret;
-            Properties.Settings.Default.UserId = tokens.UserId;
-            Properties.Settings.Default.ScreenName = tokens.ScreenName;
-            Properties.Settings.Default.Save();
-            Commands.SignInCommand.Command.Execute(null, this);
+            Settings.Default.AccessToken = tokens.OAuthToken;
+            Settings.Default.AccessTokenSecret = tokens.OAuthSecret;
+            Settings.Default.UserId = tokens.UserId;
+            Settings.Default.ScreenName = tokens.ScreenName;
+            Settings.Default.Save();
+            SignInCommand.Command.Execute(null, this);
         }
     }
 }

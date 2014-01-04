@@ -127,6 +127,7 @@
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Model\Timeline.cs" />
+    <Compile Include="Model\TwitterError.cs" />
     <Compile Include="Model\TwitterStream.cs" />
     <Compile Include="Utilities\System\DragAndDrop.cs" />
     <Compile Include="Utilities\System\RegistryHelper.cs" />

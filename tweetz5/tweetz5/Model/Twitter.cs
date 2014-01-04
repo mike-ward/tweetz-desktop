@@ -1,14 +1,15 @@
-﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Web.Script.Serialization;
 using System.Windows;
+using tweetz5.Commands;
 
 // ReSharper disable PossibleMultipleEnumeration
 // ReSharper disable AssignNullToNotNullAttribute
@@ -43,7 +44,7 @@ namespace tweetz5.Model
 
             if (post)
             {
-                System.Diagnostics.Debug.WriteLine(string.Join("&", parameterStrings));
+                Debug.WriteLine(string.Join("&", parameterStrings));
                 request.ContentType = "application/x-www-form-urlencoded";
                 if (parameters != null)
                 {
@@ -120,77 +121,52 @@ namespace tweetz5.Model
                 Console.WriteLine(e);
                 return new Status[0];
             }
+            catch (Exception e)
+            {
+                ShowAlert(e.Message);
+                return new Status[0];
+            }
         }
 
         public static string UpdateStatus(string message, string replyToStatusId = null)
         {
             var parameters = string.IsNullOrWhiteSpace(replyToStatusId)
-                                 ? new[] {new[] {"status", message}}
-                                 : new[] {new[] {"status", message}, new[] {"in_reply_to_status_id", replyToStatusId}};
+                ? new[] {new[] {"status", message}}
+                : new[] {new[] {"status", message}, new[] {"in_reply_to_status_id", replyToStatusId}};
 
-            try
-            {
-                return Post("https://api.twitter.com/1.1/statuses/update.json", parameters);
-            }
-            catch (WebException e)
-            {
-                ShowAlert(e.Message);
-                return string.Empty;
-            }
+            return PostHandler(
+                () => Post("https://api.twitter.com/1.1/statuses/update.json", parameters),
+                () => string.Empty);
         }
 
         public static string CreateFavorite(string id)
         {
-            try
-            {
-                var parameters = new[] {new[] {"id", id}};
-                return Post("https://api.twitter.com/1.1/favorites/create.json", parameters);
-            }
-            catch (WebException e)
-            {
-                ShowAlert(e.Message);
-                return string.Empty;
-            }
+            var parameters = new[] {new[] {"id", id}};
+            return PostHandler(
+                () => Post("https://api.twitter.com/1.1/favorites/create.json", parameters),
+                () => string.Empty);
         }
 
         public static string DestroyFavorite(string id)
         {
-            try
-            {
-                var parameters = new[] {new[] {"id", id}};
-                return Post("https://api.twitter.com/1.1/favorites/destroy.json", parameters);
-            }
-            catch (WebException e)
-            {
-                ShowAlert(e.Message);
-                return string.Empty;
-            }
+            var parameters = new[] {new[] {"id", id}};
+            return PostHandler(
+                () => Post("https://api.twitter.com/1.1/favorites/destroy.json", parameters),
+                () => string.Empty);
         }
 
         public static string RetweetStatus(string id)
         {
-            try
-            {
-                return Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]);
-            }
-            catch (WebException e)
-            {
-                ShowAlert(e.Message);
-                return string.Empty;
-            }
+            return PostHandler(
+                () => Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]),
+                () => string.Empty);
         }
 
         public static string DestroyStatus(string id)
         {
-            try
-            {
-                return Post(string.Format("https://api.twitter.com/1.1/statuses/destroy/{0}.json", id), new string[0][]);
-            }
-            catch (WebException e)
-            {
-                ShowAlert(e.Message);
-                return string.Empty;
-            }
+            return PostHandler(
+                () => Post(string.Format("https://api.twitter.com/1.1/statuses/destroy/{0}.json", id), new string[0][]),
+                () => string.Empty);
         }
 
         public static string GetTweet(string id)
@@ -200,20 +176,14 @@ namespace tweetz5.Model
                 new[] {"id", id},
                 new[] {"include_my_retweet", "true"}
             };
-            try
-            {
-                return Get("https://api.twitter.com/1.1/statuses/show.json", parameters);
-            }
-            catch (WebException e)
-            {
-                ShowAlert(e.Message);
-                return string.Empty;
-            }
+            return PostHandler(
+                () => Get("https://api.twitter.com/1.1/statuses/show.json", parameters),
+                () => string.Empty);
         }
 
         public static User GetUserInformation(string screenName)
         {
-            try
+            return PostHandler(() =>
             {
                 var parameters = new[]
                 {
@@ -224,111 +194,73 @@ namespace tweetz5.Model
                 using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
                 {
                     var serializer = new DataContractJsonSerializer(typeof (User));
-                    return (User) serializer.ReadObject(stream);
+                    return (User)serializer.ReadObject(stream);
                 }
-            }
-            catch (WebException e)
-            {
-                ShowAlert(e.Message);
-                return new User {Name = "Error!"};
-            }
+            }, () => new User {Name = "Error!"});
         }
 
         public static Friendship Friendship(string screenName)
         {
-            try
+            return PostHandler(() =>
             {
                 var parameters = new[] {new[] {"screen_name", screenName}};
                 var json = Get("https://api.twitter.com/1.1/friendships/lookup.json", parameters);
                 var friendship = new Friendship {Following = json.Contains("\"following\""), FollowedBy = json.Contains("\"followed_by\"")};
                 return friendship;
-            }
-            catch (WebException e)
-            {
-                Console.WriteLine(e);
-                return new Friendship();
-            }
+            }, () => new Friendship());
         }
 
         public static bool Follow(string screenName)
         {
-            try
+            return PostHandler(() =>
             {
                 var parameters = new[]
                 {
                     new[] {"screen_name", screenName},
                     new[] {"following", "true"}
                 };
-                try
-                {
-                    var json = Post("https://api.twitter.com/1.1/friendships/create.json", parameters);
-                    return json.Contains(screenName);
-                }
-                catch (WebException e)
-                {
-                    ShowAlert(e.Message);
-                    return false;
-                }
-            }
-            catch (Exception e)
-            {
-                ShowAlert(e.Message);
-                return false;
-            }
+                var json = Post("https://api.twitter.com/1.1/friendships/create.json", parameters);
+                return json.Contains(screenName);
+            });
         }
 
         public static bool Unfollow(string screenName)
         {
-            try
+            return PostHandler(() =>
             {
                 var parameters = new[] {new[] {"screen_name", screenName}};
                 var json = Post("https://api.twitter.com/1.1/friendships/destroy.json", parameters);
                 return json.Contains(screenName);
-            }
-            catch (Exception e)
-            {
-                ShowAlert(e.Message);
-                return false;
-            }
+            });
         }
 
         public static string SendDirectMessage(string screenName, string text)
         {
-            try
+            return PostHandler(() =>
             {
                 var parameters = new[]
                 {
-                    new[] { "screen_name", screenName },
-                    new[] { "text", text}
+                    new[] {"screen_name", screenName},
+                    new[] {"text", text}
                 };
 
                 var json = Post("https://api.twitter.com/1.1/direct_messages/new.json", parameters);
                 return json;
-            }
-            catch (WebException e)
-            {
-                ShowAlert(e.Message);
-                return string.Empty;
-            }
+            }, () => string.Empty);
         }
 
         public static string Search(string query, string sinceId = "1")
         {
-            var parameters = new[]
+            return PostHandler(() =>
             {
-                new[] {"q", query},
-                new[] {"count", "50"},
-                new[] {"since_id", sinceId}
-            };
-            try
-            {
+                var parameters = new[]
+                {
+                    new[] {"q", query},
+                    new[] {"count", "50"},
+                    new[] {"since_id", sinceId}
+                };
                 return Get("https://api.twitter.com/1.1/search/tweets.json", parameters);
-            }
-            catch (WebException e)
-            {
-                ShowAlert(e.Message);
-                return string.Empty;
-            }
+            }, () => string.Empty);
         }
 
         public class OAuthTokens
@@ -341,65 +273,71 @@ namespace tweetz5.Model
 
         public static OAuthTokens GetRequestToken()
         {
-            const string requestTokenUrl = "https://api.twitter.com/oauth/request_token";
-            var nonce = OAuth.Nonce();
-            var timestamp = OAuth.TimeStamp();
-            var parameters = new[] {new[] {"oauth_callback", "oob"}};
-            var signature = OAuth.Signature("POST", requestTokenUrl, nonce, timestamp, "", "", parameters);
-            var authorizationHeader = OAuth.AuthorizationHeader(nonce, timestamp, null, signature, parameters);
-
-            var request = System.Net.WebRequest.Create(new Uri(requestTokenUrl));
-            request.Method = "POST";
-            request.Headers.Add("Authorization", authorizationHeader);
-            using (var response = request.GetResponse())
+            return PostHandler(() =>
             {
-                using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-                {
-                    var body = stream.ReadToEnd();
-                    var tokens = body.Split('&');
-                    var oauthToken = Token(tokens[0]);
-                    var oauthSecret = Token(tokens[1]);
-                    var callbackConfirmed = Token(tokens[2]);
+                const string requestTokenUrl = "https://api.twitter.com/oauth/request_token";
+                var nonce = OAuth.Nonce();
+                var timestamp = OAuth.TimeStamp();
+                var parameters = new[] {new[] {"oauth_callback", "oob"}};
+                var signature = OAuth.Signature("POST", requestTokenUrl, nonce, timestamp, "", "", parameters);
+                var authorizationHeader = OAuth.AuthorizationHeader(nonce, timestamp, null, signature, parameters);
 
-                    if (callbackConfirmed != "true") throw new InvalidProgramException("callback token not confirmed");
-                    return new OAuthTokens {OAuthToken = oauthToken, OAuthSecret = oauthSecret};
+                var request = System.Net.WebRequest.Create(new Uri(requestTokenUrl));
+                request.Method = "POST";
+                request.Headers.Add("Authorization", authorizationHeader);
+                using (var response = request.GetResponse())
+                {
+                    using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    {
+                        var body = stream.ReadToEnd();
+                        var tokens = body.Split('&');
+                        var oauthToken = Token(tokens[0]);
+                        var oauthSecret = Token(tokens[1]);
+                        var callbackConfirmed = Token(tokens[2]);
+
+                        if (callbackConfirmed != "true") throw new InvalidProgramException("callback token not confirmed");
+                        return new OAuthTokens {OAuthToken = oauthToken, OAuthSecret = oauthSecret};
+                    }
                 }
-            }
+            });
         }
 
         public static OAuthTokens GetAccessToken(string accessToken, string accessTokenSecret, string oauthVerifier)
         {
-            const string requestTokenUrl = "https://api.twitter.com/oauth/access_token";
-            var nonce = OAuth.Nonce();
-            var timestamp = OAuth.TimeStamp();
-            var parameters = new[] {new[] {"oauth_verifier", oauthVerifier}};
-            var signature = OAuth.Signature("POST", requestTokenUrl, nonce, timestamp, accessToken, accessTokenSecret, parameters);
-            var authorizationHeader = OAuth.AuthorizationHeader(nonce, timestamp, accessToken, signature, parameters);
-
-            var request = System.Net.WebRequest.Create(new Uri(requestTokenUrl));
-            request.Method = "POST";
-            request.Headers.Add("Authorization", authorizationHeader);
-
-            using (var response = request.GetResponse())
+            return PostHandler(() =>
             {
-                using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                const string requestTokenUrl = "https://api.twitter.com/oauth/access_token";
+                var nonce = OAuth.Nonce();
+                var timestamp = OAuth.TimeStamp();
+                var parameters = new[] {new[] {"oauth_verifier", oauthVerifier}};
+                var signature = OAuth.Signature("POST", requestTokenUrl, nonce, timestamp, accessToken, accessTokenSecret, parameters);
+                var authorizationHeader = OAuth.AuthorizationHeader(nonce, timestamp, accessToken, signature, parameters);
+
+                var request = System.Net.WebRequest.Create(new Uri(requestTokenUrl));
+                request.Method = "POST";
+                request.Headers.Add("Authorization", authorizationHeader);
+
+                using (var response = request.GetResponse())
                 {
-                    var tokens = stream.ReadToEnd().Split('&');
-                    var oauthTokens = new OAuthTokens
+                    using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                     {
-                        OAuthToken = Token(tokens[0]),
-                        OAuthSecret = Token(tokens[1]),
-                        UserId = Token(tokens[2]),
-                        ScreenName = Token(tokens[3])
-                    };
-                    return oauthTokens;
+                        var tokens = stream.ReadToEnd().Split('&');
+                        var oauthTokens = new OAuthTokens
+                        {
+                            OAuthToken = Token(tokens[0]),
+                            OAuthSecret = Token(tokens[1]),
+                            UserId = Token(tokens[2]),
+                            ScreenName = Token(tokens[3])
+                        };
+                        return oauthTokens;
+                    }
                 }
-            }
+            });
         }
 
         public static string UpdateStatusWithMedia(string message, string filename)
         {
-            try
+            return PostHandler(() =>
             {
                 var media = File.ReadAllBytes(filename);
                 var mediaName = Path.GetFileName(filename);
@@ -428,7 +366,7 @@ namespace tweetz5.Model
 
                     header = string.Format(
                         "\r\n--{0}\r\nContent-Type: application/octet-stream\r\n" +
-                            "Content-Disposition: form-data; name=\"media[]\"; filename=\"{1}\"\r\n\r\n",
+                        "Content-Disposition: form-data; name=\"media[]\"; filename=\"{1}\"\r\n\r\n",
                         formDataBoundary, mediaName);
                     WriteStream(requestStream, header);
                     requestStream.Write(media, 0, media.Length);
@@ -443,11 +381,42 @@ namespace tweetz5.Model
                         return result;
                     }
                 }
-            }
-            catch (Exception e)
+            }, () => string.Empty);
+        }
+
+        private static T PostHandler<T>(Func<T> post, Func<T> error = null)
+        {
+            try
             {
-                ShowAlert(e.Message);
-                return string.Empty;
+                return post();
+            }
+            catch (WebException ex)
+            {
+                ShowAlert(GetWebErrorResponse(ex));
+                return (error != null) ? error() : default(T);
+            }
+            catch (Exception ex)
+            {
+                ShowAlert(ex.Message);
+                return (error != null) ? error() : default(T);
+            }
+        }
+
+        private static string GetWebErrorResponse(WebException ex)
+        {
+            try
+            {
+                using (var stream = new StreamReader(ex.Response.GetResponseStream(), Encoding.UTF8))
+                {
+                    var serializer = new JavaScriptSerializer();
+                    var json = stream.ReadToEnd();
+                    var errors = serializer.Deserialize<TwitterErrors>(json);
+                    return String.Join("\n", errors.Errors.Select(e => string.Format("code: {0}, message: {1}", e.Code, e.Message)));
+                }
+            }
+            catch (Exception)
+            {
+                return ex.Message;
             }
         }
 
@@ -464,7 +433,7 @@ namespace tweetz5.Model
 
         private static void ShowAlert(string message)
         {
-            Application.Current.Dispatcher.Invoke(() => Commands.AlertCommand.Command.Execute(message, Application.Current.MainWindow));
+            Application.Current.Dispatcher.Invoke(() => AlertCommand.Command.Execute(message, Application.Current.MainWindow));
         }
     }
 }
