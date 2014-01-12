@@ -384,7 +384,7 @@ namespace tweetz5.Model
             }, () => string.Empty);
         }
 
-        private static T PostHandler<T>(Func<T> post, Func<T> error = null)
+        private static T PostHandler<T>(Func<T> post, Func<T> onError = null)
         {
             try
             {
@@ -393,12 +393,12 @@ namespace tweetz5.Model
             catch (WebException ex)
             {
                 ShowAlert(GetWebErrorResponse(ex));
-                return (error != null) ? error() : default(T);
+                return (onError != null) ? onError() : default(T);
             }
             catch (Exception ex)
             {
                 ShowAlert(ex.Message);
-                return (error != null) ? error() : default(T);
+                return (onError != null) ? onError() : default(T);
             }
         }
 
