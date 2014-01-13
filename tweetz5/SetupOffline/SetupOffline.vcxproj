@@ -45,7 +45,7 @@
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>"C:\Program Files (x86)\Inno Setup 5\iscc.exe" Setup.iss</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>"C:\Program Files (x86)\Inno Setup 5\iscc.exe" SetupOffline.iss</NMakeBuildCommandLine>
     <NMakeOutput>tweetz5setupOL</NMakeOutput>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
