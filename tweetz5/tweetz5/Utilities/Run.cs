@@ -14,7 +14,7 @@ namespace tweetz5.Utilities
             Task.Run(() =>
             {
                 Thread.Sleep(delay);
-                Application.Current.Dispatcher.Invoke(action);
+                Application.Current.Dispatcher.InvokeAsync(action);
             });
         }
     }

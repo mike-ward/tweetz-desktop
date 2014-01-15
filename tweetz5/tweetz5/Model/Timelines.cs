@@ -343,7 +343,7 @@ namespace tweetz5.Model
 
         private void DispatchInvoker(Action callback)
         {
-            var invoker = DispatchInvokerOverride ?? Application.Current.Dispatcher.Invoke;
+            var invoker = DispatchInvokerOverride ?? (action => Application.Current.Dispatcher.InvokeAsync(callback));
             invoker(callback);
         }
 
