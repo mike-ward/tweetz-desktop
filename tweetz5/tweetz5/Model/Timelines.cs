@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using tweetz5.Commands;
-using tweetz5.Utilities;
 using tweetz5.Utilities.Translate;
 
 // ReSharper disable InconsistentNaming
@@ -34,7 +33,7 @@ namespace tweetz5.Model
         string TimelineName { get; set; }
         CancellationToken CancellationToken { get; }
         void SignalCancel();
-        ReadSafeList<string> ScreenNames { get; }
+        List<string> ScreenNames { get; }
     }
 
     public class Timelines : ITimelines, IDisposable
@@ -46,7 +45,7 @@ namespace tweetz5.Model
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
         private CancellationTokenSource _cancellationTokenSource;
 
-        public ReadSafeList<string> ScreenNames { get; private set; }
+        public List<string> ScreenNames { get; private set; }
 
         private Timeline _unified
         {
@@ -104,7 +103,7 @@ namespace tweetz5.Model
             };
 
             _cancellationTokenSource = new CancellationTokenSource();
-            ScreenNames = new ReadSafeList<string>();
+            ScreenNames = new List<string>();
         }
 
         public ObservableCollection<Tweet> Timeline
