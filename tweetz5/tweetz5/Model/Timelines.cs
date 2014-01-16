@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -33,7 +34,7 @@ namespace tweetz5.Model
         string TimelineName { get; set; }
         CancellationToken CancellationToken { get; }
         void SignalCancel();
-        List<string> ScreenNames { get; }
+        ConcurrentBag<string> ScreenNames { get; }
     }
 
     public class Timelines : ITimelines, IDisposable
@@ -45,7 +46,7 @@ namespace tweetz5.Model
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
         private CancellationTokenSource _cancellationTokenSource;
 
-        public List<string> ScreenNames { get; private set; }
+        public ConcurrentBag<string> ScreenNames { get; private set; }
 
         private Timeline _unified
         {
@@ -103,7 +104,7 @@ namespace tweetz5.Model
             };
 
             _cancellationTokenSource = new CancellationTokenSource();
-            ScreenNames = new List<string>();
+            ScreenNames = new ConcurrentBag<string>();
         }
 
         public ObservableCollection<Tweet> Timeline
@@ -189,10 +190,10 @@ namespace tweetz5.Model
                 }
                 if (status.Entities.Mentions != null)
                 {
-                    ScreenNames.AddRange(
-                        status.Entities.Mentions
-                            .Where(m => ScreenNames.Contains(m.ScreenName, StringComparer.CurrentCultureIgnoreCase) == false)
-                            .Select(m => m.ScreenName));
+                    foreach (var screename in ScreenNames.Where(screename => !ScreenNames.Contains(screename, StringComparer.CurrentCultureIgnoreCase)))
+                    {
+                        ScreenNames.Add(screename);
+                    }
                 }
             }
 

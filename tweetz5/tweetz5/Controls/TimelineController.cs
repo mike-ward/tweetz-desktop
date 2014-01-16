@@ -153,7 +153,7 @@ namespace tweetz5.Controls
             _timelinesModel.Retweet(tweet);
         }
 
-        public IList<string> ScreenNames
+        public IEnumerable<string> ScreenNames
         {
             get { return _timelinesModel.ScreenNames; }
         }
