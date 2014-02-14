@@ -3,13 +3,9 @@ using System.Windows.Input;
 
 namespace tweetz5.Commands
 {
-    public class ShowUserInformationCommand
+    public static class ShowUserInformationCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private ShowUserInformationCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

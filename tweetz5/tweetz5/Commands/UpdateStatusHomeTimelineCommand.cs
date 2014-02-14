@@ -4,13 +4,9 @@ using tweetz5.Model;
 
 namespace tweetz5.Commands
 {
-    internal class UpdateStatusHomeTimelineCommand
+    internal static class UpdateStatusHomeTimelineCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private UpdateStatusHomeTimelineCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

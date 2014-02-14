@@ -3,13 +3,9 @@ using tweetz5.Model;
 
 namespace tweetz5.Commands
 {
-    internal class FollowUserCommand
+    internal static class FollowUserCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private FollowUserCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

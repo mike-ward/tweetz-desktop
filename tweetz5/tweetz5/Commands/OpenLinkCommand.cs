@@ -3,13 +3,9 @@ using System.Windows.Input;
 
 namespace tweetz5.Commands
 {
-    internal class OpenLinkCommand
+    internal static class OpenLinkCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private OpenLinkCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

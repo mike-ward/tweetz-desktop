@@ -6,14 +6,10 @@ using tweetz5.Properties;
 
 namespace tweetz5.Commands
 {
-    internal class ChirpCommand
+    internal static class ChirpCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
         private static bool _playing;
-
-        private ChirpCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

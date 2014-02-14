@@ -4,13 +4,9 @@ using tweetz5.Model;
 
 namespace tweetz5.Commands
 {
-    internal class FavoritesCommand
+    internal static class FavoritesCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private FavoritesCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

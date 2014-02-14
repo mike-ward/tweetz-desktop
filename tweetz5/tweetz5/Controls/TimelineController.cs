@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Windows;
+using tweetz5.Commands;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
 
 namespace tweetz5.Controls
 {
-    public class TimelineController : IDisposable
+    public sealed class TimelineController : IDisposable
     {
         private readonly ITimelines _timelinesModel;
         private ITimer _checkTimelines;
@@ -26,31 +27,31 @@ namespace tweetz5.Controls
             _checkTimelines.Interval = 100;
             var firstTime = true;
             _checkTimelines.Elapsed += (s, e) =>
+            {
+                try
                 {
-                    try
-                    {
-                        _checkTimelines.Interval = 90000;
-                        _timelinesModel.HomeTimeline();
-                        _timelinesModel.MentionsTimeline();
-                        _timelinesModel.DirectMessagesTimeline();
-                        _timelinesModel.FavoritesTimeline();
+                    _checkTimelines.Interval = 90000;
+                    _timelinesModel.HomeTimeline();
+                    _timelinesModel.MentionsTimeline();
+                    _timelinesModel.DirectMessagesTimeline();
+                    _timelinesModel.FavoritesTimeline();
 
-                        if (firstTime)
+                    if (firstTime)
+                    {
+                        firstTime = false;
+                        if (Application.Current != null)
                         {
-                            firstTime = false;
-                            if (Application.Current != null)
-                            {
-                                Application.Current.Dispatcher.Invoke(
-                                    () => Commands.SwitchTimelinesCommand.Command.Execute(Timelines.UnifiedName, Application.Current.MainWindow));
-                            }
+                            Application.Current.Dispatcher.Invoke(
+                                () => SwitchTimelinesCommand.Command.Execute(Timelines.UnifiedName, Application.Current.MainWindow));
                         }
                     }
-                    catch (WebException ex)
-                    {
-                        // Offline, authorization error, exceeded rate limit, etc.
-                        Console.WriteLine(ex);
-                    }
-                };
+                }
+                catch (WebException ex)
+                {
+                    // Offline, authorization error, exceeded rate limit, etc.
+                    Console.WriteLine(ex);
+                }
+            };
             _checkTimelines.Start();
 
             _updateTimeStamps = SysTimer.Factory();
@@ -76,39 +77,30 @@ namespace tweetz5.Controls
             _timelinesModel.ClearAllTimelines();
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         private bool _disposed;
 
-        protected virtual void Dispose(bool disposing)
+        public void Dispose()
         {
             if (_disposed) return;
             _disposed = true;
-            if (disposing)
+            if (_checkTimelines != null)
             {
-                if (_checkTimelines != null)
-                {
-                    _checkTimelines.Dispose();
-                    _checkTimelines = null;
-                }
-                if (_updateTimeStamps != null)
-                {
-                    _updateTimeStamps.Dispose();
-                    _updateTimeStamps = null;
-                }
+                _checkTimelines.Dispose();
+                _checkTimelines = null;
+            }
+            if (_updateTimeStamps != null)
+            {
+                _updateTimeStamps.Dispose();
+                _updateTimeStamps = null;
             }
         }
 
-        public void CopyTweetToClipboard(Tweet tweet)
+        public static void CopyTweetToClipboard(Tweet tweet)
         {
             Clipboard.SetText(tweet.Text);
         }
 
-        public void CopyLinkToClipboard(Tweet tweet)
+        public static void CopyLinkToClipboard(Tweet tweet)
         {
             Clipboard.SetText(TweetLink(tweet));
         }
@@ -118,7 +110,7 @@ namespace tweetz5.Controls
             return string.Format("https://twitter.com/{0}/status/{1}", tweet.ScreenName, tweet.StatusId);
         }
 
-        public void UpdateStatus(string[] timelines, Status[] statuses, string tweetType)
+        public void UpdateStatus(string[] timelines, IEnumerable<Status> statuses, string tweetType)
         {
             _timelinesModel.UpdateStatus(timelines, statuses, tweetType);
         }

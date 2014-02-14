@@ -46,10 +46,4 @@ namespace tweetz5.Utilities.System
             return y / GetSizeFactors(element).M22;
         }
     }
-
-    public enum MeasureDirection
-    {
-        Horizontal,
-        Vertical
-    }
 }

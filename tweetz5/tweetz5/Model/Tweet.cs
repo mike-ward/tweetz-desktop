@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace tweetz5.Model
 {
-    public class Tweet : INotifyPropertyChanged, IEquatable<Tweet>
+    public sealed class Tweet : INotifyPropertyChanged, IEquatable<Tweet>
     {
         private bool _favorited;
         private string _timeAgo;
@@ -91,15 +92,6 @@ namespace tweetz5.Model
             }
         }
 
-        public bool IsMyTweet
-        {
-            get
-            {
-                var oauth = new OAuth();
-                return ScreenName == oauth.ScreenName;
-            }
-        }
-
         public bool IsDirectMesssage
         {
             get { return TweetType.Contains("d"); }
@@ -107,7 +99,7 @@ namespace tweetz5.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null)
@@ -178,7 +170,7 @@ namespace tweetz5.Model
         [DataMember(Name = "statuses")]
         public Status[] Statuses { get; set; }
 
-        public static Status[] ParseJson(string json)
+        public static IEnumerable<Status> ParseJson(string json)
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
@@ -190,7 +182,7 @@ namespace tweetz5.Model
     }
 
     [DataContract]
-    public class User : INotifyPropertyChanged
+    public sealed class User : INotifyPropertyChanged
     {
         private bool _following;
         private bool _followedBy;
@@ -243,6 +235,7 @@ namespace tweetz5.Model
 
         public bool FollowedBy
         {
+            // ReSharper disable once UnusedMember.Global
             get { return _followedBy; }
             set
             {
@@ -256,7 +249,7 @@ namespace tweetz5.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null)

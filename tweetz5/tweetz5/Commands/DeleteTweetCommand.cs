@@ -4,13 +4,9 @@ using tweetz5.Model;
 
 namespace tweetz5.Commands
 {
-    public class DeleteTweetCommand
+    public static class DeleteTweetCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private DeleteTweetCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

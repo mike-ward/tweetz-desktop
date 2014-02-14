@@ -12,15 +12,16 @@ using tweetz5.Utilities;
 
 namespace tweetz5.Controls
 {
-    public partial class Timeline : INotifyPropertyChanged
+    public sealed partial class Timeline : INotifyPropertyChanged
     {
+        // ReSharper disable once MemberCanBePrivate.Global
         public static readonly RoutedCommand SelectItemCommand = new RoutedUICommand();
         public TimelineController Controller { get; private set; }
 
         public Timeline()
         {
             InitializeComponent();
-            Controller = new TimelineController((Timelines)DataContext);
+            Controller = new TimelineController((Timelines) DataContext);
             TimelineItems.PreviewMouseWheel += TimelineItemsOnPreviewMouseWheel;
             TimelineItems.Loaded += TimelineItemsOnLoaded;
             TimelineItems.SizeChanged += TimelineItemsOnSizeChanged;
@@ -60,7 +61,7 @@ namespace tweetz5.Controls
 
         private void MoreOnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var frameworkElement = (FrameworkElement)sender;
+            var frameworkElement = (FrameworkElement) sender;
             frameworkElement.ContextMenu.PlacementTarget = this;
             frameworkElement.ContextMenu.DataContext = frameworkElement.DataContext;
             frameworkElement.ContextMenu.IsOpen = true;
@@ -74,8 +75,8 @@ namespace tweetz5.Controls
         private static void TimelineItemsOnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             // Modify listbox to scroll one line at a time.
-            var scrollHost = (DependencyObject)sender;
-            var scrollViewer = (ScrollViewer)GetScrollViewer(scrollHost);
+            var scrollHost = (DependencyObject) sender;
+            var scrollViewer = (ScrollViewer) GetScrollViewer(scrollHost);
             var offset = scrollViewer.VerticalOffset - (e.Delta > 0 ? 1 : -1);
             if (offset < 0)
             {
@@ -92,7 +93,7 @@ namespace tweetz5.Controls
             e.Handled = true;
         }
 
-        public static DependencyObject GetScrollViewer(DependencyObject o)
+        private static DependencyObject GetScrollViewer(DependencyObject o)
         {
             if (o is ScrollViewer)
             {
@@ -165,7 +166,7 @@ namespace tweetz5.Controls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));

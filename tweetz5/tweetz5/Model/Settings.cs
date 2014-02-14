@@ -1,15 +1,13 @@
-﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
-
-using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using tweetz5.Utilities.System;
 
 namespace tweetz5.Model
 {
-    public class Settings : INotifyPropertyChanged
+    public sealed class Settings : INotifyPropertyChanged
     {
-        public static Settings ApplicationSettings = new Settings();
+        public static readonly Settings ApplicationSettings = new Settings();
 
         public bool Chirp
         {
@@ -39,20 +37,6 @@ namespace tweetz5.Model
             }
         }
 
-        public double Width
-        {
-            get { return Properties.Settings.Default.Width; }
-            set
-            {
-                if (Math.Abs(Properties.Settings.Default.Width - value) > .0001)
-                {
-                    Properties.Settings.Default.Width = value;
-                    Properties.Settings.Default.Save();
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public string FontSize
         {
             get { return Properties.Settings.Default.FontSize; }
@@ -66,7 +50,6 @@ namespace tweetz5.Model
                 }
             }
         }
-
 
         public bool SpellCheck
         {
@@ -89,12 +72,12 @@ namespace tweetz5.Model
 
         public bool IsRegisteredInStartup
         {
-            get { return Utilities.System.RegistryHelper.IsRegisteredInStartup(); }
+            get { return RegistryHelper.IsRegisteredInStartup(); }
             set
             {
                 if (IsRegisteredInStartup != value)
                 {
-                    Utilities.System.RegistryHelper.RegisterInStartup(value);
+                    RegistryHelper.RegisterInStartup(value);
                     OnPropertyChanged();
                 }
             }
@@ -116,7 +99,7 @@ namespace tweetz5.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));

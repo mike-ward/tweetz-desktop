@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Timers;
 using Timer = System.Timers.Timer;
 
@@ -11,11 +10,11 @@ namespace tweetz5.Utilities.System
     public interface ITimer : IDisposable
     {
         void Start();
-        double Interval { get; set; }
+        double Interval { set; }
         event EventHandler Elapsed;
     }
 
-    public class SysTimer : ITimer
+    public sealed class SysTimer : ITimer
     {
         private Timer _timer = new Timer();
 
@@ -31,7 +30,6 @@ namespace tweetz5.Utilities.System
 
         public double Interval
         {
-            get { return _timer.Interval; }
             set { _timer.Interval = value; }
         }
 
@@ -53,35 +51,24 @@ namespace tweetz5.Utilities.System
             }
         }
 
-        public static Func<ITimer> ImplementationOverride { get; set; }
+        public static Func<ITimer> ImplementationOverride { private get; set; }
 
         public static ITimer Factory()
         {
-            return  (ImplementationOverride != null) ? ImplementationOverride() : new SysTimer();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            return (ImplementationOverride != null) ? ImplementationOverride() : new SysTimer();
         }
 
         private bool _disposed;
 
-        protected virtual void Dispose(bool disposing)
+        public void Dispose()
         {
             if (_disposed) return;
             _disposed = true;
-            if (disposing)
-            {
-                if (_timer != null)
-                {
-                    _timer.Stop();
-                    _timer.Elapsed -= TimerOnElapsed;
-                    _timer.Dispose();
-                    _timer = null;
-                }
-            }
+            if (_timer == null) return;
+            _timer.Stop();
+            _timer.Elapsed -= TimerOnElapsed;
+            _timer.Dispose();
+            _timer = null;
         }
     }
 }

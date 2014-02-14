@@ -4,13 +4,9 @@ using tweetz5.Properties;
 
 namespace tweetz5.Commands
 {
-    internal class SignOutCommand
+    internal static class SignOutCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private SignOutCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

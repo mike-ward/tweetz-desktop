@@ -8,12 +8,8 @@ using System.Windows;
 
 namespace tweetz5.Utilities.System
 {
-    public class DragAndDrop
+    public static class DragAndDrop
     {
-        private DragAndDrop()
-        {
-        }
-
         public static void OnDragOver(object sender, DragEventArgs ea)
         {
             ea.Handled = true;

@@ -4,13 +4,9 @@ using tweetz5.Model;
 
 namespace tweetz5.Commands
 {
-    internal class SearchCommand
+    internal static class SearchCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private SearchCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

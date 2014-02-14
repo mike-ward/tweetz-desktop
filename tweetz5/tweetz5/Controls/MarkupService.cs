@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using tweetz5.Commands;
 using tweetz5.Model;
+using tweetz5.Utilities.System;
 
 namespace tweetz5.Controls
 {
@@ -32,7 +33,7 @@ namespace tweetz5.Controls
             MarkupToContent(sender as TextBlock, ea.NewValue as IList<MarkupNode>);
         }
 
-        public static void MarkupToContent(TextBlock textBlock, IList<MarkupNode> nodes)
+        private static void MarkupToContent(TextBlock textBlock, IEnumerable<MarkupNode> nodes)
         {
             var inlines = new List<object>();
             foreach (var node in nodes)
@@ -58,7 +59,7 @@ namespace tweetz5.Controls
             }
             textBlock.Inlines.Clear();
             textBlock.Inlines.AddRange(inlines);
-            Utilities.System.NativeMethods.keybd_event(0x28, 0, 0x0002, IntPtr.Zero);
+            NativeMethods.keybd_event(0x28, 0, 0x0002, IntPtr.Zero);
         }
 
         private static Run Run(string text)
@@ -85,7 +86,7 @@ namespace tweetz5.Controls
         {
             var hyperlink = new Hyperlink(new Run(text))
             {
-                Command = Commands.OpenLinkCommand.Command,
+                Command = OpenLinkCommand.Command,
                 CommandParameter = link,
                 ToolTip = link
             };
@@ -99,7 +100,7 @@ namespace tweetz5.Controls
         {
             return new Hyperlink(new Run("@" + text))
             {
-                Command = Commands.ShowUserInformationCommand.Command,
+                Command = ShowUserInformationCommand.Command,
                 CommandParameter = text
             };
         }
@@ -108,7 +109,7 @@ namespace tweetz5.Controls
         {
             return new Hyperlink(new Run("#" + text))
             {
-                Command = Commands.SearchCommand.Command,
+                Command = SearchCommand.Command,
                 CommandParameter = text
             };
         }

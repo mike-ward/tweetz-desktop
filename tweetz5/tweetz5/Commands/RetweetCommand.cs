@@ -4,13 +4,9 @@ using tweetz5.Model;
 
 namespace tweetz5.Commands
 {
-    public class RetweetCommand
+    public static class RetweetCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private RetweetCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

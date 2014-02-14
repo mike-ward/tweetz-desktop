@@ -11,12 +11,15 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
+using tweetz5.Commands;
 using tweetz5.Model;
+using tweetz5.Utilities.System;
 using tweetz5.Utilities.Translate;
+using Settings = tweetz5.Properties.Settings;
 
 namespace tweetz5.Controls
 {
-    public partial class ComposeTweet : INotifyPropertyChanged
+    public sealed partial class ComposeTweet : INotifyPropertyChanged
     {
         private string _inReplyToId;
         private bool _directMessage;
@@ -28,7 +31,7 @@ namespace tweetz5.Controls
         {
             InitializeComponent();
             DataContext = this;
-            SizeChanged += (sender, args) => Commands.UpdateLayoutCommand.Command.Execute(null, this);
+            SizeChanged += (sender, args) => UpdateLayoutCommand.Command.Execute(null, this);
         }
 
         public string Image
@@ -54,11 +57,11 @@ namespace tweetz5.Controls
             _inReplyToId = inReplyToId;
             SendButtonText.Text = TranslationService.Instance.Translate("compose_send_button_tweet") as string;
             Image = null;
-            TextBox.SpellCheck.IsEnabled = Properties.Settings.Default.SpellCheck;
+            TextBox.SpellCheck.IsEnabled = Settings.Default.SpellCheck;
             Visibility = Visibility.Visible;
         }
 
-        public void ShowDirectMessage(string name, string screenName)
+        public void ShowDirectMessage(string name)
         {
             _previousFocusedElement = Keyboard.FocusedElement;
             ComposeTitle.Text = name;
@@ -70,7 +73,7 @@ namespace tweetz5.Controls
             Visibility = Visibility.Visible;
         }
 
-        public void Hide()
+        private void Hide()
         {
             TextBox.Clear();
             CloseFriendsPopup();
@@ -155,7 +158,7 @@ namespace tweetz5.Controls
                 if (_atPressed) CloseFriendsPopup();
                 else Hide();
             }
-            var ch = Utilities.System.NativeMethods.GetCharFromKey(e.Key);
+            var ch = NativeMethods.GetCharFromKey(e.Key);
             if (ch == '@')
             {
                 _atPressed = true;
@@ -242,15 +245,15 @@ namespace tweetz5.Controls
                 else
                 {
                     json = string.IsNullOrWhiteSpace(Image)
-                               ? Twitter.UpdateStatus(TextBox.Text, _inReplyToId)
-                               : Twitter.UpdateStatusWithMedia(TextBox.Text, Image);
+                        ? Twitter.UpdateStatus(TextBox.Text, _inReplyToId)
+                        : Twitter.UpdateStatusWithMedia(TextBox.Text, Image);
                 }
 
                 if (json.Contains("id_str"))
                 {
                     Hide();
                     var status = Status.ParseJson("[" + json + "]");
-                    Commands.UpdateStatusHomeTimelineCommand.Command.Execute(status, this);
+                    UpdateStatusHomeTimelineCommand.Command.Execute(status, this);
                 }
             }
             catch (Exception)
@@ -295,7 +298,7 @@ namespace tweetz5.Controls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
@@ -307,7 +310,7 @@ namespace tweetz5.Controls
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var length = (int) value;
-            var brush = (Brush)Application.Current.FindResource("ComposeCharacterCounterForegroundBrush");
+            var brush = (Brush) Application.Current.FindResource("ComposeCharacterCounterForegroundBrush");
             return length > 140 ? Brushes.Red : (length > 134 ? Brushes.SandyBrown : brush);
         }
 

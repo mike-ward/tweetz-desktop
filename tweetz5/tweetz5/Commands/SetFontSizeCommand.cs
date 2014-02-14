@@ -3,13 +3,9 @@ using System.Windows.Input;
 
 namespace tweetz5.Commands
 {
-    public class SetFontSizeCommand
+    public static class SetFontSizeCommand
     {
         public static readonly RoutedCommand Command = new RoutedCommand();
-
-        private SetFontSizeCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

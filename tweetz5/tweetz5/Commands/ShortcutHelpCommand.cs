@@ -3,13 +3,9 @@ using System.Windows.Input;
 
 namespace tweetz5.Commands
 {
-    internal class ShortcutHelpCommand
+    internal static class ShortcutHelpCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private ShortcutHelpCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

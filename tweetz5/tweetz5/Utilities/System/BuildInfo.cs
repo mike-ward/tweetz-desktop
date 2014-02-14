@@ -12,12 +12,8 @@ using tweetz5.Properties;
 
 namespace tweetz5.Utilities.System
 {
-    internal class BuildInfo
+    internal static class BuildInfo
     {
-        private BuildInfo()
-        {
-        }
-
         public static bool IsWindows8OrNewer { get; private set; }
 
         static BuildInfo()
@@ -39,7 +35,7 @@ namespace tweetz5.Utilities.System
             public ushort Characteristics;
         };
 
-        public static DateTime GetBuildDateTime()
+        private static DateTime GetBuildDateTime()
         {
             var assembly = Assembly.GetCallingAssembly();
 
@@ -75,7 +71,7 @@ namespace tweetz5.Utilities.System
             {
                 Settings.Default.AccessToken = string.Empty;
                 Settings.Default.AccessTokenSecret = string.Empty;
-                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                var mainWindow = (MainWindow) Application.Current.MainWindow;
                 AlertCommand.Command.Execute("Expired", mainWindow);
                 return true;
             }

@@ -4,13 +4,15 @@ using System.Text;
 using System.Windows.Input;
 
 // ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedMember.Local
 
 namespace tweetz5.Utilities.System
 {
-    public class NativeMethods
+    public static class NativeMethods
     {
-        public enum MapType : uint
-        {
+        private enum MapType : uint
+        {   
             MAPVK_VK_TO_VSC = 0x0,
             MAPVK_VSC_TO_VK = 0x1,
             MAPVK_VK_TO_CHAR = 0x2,
@@ -18,7 +20,7 @@ namespace tweetz5.Utilities.System
         }
 
         [DllImport("user32.dll")]
-        internal static extern int ToUnicode(
+        private static extern int ToUnicode(
             uint wVirtKey,
             uint wScanCode,
             byte[] lpKeyState,
@@ -27,10 +29,10 @@ namespace tweetz5.Utilities.System
             uint wFlags);
 
         [DllImport("user32.dll")]
-        internal static extern bool GetKeyboardState(byte[] lpKeyState);
+        private static extern bool GetKeyboardState(byte[] lpKeyState);
 
         [DllImport("user32.dll")]
-        internal static extern uint MapVirtualKey(uint uCode, MapType uMapType);
+        private static extern uint MapVirtualKey(uint uCode, MapType uMapType);
 
         public static char GetCharFromKey(Key key)
         {

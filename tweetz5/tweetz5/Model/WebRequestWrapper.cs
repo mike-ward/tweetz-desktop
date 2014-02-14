@@ -9,13 +9,13 @@ namespace tweetz5.Model
 {
     public interface IWebRequest
     {
-        WebHeaderCollection Headers { get; set; }
+        WebHeaderCollection Headers { get; }
         IWebResponse GetResponse();
-        string Method { get; set; }
-        string ContentType { get; set; }
+        string Method { set; }
+        string ContentType { set; }
         Stream GetRequestStream();
-        string UserAgent { get; set; }
-        int Timeout { get; set; }
+        string UserAgent { set; }
+        int Timeout { set; }
         Task<WebResponse> GetResponseAsync();
     }
 
@@ -32,15 +32,14 @@ namespace tweetz5.Model
 
         public static IWebRequest Create(Uri address)
         {
-            return (OverrideImplementation != null) 
-                ? OverrideImplementation(address) 
+            return (OverrideImplementation != null)
+                ? OverrideImplementation(address)
                 : new WebRequestWrapper(address);
         }
 
         public WebHeaderCollection Headers
         {
             get { return _request.Headers; }
-            set { _request.Headers = value; }
         }
 
         public IWebResponse GetResponse()
@@ -50,13 +49,11 @@ namespace tweetz5.Model
 
         public string Method
         {
-            get { return _request.Method; }
             set { _request.Method = value; }
         }
 
         public string ContentType
         {
-            get { return _request.ContentType; }
             set { _request.ContentType = value; }
         }
 
@@ -67,13 +64,11 @@ namespace tweetz5.Model
 
         public string UserAgent
         {
-            get { return ((HttpWebRequest)_request).UserAgent; }
-            set { ((HttpWebRequest)_request).UserAgent = value; }
+            set { ((HttpWebRequest) _request).UserAgent = value; }
         }
 
         public int Timeout
         {
-            get { return _request.Timeout; }
             set { _request.Timeout = value; }
         }
 

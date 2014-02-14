@@ -7,13 +7,9 @@ using Settings = tweetz5.Properties.Settings;
 
 namespace tweetz5.Commands
 {
-    public class ReplyCommand
+    public static class ReplyCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private ReplyCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
@@ -23,7 +19,7 @@ namespace tweetz5.Commands
             if (tweet == null) return;
             if (tweet.IsDirectMesssage)
             {
-                mainWindow.Compose.ShowDirectMessage(tweet.Name, tweet.ScreenName);
+                mainWindow.Compose.ShowDirectMessage(tweet.Name);
             }
             else
             {

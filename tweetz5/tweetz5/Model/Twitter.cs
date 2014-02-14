@@ -65,7 +65,7 @@ namespace tweetz5.Model
             }
         }
 
-        public Status[] HomeTimeline(ulong sinceId)
+        public static Status[] HomeTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -77,7 +77,7 @@ namespace tweetz5.Model
             return GetTimeline("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters);
         }
 
-        public Status[] MentionsTimeline(ulong sinceId)
+        public static Status[] MentionsTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -88,7 +88,7 @@ namespace tweetz5.Model
             return GetTimeline("https://api.twitter.com/1.1/statuses/mentions_timeline.json", parameters);
         }
 
-        public Status[] DirectMessagesTimeline(ulong sinceId)
+        public static Status[] DirectMessagesTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -98,7 +98,7 @@ namespace tweetz5.Model
             return GetTimeline("https://api.twitter.com/1.1/direct_messages.json", parameters);
         }
 
-        public Status[] FavoritesTimeline(ulong sinceId)
+        public static Status[] FavoritesTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -139,32 +139,32 @@ namespace tweetz5.Model
                 () => string.Empty);
         }
 
-        public static string CreateFavorite(string id)
+        public static void CreateFavorite(string id)
         {
             var parameters = new[] {new[] {"id", id}};
-            return PostHandler(
+            PostHandler(
                 () => Post("https://api.twitter.com/1.1/favorites/create.json", parameters),
                 () => string.Empty);
         }
 
-        public static string DestroyFavorite(string id)
+        public static void DestroyFavorite(string id)
         {
             var parameters = new[] {new[] {"id", id}};
-            return PostHandler(
+            PostHandler(
                 () => Post("https://api.twitter.com/1.1/favorites/destroy.json", parameters),
                 () => string.Empty);
         }
 
-        public static string RetweetStatus(string id)
+        public static void RetweetStatus(string id)
         {
-            return PostHandler(
+            PostHandler(
                 () => Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]),
                 () => string.Empty);
         }
 
-        public static string DestroyStatus(string id)
+        public static void DestroyStatus(string id)
         {
-            return PostHandler(
+            PostHandler(
                 () => Post(string.Format("https://api.twitter.com/1.1/statuses/destroy/{0}.json", id), new string[0][]),
                 () => string.Empty);
         }
@@ -194,7 +194,7 @@ namespace tweetz5.Model
                 using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
                 {
                     var serializer = new DataContractJsonSerializer(typeof (User));
-                    return (User)serializer.ReadObject(stream);
+                    return (User) serializer.ReadObject(stream);
                 }
             }, () => new User {Name = "Error!"});
         }

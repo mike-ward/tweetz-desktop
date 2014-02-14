@@ -164,7 +164,9 @@ namespace tweetz5
         }
 
         // ReSharper disable InconsistentNaming
-
+        // ReSharper disable UnusedMember.Global
+        // ReSharper disable UnusedField.Compiler
+        // ReSharper disable once MemberCanBePrivate.Global
         public struct WINDOWPOS
         {
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
@@ -179,6 +181,8 @@ namespace tweetz5
             public int cy;
             public UInt32 flags;
         };
+        // ReSharper restore UnusedField.Compiler
+        // ReSharper restore UnusedMember.Global
 
         private static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {

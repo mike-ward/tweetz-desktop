@@ -12,7 +12,7 @@ namespace tweetz5.Controls
 {
     public partial class AboutUser
     {
-        public string ScreenName { get; set; }
+        public string ScreenName { private get; set; }
 
         public AboutUser()
         {

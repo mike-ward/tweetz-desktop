@@ -5,13 +5,9 @@ using tweetz5.Model;
 
 namespace tweetz5.Commands
 {
-    public class OpenTweetLinkCommand
+    public static class OpenTweetLinkCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private OpenTweetLinkCommand()
-        {
-        }
 
         public static void CommandHandler(object target, ExecutedRoutedEventArgs ea)
         {

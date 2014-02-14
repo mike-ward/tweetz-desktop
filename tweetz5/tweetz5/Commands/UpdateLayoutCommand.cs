@@ -2,12 +2,8 @@
 
 namespace tweetz5.Commands
 {
-    internal class UpdateLayoutCommand
+    internal static class UpdateLayoutCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private UpdateLayoutCommand()
-        {
-        }
     }
 }

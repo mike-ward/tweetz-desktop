@@ -23,7 +23,7 @@ namespace tweetz5.Model
         void DirectMessagesTimeline();
         void FavoritesTimeline();
         void UpdateTimeStamps();
-        void UpdateStatus(string[] timelines, Status[] statuses, string tweetType);
+        void UpdateStatus(string[] timelines, IEnumerable<Status> statuses, string tweetType);
         void SwitchTimeline(string timelineName);
         void ClearAllTimelines();
         void AddFavorite(Tweet tweet);
@@ -31,13 +31,13 @@ namespace tweetz5.Model
         void Search(string query);
         void DeleteTweet(Tweet tweet);
         void Retweet(Tweet tweet);
-        string TimelineName { get; set; }
-        CancellationToken CancellationToken { get; }
         void SignalCancel();
+        CancellationToken CancellationToken { get; }
+        // ReSharper disable once ReturnTypeCanBeEnumerable.Global
         ConcurrentBag<string> ScreenNames { get; }
     }
 
-    public class Timelines : ITimelines, IDisposable
+    public sealed class Timelines : ITimelines, IDisposable
     {
         private bool _disposed;
         private string _timelineName;
@@ -87,7 +87,7 @@ namespace tweetz5.Model
         public const string FavoritesName = "favorites";
         public const string SearchName = "search";
 
-        public Action<Action> DispatchInvokerOverride { get; set; }
+        public Action<Action> DispatchInvokerOverride { private get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -120,9 +120,8 @@ namespace tweetz5.Model
             }
         }
 
-        public string TimelineName
+        private string TimelineName
         {
-            get { return _timelineName; }
             set
             {
                 if (_timelineName != value)
@@ -146,7 +145,7 @@ namespace tweetz5.Model
             }
         }
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null)
@@ -251,7 +250,7 @@ namespace tweetz5.Model
             }
         }
 
-        public static string RetweetedBy(Status status)
+        private static string RetweetedBy(Status status)
         {
             if (status.RetweetedStatus != null)
             {
@@ -261,7 +260,7 @@ namespace tweetz5.Model
             return string.Empty;
         }
 
-        internal class MarkupItem
+        private class MarkupItem
         {
             public string NodeType { get; set; }
             public string Text { get; set; }
@@ -269,7 +268,7 @@ namespace tweetz5.Model
             public int End { get; set; }
         }
 
-        public static MarkupNode[] BuildMarkupNodes(string text, Entities entities)
+        private static MarkupNode[] BuildMarkupNodes(string text, Entities entities)
         {
             var markupItems = new List<MarkupItem>();
 
@@ -373,13 +372,12 @@ namespace tweetz5.Model
 
         public void HomeTimeline()
         {
-            var twitter = new Twitter();
-            var statuses = twitter.HomeTimeline(_home.SinceId);
+            var statuses = Twitter.HomeTimeline(_home.SinceId);
             _home.SinceId = MaxSinceId(_home.SinceId, statuses);
             UpdateStatus(new[] {HomeName, UnifiedName}, statuses, "h");
         }
 
-        public void UpdateStatus(string[] timelineNames, Status[] statuses, string tweetType)
+        public void UpdateStatus(string[] timelineNames, IEnumerable<Status> statuses, string tweetType)
         {
             DispatchInvoker(() =>
             {
@@ -393,8 +391,7 @@ namespace tweetz5.Model
 
         public void MentionsTimeline()
         {
-            var twitter = new Twitter();
-            var statuses = twitter.MentionsTimeline(_mentions.SinceId);
+            var statuses = Twitter.MentionsTimeline(_mentions.SinceId);
             _mentions.SinceId = MaxSinceId(_mentions.SinceId, statuses);
             DispatchInvoker(() =>
             {
@@ -408,8 +405,7 @@ namespace tweetz5.Model
 
         public void FavoritesTimeline()
         {
-            var twitter = new Twitter();
-            var statuses = twitter.FavoritesTimeline(_favorites.SinceId);
+            var statuses = Twitter.FavoritesTimeline(_favorites.SinceId);
             _favorites.SinceId = MaxSinceId(_favorites.SinceId, statuses);
             DispatchInvoker(() =>
             {
@@ -423,8 +419,7 @@ namespace tweetz5.Model
 
         public void DirectMessagesTimeline()
         {
-            var twitter = new Twitter();
-            var statuses = twitter.DirectMessagesTimeline(_directMessages.SinceId);
+            var statuses = Twitter.DirectMessagesTimeline(_directMessages.SinceId);
             _directMessages.SinceId = MaxSinceId(_favorites.SinceId, statuses);
             DispatchInvoker(() =>
             {
@@ -544,16 +539,11 @@ namespace tweetz5.Model
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
             if (_disposed) return;
             _disposed = true;
-            if (disposing == false) return;
-            if (_cancellationTokenSource != null) _cancellationTokenSource.Dispose();
+            if (_cancellationTokenSource == null) return; 
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
         }
     }
 }

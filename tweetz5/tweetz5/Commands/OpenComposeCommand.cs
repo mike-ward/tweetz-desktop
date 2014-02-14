@@ -3,13 +3,9 @@ using System.Windows.Input;
 
 namespace tweetz5.Commands
 {
-    internal class OpenComposeCommand
+    internal static class OpenComposeCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private OpenComposeCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

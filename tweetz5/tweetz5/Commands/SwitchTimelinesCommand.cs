@@ -3,13 +3,9 @@ using System.Windows.Input;
 
 namespace tweetz5.Commands
 {
-    public class SwitchTimelinesCommand
+    public static class SwitchTimelinesCommand
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
-
-        private SwitchTimelinesCommand()
-        {
-        }
 
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {

@@ -10,11 +10,11 @@ namespace tweetz5.Model
 {
     public class OAuth
     {
-        public static string ConsumerKey { get; private set; }
-        public static string ConsumerSecret { get; private set; }
-        public string AccessTokenSecret { get; set; }
-        public string AccessToken { get; set; }
-        public string ScreenName { get; set; }
+        private static string ConsumerKey { get; set; }
+        private static string ConsumerSecret { get; set; }
+        public string AccessTokenSecret { get; private set; }
+        public string AccessToken { get; private set; }
+        public string ScreenName { get; private set; }
 
         static OAuth()
         {
