@@ -21,6 +21,7 @@ namespace tweetz5.Model
         public string RetweetStatusId { get; set; }
         public string Name { get; set; }
         public string ScreenName { get; set; }
+        public Int64 UserId { get; set; }
         public string ProfileImageUrl { get; set; }
         public string Text { get; set; }
         public MarkupNode[] MarkupNodes { get; set; }
@@ -89,6 +90,16 @@ namespace tweetz5.Model
                     _favorited = value;
                     OnPropertyChanged();
                 }
+            }
+        }
+
+        // ReSharper disable once UnusedMember.Global
+        public bool IsMyTweet
+        {
+            get
+            {
+                var oauth = new OAuth();
+                return ScreenName == oauth.ScreenName;
             }
         }
 
@@ -186,6 +197,9 @@ namespace tweetz5.Model
     {
         private bool _following;
         private bool _followedBy;
+
+        [DataMember(Name = "id")]
+        public Int64 Id { get; set; }
 
         [DataMember(Name = "name")]
         public string Name { get; set; }

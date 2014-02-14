@@ -226,6 +226,7 @@ namespace tweetz5.Model
                 StatusId = status.Id,
                 Name = displayStatus.User.Name,
                 ScreenName = displayStatus.User.ScreenName,
+                UserId = displayStatus.User.Id,
                 ProfileImageUrl = displayStatus.User.ProfileImageUrl,
                 Text = displayStatus.Text,
                 MarkupNodes = BuildMarkupNodes(displayStatus.Text, displayStatus.Entities),
