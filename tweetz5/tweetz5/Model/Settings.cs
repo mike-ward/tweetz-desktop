@@ -67,7 +67,11 @@ namespace tweetz5.Model
 
         public static string Version
         {
-            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+            get
+            {
+                var version = Assembly.GetExecutingAssembly().GetName().Version;
+                return string.Format("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
+            }
         }
 
         public bool IsRegisteredInStartup
