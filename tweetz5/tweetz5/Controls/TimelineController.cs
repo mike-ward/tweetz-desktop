@@ -4,17 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Windows;
-using tweetz5.Commands;
 using tweetz5.Model;
-using tweetz5.Utilities.System;
 
 namespace tweetz5.Controls
 {
     public sealed class TimelineController : IDisposable
     {
+        private Timers _timers = new Timers();
         private readonly ITimelines _timelinesModel;
-        private ITimer _checkTimelines;
-        private ITimer _updateTimeStamps;
 
         public TimelineController(ITimelines timelinesModel)
         {
@@ -23,56 +20,41 @@ namespace tweetz5.Controls
 
         public void StartTimelines()
         {
-            _checkTimelines = SysTimer.Factory();
-            _checkTimelines.Interval = 100;
-            var firstTime = true;
-            _checkTimelines.Elapsed += (s, e) =>
+            _timers.Add(3600, (s, e) =>
             {
                 try
                 {
-                    _checkTimelines.Interval = 90000;
+                    _timelinesModel.GetFriendsBlockedRetweets();
+                }
+                catch (WebException ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            });
+
+            _timers.Add(90, (s, e) =>
+            {
+                try
+                {
                     _timelinesModel.HomeTimeline();
                     _timelinesModel.MentionsTimeline();
                     _timelinesModel.DirectMessagesTimeline();
                     _timelinesModel.FavoritesTimeline();
-
-                    if (firstTime)
-                    {
-                        firstTime = false;
-                        if (Application.Current != null)
-                        {
-                            Application.Current.Dispatcher.Invoke(
-                                () => SwitchTimelinesCommand.Command.Execute(Timelines.UnifiedName, Application.Current.MainWindow));
-                        }
-                    }
                 }
                 catch (WebException ex)
                 {
-                    // Offline, authorization error, exceeded rate limit, etc.
                     Console.WriteLine(ex);
                 }
-            };
-            _checkTimelines.Start();
+            });
 
-            _updateTimeStamps = SysTimer.Factory();
-            _updateTimeStamps.Interval = 30000;
-            _updateTimeStamps.Elapsed += (s, e) => _timelinesModel.UpdateTimeStamps();
-            _updateTimeStamps.Start();
+            _timers.Add(30, (s, e) => _timelinesModel.UpdateTimeStamps());
             TwitterStream.User(_timelinesModel.CancellationToken);
         }
 
         public void StopTimelines()
         {
-            if (_checkTimelines != null)
-            {
-                _checkTimelines.Dispose();
-                _checkTimelines = null;
-            }
-            if (_updateTimeStamps != null)
-            {
-                _updateTimeStamps.Dispose();
-                _updateTimeStamps = null;
-            }
+            _timers.Dispose();
+            _timers = new Timers();
             _timelinesModel.SignalCancel();
             _timelinesModel.ClearAllTimelines();
         }
@@ -83,16 +65,7 @@ namespace tweetz5.Controls
         {
             if (_disposed) return;
             _disposed = true;
-            if (_checkTimelines != null)
-            {
-                _checkTimelines.Dispose();
-                _checkTimelines = null;
-            }
-            if (_updateTimeStamps != null)
-            {
-                _updateTimeStamps.Dispose();
-                _updateTimeStamps = null;
-            }
+            _timers.Dispose();
         }
 
         public static void CopyTweetToClipboard(Tweet tweet)

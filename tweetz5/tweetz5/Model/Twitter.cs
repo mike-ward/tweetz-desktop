@@ -18,6 +18,11 @@ namespace tweetz5.Model
 {
     public class Twitter
     {
+        private static string Get(string url)
+        {
+            return Get(url, Enumerable.Empty<string[]>());
+        }
+
         private static string Get(string url, IEnumerable<string[]> parameters)
         {
             return WebRequest(url, parameters);
@@ -126,6 +131,14 @@ namespace tweetz5.Model
                 ShowAlert(e.Message);
                 return new Status[0];
             }
+        }
+
+        public static ulong[] GetFriendsNoRetweets()
+        {
+            var json = Get("https://api.twitter.com/1.1/friendships/no_retweets/ids.json");
+            var serializer = new JavaScriptSerializer();
+            var ids = serializer.Deserialize<ulong[]>(json);
+            return ids;
         }
 
         public static string UpdateStatus(string message, string replyToStatusId = null)

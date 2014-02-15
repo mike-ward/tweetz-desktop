@@ -47,7 +47,7 @@ namespace tweetz5.Utilities.System
             catch (Exception e)
             {
                 // Timers eat exceptions. We don't
-                ThreadPool.QueueUserWorkItem(_ => { throw new Exception("Exception on timer", e); });
+                ThreadPool.QueueUserWorkItem(_ => { throw e; });
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using tweetz5.Properties;
+using tweetz5.Model;
+using Settings = tweetz5.Properties.Settings;
 
 namespace tweetz5.Commands
 {
@@ -23,6 +24,11 @@ namespace tweetz5.Commands
                 mainWindow.AuthenticatePanel.Visibility = Visibility.Collapsed;
                 mainWindow.Timeline.Controller.StartTimelines();
                 mainWindow.Compose.Friends = mainWindow.Timeline.Controller.ScreenNames;
+                if (Application.Current != null)
+                {
+                    Application.Current.Dispatcher.Invoke(
+                        () => SwitchTimelinesCommand.Command.Execute(Timelines.UnifiedName, Application.Current.MainWindow));
+                }
             }
         }
     }

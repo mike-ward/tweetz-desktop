@@ -25,7 +25,9 @@ namespace tweetz5UnitTests
         {
             var checkTimelines = new Mock<ITimer>();
             var updateTimelines = new Mock<ITimer>();
+            var friendsBlockedTimelines = new Mock<ITimer>();
             var queue = new Queue<ITimer>();
+            queue.Enqueue(friendsBlockedTimelines.Object);
             queue.Enqueue(checkTimelines.Object);
             queue.Enqueue(updateTimelines.Object);
             SysTimer.ImplementationOverride = queue.Dequeue;
@@ -35,6 +37,7 @@ namespace tweetz5UnitTests
             controller.StartTimelines();
             checkTimelines.Raise(c => c.Elapsed += null, EventArgs.Empty);
             updateTimelines.Raise(u => u.Elapsed += null, EventArgs.Empty);
+            friendsBlockedTimelines.Raise(u => u.Elapsed += null, EventArgs.Empty);
 
             checkTimelines.VerifySet(c => c.Interval = 100);
             checkTimelines.VerifySet(c => c.Interval = 90000);
@@ -42,9 +45,16 @@ namespace tweetz5UnitTests
             timelines.Verify(t => t.HomeTimeline());
             timelines.Verify(t => t.MentionsTimeline());
 
+            updateTimelines.VerifySet(u => u.Interval = 100);
             updateTimelines.VerifySet(u => u.Interval = 30000);
             updateTimelines.Verify(u => u.Start());
             timelines.Verify(t => t.UpdateTimeStamps());
+
+            friendsBlockedTimelines.VerifySet(c => c.Interval = 100);
+            friendsBlockedTimelines.VerifySet(c => c.Interval = 60*60*1000);
+            friendsBlockedTimelines.Verify(c => c.Start());
+            timelines.Verify(t => t.GetFriendsBlockedRetweets());
+
             controller.Should().NotBeNull();
         }
     }

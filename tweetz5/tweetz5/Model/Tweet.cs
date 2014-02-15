@@ -21,7 +21,7 @@ namespace tweetz5.Model
         public string RetweetStatusId { get; set; }
         public string Name { get; set; }
         public string ScreenName { get; set; }
-        public Int64 UserId { get; set; }
+        public ulong  UserId { get; set; }
         public string ProfileImageUrl { get; set; }
         public string Text { get; set; }
         public MarkupNode[] MarkupNodes { get; set; }
@@ -199,7 +199,7 @@ namespace tweetz5.Model
         private bool _followedBy;
 
         [DataMember(Name = "id")]
-        public Int64 Id { get; set; }
+        public ulong Id { get; set; }
 
         [DataMember(Name = "name")]
         public string Name { get; set; }

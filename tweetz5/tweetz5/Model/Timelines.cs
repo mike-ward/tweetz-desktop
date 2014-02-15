@@ -31,6 +31,7 @@ namespace tweetz5.Model
         void Search(string query);
         void DeleteTweet(Tweet tweet);
         void Retweet(Tweet tweet);
+        void GetFriendsBlockedRetweets();
         void SignalCancel();
         CancellationToken CancellationToken { get; }
         // ReSharper disable once ReturnTypeCanBeEnumerable.Global
@@ -45,6 +46,7 @@ namespace tweetz5.Model
         private readonly Dictionary<string, Timeline> _timelineMap;
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
         private CancellationTokenSource _cancellationTokenSource;
+        private ulong[] _friendsBlockedRetweets = new ulong[0];
 
         public ConcurrentBag<string> ScreenNames { get; private set; }
 
@@ -168,6 +170,7 @@ namespace tweetz5.Model
             foreach (var status in statuses)
             {
                 var tweet = CreateTweet(tweetType, status);
+                if (_friendsBlockedRetweets.Contains(tweet.UserId)) continue;
                 if (tweetType != "s")
                 {
                     var index = _tweets.IndexOf(tweet);
@@ -525,6 +528,11 @@ namespace tweetz5.Model
                 Twitter.RetweetStatus(tweet.StatusId);
                 tweet.IsRetweet = true;
             }
+        }
+
+        public void GetFriendsBlockedRetweets()
+        {
+             _friendsBlockedRetweets = Twitter.GetFriendsNoRetweets();
         }
 
         public CancellationToken CancellationToken
