@@ -171,11 +171,19 @@ namespace tweetz5.Model
             {
                 var tweet = CreateTweet(tweetType, status);
                 if (tweet.IsRetweet && _friendsBlockedRetweets.Contains(tweet.UserId)) continue;
-                if (tweetType != "s")
+                
+                if (tweetType != "s") // serach results not added to tweet collection
                 {
                     var index = _tweets.IndexOf(tweet);
-                    if (index == -1) _tweets.Add(tweet);
-                    else tweet = _tweets[index];
+                    if (index == -1)
+                    {
+                        _tweets.Add(tweet);
+                        updated = true;
+                    }
+                    else
+                    {
+                        tweet = _tweets[index];
+                    }
 
                     if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
                 }
@@ -183,13 +191,13 @@ namespace tweetz5.Model
                 foreach (var timeline in timelines.Where(timeline => timeline.Tweets.IndexOf(tweet) == -1))
                 {
                     timeline.Tweets.Add(tweet);
-                    updated = true;
                 }
 
                 if (ScreenNames.Contains(tweet.ScreenName) == false)
                 {
                     ScreenNames.Add(tweet.ScreenName);
                 }
+
                 if (status.Entities.Mentions != null)
                 {
                     foreach (var screename in ScreenNames.Where(screename => !ScreenNames.Contains(screename, StringComparer.CurrentCultureIgnoreCase)))
@@ -532,7 +540,7 @@ namespace tweetz5.Model
 
         public void GetFriendsBlockedRetweets()
         {
-             _friendsBlockedRetweets = Twitter.GetFriendsNoRetweets();
+            _friendsBlockedRetweets = Twitter.GetFriendsNoRetweets();
         }
 
         public CancellationToken CancellationToken
@@ -550,7 +558,7 @@ namespace tweetz5.Model
         {
             if (_disposed) return;
             _disposed = true;
-            if (_cancellationTokenSource == null) return; 
+            if (_cancellationTokenSource == null) return;
             _cancellationTokenSource.Dispose();
             _cancellationTokenSource = null;
         }
