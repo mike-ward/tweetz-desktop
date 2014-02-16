@@ -170,7 +170,7 @@ namespace tweetz5.Model
             foreach (var status in statuses)
             {
                 var tweet = CreateTweet(tweetType, status);
-                if (_friendsBlockedRetweets.Contains(tweet.UserId)) continue;
+                if (tweet.IsRetweet && _friendsBlockedRetweets.Contains(tweet.UserId)) continue;
                 if (tweetType != "s")
                 {
                     var index = _tweets.IndexOf(tweet);
