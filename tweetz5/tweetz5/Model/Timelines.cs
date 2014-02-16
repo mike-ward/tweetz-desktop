@@ -2,53 +2,27 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using tweetz5.Commands;
-using tweetz5.Utilities.Translate;
+using tweetz5.Utilities;
 
 // ReSharper disable InconsistentNaming
 
 namespace tweetz5.Model
 {
-    public interface ITimelines : INotifyPropertyChanged
-    {
-        void HomeTimeline();
-        void MentionsTimeline();
-        void DirectMessagesTimeline();
-        void FavoritesTimeline();
-        void UpdateTimeStamps();
-        void UpdateStatus(string[] timelines, IEnumerable<Status> statuses, string tweetType);
-        void SwitchTimeline(string timelineName);
-        void ClearAllTimelines();
-        void AddFavorite(Tweet tweet);
-        void RemoveFavorite(Tweet tweet);
-        void Search(string query);
-        void DeleteTweet(Tweet tweet);
-        void Retweet(Tweet tweet);
-        void GetFriendsBlockedRetweets();
-        void SignalCancel();
-        CancellationToken CancellationToken { get; }
-        // ReSharper disable once ReturnTypeCanBeEnumerable.Global
-        ConcurrentBag<string> ScreenNames { get; }
-    }
-
-    public sealed class Timelines : ITimelines, IDisposable
+    public sealed class Timelines : NotifyPropertyChanged, ITimelines, IDisposable
     {
         private bool _disposed;
         private string _timelineName;
         private ObservableCollection<Tweet> _timeline;
         private readonly Dictionary<string, Timeline> _timelineMap;
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private readonly ConcurrentBag<string> _screenNames = new ConcurrentBag<string>();
         private ulong[] _friendsBlockedRetweets = new ulong[0];
-
-        public ConcurrentBag<string> ScreenNames { get; private set; }
 
         private Timeline _unified
         {
@@ -91,8 +65,6 @@ namespace tweetz5.Model
 
         public Action<Action> DispatchInvokerOverride { private get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public Timelines()
         {
             _timelineMap = new Dictionary<string, Timeline>
@@ -104,56 +76,23 @@ namespace tweetz5.Model
                 {FavoritesName, new Timeline()},
                 {SearchName, new Timeline()}
             };
-
-            _cancellationTokenSource = new CancellationTokenSource();
-            ScreenNames = new ConcurrentBag<string>();
         }
 
         public ObservableCollection<Tweet> Timeline
         {
             get { return _timeline; }
-            set
-            {
-                if (_timeline != value)
-                {
-                    _timeline = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { SetProperty(ref _timeline, value); }
         }
 
         private string TimelineName
         {
-            set
-            {
-                if (_timelineName != value)
-                {
-                    _timelineName = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { SetProperty(ref _timelineName, value); }
         }
 
         public Visibility SearchVisibility
         {
             get { return _searchVisibility; }
-            set
-            {
-                if (_searchVisibility != value)
-                {
-                    _searchVisibility = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            set { SetPropertyValue(ref _searchVisibility, value); }
         }
 
         public void ClearAllTimelines()
@@ -169,7 +108,7 @@ namespace tweetz5.Model
             var updated = false;
             foreach (var status in statuses)
             {
-                var tweet = CreateTweet(tweetType, status);
+                var tweet = TweetUtilities.CreateTweet(tweetType, status);
                 if (tweet.IsRetweet && _friendsBlockedRetweets.Contains(tweet.UserId)) continue;
 
                 if (tweetType != "s") // serach results not added to tweet collection
@@ -193,16 +132,16 @@ namespace tweetz5.Model
                     timeline.Tweets.Add(tweet);
                 }
 
-                if (ScreenNames.Contains(tweet.ScreenName) == false)
+                if (_screenNames.Contains(tweet.ScreenName) == false)
                 {
-                    ScreenNames.Add(tweet.ScreenName);
+                    _screenNames.Add(tweet.ScreenName);
                 }
 
                 if (status.Entities.Mentions != null)
                 {
-                    foreach (var screename in ScreenNames.Where(screename => !ScreenNames.Contains(screename, StringComparer.CurrentCultureIgnoreCase)))
+                    foreach (var screename in _screenNames.Where(screename => !_screenNames.Contains(screename, StringComparer.CurrentCultureIgnoreCase)))
                     {
-                        ScreenNames.Add(screename);
+                        _screenNames.Add(screename);
                     }
                 }
             }
@@ -218,40 +157,9 @@ namespace tweetz5.Model
             return updated;
         }
 
-        public static Tweet CreateTweet(string tweetType, Status status)
+        public IEnumerable<string> ScreenNames
         {
-            var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
-                CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
-
-            var displayStatus = status.RetweetedStatus ?? status;
-
-            // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
-            if (displayStatus.User == null)
-            {
-                var screenName = new OAuth().ScreenName;
-                displayStatus.User = (status.Recipient.ScreenName == screenName) ? status.Sender : status.Recipient;
-            }
-
-            var tweet = new Tweet
-            {
-                StatusId = status.Id,
-                Name = displayStatus.User.Name,
-                ScreenName = displayStatus.User.ScreenName,
-                UserId = displayStatus.User.Id,
-                ProfileImageUrl = displayStatus.User.ProfileImageUrl,
-                Text = displayStatus.Text,
-                MarkupNodes = BuildMarkupNodes(displayStatus.Text, displayStatus.Entities),
-                CreatedAt = createdAt,
-                TimeAgo = TimeAgo(createdAt),
-                TweetType = tweetType,
-                Favorited = status.Favorited,
-                IsRetweet = status.Retweeted,
-                RetweetedBy = RetweetedBy(status),
-                RetweetStatusId = (status.RetweetedStatus != null) ? status.RetweetedStatus.Id : string.Empty,
-                MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0]
-            };
-
-            return tweet;
+            get { return _screenNames; }
         }
 
         private static void PlayNotification()
@@ -260,96 +168,6 @@ namespace tweetz5.Model
             {
                 ChirpCommand.Command.Execute(string.Empty, Application.Current.MainWindow);
             }
-        }
-
-        private static string RetweetedBy(Status status)
-        {
-            if (status.RetweetedStatus != null)
-            {
-                var oauth = new OAuth();
-                return oauth.ScreenName != status.User.ScreenName ? status.User.Name : string.Empty;
-            }
-            return string.Empty;
-        }
-
-        private class MarkupItem
-        {
-            public string NodeType { get; set; }
-            public string Text { get; set; }
-            public int Start { get; set; }
-            public int End { get; set; }
-        }
-
-        private static MarkupNode[] BuildMarkupNodes(string text, Entities entities)
-        {
-            var markupItems = new List<MarkupItem>();
-
-            if (entities.Urls != null)
-            {
-                markupItems.AddRange(entities.Urls.Select(url => new MarkupItem
-                {
-                    NodeType = "url",
-                    Text = url.Url,
-                    Start = url.Indices[0],
-                    End = url.Indices[1]
-                }));
-            }
-
-            if (entities.Mentions != null)
-            {
-                markupItems.AddRange(entities.Mentions.Select(mention => new MarkupItem
-                {
-                    NodeType = "mention",
-                    Text = mention.ScreenName,
-                    Start = mention.Indices[0],
-                    End = mention.Indices[1]
-                }));
-            }
-
-            if (entities.HashTags != null)
-            {
-                markupItems.AddRange(entities.HashTags.Select(hashtag => new MarkupItem
-                {
-                    NodeType = "hashtag",
-                    Text = hashtag.Text,
-                    Start = hashtag.Indices[0],
-                    End = hashtag.Indices[1]
-                }));
-            }
-
-            if (entities.Media != null)
-            {
-                markupItems.AddRange(entities.Media.Select(media => new MarkupItem
-                {
-                    NodeType = "media",
-                    Text = media.Url,
-                    Start = media.Indices[0],
-                    End = media.Indices[1]
-                }));
-            }
-
-            var start = 0;
-            var nodes = new List<MarkupNode>();
-            markupItems.Sort((l, r) => l.Start - r.Start);
-            foreach (var item in markupItems)
-            {
-                if (item.Start >= start) nodes.Add(new MarkupNode("text", text.Substring(start, item.Start - start)));
-                nodes.Add(new MarkupNode(item.NodeType, item.Text));
-                start = item.End;
-            }
-            if (start < text.Length) nodes.Add(new MarkupNode("text", text.Substring(start)));
-            return nodes.ToArray();
-        }
-
-        private static string TimeAgo(DateTime time)
-        {
-            var timespan = DateTime.UtcNow - time;
-            Func<string, double, string> format = (s, t) => string.Format((string)TranslationService.Instance.Translate(s), (int)t);
-            if (timespan.TotalSeconds < 60) return format("time_ago_seconds", timespan.TotalSeconds);
-            if (timespan.TotalMinutes < 60) return format("time_ago_minutes", timespan.TotalMinutes);
-            if (timespan.TotalHours < 24) return format("time_ago_hours", timespan.TotalHours);
-            if (timespan.TotalDays < 3) return format("time_ago_days", timespan.TotalDays);
-            return time.ToString((string)TranslationService.Instance.Translate("time_ago_date"));
         }
 
         private void DispatchInvoker(Action callback)
@@ -377,9 +195,9 @@ namespace tweetz5.Model
             }
         }
 
-        private static ulong MaxSinceId(ulong currentSinceId, Status[] statuses)
+        private static ulong MaxSinceId(ulong currentSinceId, ICollection<Status> statuses)
         {
-            return (statuses.Length > 0)
+            return (statuses.Count > 0)
                 ? Math.Max(currentSinceId, statuses.Max(s => ulong.Parse(s.Id)))
                 : currentSinceId;
         }
@@ -449,12 +267,10 @@ namespace tweetz5.Model
         {
             DispatchInvoker(() =>
             {
-                if (Timeline != null)
+                if (Timeline == null) return;
+                foreach (var tweet in Timeline)
                 {
-                    foreach (var tweet in Timeline)
-                    {
-                        tweet.TimeAgo = TimeAgo(tweet.CreatedAt);
-                    }
+                    tweet.TimeAgo = TweetUtilities.TimeAgo(tweet.CreatedAt);
                 }
             });
         }

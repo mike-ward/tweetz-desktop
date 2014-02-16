@@ -6,10 +6,11 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using tweetz5.Utilities;
 
 namespace tweetz5.Model
 {
-    public sealed class Tweet : INotifyPropertyChanged, IEquatable<Tweet>
+    public sealed class Tweet : NotifyPropertyChanged, IEquatable<Tweet>
     {
         private bool _favorited;
         private string _timeAgo;
@@ -21,7 +22,7 @@ namespace tweetz5.Model
         public string RetweetStatusId { get; set; }
         public string Name { get; set; }
         public string ScreenName { get; set; }
-        public ulong  UserId { get; set; }
+        public ulong UserId { get; set; }
         public string ProfileImageUrl { get; set; }
         public string Text { get; set; }
         public MarkupNode[] MarkupNodes { get; set; }
@@ -31,66 +32,31 @@ namespace tweetz5.Model
         public bool IsRetweet
         {
             get { return _retweet; }
-            set
-            {
-                if (_retweet != value)
-                {
-                    _retweet = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { SetPropertyValue(ref _retweet, value); }
         }
 
         public string RetweetedBy
         {
             get { return _retweetedBy; }
-            set
-            {
-                if (_retweetedBy != value)
-                {
-                    _retweetedBy = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { SetProperty(ref _retweetedBy, value); }
         }
 
         public string TweetType
         {
             get { return _tweetType; }
-            set
-            {
-                if (_tweetType != value)
-                {
-                    _tweetType = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { SetProperty(ref _tweetType, value); }
         }
 
         public string TimeAgo
         {
             get { return _timeAgo; }
-            set
-            {
-                if (_timeAgo != value)
-                {
-                    _timeAgo = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { SetProperty(ref _timeAgo, value); }
         }
 
         public bool Favorited
         {
             get { return _favorited; }
-            set
-            {
-                if (_favorited != value)
-                {
-                    _favorited = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { SetPropertyValue(ref _favorited, value); }
         }
 
         // ReSharper disable once UnusedMember.Global
@@ -106,17 +72,6 @@ namespace tweetz5.Model
         public bool IsDirectMesssage
         {
             get { return TweetType.Contains("d"); }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
 
         public bool Equals(Tweet other)
@@ -170,7 +125,7 @@ namespace tweetz5.Model
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
                 var serializer = new DataContractJsonSerializer(typeof (Status[]));
-                return (Status[]) serializer.ReadObject(stream);
+                return (Status[])serializer.ReadObject(stream);
             }
         }
     }
@@ -186,7 +141,7 @@ namespace tweetz5.Model
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
                 var serializer = new DataContractJsonSerializer(typeof (SearchStatuses));
-                var searchStatuses = (SearchStatuses) serializer.ReadObject(stream);
+                var searchStatuses = (SearchStatuses)serializer.ReadObject(stream);
                 return searchStatuses.Statuses;
             }
         }

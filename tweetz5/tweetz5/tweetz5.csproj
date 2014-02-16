@@ -137,6 +137,7 @@
     <Compile Include="Controls\StatusAlert.xaml.cs">
       <DependentUpon>StatusAlert.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ITimelines.cs" />
     <Compile Include="Model\MarkupNode.cs" />
     <Compile Include="Model\OAuth.cs" />
     <Compile Include="Model\LongUrl.cs" />
@@ -144,8 +145,10 @@
     <Compile Include="Model\ShortUrl.cs" />
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Model\Timers.cs" />
+    <Compile Include="Model\TweetUtilities.cs" />
     <Compile Include="Model\TwitterError.cs" />
     <Compile Include="Model\TwitterStream.cs" />
+    <Compile Include="Utilities\NotifyPropertyChanged.cs" />
     <Compile Include="Utilities\System\DragAndDrop.cs" />
     <Compile Include="Utilities\System\RegistryHelper.cs" />
     <Compile Include="Utilities\System\Screen.cs" />

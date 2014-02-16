@@ -26,10 +26,7 @@ namespace tweetz5.Model
         {
             if (_disposed) return;
             _disposed = true;
-            foreach (var timer in _timers)
-            {
-                timer.Dispose();
-            }
+            _timers.ForEach(timer => timer.Dispose());
             _timers = null;
         }
     }
