@@ -171,7 +171,7 @@ namespace tweetz5.Model
             {
                 var tweet = CreateTweet(tweetType, status);
                 if (tweet.IsRetweet && _friendsBlockedRetweets.Contains(tweet.UserId)) continue;
-                
+
                 if (tweetType != "s") // serach results not added to tweet collection
                 {
                     var index = _tweets.IndexOf(tweet);
@@ -379,7 +379,9 @@ namespace tweetz5.Model
 
         private static ulong MaxSinceId(ulong currentSinceId, Status[] statuses)
         {
-            return statuses.Length > 0 ? Math.Max(currentSinceId, statuses.Max(s => ulong.Parse(s.Id))) : currentSinceId;
+            return (statuses.Length > 0)
+                ? Math.Max(currentSinceId, statuses.Max(s => ulong.Parse(s.Id)))
+                : currentSinceId;
         }
 
         public void HomeTimeline()
