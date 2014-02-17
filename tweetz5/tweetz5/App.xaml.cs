@@ -10,7 +10,7 @@ namespace tweetz5
     {
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
-            TranslationService.Instance.TranslationProvider = new TranslationProviderJsonFile();
+            TranslationService.Instance.TranslationProvider = new TranslationProviderNameValueFile();
 
             if (Settings.Default.UpgradeSettings)
             {
