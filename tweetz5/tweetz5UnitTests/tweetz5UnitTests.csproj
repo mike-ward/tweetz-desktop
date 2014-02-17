@@ -72,6 +72,7 @@
     <Compile Include="Model\TwitterTests.cs" />
     <Compile Include="Controls\TimelineControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Translate\ParseNameValueTextTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
