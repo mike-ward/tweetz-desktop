@@ -36,7 +36,7 @@ namespace tweetz5.Utilities.Translate
             get
             {
                 return (_languages != null)
-                    ? _languages.Select(t => new CultureInfo(t.IsoCode))
+                    ? _languages.Select(t => new CultureInfo(t.TwoLetterLanguageCode))
                     : Enumerable.Empty<CultureInfo>();
             }
         }
@@ -59,8 +59,7 @@ namespace tweetz5.Utilities.Translate
         private Language FindLanguage(CultureInfo culture)
         {
             var current = (_languages == null ? new Language() : null)
-                          ?? _languages.FirstOrDefault(t => t.IsoCode == culture.Name)
-                          ?? _languages.FirstOrDefault(t => t.IsoCode == culture.TwoLetterISOLanguageName)
+                          ?? _languages.FirstOrDefault(t => t.TwoLetterLanguageCode == culture.TwoLetterISOLanguageName)
                           ?? new Language();
             return current;
         }
@@ -68,7 +67,7 @@ namespace tweetz5.Utilities.Translate
         public static Language[] Parse(string text)
         {
             Language language = null;
-            var langauges = new List<Language>();
+            var languages = new List<Language>();
             var regex = new Regex(@"^[a-zA-Z][_a-zA-Z0-9]*$");
 
             foreach (var line in text.Split(new[] {Environment.NewLine}, StringSplitOptions.None))
@@ -85,17 +84,17 @@ namespace tweetz5.Utilities.Translate
                 if (regex.IsMatch(name) == false) throw new FormatException(ErrorMessage("invalid identifier", line));
                 if (string.IsNullOrWhiteSpace(value)) throw new FormatException(ErrorMessage("empty value", line));
 
-                if (name == "IsoCode")
+                if (name == "TwoLetterLanguageCode")
                 {
-                    language = new Language {IsoCode = value};
-                    langauges.Add(language);
+                    language = new Language {TwoLetterLanguageCode = value};
+                    languages.Add(language);
                 }
                 else
                 {
                     language.Dictionary.Add(name, value);
                 }
             }
-            return langauges.ToArray();
+            return languages.ToArray();
         }
 
         private static string ErrorMessage(string message, string line)
@@ -105,7 +104,7 @@ namespace tweetz5.Utilities.Translate
 
         public class Language
         {
-            public string IsoCode { get; set; }
+            public string TwoLetterLanguageCode { get; set; }
             public Dictionary<string, string> Dictionary = new Dictionary<string, string>();
         }
     }
