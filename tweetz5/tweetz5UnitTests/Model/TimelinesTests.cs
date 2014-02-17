@@ -64,7 +64,7 @@ namespace tweetz5UnitTests.Model
         public void UpdateTimeStampsShouldReturnFriendlyTime()
         {
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
-            TranslationService.Instance.TranslationProvider = new TranslationProviderJsonFile();
+            TranslationService.Instance.TranslationProvider = new TranslationProviderNameValueFile();
             timelines.SwitchTimeline(Timelines.UnifiedName);
             timelines.Timeline.Add(new Tweet { CreatedAt = DateTime.UtcNow });
             timelines.Timeline[0].TimeAgo.Should().BeNull();

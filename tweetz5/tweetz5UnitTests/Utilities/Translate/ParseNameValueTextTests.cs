@@ -12,15 +12,15 @@ namespace tweetz5UnitTests.Utilities.Translate
         [TestMethod]
         public void ParseNameShouldReturnEnglish()
         {
-            const string text = "Name: English";
+            const string text = "IsoCode: English";
             var languages = TranslationProviderNameValueFile.Parse(text);
-            languages[0].Name.Should().Be("English");
+            languages[0].IsoCode.Should().Be("English");
         }
 
         [TestMethod]
         public void ParseSampleTextShouldReturnTwoEntries()
         {
-            const string text = "Name: English\r\nauthenticate_get_pin: Get PIN\r\nauthenticate_signin: Sign In\r\n";
+            const string text = "IsoCode: English\r\nauthenticate_get_pin: Get PIN\r\nauthenticate_signin: Sign In\r\n";
             var languages = TranslationProviderNameValueFile.Parse(text);
             languages[0].Dictionary.Count.Should().Be(2);
             languages[0].Dictionary["authenticate_get_pin"].Should().Be("Get PIN");
@@ -31,7 +31,7 @@ namespace tweetz5UnitTests.Utilities.Translate
         [ExpectedException(typeof(FormatException))]
         public void BadIndentifierFormatRaisesException()
         {
-            const string text = "Name: English\r\nauthenticate_get_pin!: Get PIN\r\nauthenticate_signin: Sign In\r\n";
+            const string text = "IsoCode: English\r\nauthenticate_get_pin!: Get PIN\r\nauthenticate_signin: Sign In\r\n";
             var languages = TranslationProviderNameValueFile.Parse(text);
             languages.Should().BeNull();
         }
@@ -40,7 +40,7 @@ namespace tweetz5UnitTests.Utilities.Translate
         [ExpectedException(typeof(FormatException))]
         public void EmptyValueFormatRaisesException()
         {
-            const string text = "Name: English\r\nauthenticate_get_pin: \r\nauthenticate_signin: Sign In\r\n";
+            const string text = "IsoCode: English\r\nauthenticate_get_pin: \r\nauthenticate_signin: Sign In\r\n";
             var languages = TranslationProviderNameValueFile.Parse(text);
             languages.Should().BeNull();
         }
@@ -49,7 +49,7 @@ namespace tweetz5UnitTests.Utilities.Translate
         public void TheBigKahuna()
         {
             const string text = @"
-Name:                           your two letter language code here then modify strings below
+IsoCode:                        your two letter language code here then modify strings below
 authenticate_instructions:      To get started click the Get PIN button. This opens a Web page where you'll authorize access. Copy the PIN from the Web page to here and click Sign In
 authenticate_get_pin:           Get PIN
 authenticate_signin:            Sign In
@@ -120,7 +120,7 @@ settings_theme_light:           Light
 
 ==========================================
 
-Name: en
+IsoCode: en
 authenticate_instructions:      To get started click the \Get PIN\ button. This opens a Web page where you'll authorize access. Copy the PIN from the Web page to here and click \Sign In\
 authenticate_get_pin:           Get PIN
 authenticate_signin:            Sign In
@@ -191,7 +191,7 @@ settings_theme_light:           Light
 
 ==========================================
 
-Name: de
+IsoCode: de
 authenticate_instructions:      Zum starten klick den [PIN holen] Button. Es öffnet sich die Webseite zur Authorisierung. Kopiere die PIN von der Seite ins Eingabefeld und klicke auf [Anmelden].
 authenticate_get_pin:           PIN holen
 authenticate_signin:            Anmelden
@@ -262,15 +262,15 @@ settings_theme_light:           Licht";
 
             var languages = TranslationProviderNameValueFile.Parse(text);
             languages.Length.Should().Be(3);
-            languages[0].Name.Should().Be("your two letter language code here then modify strings below");
+            languages[0].IsoCode.Should().Be("your two letter language code here then modify strings below");
             languages[0].Dictionary["authenticate_get_pin"].Should().Be("Get PIN");
             languages[0].Dictionary["authenticate_signin"].Should().Be("Sign In");
 
-            languages[1].Name.Should().Be("en");
+            languages[1].IsoCode.Should().Be("en");
             languages[1].Dictionary["authenticate_get_pin"].Should().Be("Get PIN");
             languages[1].Dictionary["authenticate_signin"].Should().Be("Sign In");
 
-            languages[2].Name.Should().Be("de");
+            languages[2].IsoCode.Should().Be("de");
             languages[2].Dictionary["authenticate_get_pin"].Should().Be("PIN holen");
             languages[2].Dictionary["authenticate_signin"].Should().Be("Anmelden");
         }
