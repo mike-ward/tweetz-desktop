@@ -3,17 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 using Microsoft.Win32;
 using tweetz5.Commands;
 using tweetz5.Model;
-using tweetz5.Utilities.System;
 using tweetz5.Utilities.Translate;
 using Settings = tweetz5.Properties.Settings;
 
@@ -39,11 +35,9 @@ namespace tweetz5.Controls
             get { return _image; }
             set
             {
-                if (_image != value)
-                {
-                    _image = value;
-                    OnPropertyChanged();
-                }
+                if (_image == value) return;
+                _image = value;
+                OnPropertyChanged();
             }
         }
 
@@ -94,12 +88,10 @@ namespace tweetz5.Controls
             get { return _friendsFilter; }
             set
             {
-                if (_friendsFilter != value)
-                {
-                    _friendsFilter = value;
-                    // ReSharper disable once ExplicitCallerInfoArgument
-                    OnPropertyChanged("Friends");
-                }
+                if (_friendsFilter == value) return;
+                _friendsFilter = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
+                OnPropertyChanged("Friends");
             }
         }
 
@@ -115,30 +107,91 @@ namespace tweetz5.Controls
             }
             set
             {
-                if (_friends.Equals(value) == false)
-                {
-                    _friends = value;
-                    OnPropertyChanged();
-                }
+                if (_friends.Equals(value)) return;
+                _friends = value;
+                OnPropertyChanged();
             }
+        }
+
+        private static char ConvertKeyCodeToChar(Key key)
+        {
+            if (key == Key.D2 && Keyboard.Modifiers == ModifierKeys.Shift) return '@';
+            var letter = key - Key.A;
+            if (letter >= 0 && letter <= 26) return (char) ('a' + letter);
+            var digit = key - Key.D0;
+            if (digit >= 0 && digit <= 9) return (char) ('0' + digit);
+            return default(char);
         }
 
         private bool _atPressed;
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (_atPressed && e.Key == Key.Return)
+            if (e.Key == Key.Escape)
             {
-                if (FriendsListBox.SelectedIndex == -1 && FriendsListBox.Items.Count == 1)
-                {
-                    FriendsListBox.SelectedIndex = 0;
-                }
-                if (FriendsListBox.SelectedIndex != -1)
-                {
-                    InsertSelectedFriend();
-                }
-                CloseFriendsPopup();
-                e.Handled = true;
+                if (_atPressed) CloseFriendsPopup();
+                else Hide();
+                return;
+            }
+
+            var ch = ConvertKeyCodeToChar(e.Key);
+
+            if (ch == '@')
+            {
+                _atPressed = true;
+                return;
+            }
+
+            if (_atPressed == false) return;
+
+            switch (e.Key)
+            {
+                case Key.Back:
+                    var length = FriendsFilter.Length;
+                    if (length > 0) FriendsFilter = FriendsFilter.Remove(length - 1);
+                    else CloseFriendsPopup();
+                    break;
+
+                case Key.Up:
+                    if (FriendsListBox.SelectedIndex > 0)
+                    {
+                        FriendsListBox.SelectedIndex -= 1;
+                        e.Handled = true;
+                    }
+                    break;
+
+                case Key.Down:
+                    if (FriendsListBox.SelectedIndex < FriendsListBox.Items.Count - 1)
+                    {
+                        FriendsListBox.SelectedIndex += 1;
+                        e.Handled = true;
+                    }
+                    break;
+
+                case Key.Return:
+                    if (FriendsListBox.SelectedIndex == -1 && FriendsListBox.Items.Count == 1)
+                    {
+                        FriendsListBox.SelectedIndex = 0;
+                    }
+                    if (FriendsListBox.SelectedIndex != -1)
+                    {
+                        InsertSelectedFriend();
+                    }
+                    CloseFriendsPopup();
+                    e.Handled = true;
+                    break;
+
+                default:
+                    if (Char.IsLetterOrDigit(ch))
+                    {
+                        FriendsPopup.IsOpen = true;
+                        FriendsFilter += ch;
+                    }
+                    else if (ch != default(char))
+                    {
+                        CloseFriendsPopup();
+                    }
+                    break;
             }
         }
 
@@ -149,59 +202,6 @@ namespace tweetz5.Controls
             TextBox.Text = TextBox.Text.Remove(index, FriendsFilter.Length + 1);
             TextBox.Text = TextBox.Text.Insert(index, text);
             TextBox.CaretIndex = index + text.Length;
-        }
-
-        private void OnKeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                if (_atPressed) CloseFriendsPopup();
-                else Hide();
-            }
-            var ch = NativeMethods.GetCharFromKey(e.Key);
-            if (ch == '@')
-            {
-                _atPressed = true;
-                return;
-            }
-            if (_atPressed)
-            {
-                if (Char.IsLetterOrDigit(ch))
-                {
-                    FriendsPopup.IsOpen = true;
-                    FriendsFilter += ch;
-                    return;
-                }
-                if (e.Key == Key.Back)
-                {
-                    var length = FriendsFilter.Length;
-                    if (length > 0) FriendsFilter = FriendsFilter.Remove(length - 1);
-                    else CloseFriendsPopup();
-                    return;
-                }
-                if (e.Key == Key.Up)
-                {
-                    if (FriendsListBox.SelectedIndex > 0)
-                    {
-                        FriendsListBox.SelectedIndex -= 1;
-                        e.Handled = true;
-                    }
-                    return;
-                }
-                if (e.Key == Key.Down)
-                {
-                    if (FriendsListBox.SelectedIndex < FriendsListBox.Items.Count - 1)
-                    {
-                        FriendsListBox.SelectedIndex += 1;
-                        e.Handled = true;
-                    }
-                    return;
-                }
-                if (ch != default(char))
-                {
-                    CloseFriendsPopup();
-                }
-            }
         }
 
         private void FriendsListBoxOnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -222,7 +222,9 @@ namespace tweetz5.Controls
             FriendsPopup.IsOpen = false;
         }
 
-        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private
+            void OnIsVisibleChanged
+            (object sender, DependencyPropertyChangedEventArgs e)
         {
             if (TextBox.IsVisible)
             {
@@ -302,21 +304,6 @@ namespace tweetz5.Controls
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    public class LengthToColorConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var length = (int) value;
-            var brush = (Brush) Application.Current.FindResource("ComposeCharacterCounterForegroundBrush");
-            return length > 140 ? Brushes.Red : (length > 134 ? Brushes.SandyBrown : brush);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

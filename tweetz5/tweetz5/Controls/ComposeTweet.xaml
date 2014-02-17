@@ -25,7 +25,6 @@
              AcceptsReturn="True"
              TextWrapping="Wrap"
              Style="{StaticResource ComposeTweetTextBox}"
-             KeyUp="OnKeyUp"
              PreviewKeyDown="OnPreviewKeyDown"
              IsVisibleChanged="OnIsVisibleChanged" />
     <Image Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}}"
