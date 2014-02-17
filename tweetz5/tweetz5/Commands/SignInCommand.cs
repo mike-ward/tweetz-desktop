@@ -23,7 +23,6 @@ namespace tweetz5.Commands
             {
                 mainWindow.AuthenticatePanel.Visibility = Visibility.Collapsed;
                 mainWindow.Timeline.Controller.StartTimelines();
-                mainWindow.Compose.Friends = mainWindow.Timeline.Controller.ScreenNames;
                 if (Application.Current != null)
                 {
                     Application.Current.Dispatcher.Invoke(

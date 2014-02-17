@@ -24,8 +24,8 @@
     <TextBox x:Name="TextBox"
              AcceptsReturn="True"
              TextWrapping="Wrap"
+             PreviewKeyDown="TextBoxOnPreviewKeyDown"
              Style="{StaticResource ComposeTweetTextBox}"
-             PreviewKeyDown="OnPreviewKeyDown"
              IsVisibleChanged="OnIsVisibleChanged" />
     <Image Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}}"
            Style="{StaticResource ComposeImageStyle}" />
@@ -68,12 +68,5 @@
         </Button>
       </StackPanel>
     </DockPanel>
-    <Popup x:Name="FriendsPopup"
-           Placement="Top">
-      <ListBox x:Name="FriendsListBox"
-               Style="{StaticResource ComposeScreenNameSuggestionListBox}"
-               MouseLeftButtonUp="FriendsListBoxOnMouseLeftButtonUp"
-               ItemsSource="{Binding Friends}" />
-    </Popup>
   </StackPanel>
 </UserControl>

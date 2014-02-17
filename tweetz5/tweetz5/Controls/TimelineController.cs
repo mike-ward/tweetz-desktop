@@ -117,10 +117,5 @@ namespace tweetz5.Controls
         {
             _timelinesModel.Retweet(tweet);
         }
-
-        public IEnumerable<string> ScreenNames
-        {
-            get { return _timelinesModel.ScreenNames; }
-        }
     }
 }

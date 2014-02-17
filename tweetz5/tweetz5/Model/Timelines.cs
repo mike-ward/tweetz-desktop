@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,7 +20,6 @@ namespace tweetz5.Model
         private readonly Dictionary<string, Timeline> _timelineMap;
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private readonly ConcurrentBag<string> _screenNames = new ConcurrentBag<string>();
         private ulong[] _friendsBlockedRetweets = new ulong[0];
 
         private Timeline _unified
@@ -131,19 +129,6 @@ namespace tweetz5.Model
                 {
                     timeline.Tweets.Add(tweet);
                 }
-
-                if (_screenNames.Contains(tweet.ScreenName) == false)
-                {
-                    _screenNames.Add(tweet.ScreenName);
-                }
-
-                if (status.Entities.Mentions != null)
-                {
-                    foreach (var screename in _screenNames.Where(screename => !_screenNames.Contains(screename, StringComparer.CurrentCultureIgnoreCase)))
-                    {
-                        _screenNames.Add(screename);
-                    }
-                }
             }
 
             if (updated)
@@ -155,11 +140,6 @@ namespace tweetz5.Model
             }
 
             return updated;
-        }
-
-        public IEnumerable<string> ScreenNames
-        {
-            get { return _screenNames; }
         }
 
         private static void PlayNotification()

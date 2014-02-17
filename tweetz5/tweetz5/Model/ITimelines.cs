@@ -23,6 +23,5 @@ namespace tweetz5.Model
         void GetFriendsBlockedRetweets();
         void SignalCancel();
         CancellationToken CancellationToken { get; }
-        IEnumerable<string> ScreenNames { get; }
     }
 }
