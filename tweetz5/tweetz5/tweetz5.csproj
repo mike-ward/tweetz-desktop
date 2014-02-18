@@ -110,6 +110,7 @@
     <Compile Include="Commands\ShowUserInformationCommand.cs" />
     <Compile Include="Commands\SignInCommand.cs" />
     <Compile Include="Commands\SignOutCommand.cs" />
+    <Compile Include="Commands\RestartTimelinesCommand.cs" />
     <Compile Include="Commands\SwitchTimelinesCommand.cs" />
     <Compile Include="Commands\UpdateLayoutCommand.cs" />
     <Compile Include="Commands\UpdateStatusHomeTimelineCommand.cs" />

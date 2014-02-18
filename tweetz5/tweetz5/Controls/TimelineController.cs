@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Windows;
 using tweetz5.Model;
+using Settings = tweetz5.Properties.Settings;
 
 namespace tweetz5.Controls
 {
@@ -20,7 +21,8 @@ namespace tweetz5.Controls
 
         public void StartTimelines()
         {
-            _timers.Add(90, (s, e) =>
+
+            _timers.Add(Settings.Default.UseStreamingApi ? 180 : 70, (s, e) =>
             {
                 try
                 {
@@ -36,7 +38,11 @@ namespace tweetz5.Controls
             });
 
             _timers.Add(30, (s, e) => _timelinesModel.UpdateTimeStamps());
-            TwitterStream.User(_timelinesModel.CancellationToken);
+
+            if (Settings.Default.UseStreamingApi)
+            {
+                TwitterStream.User(_timelinesModel.CancellationToken);
+            }
         }
 
         public void StopTimelines()

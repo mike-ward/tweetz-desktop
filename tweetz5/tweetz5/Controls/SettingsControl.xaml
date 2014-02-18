@@ -54,6 +54,14 @@
       <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_run_on_windows_start}" />
     </StackPanel>
 
+    <StackPanel Orientation="Horizontal"
+                VerticalAlignment="Center">
+      <CheckBox VerticalAlignment="Center"
+                IsChecked="{Binding UseStreamingApi}"
+                Command="{x:Static commands:RestartTimelinesCommand.Command}"/>
+      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_use_streaming_api}" />
+    </StackPanel>
+
     <TextBlock Text="{t:Translate settings_font_size}" Margin="0 10 0 0" />
     <Separator />
     <UniformGrid Style="{StaticResource SettingsUniformGrid}" Columns="4">
@@ -91,7 +99,7 @@
       <Hyperlink Command="commands:OpenLinkCommand.Command"
                  CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink>
     </TextBlock>
-    <TextBlock TextAlignment="Center">Copyright 2013, Mike Ward</TextBlock>
+    <TextBlock TextAlignment="Center">Copyright 2014, Mike Ward</TextBlock>
     <TextBlock TextAlignment="Center" Text="{t:Translate settings_keyboard_help}" />
   </StackPanel>
 </UserControl>

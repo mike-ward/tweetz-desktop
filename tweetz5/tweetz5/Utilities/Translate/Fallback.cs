@@ -69,7 +69,8 @@ namespace tweetz5.Utilities.Translate
             {"settings_run_on_windows_start",   "Run on windows start"},
             {"settings_theme",                  "Theme"},
             {"settings_theme_dark",             "Dark"},
-            {"settings_theme_light",            "Light"}
+            {"settings_theme_light",            "Light"},
+            {"settings_use_streaming_api",      "Use streaming API"} 
         };
     }
 }

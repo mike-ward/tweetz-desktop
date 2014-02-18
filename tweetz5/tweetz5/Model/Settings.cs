@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using tweetz5.Utilities.System;
 
@@ -14,12 +13,10 @@ namespace tweetz5.Model
             get { return Properties.Settings.Default.Chirp; }
             set
             {
-                if (Properties.Settings.Default.Chirp != value)
-                {
-                    Properties.Settings.Default.Chirp = value;
-                    Properties.Settings.Default.Save();
-                    OnPropertyChanged();
-                }
+                if (Properties.Settings.Default.Chirp == value) return;
+                Properties.Settings.Default.Chirp = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
             }
         }
 
@@ -28,12 +25,10 @@ namespace tweetz5.Model
             get { return Properties.Settings.Default.ShowMedia; }
             set
             {
-                if (Properties.Settings.Default.ShowMedia != value)
-                {
-                    Properties.Settings.Default.ShowMedia = value;
-                    Properties.Settings.Default.Save();
-                    OnPropertyChanged();
-                }
+                if (Properties.Settings.Default.ShowMedia == value) return;
+                Properties.Settings.Default.ShowMedia = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
             }
         }
 
@@ -42,12 +37,10 @@ namespace tweetz5.Model
             get { return Properties.Settings.Default.FontSize; }
             set
             {
-                if (Properties.Settings.Default.FontSize != value)
-                {
-                    Properties.Settings.Default.FontSize = value;
-                    Properties.Settings.Default.Save();
-                    OnPropertyChanged();
-                }
+                if (Properties.Settings.Default.FontSize == value) return;
+                Properties.Settings.Default.FontSize = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
             }
         }
 
@@ -56,22 +49,16 @@ namespace tweetz5.Model
             get { return Properties.Settings.Default.SpellCheck; }
             set
             {
-                if (Properties.Settings.Default.SpellCheck != value)
-                {
-                    Properties.Settings.Default.SpellCheck = value;
-                    Properties.Settings.Default.Save();
-                    OnPropertyChanged();
-                }
+                if (Properties.Settings.Default.SpellCheck == value) return;
+                Properties.Settings.Default.SpellCheck = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
             }
         }
 
         public static string Version
         {
-            get
-            {
-                var version = Assembly.GetExecutingAssembly().GetName().Version;
-                return string.Format("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
-            }
+            get { return BuildInfo.Version; }
         }
 
         public bool IsRegisteredInStartup
@@ -79,11 +66,9 @@ namespace tweetz5.Model
             get { return RegistryHelper.IsRegisteredInStartup(); }
             set
             {
-                if (IsRegisteredInStartup != value)
-                {
-                    RegistryHelper.RegisterInStartup(value);
-                    OnPropertyChanged();
-                }
+                if (IsRegisteredInStartup == value) return;
+                RegistryHelper.RegisterInStartup(value);
+                OnPropertyChanged();
             }
         }
 
@@ -92,12 +77,22 @@ namespace tweetz5.Model
             get { return Properties.Settings.Default.Theme; }
             set
             {
-                if (Properties.Settings.Default.Theme != value)
-                {
-                    Properties.Settings.Default.Theme = value;
-                    Properties.Settings.Default.Save();
-                    OnPropertyChanged();
-                }
+                if (Properties.Settings.Default.Theme == value) return;
+                Properties.Settings.Default.Theme = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
+            }
+        }
+
+        public bool UseStreamingApi
+        {
+            get { return Properties.Settings.Default.UseStreamingApi; }
+            set
+            {
+                if (Properties.Settings.Default.UseStreamingApi == value) return;
+                Properties.Settings.Default.UseStreamingApi = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
             }
         }
 

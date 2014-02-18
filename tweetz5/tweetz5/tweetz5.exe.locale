@@ -75,6 +75,7 @@ settings_run_on_windows_start:  Run on windows start
 settings_theme:                 Theme
 settings_theme_dark:            Dark
 settings_theme_light:           Light
+settings_use_streaming_api:     Use streaming API
 
 ==================== German ======================
 
@@ -147,6 +148,7 @@ settings_run_on_windows_start:  Mit Windows starten
 settings_theme:                 Thema
 settings_theme_dark:            Dunkel
 settings_theme_light:           Licht
+settings_use_streaming_api:     Nutzung der Streaming-API
 
 ==================== Swedish ======================
 
@@ -219,3 +221,4 @@ settings_run_on_windows_start:  Starta med Windows
 settings_theme:                 Tema
 settings_theme_dark:            Mörkt
 settings_theme_light:           Ljust
+settings_use_streaming_api:     Använd streaming API

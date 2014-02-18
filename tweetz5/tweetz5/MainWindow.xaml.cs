@@ -62,6 +62,7 @@ namespace tweetz5
             CommandBindings.Add(new CommandBinding(OpenComposeCommand.Command, OpenComposeCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(ShortcutHelpCommand.Command, ShortcutHelpCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(ChirpCommand.Command, ChirpCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(RestartTimelinesCommand.Command, RestartTimelinesCommand.CommandHandler));
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
