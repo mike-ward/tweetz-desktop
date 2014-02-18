@@ -21,7 +21,6 @@ namespace tweetz5.Controls
 
         public void StartTimelines()
         {
-
             _timers.Add(Settings.Default.UseStreamingApi ? 180 : 70, (s, e) =>
             {
                 try
