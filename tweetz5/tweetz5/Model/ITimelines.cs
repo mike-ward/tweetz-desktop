@@ -20,7 +20,6 @@ namespace tweetz5.Model
         void Search(string query);
         void DeleteTweet(Tweet tweet);
         void Retweet(Tweet tweet);
-        void GetFriendsBlockedRetweets();
         void SignalCancel();
         CancellationToken CancellationToken { get; }
     }

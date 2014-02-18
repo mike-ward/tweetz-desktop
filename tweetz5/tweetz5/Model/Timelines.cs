@@ -20,7 +20,6 @@ namespace tweetz5.Model
         private readonly Dictionary<string, Timeline> _timelineMap;
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private ulong[] _friendsBlockedRetweets = new ulong[0];
 
         private Timeline _unified
         {
@@ -107,7 +106,6 @@ namespace tweetz5.Model
             foreach (var status in statuses)
             {
                 var tweet = TweetUtilities.CreateTweet(tweetType, status);
-                if (tweet.IsRetweet && _friendsBlockedRetweets.Contains(tweet.RetweetedByUserId)) continue;
 
                 if (tweetType != "s") // serach results not added to tweet collection
                 {
@@ -334,11 +332,6 @@ namespace tweetz5.Model
                 Twitter.RetweetStatus(tweet.StatusId);
                 tweet.IsRetweet = true;
             }
-        }
-
-        public void GetFriendsBlockedRetweets()
-        {
-            _friendsBlockedRetweets = Twitter.GetFriendsNoRetweets();
         }
 
         public CancellationToken CancellationToken

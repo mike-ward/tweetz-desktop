@@ -133,14 +133,6 @@ namespace tweetz5.Model
             }
         }
 
-        public static ulong[] GetFriendsNoRetweets()
-        {
-            var json = Get("https://api.twitter.com/1.1/friendships/no_retweets/ids.json");
-            var serializer = new JavaScriptSerializer();
-            var ids = serializer.Deserialize<ulong[]>(json);
-            return ids;
-        }
-
         public static string UpdateStatus(string message, string replyToStatusId = null)
         {
             var parameters = string.IsNullOrWhiteSpace(replyToStatusId)

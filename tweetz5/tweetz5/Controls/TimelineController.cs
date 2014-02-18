@@ -20,18 +20,6 @@ namespace tweetz5.Controls
 
         public void StartTimelines()
         {
-            _timers.Add(3600, (s, e) =>
-            {
-                try
-                {
-                    _timelinesModel.GetFriendsBlockedRetweets();
-                }
-                catch (WebException ex)
-                {
-                    Console.WriteLine(ex);
-                }
-            });
-
             _timers.Add(90, (s, e) =>
             {
                 try
