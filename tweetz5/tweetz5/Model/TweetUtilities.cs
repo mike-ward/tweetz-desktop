@@ -27,7 +27,6 @@ namespace tweetz5.Model
                 StatusId = status.Id,
                 Name = displayStatus.User.Name,
                 ScreenName = displayStatus.User.ScreenName,
-                UserId = displayStatus.User.Id,
                 ProfileImageUrl = displayStatus.User.ProfileImageUrl,
                 Text = displayStatus.Text,
                 MarkupNodes = BuildMarkupNodes(displayStatus.Text, displayStatus.Entities),
@@ -37,7 +36,6 @@ namespace tweetz5.Model
                 Favorited = status.Favorited,
                 IsRetweet = status.Retweeted,
                 RetweetedBy = RetweetedBy(status),
-                RetweetedByUserId = (status.RetweetedStatus != null) ? status.RetweetedStatus.User.Id : 0,
                 RetweetStatusId = (status.RetweetedStatus != null) ? status.RetweetedStatus.Id : String.Empty,
                 MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0]
             };
