@@ -107,7 +107,7 @@ namespace tweetz5.Model
             foreach (var status in statuses)
             {
                 var tweet = TweetUtilities.CreateTweet(tweetType, status);
-                if (tweet.IsRetweet && _friendsBlockedRetweets.Contains(tweet.UserId)) continue;
+                if (tweet.IsRetweet && _friendsBlockedRetweets.Contains(tweet.RetweetedByUserId)) continue;
 
                 if (tweetType != "s") // serach results not added to tweet collection
                 {

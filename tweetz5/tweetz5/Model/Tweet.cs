@@ -23,6 +23,7 @@ namespace tweetz5.Model
         public string Name { get; set; }
         public string ScreenName { get; set; }
         public ulong UserId { get; set; }
+        public ulong RetweetedByUserId { get; set; }
         public string ProfileImageUrl { get; set; }
         public string Text { get; set; }
         public MarkupNode[] MarkupNodes { get; set; }

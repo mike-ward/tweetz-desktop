@@ -37,6 +37,7 @@ namespace tweetz5.Model
                 Favorited = status.Favorited,
                 IsRetweet = status.Retweeted,
                 RetweetedBy = RetweetedBy(status),
+                RetweetedByUserId = (status.RetweetedStatus != null) ? status.RetweetedStatus.User.Id : 0,
                 RetweetStatusId = (status.RetweetedStatus != null) ? status.RetweetedStatus.Id : String.Empty,
                 MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0]
             };
