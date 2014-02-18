@@ -39,7 +39,7 @@ namespace tweetz5UnitTests
             friendsBlockedTimelines.Raise(u => u.Elapsed += null, EventArgs.Empty);
 
             checkTimelines.VerifySet(c => c.Interval = 100);
-            checkTimelines.VerifySet(c => c.Interval = 90000);
+            checkTimelines.VerifySet(c => c.Interval = 70000);
             checkTimelines.Verify(c => c.Start());
             timelines.Verify(t => t.HomeTimeline());
             timelines.Verify(t => t.MentionsTimeline());
