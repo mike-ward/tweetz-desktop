@@ -117,7 +117,7 @@ begin
     // .NET 4.5 uses additional value Release
     if check45 then begin
         success := success and RegQueryDWordValue(HKLM, key, 'Release', release);
-        success := success and (release >= 378758);
+        success := success and (release >= 378389);
     end;
 
     result := success and (install = 1) and (serviceCount >= service);
