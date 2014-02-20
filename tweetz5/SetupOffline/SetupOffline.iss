@@ -1,5 +1,5 @@
 #define MyAppName "Tweetz Desktop"
-#define MyAppVersion "0.8.4"
+#define MyAppVersion "0.8.5"
 #define MyAppPublisher "Mike Ward"
 #define MyAppURL "http://mike-ward.net"
 #define MyAppExeName "tweetz5.exe"
@@ -117,7 +117,7 @@ begin
     // .NET 4.5 uses additional value Release
     if check45 then begin
         success := success and RegQueryDWordValue(HKLM, key, 'Release', release);
-        success := success and (release >= 378389);
+        success := success and (release >= 378758);
     end;
 
     result := success and (install = 1) and (serviceCount >= service);
