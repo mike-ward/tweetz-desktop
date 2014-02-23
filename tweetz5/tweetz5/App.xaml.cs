@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using tweetz5.Properties;
+using tweetz5.Utilities.ExceptionHandling;
 using tweetz5.Utilities.Translate;
 
 namespace tweetz5
@@ -8,6 +10,7 @@ namespace tweetz5
     {
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.UnhandledException += (o, args) => new CrashReport((Exception)args.ExceptionObject).ShowDialog();
             TranslationService.Instance.TranslationProvider = new TranslationProviderNameValueFile();
 
             if (Settings.Default.UpgradeSettings)

@@ -46,6 +46,7 @@
     <Prefer32Bit>true</Prefer32Bit>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -150,6 +151,7 @@
     <Compile Include="Model\TweetUtilities.cs" />
     <Compile Include="Model\TwitterError.cs" />
     <Compile Include="Model\TwitterStream.cs" />
+    <Compile Include="Utilities\ExceptionHandling\CrashReport.cs" />
     <Compile Include="Utilities\NotifyPropertyChanged.cs" />
     <Compile Include="Utilities\System\DragAndDrop.cs" />
     <Compile Include="Utilities\System\RegistryHelper.cs" />
