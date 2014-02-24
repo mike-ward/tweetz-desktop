@@ -129,7 +129,7 @@ end;
 function InitializeSetup(): Boolean;
 begin
     if not IsDotNetDetected('v4.5', 0) then begin
-        MsgBox('Tweetz Desktop requires Microsoft .NET 4.5'#13#13
+        MsgBox('Tweetz Desktop requires Microsoft .NET 4.5.1'#13#13
             'Download it at http://smallestdotnet.com'#13
             , mbError, MB_OK);
         result := false;
