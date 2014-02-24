@@ -25,12 +25,13 @@ namespace tweetz5
             }
         }
 
-        private void ShowCrashReport(Exception exception)
+        private static void ShowCrashReport(Exception exception)
         {
-            var reporter = new CrashReport(exception);
-            reporter.ShowDialog();
+            var crashReport = new CrashReport(exception);
+            MessageBox.Show(crashReport.Report);
             Environment.Exit(110);
         }
+
         private void AppSessionEnding(object sender, SessionEndingCancelEventArgs e)
         {
             Settings.Default.Save();
