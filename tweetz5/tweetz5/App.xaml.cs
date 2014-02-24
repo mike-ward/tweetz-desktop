@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using tweetz5.Properties;
 using tweetz5.Utilities.ExceptionHandling;
@@ -10,7 +11,10 @@ namespace tweetz5
     {
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
-            AppDomain.CurrentDomain.UnhandledException += (o, args) => new CrashReport((Exception)args.ExceptionObject).ShowDialog();
+            AppDomain.CurrentDomain.UnhandledException += (o, args) => ShowCrashReport((Exception)args.ExceptionObject);
+            Current.DispatcherUnhandledException += (o, args) => ShowCrashReport(args.Exception);
+            TaskScheduler.UnobservedTaskException += (o, args) => ShowCrashReport(args.Exception);
+
             TranslationService.Instance.TranslationProvider = new TranslationProviderNameValueFile();
 
             if (Settings.Default.UpgradeSettings)
@@ -21,6 +25,12 @@ namespace tweetz5
             }
         }
 
+        private void ShowCrashReport(Exception exception)
+        {
+            var reporter = new CrashReport(exception);
+            reporter.ShowDialog();
+            Environment.Exit(110);
+        }
         private void AppSessionEnding(object sender, SessionEndingCancelEventArgs e)
         {
             Settings.Default.Save();
