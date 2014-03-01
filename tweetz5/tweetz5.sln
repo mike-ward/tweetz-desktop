@@ -19,6 +19,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetupOffline", "SetupOfflin
 		{2A7FFB62-91CD-4498-9F2D-8830B8B597C2} = {2A7FFB62-91CD-4498-9F2D-8830B8B597C2}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FD511632-CC0E-4582-B7A2-A3182F4F9997}"
+	ProjectSection(SolutionItems) = preProject
+		tweetz-package\tools\ChocolateyInstall.ps1 = tweetz-package\tools\ChocolateyInstall.ps1
+		tweetz-package\tweetz.nuspec = tweetz-package\tweetz.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 5
