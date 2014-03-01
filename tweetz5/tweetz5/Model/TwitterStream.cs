@@ -44,9 +44,9 @@ namespace tweetz5.Model
                             while (true)
                             {
                                 var json = stream.ReadLine();
+                                if (json == null) { Debug.WriteLine("{ null }"); break; }
                                 if (cancelationToken.IsCancellationRequested) break;
                                 Debug.WriteLine(string.IsNullOrWhiteSpace(json) ? "{ Blankline }" : json);
-                                if (json == null) continue;
 
                                 var serializer = new JavaScriptSerializer();
                                 var reply = serializer.Deserialize<Dictionary<string, object>>(json);
