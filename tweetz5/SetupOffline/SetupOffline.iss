@@ -1,8 +1,8 @@
 #define MyAppName "Tweetz Desktop"
-#define MyAppVersion "0.8.6"
+#define MyAppVersion "0.8.7"
 #define MyAppPublisher "Mike Ward"
 #define MyAppURL "http://mike-ward.net"
-#define MyAppExeName "tweetz5.exe"
+#define MyAppExeName "tweetz.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -55,8 +55,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "..\tweetz5\bin\Release\tweetz5.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\tweetz5\bin\Release\tweetz5.exe.locale"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\tweetz5\bin\Release\tweetz.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\tweetz5\bin\Release\tweetz.exe.locale"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\tweetz5\bin\Release\tweetz.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Setup\tweetz5\setup\fontawesome-webfont.ttf"; DestDir: "{fonts}"; FontInstall: "FontAwesome"; Flags: onlyifdoesntexist uninsneveruninstall; OnlyBelowVersion: 6.2
 
 [Icons]

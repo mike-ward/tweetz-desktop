@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FD511632-CC0E-4582-B7A2-A3182F4F9997}"
 	ProjectSection(SolutionItems) = preProject
 		tweetz-package\tools\ChocolateyInstall.ps1 = tweetz-package\tools\ChocolateyInstall.ps1
+		tweetz-package\tools\ChocolateyUninstall.ps1 = tweetz-package\tools\ChocolateyUninstall.ps1
 		tweetz-package\tweetz.nuspec = tweetz-package\tweetz.nuspec
 	EndProjectSection
 EndProject

