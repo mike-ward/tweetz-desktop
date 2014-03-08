@@ -103,6 +103,7 @@ namespace tweetz5.Model
         private bool UpdateTimelines(Timeline[] timelines, IEnumerable<Status> statuses, string tweetType)
         {
             var updated = false;
+            var screenName = new OAuth().ScreenName;
             foreach (var status in statuses)
             {
                 var tweet = TweetUtilities.CreateTweet(tweetType, status);
@@ -120,7 +121,16 @@ namespace tweetz5.Model
                         tweet = _tweets[index];
                     }
 
-                    if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
+                    AddTweetType(tweetType, tweet);
+
+                    if (status.Entities != null
+                        && status.Entities.Mentions != null
+                        && status.Entities.Mentions.Any(m => m.ScreenName == screenName))
+                    {
+                        // mentions can appear in the home timeline before the mentions timeline.
+                        // Check so it can be highlighted sooner.
+                        AddTweetType("m", tweet);
+                    }
                 }
 
                 foreach (var timeline in timelines.Where(timeline => timeline.Tweets.IndexOf(tweet) == -1))
@@ -138,6 +148,11 @@ namespace tweetz5.Model
             }
 
             return updated;
+        }
+
+        private static void AddTweetType(string tweetType, Tweet tweet)
+        {
+            if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
         }
 
         private static void PlayNotification()

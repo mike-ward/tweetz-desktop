@@ -15,6 +15,7 @@ namespace tweetz5.Model
         public string AccessTokenSecret { get; private set; }
         public string AccessToken { get; private set; }
         public string ScreenName { get; private set; }
+        public static string TestUserName { private get; set; }
 
         static OAuth()
         {
@@ -27,7 +28,7 @@ namespace tweetz5.Model
         {
             AccessToken = Properties.Settings.Default.AccessToken;
             AccessTokenSecret = Properties.Settings.Default.AccessTokenSecret;
-            ScreenName = Properties.Settings.Default.ScreenName;
+            ScreenName = TestUserName ?? Properties.Settings.Default.ScreenName;
         }
 
         public static string UrlEncode(string value)
