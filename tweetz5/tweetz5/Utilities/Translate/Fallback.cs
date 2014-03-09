@@ -47,6 +47,7 @@ namespace tweetz5.Utilities.Translate
             {"shortcut_help_search",            "Search"},
             {"shortcut_help_go_top",            "Go to Top"},
             {"shortcut_help_go_bottom",         "Go to Bottom"},
+            {"shortcut_help_send_status",       "Send Tweet"},
             {"time_ago_seconds",                "{0}s"},
             {"time_ago_minutes",                "{0}m"},
             {"time_ago_hours",                  "{0}h"},

@@ -49,6 +49,7 @@ shortcut_help_new_status:       New Tweet
 shortcut_help_search:           Search
 shortcut_help_go_top:           Go to Top
 shortcut_help_go_bottom:        Go to Bottom
+shortcut_help_send_status:      Send Tweet
 
 time_ago_seconds:               {0}s
 time_ago_minutes:               {0}m
@@ -123,6 +124,7 @@ shortcut_help_new_status:       Neuer Tweet
 shortcut_help_search:           Suche
 shortcut_help_go_top:           zum Anfang
 shortcut_help_go_bottom:        zum Ende
+shortcut_help_send_status:      Senden Tweet
 
 time_ago_seconds:               {0}s
 time_ago_minutes:               {0}m
@@ -197,6 +199,7 @@ shortcut_help_new_status:       Ny Tweet
 shortcut_help_search:           Sök
 shortcut_help_go_top:           Gå till toppen
 shortcut_help_go_bottom:        Till sista
+shortcut_help_send_status:      Skicka Tweet
 
 time_ago_seconds:               {0}s
 time_ago_minutes:               {0}m
