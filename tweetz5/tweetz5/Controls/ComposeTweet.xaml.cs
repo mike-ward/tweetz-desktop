@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
@@ -17,6 +18,7 @@ namespace tweetz5.Controls
         private bool _directMessage;
         private string _image;
         private IInputElement _previousFocusedElement;
+        private bool _isSending;
 
         public ComposeTweet()
         {
@@ -83,22 +85,26 @@ namespace tweetz5.Controls
             }
         }
 
-        private void OnSend(object sender, RoutedEventArgs e)
+        private async void OnSend(object sender, RoutedEventArgs e)
         {
+            if (_isSending) return;
+            _isSending = true;
             try
             {
-                Send.IsEnabled = false;
+                SendButtonText.Visibility = Visibility.Collapsed;
+                SendButtonProgress.Visibility = Visibility.Visible;
+                var text = TextBox.Text;
                 string json;
 
                 if (_directMessage)
                 {
-                    json = Twitter.SendDirectMessage(TextBox.Text, _inReplyToId);
+                    json = await Task.Run(() => Twitter.SendDirectMessage(text, _inReplyToId));
                 }
                 else
                 {
                     json = string.IsNullOrWhiteSpace(Image)
-                        ? Twitter.UpdateStatus(TextBox.Text, _inReplyToId)
-                        : Twitter.UpdateStatusWithMedia(TextBox.Text, Image);
+                        ? await Task.Run(() => Twitter.UpdateStatus(text, _inReplyToId))
+                        : await Task.Run(() => Twitter.UpdateStatusWithMedia(text, Image));
                 }
 
                 if (json.Contains("id_str"))
@@ -114,7 +120,9 @@ namespace tweetz5.Controls
             }
             finally
             {
-                Send.IsEnabled = true;
+                _isSending = false;
+                SendButtonText.Visibility = Visibility.Visible;
+                SendButtonProgress.Visibility = Visibility.Collapsed;
             }
         }
 

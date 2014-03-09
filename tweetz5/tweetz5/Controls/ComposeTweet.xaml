@@ -55,6 +55,7 @@
         </Button>
         <Button x:Name="Send"
                 Click="OnSend"
+                Width="55"
                 ToolTip="{t:Translate compose_tooltip_send_button}">
           <Button.Style>
             <Style TargetType="Button" BasedOn="{StaticResource ComposeTweetButton}">
@@ -65,7 +66,10 @@
               </Style.Triggers>
             </Style>
           </Button.Style>
-          <Run x:Name="SendButtonText" />
+          <StackPanel>
+            <ProgressBar x:Name="SendButtonProgress"  Width="40" Height="10" IsIndeterminate="True" Visibility="Collapsed" />
+            <TextBlock x:Name="SendButtonText" TextAlignment="Center" />
+          </StackPanel>
         </Button>
       </StackPanel>
     </DockPanel>
