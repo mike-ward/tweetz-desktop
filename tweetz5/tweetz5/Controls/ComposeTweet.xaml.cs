@@ -163,6 +163,11 @@ namespace tweetz5.Controls
                 Hide();
                 e.Handled = true;
             }
+            if (e.Key == Key.Return && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+            {
+                OnSend(this, null);
+                e.Handled = true;
+            }
         }
     }
 }

@@ -54,7 +54,8 @@
                Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE167;', Mode=OneWay}"/>
         </Button>
         <Button x:Name="Send"
-                Click="OnSend">
+                Click="OnSend"
+                ToolTip="{t:Translate compose_tooltip_send_button}">
           <Button.Style>
             <Style TargetType="Button" BasedOn="{StaticResource ComposeTweetButton}">
               <Style.Triggers>

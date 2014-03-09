@@ -29,6 +29,7 @@ namespace tweetz5.Utilities.Translate
             {"compose_send_button_message",     "Send"},
             {"compose_tooltip_photo",           "Include Photo (Drag and Drop supported)"},
             {"compose_tooltip_shorten_links",   "Shorten links"},
+            {"compose_tooltip_send_button",     "Ctrl+Enter"},
             {"status_reply",                    "Reply"},
             {"status_retweet",                  "Retweet"},
             {"status_favorite",                 "Favorite"},

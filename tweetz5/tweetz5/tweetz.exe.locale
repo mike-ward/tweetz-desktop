@@ -29,6 +29,7 @@ compose_send_button_tweet:      Tweet
 compose_send_button_message:    Send
 compose_tooltip_photo:          Include Photo (Drag and Drop supported)
 compose_tooltip_shorten_links:  Shorten links 
+compose_tooltip_send_button:    Ctrl+Enter
                                   
 status_reply:                   Reply
 status_retweet:                 Retweet
@@ -101,7 +102,8 @@ compose_title_shorten_error:    Fehler beim Link kürzen
 compose_send_button_tweet:      Senden
 compose_send_button_message:    Senden
 compose_tooltip_photo:          Foto einfügen (Drag&Drop verfügbar)
-compose_tooltip_shorten_links:  Links kürzen 
+compose_tooltip_shorten_links:  Links kürzen
+compose_tooltip_send_button:    Ctrl+Enter 
                                     
 status_reply:                   Antworten
 status_retweet:                 Retweeten
@@ -175,6 +177,7 @@ compose_send_button_tweet:      Skriv
 compose_send_button_message:    Skicka
 compose_tooltip_photo:          Inkludera bild (dra och släpp stöds)
 compose_tooltip_shorten_links:  Förkortning av länk 
+compose_tooltip_send_button:    Ctrl+Enter
                                     
 status_reply:                   Svara
 status_retweet:                 Retweeta
