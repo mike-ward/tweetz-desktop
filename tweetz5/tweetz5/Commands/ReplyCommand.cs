@@ -19,7 +19,7 @@ namespace tweetz5.Commands
             if (tweet == null) return;
             if (tweet.IsDirectMesssage)
             {
-                mainWindow.Compose.ShowDirectMessage(tweet.Name);
+                mainWindow.Compose.ShowDirectMessage(tweet.ScreenName);
             }
             else
             {

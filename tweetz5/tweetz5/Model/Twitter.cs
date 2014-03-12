@@ -239,7 +239,7 @@ namespace tweetz5.Model
             });
         }
 
-        public static string SendDirectMessage(string screenName, string text)
+        public static string SendDirectMessage(string text, string screenName)
         {
             return PostHandler(() =>
             {

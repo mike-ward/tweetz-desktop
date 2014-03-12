@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,7 @@ namespace tweetz5.Controls
     {
         private string _inReplyToId;
         private bool _directMessage;
+        private string _directMessageRecipient;
         private string _image;
         private IInputElement _previousFocusedElement;
         private bool _isSending;
@@ -44,6 +46,7 @@ namespace tweetz5.Controls
             ComposeTitle.Text = TranslationService.Instance.Translate("compose_title_tweet") as string;
             TextBox.Text = message;
             _directMessage = false;
+            _directMessageRecipient = null;
             _inReplyToId = inReplyToId;
             SendButtonText.Text = TranslationService.Instance.Translate("compose_send_button_tweet") as string;
             Image = null;
@@ -51,12 +54,13 @@ namespace tweetz5.Controls
             Visibility = Visibility.Visible;
         }
 
-        public void ShowDirectMessage(string name)
+        public void ShowDirectMessage(string screenName)
         {
             _previousFocusedElement = Keyboard.FocusedElement;
-            ComposeTitle.Text = name;
+            ComposeTitle.Text = "@" + screenName;
             TextBox.Text = string.Empty;
             _directMessage = true;
+            _directMessageRecipient = screenName;
             _inReplyToId = null;
             SendButtonText.Text = TranslationService.Instance.Translate("compose_send_button_message") as string;
             Image = null;
@@ -98,7 +102,7 @@ namespace tweetz5.Controls
 
                 if (_directMessage)
                 {
-                    json = await Task.Run(() => Twitter.SendDirectMessage(text, _inReplyToId));
+                    json = await Task.Run(() => Twitter.SendDirectMessage(text, _directMessageRecipient));
                 }
                 else
                 {
@@ -114,9 +118,10 @@ namespace tweetz5.Controls
                     UpdateStatusHomeTimelineCommand.Command.Execute(status, this);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ComposeTitle.Text = TranslationService.Instance.Translate("compose_title_general_error") as string;
+                Debug.WriteLine(ex);
             }
             finally
             {

@@ -8,7 +8,7 @@ namespace tweetz5.Model
 {
     public static class TweetUtilities
     {
-        public static Tweet CreateTweet(string tweetType, Status status)
+        public static Tweet CreateTweet(this Status status, string tweetType)
         {
             var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
                 CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
@@ -19,6 +19,7 @@ namespace tweetz5.Model
             if (displayStatus.User == null)
             {
                 var screenName = new OAuth().ScreenName;
+                if (tweetType.Contains("d") == false) tweetType += "d";
                 displayStatus.User = (status.Recipient.ScreenName == screenName) ? status.Sender : status.Recipient;
             }
 
@@ -53,7 +54,7 @@ namespace tweetz5.Model
             return String.Empty;
         }
 
-        public class MarkupItem
+        private class MarkupItem
         {
             public string NodeType { get; set; }
             public string Text { get; set; }
@@ -61,7 +62,7 @@ namespace tweetz5.Model
             public int End { get; set; }
         }
 
-        public static MarkupNode[] BuildMarkupNodes(string text, Entities entities)
+        private static MarkupNode[] BuildMarkupNodes(string text, Entities entities)
         {
             var markupItems = new List<MarkupItem>();
 
@@ -122,7 +123,7 @@ namespace tweetz5.Model
             return nodes.ToArray();
         }
 
-        public static string TimeAgo(DateTime time)
+        public static string TimeAgo(this DateTime time)
         {
             var timespan = DateTime.UtcNow - time;
             Func<string, double, string> format = (s, t) => String.Format((string)TranslationService.Instance.Translate(s), (int)t);
@@ -131,6 +132,11 @@ namespace tweetz5.Model
             if (timespan.TotalHours < 24) return format("time_ago_hours", timespan.TotalHours);
             if (timespan.TotalDays < 3) return format("time_ago_days", timespan.TotalDays);
             return time.ToString((string)TranslationService.Instance.Translate("time_ago_date"));
+        }
+
+        public static void AddTweetType(this Tweet tweet, string tweetType)
+        {
+            if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
         }
     }
 }
