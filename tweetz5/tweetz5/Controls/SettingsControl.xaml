@@ -100,6 +100,6 @@
                  CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink>
     </TextBlock>
     <TextBlock TextAlignment="Center">Copyright 2014, Mike Ward</TextBlock>
-    <TextBlock TextAlignment="Center" Text="{t:Translate settings_keyboard_help}" />
+    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="{t:Translate settings_keyboard_help}" />
   </StackPanel>
 </UserControl>

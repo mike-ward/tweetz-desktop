@@ -3,7 +3,7 @@
   <metadata>
     <id>tweetz</id>
     <title>Tweetz</title>
-    <version>0.8.9</version>
+    <version>0.8.10</version>
     <authors>Mike Ward</authors>
     <owners>Mike Ward</owners>
     <summary>Gadget-like Windows Desktop Twitter Client</summary>
@@ -13,6 +13,7 @@
     <licenseUrl>http://www.gnu.org/licenses/gpl-3.0.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>http://chocolatey.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <releaseNotes>Update German translation</releaseNotes>
     <dependencies>
       <dependency id="DotNet4.5.1" />
     </dependencies>

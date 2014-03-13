@@ -147,11 +147,11 @@ settings_show_media:            Zeige Medien im tweet
 settings_spell_check:           Rechtschreibprüfung
 settings_font_size:             Schriftgröße
 settings_sign_out:              Abmelden
-settings_keyboard_help:         \nDrücke [?] zum Anzeigen der\nTastaturkurzbefehle
+settings_keyboard_help:         Drücke [?] zum Anzeigen der Tastaturbefehle
 settings_run_on_windows_start:  Mit Windows starten
 settings_theme:                 Thema
 settings_theme_dark:            Dunkel
-settings_theme_light:           Licht
+settings_theme_light:           Hell
 settings_use_streaming_api:     Nutzung der Streaming-API
 
 ==================== Swedish ======================
