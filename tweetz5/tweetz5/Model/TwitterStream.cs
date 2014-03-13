@@ -24,7 +24,7 @@ namespace tweetz5.Model
                     delay.Wait(cancelationToken);
                     if (delay.IsCanceled || delay.IsFaulted) break;
 
-                    Debug.WriteLine("{ Start Twitter User Stream }");
+                    Trace.TraceInformation("{ Start Twitter User Stream }");
                     const string url = "https://userstream.twitter.com/1.1/user.json";
                     var oauth = new OAuth();
                     var nonce = OAuth.Nonce();
@@ -38,24 +38,30 @@ namespace tweetz5.Model
                     try
                     {
                         using (var response = request.GetResponse())
-                        using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                         {
-                            stream.BaseStream.ReadTimeout = 60*1000;
-                            while (true)
+                            using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                             {
-                                var json = stream.ReadLine();
-                                if (json == null) { Debug.WriteLine("{ null }"); break; }
-                                if (cancelationToken.IsCancellationRequested) break;
-                                Debug.WriteLine(string.IsNullOrWhiteSpace(json) ? "{ Blankline }" : json);
-
-                                var serializer = new JavaScriptSerializer();
-                                var reply = serializer.Deserialize<Dictionary<string, object>>(json);
-                                if (reply != null && reply.ContainsKey("user"))
+                                stream.BaseStream.ReadTimeout = 60*1000;
+                                while (true)
                                 {
-                                    Debug.WriteLine("{ tweet identified }");
-                                    var statuses = Status.ParseJson("[" + json + "]");
-                                    Application.Current.Dispatcher.InvokeAsync
-                                        (() => UpdateStatusHomeTimelineCommand.Command.Execute(statuses, Application.Current.MainWindow));
+                                    var json = stream.ReadLine();
+                                    if (json == null)
+                                    {
+                                        Trace.TraceInformation("{ null }");
+                                        break;
+                                    }
+                                    if (cancelationToken.IsCancellationRequested) break;
+                                    Trace.TraceInformation(string.IsNullOrWhiteSpace(json) ? "{ Blankline }" : json);
+
+                                    var serializer = new JavaScriptSerializer();
+                                    var reply = serializer.Deserialize<Dictionary<string, object>>(json);
+                                    if (reply != null && reply.ContainsKey("user"))
+                                    {
+                                        Trace.TraceInformation("{ tweet identified }");
+                                        var statuses = Status.ParseJson("[" + json + "]");
+                                        Application.Current.Dispatcher.InvokeAsync
+                                            (() => UpdateStatusHomeTimelineCommand.Command.Execute(statuses, Application.Current.MainWindow));
+                                    }
                                 }
                             }
                         }
@@ -63,26 +69,26 @@ namespace tweetz5.Model
 
                     catch (WebException ex)
                     {
-                        Debug.WriteLine(ex);
+                        Trace.TraceError(ex.ToString());
                     }
 
                     catch (ArgumentNullException ex)
                     {
-                        Debug.WriteLine(ex);
+                        Trace.TraceError(ex.ToString());
                     }
 
                     catch (ArgumentException ex)
                     {
-                        Debug.WriteLine(ex);
+                        Trace.TraceError(ex.ToString());
                     }
 
                     catch (InvalidOperationException ex)
                     {
-                        Debug.WriteLine(ex);
+                        Trace.TraceError(ex.ToString());
                     }
                 }
 
-                Debug.WriteLine("{ Stream task ends }");
+                Trace.TraceInformation("{ Stream task ends }");
             }, cancelationToken);
         }
     }

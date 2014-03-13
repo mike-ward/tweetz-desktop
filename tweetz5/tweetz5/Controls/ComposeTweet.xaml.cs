@@ -121,7 +121,7 @@ namespace tweetz5.Controls
             catch (Exception ex)
             {
                 ComposeTitle.Text = TranslationService.Instance.Translate("compose_title_general_error") as string;
-                Debug.WriteLine(ex);
+                Trace.TraceError(ex.ToString());
             }
             finally
             {

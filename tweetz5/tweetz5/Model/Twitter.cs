@@ -49,7 +49,7 @@ namespace tweetz5.Model
 
             if (post)
             {
-                Debug.WriteLine(string.Join("&", parameterStrings));
+                Trace.TraceInformation(string.Join("&", parameterStrings));
                 request.ContentType = "application/x-www-form-urlencoded";
                 if (parameters != null)
                 {
