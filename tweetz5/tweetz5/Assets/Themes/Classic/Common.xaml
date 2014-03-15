@@ -236,6 +236,18 @@
             Value="{DynamicResource AppFontSizeMinus1}" />
     <Setter Property="TextDecorations"
             Value="{x:Null}" />
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="Foreground"
+                Value="{DynamicResource AppForegroundBrush}" />
+      </Trigger>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="TextDecorations"
+                Value="Underline" />
+      </Trigger>
+    </Style.Triggers>
   </Style>
 
   <Style x:Key="TweetStyle"
@@ -286,6 +298,11 @@
                Value="True">
         <Setter Property="Foreground"
                 Value="{DynamicResource AppForegroundBrush}" />
+      </Trigger>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="TextDecorations"
+                Value="Underline" />
       </Trigger>
     </Style.Triggers>
   </Style>
@@ -353,18 +370,39 @@
             Value="{DynamicResource HyperLinkBrush}" />
     <Setter Property="TextDecorations"
             Value="{x:Null}" />
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="TextDecorations"
+                Value="Underline" />
+      </Trigger>
+    </Style.Triggers>
   </Style>
 
   <Style x:Key="TweetMention"
          TargetType="Span">
     <Setter Property="Foreground"
             Value="{DynamicResource HyperLinkBrush}" />
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="TextDecorations"
+                Value="Underline" />
+      </Trigger>
+    </Style.Triggers>
   </Style>
 
   <Style x:Key="TweetHashtag"
          TargetType="Span">
     <Setter Property="Foreground"
             Value="{DynamicResource HyperLinkBrush}" />
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="TextDecorations"
+                Value="Underline" />
+      </Trigger>
+    </Style.Triggers>
   </Style>
 
   <Style x:Key="TweetMediaStyle"
