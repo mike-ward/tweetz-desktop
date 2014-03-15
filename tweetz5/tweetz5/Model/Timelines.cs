@@ -94,10 +94,7 @@ namespace tweetz5.Model
 
         public void ClearAllTimelines()
         {
-            foreach (var timeline in _timelineMap)
-            {
-                timeline.Value.Clear();
-            }
+            foreach (var timeline in _timelineMap) timeline.Value.Clear();
         }
 
         private bool UpdateTimelines(Timeline[] timelines, IEnumerable<Status> statuses, string tweetType)
@@ -116,10 +113,7 @@ namespace tweetz5.Model
                         _tweets.Add(tweet);
                         updated = true;
                     }
-                    else
-                    {
-                        tweet = _tweets[index];
-                    }
+                    else tweet = _tweets[index];
 
                     tweet.AddTweetType(tweetType);
 
@@ -132,35 +126,20 @@ namespace tweetz5.Model
                         tweet.AddTweetType("m");
                     }
 
-                    if (status.Sender != null)
-                    {
-                        tweet.AddTweetType("d");
-                    }
+                    if (status.Sender != null) tweet.AddTweetType("d");
                 }
 
-                foreach (var timeline in timelines.Where(timeline => timeline.Tweets.IndexOf(tweet) == -1))
-                {
-                    timeline.Tweets.Add(tweet);
-                }
+                foreach (var timeline in timelines.Where(timeline => timeline.Tweets.IndexOf(tweet) == -1)) timeline.Tweets.Add(tweet);
             }
 
-            if (updated)
-            {
-                foreach (var timeline in timelines)
-                {
-                    SortTweetCollection(timeline.Tweets);
-                }
-            }
+            if (updated) foreach (var timeline in timelines) SortTweetCollection(timeline.Tweets);
 
             return updated;
         }
 
         private static void PlayNotification()
         {
-            if (Application.Current != null)
-            {
-                ChirpCommand.Command.Execute(string.Empty, Application.Current.MainWindow);
-            }
+            if (Application.Current != null) ChirpCommand.Command.Execute(string.Empty, Application.Current.MainWindow);
         }
 
         private void DispatchInvoker(Action callback)
@@ -182,10 +161,7 @@ namespace tweetz5.Model
 
         private void RemoveStatus(Tweet tweet)
         {
-            foreach (var timeline in _timelineMap.Values)
-            {
-                timeline.Tweets.Remove(tweet);
-            }
+            foreach (var timeline in _timelineMap.Values) timeline.Tweets.Remove(tweet);
         }
 
         private static ulong MaxSinceId(ulong currentSinceId, ICollection<Status> statuses)
@@ -207,10 +183,7 @@ namespace tweetz5.Model
             DispatchInvoker(() =>
             {
                 var timelines = timelineNames.Select(timeline => _timelineMap[timeline]).ToArray();
-                if (UpdateTimelines(timelines, statuses, tweetType))
-                {
-                    if (timelineNames.Contains(HomeName)) PlayNotification();
-                }
+                if (UpdateTimelines(timelines, statuses, tweetType)) if (timelineNames.Contains(HomeName)) PlayNotification();
             });
         }
 
@@ -221,10 +194,7 @@ namespace tweetz5.Model
             DispatchInvoker(() =>
             {
                 if (UpdateTimelines(new[] {_mentions, _unified}, statuses, "m")) PlayNotification();
-                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId)))
-                {
-                    tweet.AddTweetType("m");
-                }
+                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId))) tweet.AddTweetType("m");
             });
         }
 
@@ -235,24 +205,20 @@ namespace tweetz5.Model
             DispatchInvoker(() =>
             {
                 UpdateTimelines(new[] {_favorites}, statuses, "f");
-                foreach (var tweet in _home.Tweets.Where(t => statuses.Any(s => s.Id == t.StatusId || s.Id == t.RetweetStatusId)))
-                {
-                    tweet.Favorited = true;
-                }
+                foreach (var tweet in _home.Tweets.Where(t => statuses.Any(s => s.Id == t.StatusId || s.Id == t.RetweetStatusId))) tweet.Favorited = true;
             });
         }
 
         public void DirectMessagesTimeline()
         {
-            var statuses = Twitter.DirectMessagesTimeline(_directMessages.SinceId);
+            var statuses = Twitter.DirectMessagesTimeline(_directMessages.SinceId)
+                .Concat(Twitter.DirectMessagesSentTimeline(_directMessages.SinceId))
+                .ToArray();
             _directMessages.SinceId = MaxSinceId(_favorites.SinceId, statuses);
             DispatchInvoker(() =>
             {
                 if (UpdateTimelines(new[] {_directMessages, _unified}, statuses, "d")) PlayNotification();
-                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId)))
-                {
-                    tweet.AddTweetType("d");
-                }
+                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId))) tweet.AddTweetType("d");
             });
         }
 
@@ -261,10 +227,7 @@ namespace tweetz5.Model
             DispatchInvoker(() =>
             {
                 if (Timeline == null) return;
-                foreach (var tweet in Timeline)
-                {
-                    tweet.TimeAgo = tweet.CreatedAt.TimeAgo();
-                }
+                foreach (var tweet in Timeline) tweet.TimeAgo = tweet.CreatedAt.TimeAgo();
             });
         }
 

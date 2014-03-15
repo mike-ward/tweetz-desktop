@@ -11,18 +11,10 @@ using System.Web.Script.Serialization;
 using System.Windows;
 using tweetz5.Commands;
 
-// ReSharper disable PossibleMultipleEnumeration
-// ReSharper disable AssignNullToNotNullAttribute
-
 namespace tweetz5.Model
 {
     public class Twitter
     {
-        private static string Get(string url)
-        {
-            return Get(url, Enumerable.Empty<string[]>());
-        }
-
         private static string Get(string url, IEnumerable<string[]> parameters)
         {
             return WebRequest(url, parameters);
@@ -101,6 +93,16 @@ namespace tweetz5.Model
                 new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
             return GetTimeline("https://api.twitter.com/1.1/direct_messages.json", parameters);
+        }
+
+        public static Status[] DirectMessagesSentTimeline(ulong sinceId)
+        {
+            var parameters = new[]
+            {
+                new[] {"include_entities", "true"},
+                new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
+            };
+            return GetTimeline("https://api.twitter.com/1.1/direct_messages/sent.json", parameters);
         }
 
         public static Status[] FavoritesTimeline(ulong sinceId)
