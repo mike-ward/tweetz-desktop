@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:utilities="clr-namespace:tweetz5.Utilities"
+                    xmlns:model="clr-namespace:tweetz5.Model"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
   <utilities:StringContainsConverter x:Key="StringContainsConverter" />
@@ -162,13 +163,13 @@
             <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
           </Border>
           <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=m}"
+            <DataTrigger Binding="{Binding TweetTypes, Converter={StaticResource StringContainsConverter}, ConverterParameter={x:Static model:TweetClassification.Mention}}"
                          Value="True">
               <Setter TargetName="Border"
                       Property="Background"
                       Value="{DynamicResource TweetMentionBackgroundBrush}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding TweetType, Converter={StaticResource StringContainsConverter}, ConverterParameter=d}"
+            <DataTrigger Binding="{Binding TweetTypes, Converter={StaticResource StringContainsConverter}, ConverterParameter={x:Static model:TweetClassification.DirectMessage}}"
                          Value="True">
               <Setter TargetName="Border"
                       Property="Background"

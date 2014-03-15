@@ -93,7 +93,7 @@ namespace tweetz5UnitTests.Model
                 mockWebRequest.VerifyAll();
                 mockWebResponse.Verify();
                 timelines.Timeline.Count.Should().Be(1);
-                timelines.Timeline[0].TweetType.Should().Contain("m");
+                timelines.Timeline[0].TweetTypes.Should().Contain("m");
             }
             finally
             {

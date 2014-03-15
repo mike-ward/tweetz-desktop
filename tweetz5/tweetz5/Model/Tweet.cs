@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
@@ -10,11 +11,19 @@ using tweetz5.Utilities;
 
 namespace tweetz5.Model
 {
+    public static class TweetClassification
+    {
+        public const string Mention = "m";
+        public const string DirectMessage = "d";
+        public const string Search = "s";
+        public const string Favorite = "f";
+    }
+
     public sealed class Tweet : NotifyPropertyChanged, IEquatable<Tweet>
     {
         private bool _favorited;
         private string _timeAgo;
-        private string _tweetType;
+        private string _tweetTypes;
         private string _retweetedBy;
         private bool _retweet;
 
@@ -40,10 +49,10 @@ namespace tweetz5.Model
             set { SetProperty(ref _retweetedBy, value); }
         }
 
-        public string TweetType
+        public string TweetTypes
         {
-            get { return _tweetType; }
-            set { SetProperty(ref _tweetType, value); }
+            get { return _tweetTypes; }
+            set { SetProperty(ref _tweetTypes, value); }
         }
 
         public string TimeAgo
@@ -70,7 +79,13 @@ namespace tweetz5.Model
 
         public bool IsDirectMesssage
         {
-            get { return TweetType.Contains("d"); }
+            get { return TweetTypes.Contains(TweetClassification.DirectMessage); }
+        }
+
+        public void AddTweetTypes(string tweetTypes)
+        {
+            //foreach (var tt in tweetType.Where(c => _tweetTypes.IndexOf(c) == -1)) _tweetTypes += tt;
+            _tweetTypes += tweetTypes;
         }
 
         public bool Equals(Tweet other)

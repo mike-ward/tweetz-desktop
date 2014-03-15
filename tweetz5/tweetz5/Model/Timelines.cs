@@ -100,12 +100,10 @@ namespace tweetz5.Model
         private bool UpdateTimelines(Timeline[] timelines, IEnumerable<Status> statuses, string tweetType)
         {
             var updated = false;
-            var screenName = new OAuth().ScreenName;
             foreach (var status in statuses)
             {
                 var tweet = status.CreateTweet(tweetType);
-
-                if (tweetType != "s") // serach results not added to tweet collection
+                if (tweetType != TweetClassification.Search)
                 {
                     var index = _tweets.IndexOf(tweet);
                     if (index == -1)
@@ -113,27 +111,16 @@ namespace tweetz5.Model
                         _tweets.Add(tweet);
                         updated = true;
                     }
-                    else tweet = _tweets[index];
-
-                    tweet.AddTweetType(tweetType);
-
-                    if (status.Entities != null
-                        && status.Entities.Mentions != null
-                        && status.Entities.Mentions.Any(m => m.ScreenName == screenName))
+                    else
                     {
-                        // mentions can appear in the home timeline before the mentions timeline.
-                        // Check so it can be highlighted sooner.
-                        tweet.AddTweetType("m");
+                        var tweetTypes = tweet.TweetTypes;
+                        tweet = _tweets[index];
+                        tweet.AddTweetTypes(tweetTypes);
                     }
-
-                    if (status.Sender != null) tweet.AddTweetType("d");
                 }
-
                 foreach (var timeline in timelines.Where(timeline => timeline.Tweets.IndexOf(tweet) == -1)) timeline.Tweets.Add(tweet);
             }
-
             if (updated) foreach (var timeline in timelines) SortTweetCollection(timeline.Tweets);
-
             return updated;
         }
 
@@ -194,7 +181,7 @@ namespace tweetz5.Model
             DispatchInvoker(() =>
             {
                 if (UpdateTimelines(new[] {_mentions, _unified}, statuses, "m")) PlayNotification();
-                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId))) tweet.AddTweetType("m");
+                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId))) tweet.AddTweetTypes(TweetClassification.Mention);
             });
         }
 
@@ -218,7 +205,7 @@ namespace tweetz5.Model
             DispatchInvoker(() =>
             {
                 if (UpdateTimelines(new[] {_directMessages, _unified}, statuses, "d")) PlayNotification();
-                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId))) tweet.AddTweetType("d");
+                foreach (var tweet in _unified.Tweets.Where(h => statuses.Any(s => s.Id == h.StatusId))) tweet.AddTweetTypes(TweetClassification.DirectMessage);
             });
         }
 
@@ -239,12 +226,12 @@ namespace tweetz5.Model
             var index = _tweets.IndexOf(tweet);
             if (index == -1)
             {
-                tweet.AddTweetType("f");
+                tweet.AddTweetTypes(TweetClassification.Favorite);
                 _tweets.Add(tweet);
             }
             else
             {
-                _tweets[index].AddTweetType("f");
+                _tweets[index].AddTweetTypes(TweetClassification.Favorite);
                 _tweets[index].Favorited = true;
             }
             if (_favorites.Tweets.Contains(tweet) == false)
@@ -261,7 +248,7 @@ namespace tweetz5.Model
             var index = _tweets.IndexOf(tweet);
             var t = _tweets[index];
             t.Favorited = false;
-            t.TweetType = t.TweetType.Replace("f", "");
+            t.TweetTypes = t.TweetTypes.Replace(TweetClassification.Favorite, "");
             _favorites.Tweets.Remove(t);
         }
 

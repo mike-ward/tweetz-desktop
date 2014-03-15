@@ -13,14 +13,22 @@ namespace tweetz5.Model
             var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
                 CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
+            var screenName = new OAuth().ScreenName;
+            var additionalTweetTypes = string.Empty;
             var displayStatus = status.RetweetedStatus ?? status;
 
             // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
             if (displayStatus.User == null)
             {
-                var screenName = new OAuth().ScreenName;
-                if (tweetType.Contains("d") == false) tweetType += "d";
+                additionalTweetTypes += TweetClassification.DirectMessage;
                 displayStatus.User = (status.Recipient.ScreenName == screenName) ? status.Sender : status.Recipient;
+            }
+
+            if (status.Entities != null
+                && status.Entities.Mentions != null
+                && status.Entities.Mentions.Any(m => m.ScreenName == screenName))
+            {
+                additionalTweetTypes += TweetClassification.Mention;
             }
 
             var tweet = new Tweet
@@ -33,7 +41,7 @@ namespace tweetz5.Model
                 MarkupNodes = BuildMarkupNodes(displayStatus.Text, displayStatus.Entities),
                 CreatedAt = createdAt,
                 TimeAgo = TimeAgo(createdAt),
-                TweetType = tweetType,
+                TweetTypes = tweetType,
                 Favorited = status.Favorited,
                 IsRetweet = status.Retweeted,
                 RetweetedBy = RetweetedBy(status),
@@ -41,6 +49,7 @@ namespace tweetz5.Model
                 MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0]
             };
 
+            tweet.AddTweetTypes(additionalTweetTypes);
             return tweet;
         }
 
@@ -132,11 +141,6 @@ namespace tweetz5.Model
             if (timespan.TotalHours < 24) return format("time_ago_hours", timespan.TotalHours);
             if (timespan.TotalDays < 3) return format("time_ago_days", timespan.TotalDays);
             return time.ToString((string)TranslationService.Instance.Translate("time_ago_date"));
-        }
-
-        public static void AddTweetType(this Tweet tweet, string tweetType)
-        {
-            if (tweet.TweetType.Contains(tweetType) == false) tweet.TweetType += tweetType;
         }
     }
 }
