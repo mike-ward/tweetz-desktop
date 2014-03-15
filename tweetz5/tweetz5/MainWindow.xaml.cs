@@ -20,8 +20,10 @@ namespace tweetz5
             Loaded += (sender, args) =>
             {
                 ApplyCommandBindings();
+                SizeChanged += OnSizeChanged;
                 Drop += DragAndDrop.OnDrop;
                 DragOver += DragAndDrop.OnDragOver;
+                MouseLeftButtonDown += DragMoveWindow;
                 ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
 
