@@ -84,7 +84,7 @@ namespace tweetz5.Model
 
         public void AddTweetTypes(string tweetTypes)
         {
-            foreach (var tt in tweetTypes.Where(c => _tweetTypes.IndexOf(c) == -1)) _tweetTypes += tt;
+            foreach (var tt in tweetTypes.Where(c => TweetTypes.IndexOf(c) == -1)) TweetTypes += tt;
         }
 
         public bool Equals(Tweet other)
