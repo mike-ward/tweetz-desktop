@@ -10,26 +10,26 @@ namespace tweetz5.Model
     {
         public static Tweet CreateTweet(this Status status, string tweetType)
         {
-            var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
-                CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
-
-            var screenName = new OAuth().ScreenName;
-            var additionalTweetTypes = string.Empty;
+            var tweetTypes = tweetType;
+            var username = new OAuth().ScreenName;
             var displayStatus = status.RetweetedStatus ?? status;
 
             // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
             if (displayStatus.User == null)
             {
-                additionalTweetTypes += TweetClassification.DirectMessage;
-                displayStatus.User = (status.Recipient.ScreenName == screenName) ? status.Sender : status.Recipient;
+                tweetTypes += TweetClassification.DirectMessage;
+                displayStatus.User = (status.Recipient.ScreenName == username) ? status.Sender : status.Recipient;
             }
 
             if (status.Entities != null
                 && status.Entities.Mentions != null
-                && status.Entities.Mentions.Any(m => m.ScreenName == screenName))
+                && status.Entities.Mentions.Any(m => m.ScreenName == username))
             {
-                additionalTweetTypes += TweetClassification.Mention;
+                tweetTypes += TweetClassification.Mention;
             }
+
+            var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
+                CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
             var tweet = new Tweet
             {
@@ -41,26 +41,25 @@ namespace tweetz5.Model
                 MarkupNodes = BuildMarkupNodes(displayStatus.Text, displayStatus.Entities),
                 CreatedAt = createdAt,
                 TimeAgo = TimeAgo(createdAt),
-                TweetTypes = tweetType,
+                TweetTypes = tweetTypes,
                 Favorited = status.Favorited,
                 IsRetweet = status.Retweeted,
-                RetweetedBy = RetweetedBy(status),
+                RetweetedBy = RetweetedBy(status, username),
                 RetweetStatusId = (status.RetweetedStatus != null) ? status.RetweetedStatus.Id : String.Empty,
-                MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0]
+                MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0],
+                IsMyTweet = displayStatus.User.ScreenName == username
             };
 
-            tweet.AddTweetTypes(additionalTweetTypes);
             return tweet;
         }
 
-        private static string RetweetedBy(Status status)
+        private static string RetweetedBy(Status status, string username)
         {
             if (status.RetweetedStatus != null)
             {
-                var oauth = new OAuth();
-                return oauth.ScreenName != status.User.ScreenName ? status.User.Name : String.Empty;
+                return username != status.User.ScreenName ? status.User.Name : string.Empty;
             }
-            return String.Empty;
+            return string.Empty;
         }
 
         private class MarkupItem
