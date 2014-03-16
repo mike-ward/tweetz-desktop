@@ -13,6 +13,7 @@ namespace tweetz5.Model
 {
     public static class TweetClassification
     {
+        public const string Home = "h";
         public const string Mention = "m";
         public const string DirectMessage = "d";
         public const string Search = "s";

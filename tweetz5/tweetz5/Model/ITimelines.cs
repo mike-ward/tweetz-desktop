@@ -12,8 +12,8 @@ namespace tweetz5.Model
         void DirectMessagesTimeline();
         void FavoritesTimeline();
         void UpdateTimeStamps();
-        void UpdateStatus(string[] timelines, IEnumerable<Status> statuses, string tweetType);
-        void SwitchTimeline(string timelineName);
+        void UpdateStatus(IEnumerable<Status> statuses, string tweetType);
+        void SwitchTimeline(string name);
         void ClearAllTimelines();
         void AddFavorite(Tweet tweet);
         void RemoveFavorite(Tweet tweet);

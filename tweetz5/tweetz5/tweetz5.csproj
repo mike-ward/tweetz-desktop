@@ -146,7 +146,6 @@
     <Compile Include="Model\LongUrl.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\ShortUrl.cs" />
-    <Compile Include="Model\Timeline.cs" />
     <Compile Include="Model\Timers.cs" />
     <Compile Include="Model\TweetUtilities.cs" />
     <Compile Include="Model\TwitterError.cs" />

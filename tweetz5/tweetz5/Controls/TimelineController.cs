@@ -76,9 +76,9 @@ namespace tweetz5.Controls
             return string.Format("https://twitter.com/{0}/status/{1}", tweet.ScreenName, tweet.StatusId);
         }
 
-        public void UpdateStatus(string[] timelines, IEnumerable<Status> statuses, string tweetType)
+        public void UpdateStatus(IEnumerable<Status> statuses, string tweetType)
         {
-            _timelinesModel.UpdateStatus(timelines, statuses, tweetType);
+            _timelinesModel.UpdateStatus(statuses, tweetType);
         }
 
         public void SwitchTimeline(string timelineName)

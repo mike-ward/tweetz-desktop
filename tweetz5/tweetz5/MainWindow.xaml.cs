@@ -170,7 +170,8 @@ namespace tweetz5
         // ReSharper disable UnusedMember.Global
         // ReSharper disable UnusedField.Compiler
         // ReSharper disable once MemberCanBePrivate.Global
-        public struct WINDOWPOS
+        #pragma warning disable 649 
+        private struct WINDOWPOS
         {
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
             public IntPtr hwnd;
@@ -204,5 +205,6 @@ namespace tweetz5
             }
             return IntPtr.Zero;
         }
+        #pragma warning restore 649
     }
 }
