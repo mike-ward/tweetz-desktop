@@ -7,11 +7,11 @@ namespace tweetz5.Commands
     {
         public static readonly RoutedCommand Command = new RoutedUICommand();
 
-        public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
+        public async static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
             var user = (User) ea.Parameter;
-            user.Following = user.Following ? !Twitter.Unfollow(user.ScreenName) : Twitter.Follow(user.ScreenName);
+            user.Following = user.Following ? !await Twitter.Unfollow(user.ScreenName) : await Twitter.Follow(user.ScreenName);
         }
     }
 }

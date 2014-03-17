@@ -7,25 +7,26 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows;
 using tweetz5.Commands;
 
 namespace tweetz5.Model
 {
-    public class Twitter
+    public static class Twitter
     {
-        private static string Get(string url, IEnumerable<string[]> parameters)
+        private async static Task<string> Get(string url, IEnumerable<string[]> parameters)
         {
-            return WebRequest(url, parameters);
+            return await WebRequest(url, parameters);
         }
 
-        private static string Post(string url, IEnumerable<string[]> parameters)
+        private async static Task<string> Post(string url, IEnumerable<string[]> parameters)
         {
-            return WebRequest(url, parameters, true);
+            return await WebRequest(url, parameters, true);
         }
 
-        private static string WebRequest(string url, IEnumerable<string[]> parameters, bool post = false)
+        private async static Task<string> WebRequest(string url, IEnumerable<string[]> parameters, bool post = false)
         {
             var oauth = new OAuth();
             var nonce = OAuth.Nonce();
@@ -52,7 +53,7 @@ namespace tweetz5.Model
                 }
             }
 
-            using (var response = request.GetResponse())
+            using (var response = await request.GetResponseAsync())
             {
                 using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
@@ -62,7 +63,7 @@ namespace tweetz5.Model
             }
         }
 
-        public static Status[] HomeTimeline(ulong sinceId)
+        public async static Task<Status[]> HomeTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -71,10 +72,10 @@ namespace tweetz5.Model
                 new[] {"include_entities", "true"},
                 new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
-            return GetTimeline("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters);
+            return await GetStatus("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters);
         }
 
-        public static Status[] MentionsTimeline(ulong sinceId)
+        public async static Task<Status[]> MentionsTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -82,44 +83,44 @@ namespace tweetz5.Model
                 new[] {"include_entities", "true"},
                 new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
-            return GetTimeline("https://api.twitter.com/1.1/statuses/mentions_timeline.json", parameters);
+            return await GetStatus("https://api.twitter.com/1.1/statuses/mentions_timeline.json", parameters);
         }
 
-        public static Status[] DirectMessagesTimeline(ulong sinceId)
+        public async static Task<Status[]> DirectMessages(ulong sinceId)
         {
             var parameters = new[]
             {
                 new[] {"include_entities", "true"},
                 new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
-            return GetTimeline("https://api.twitter.com/1.1/direct_messages.json", parameters);
+            return await GetStatus("https://api.twitter.com/1.1/direct_messages.json", parameters);
         }
 
-        public static Status[] DirectMessagesSentTimeline(ulong sinceId)
+        public async static Task<Status[]> DirectMessagesSent(ulong sinceId)
         {
             var parameters = new[]
             {
                 new[] {"include_entities", "true"},
                 new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
-            return GetTimeline("https://api.twitter.com/1.1/direct_messages/sent.json", parameters);
+            return await GetStatus("https://api.twitter.com/1.1/direct_messages/sent.json", parameters);
         }
 
-        public static Status[] FavoritesTimeline(ulong sinceId)
+        public async static Task<Status[]> Favorites(ulong sinceId)
         {
             var parameters = new[]
             {
                 new[] {"count", "50"},
                 new[] {"since_id", sinceId.ToString(CultureInfo.InvariantCulture)}
             };
-            return GetTimeline("https://api.twitter.com/1.1/favorites/list.json", parameters);
+            return await GetStatus("https://api.twitter.com/1.1/favorites/list.json", parameters);
         }
 
-        private static Status[] GetTimeline(string url, IEnumerable<string[]> parameters)
+        private async static Task<Status[]> GetStatus(string url, IEnumerable<string[]> parameters)
         {
             try
             {
-                var json = Get(url, parameters);
+                var json = await Get(url, parameters);
                 var statuses = Status.ParseJson(json);
                 return statuses;
             }
@@ -135,69 +136,69 @@ namespace tweetz5.Model
             }
         }
 
-        public static string UpdateStatus(string message, string replyToStatusId = null)
+        public async static Task<string> UpdateStatus(string message, string replyToStatusId = null)
         {
             var parameters = string.IsNullOrWhiteSpace(replyToStatusId)
                 ? new[] {new[] {"status", message}}
                 : new[] {new[] {"status", message}, new[] {"in_reply_to_status_id", replyToStatusId}};
 
-            return PostHandler(
+            return await RequestHandler(
                 () => Post("https://api.twitter.com/1.1/statuses/update.json", parameters),
                 () => string.Empty);
         }
 
-        public static void CreateFavorite(string id)
+        public async static Task CreateFavorite(string id)
         {
             var parameters = new[] {new[] {"id", id}};
-            PostHandler(
+            await RequestHandler(
                 () => Post("https://api.twitter.com/1.1/favorites/create.json", parameters),
                 () => string.Empty);
         }
 
-        public static void DestroyFavorite(string id)
+        public async static Task DestroyFavorite(string id)
         {
             var parameters = new[] {new[] {"id", id}};
-            PostHandler(
+            await RequestHandler(
                 () => Post("https://api.twitter.com/1.1/favorites/destroy.json", parameters),
                 () => string.Empty);
         }
 
-        public static void RetweetStatus(string id)
+        public async static Task RetweetStatus(string id)
         {
-            PostHandler(
+            await RequestHandler(
                 () => Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]),
                 () => string.Empty);
         }
 
-        public static void DestroyStatus(string id)
+        public async static Task DestroyStatus(string id)
         {
-            PostHandler(
+            await RequestHandler(
                 () => Post(string.Format("https://api.twitter.com/1.1/statuses/destroy/{0}.json", id), new string[0][]),
                 () => string.Empty);
         }
 
-        public static string GetTweet(string id)
+        public async static Task<string> GetTweet(string id)
         {
             var parameters = new[]
             {
                 new[] {"id", id},
                 new[] {"include_my_retweet", "true"}
             };
-            return PostHandler(
+            return await RequestHandler(
                 () => Get("https://api.twitter.com/1.1/statuses/show.json", parameters),
                 () => string.Empty);
         }
 
-        public static User GetUserInformation(string screenName)
+        public async static Task<User> GetUserInformation(string screenName)
         {
-            return PostHandler(() =>
+            return await RequestHandler(async () =>
             {
                 var parameters = new[]
                 {
                     new[] {"screen_name", screenName},
                     new[] {"include_entities", "true"}
                 };
-                var json = Get("https://api.twitter.com/1.1/users/show.json", parameters);
+                var json = await Get("https://api.twitter.com/1.1/users/show.json", parameters);
                 using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
                 {
                     var serializer = new DataContractJsonSerializer(typeof (User));
@@ -206,44 +207,44 @@ namespace tweetz5.Model
             }, () => new User {Name = "Error!"});
         }
 
-        public static Friendship Friendship(string screenName)
+        public async static Task<Friendship> Friendship(string screenName)
         {
-            return PostHandler(() =>
+            return await RequestHandler(async () =>
             {
                 var parameters = new[] {new[] {"screen_name", screenName}};
-                var json = Get("https://api.twitter.com/1.1/friendships/lookup.json", parameters);
+                var json = await Get("https://api.twitter.com/1.1/friendships/lookup.json", parameters);
                 var friendship = new Friendship {Following = json.Contains("\"following\""), FollowedBy = json.Contains("\"followed_by\"")};
                 return friendship;
             }, () => new Friendship());
         }
 
-        public static bool Follow(string screenName)
+        public async static Task<bool> Follow(string screenName)
         {
-            return PostHandler(() =>
+            return await RequestHandler(async() =>
             {
                 var parameters = new[]
                 {
                     new[] {"screen_name", screenName},
                     new[] {"following", "true"}
                 };
-                var json = Post("https://api.twitter.com/1.1/friendships/create.json", parameters);
+                var json = await Post("https://api.twitter.com/1.1/friendships/create.json", parameters);
                 return json.Contains(screenName);
             });
         }
 
-        public static bool Unfollow(string screenName)
+        public async static Task<bool> Unfollow(string screenName)
         {
-            return PostHandler(() =>
+            return await RequestHandler(async () =>
             {
                 var parameters = new[] {new[] {"screen_name", screenName}};
-                var json = Post("https://api.twitter.com/1.1/friendships/destroy.json", parameters);
+                var json = await Post("https://api.twitter.com/1.1/friendships/destroy.json", parameters);
                 return json.Contains(screenName);
             });
         }
 
-        public static string SendDirectMessage(string text, string screenName)
+        public async static Task<string> SendDirectMessage(string text, string screenName)
         {
-            return PostHandler(() =>
+            return await RequestHandler(async () =>
             {
                 var parameters = new[]
                 {
@@ -251,14 +252,14 @@ namespace tweetz5.Model
                     new[] {"text", text}
                 };
 
-                var json = Post("https://api.twitter.com/1.1/direct_messages/new.json", parameters);
+                var json = await Post("https://api.twitter.com/1.1/direct_messages/new.json", parameters);
                 return json;
             }, () => string.Empty);
         }
 
-        public static string Search(string query, string sinceId = "1")
+        public async static Task<string> Search(string query, string sinceId = "1")
         {
-            return PostHandler(() =>
+            return await RequestHandler(() =>
             {
                 var parameters = new[]
                 {
@@ -278,9 +279,9 @@ namespace tweetz5.Model
             public string ScreenName { get; set; }
         }
 
-        public static OAuthTokens GetRequestToken()
+        public async static Task<OAuthTokens> GetRequestToken()
         {
-            return PostHandler(() =>
+            return await RequestHandler(async () =>
             {
                 const string requestTokenUrl = "https://api.twitter.com/oauth/request_token";
                 var nonce = OAuth.Nonce();
@@ -292,7 +293,7 @@ namespace tweetz5.Model
                 var request = System.Net.WebRequest.Create(new Uri(requestTokenUrl));
                 request.Method = "POST";
                 request.Headers.Add("Authorization", authorizationHeader);
-                using (var response = request.GetResponse())
+                using (var response = await request.GetResponseAsync())
                 {
                     using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                     {
@@ -309,9 +310,9 @@ namespace tweetz5.Model
             });
         }
 
-        public static OAuthTokens GetAccessToken(string accessToken, string accessTokenSecret, string oauthVerifier)
+        public async static Task<OAuthTokens> GetAccessToken(string accessToken, string accessTokenSecret, string oauthVerifier)
         {
-            return PostHandler(() =>
+            return await RequestHandler(async () =>
             {
                 const string requestTokenUrl = "https://api.twitter.com/oauth/access_token";
                 var nonce = OAuth.Nonce();
@@ -324,7 +325,7 @@ namespace tweetz5.Model
                 request.Method = "POST";
                 request.Headers.Add("Authorization", authorizationHeader);
 
-                using (var response = request.GetResponse())
+                using (var response = await request.GetResponseAsync())
                 {
                     using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                     {
@@ -342,9 +343,9 @@ namespace tweetz5.Model
             });
         }
 
-        public static string UpdateStatusWithMedia(string message, string filename)
+        public async static Task<string> UpdateStatusWithMedia(string message, string filename)
         {
-            return PostHandler(() =>
+            return await RequestHandler(async () =>
             {
                 var media = File.ReadAllBytes(filename);
                 var mediaName = Path.GetFileName(filename);
@@ -380,7 +381,7 @@ namespace tweetz5.Model
                     WriteStream(requestStream, footer);
                 }
 
-                using (var response = request.GetResponse())
+                using (var response = await request.GetResponseAsync())
                 {
                     using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                     {
@@ -391,11 +392,11 @@ namespace tweetz5.Model
             }, () => string.Empty);
         }
 
-        private static T PostHandler<T>(Func<T> post, Func<T> onError = null)
+        private async static Task<T> RequestHandler<T>(Func<Task<T>> request, Func<T> onError = null)
         {
             try
             {
-                return post();
+                return await request();
             }
             catch (WebException ex)
             {

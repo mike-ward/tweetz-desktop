@@ -2,8 +2,6 @@
 
 using System;
 using System.Globalization;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
 using tweetz5.Model;
 using tweetz5.Utilities.Translate;
@@ -17,18 +15,18 @@ namespace tweetz5.Controls
         public AboutUser()
         {
             InitializeComponent();
-            Opened += (sender, args) => Task.Run(() =>
+            Opened += async (sender, args) => 
             {
-                var user = Twitter.GetUserInformation(ScreenName);
-                var friendship = Twitter.Friendship(ScreenName);
+                var user = await Twitter.GetUserInformation(ScreenName);
+                var friendship = await Twitter.Friendship(ScreenName);
                 user.Following = friendship.Following;
                 user.FollowedBy = friendship.FollowedBy;
                 if (user.Entities != null && user.Entities.Url != null && user.Entities.Url.Urls != null && user.Entities.Url.Urls[0] != null)
                 {
                     user.Url = user.Entities.Url.Urls[0].ExpandedUrl;
                 }
-                Application.Current.Dispatcher.Invoke(() => DataContext = user);
-            });
+                DataContext = user;
+            };
         }
     }
 

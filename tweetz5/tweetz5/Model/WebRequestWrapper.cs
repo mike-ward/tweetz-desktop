@@ -16,7 +16,7 @@ namespace tweetz5.Model
         Stream GetRequestStream();
         string UserAgent { set; }
         int Timeout { set; }
-        Task<WebResponse> GetResponseAsync();
+        Task<IWebResponse> GetResponseAsync();
     }
 
     public class WebRequestWrapper : IWebRequest
@@ -47,6 +47,7 @@ namespace tweetz5.Model
             return new WebResponseWrapper(_request.GetResponse());
         }
 
+
         public string Method
         {
             set { _request.Method = value; }
@@ -72,9 +73,9 @@ namespace tweetz5.Model
             set { _request.Timeout = value; }
         }
 
-        public Task<WebResponse> GetResponseAsync()
+        public async Task<IWebResponse> GetResponseAsync()
         {
-            return _request.GetResponseAsync();
+            return new WebResponseWrapper(await _request.GetResponseAsync());
         }
     }
 }

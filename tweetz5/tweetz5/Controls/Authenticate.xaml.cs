@@ -16,16 +16,16 @@ namespace tweetz5.Controls
             InitializeComponent();
         }
 
-        private void GetPin_OnClick(object sender, RoutedEventArgs e)
+        private async void GetPin_OnClick(object sender, RoutedEventArgs e)
         {
-            Tokens = Twitter.GetRequestToken();
+            Tokens = await Twitter.GetRequestToken();
             var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + Tokens.OAuthToken;
             OpenLinkCommand.Command.Execute(url, this);
         }
 
-        private void SignIn_OnClick(object sender, RoutedEventArgs e)
+        private async void SignIn_OnClick(object sender, RoutedEventArgs e)
         {
-            var tokens = Twitter.GetAccessToken(Tokens.OAuthToken, Tokens.OAuthSecret, Pin.Text);
+            var tokens = await Twitter.GetAccessToken(Tokens.OAuthToken, Tokens.OAuthSecret, Pin.Text);
             Pin.Text = string.Empty;
             Settings.Default.AccessToken = tokens.OAuthToken;
             Settings.Default.AccessTokenSecret = tokens.OAuthSecret;

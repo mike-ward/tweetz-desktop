@@ -136,38 +136,38 @@ namespace tweetz5.Model
 
         private ulong _homeSinceId = 1;
 
-        public void HomeTimeline()
+        public async Task HomeTimeline()
         {
-            var statuses = Twitter.HomeTimeline(_homeSinceId);
+            var statuses = await Twitter.HomeTimeline(_homeSinceId);
             _homeSinceId = MaxSinceId(_homeSinceId, statuses);
             UpdateStatus(statuses, TweetClassification.Home);
         }
 
         private ulong _mentionsSinceId = 1;
 
-        public void MentionsTimeline()
+        public async Task MentionsTimeline()
         {
-            var statuses = Twitter.MentionsTimeline(_mentionsSinceId);
+            var statuses = await Twitter.MentionsTimeline(_mentionsSinceId);
             _mentionsSinceId = MaxSinceId(_mentionsSinceId, statuses);
             UpdateStatus(statuses, TweetClassification.Mention);
         }
 
         private ulong _favoritesSinceId = 1;
 
-        public void FavoritesTimeline()
+        public async Task FavoritesTimeline()
         {
-            var statuses = Twitter.FavoritesTimeline(_favoritesSinceId);
+            var statuses = await Twitter.Favorites(_favoritesSinceId);
             _favoritesSinceId = MaxSinceId(_favoritesSinceId, statuses);
             UpdateStatus(statuses, TweetClassification.Favorite);
         }
 
         private ulong _directMessagesSinceId = 1;
 
-        public void DirectMessagesTimeline()
+        public async Task DirectMessagesTimeline()
         {
-            var statuses = Twitter.DirectMessagesTimeline(_directMessagesSinceId)
-                .Concat(Twitter.DirectMessagesSentTimeline(_directMessagesSinceId))
-                .ToArray();
+            var recieved = await Twitter.DirectMessages(_directMessagesSinceId);
+            var sent = await Twitter.DirectMessagesSent(_directMessagesSinceId);
+            var statuses = recieved.Concat(sent).ToArray();
             _directMessagesSinceId = MaxSinceId(_favoritesSinceId, statuses);
             UpdateStatus(statuses, TweetClassification.DirectMessage);
         }
@@ -181,10 +181,10 @@ namespace tweetz5.Model
             });
         }
 
-        public void AddFavorite(Tweet tweet)
+        public async void AddFavorite(Tweet tweet)
         {
             if (tweet.Favorited) return;
-            Twitter.CreateFavorite(tweet.StatusId);
+            await Twitter.CreateFavorite(tweet.StatusId);
             tweet.Favorited = true;
             var index = _tweets.IndexOf(tweet);
             if (index == -1)
@@ -199,10 +199,10 @@ namespace tweetz5.Model
             }
         }
 
-        public void RemoveFavorite(Tweet tweet)
+        public async Task RemoveFavorite(Tweet tweet)
         {
             if (tweet.Favorited == false) return;
-            Twitter.DestroyFavorite(tweet.StatusId);
+            await Twitter.DestroyFavorite(tweet.StatusId);
             var index = _tweets.IndexOf(tweet);
             var t = _tweets[index];
             t.Favorited = false;
@@ -221,30 +221,24 @@ namespace tweetz5.Model
             }
         }
 
-        public void Search(string query)
+        public async Task Search(string query)
         {
-            Task.Run(() =>
-            {
-                var json = Twitter.Search(query + "+exclude:retweets");
-                var statuses = SearchStatuses.ParseJson(json);
-                _search.Clear();
-                foreach (var status in statuses) _search.Add(status.CreateTweet(TweetClassification.Search));
-                DispatchInvoker(() =>
-                {
-                    _timeline.Clear();
-                    foreach (var tweet in _search) _timeline.Add(tweet);
-                });
-            }, CancellationToken);
+            var json = await Twitter.Search(query + "+exclude:retweets");
+            var statuses = SearchStatuses.ParseJson(json);
+            _search.Clear();
+            _timeline.Clear();
+            foreach (var status in statuses) _search.Add(status.CreateTweet(TweetClassification.Search));
+            foreach (var tweet in _search) _timeline.Add(tweet);
         }
 
-        public void DeleteTweet(Tweet tweet)
+        public async Task DeleteTweet(Tweet tweet)
         {
-            Twitter.DestroyStatus(tweet.StatusId);
+            await Twitter.DestroyStatus(tweet.StatusId);
             _tweets.Remove(tweet);
             Timeline.Remove(tweet);
         }
 
-        public void Retweet(Tweet tweet)
+        public async Task Retweet(Tweet tweet)
         {
             if (tweet.IsRetweet)
             {
@@ -252,12 +246,12 @@ namespace tweetz5.Model
                 var json = Twitter.GetTweet(id);
                 var status = Status.ParseJson("[" + json + "]")[0];
                 var retweetStatusId = status.CurrentUserRetweet.Id;
-                Twitter.DestroyStatus(retweetStatusId);
+                await Twitter.DestroyStatus(retweetStatusId);
                 tweet.IsRetweet = false;
             }
             else
             {
-                Twitter.RetweetStatus(tweet.StatusId);
+                await Twitter.RetweetStatus(tweet.StatusId);
                 tweet.IsRetweet = true;
             }
         }
