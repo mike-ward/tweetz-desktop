@@ -4,22 +4,25 @@ using tweetz5.Utilities;
 
 namespace tweetz5.Model
 {
-    public static class TweetClassification
+    public enum TweetClassification
     {
-        public const string Home = "h";
-        public const string Mention = "m";
-        public const string DirectMessage = "d";
-        public const string Search = "s";
-        public const string Favorite = "f";
+        Home,
+        Mention,
+        DirectMessage,
+        Favorite,
+        Search
     }
 
     public sealed class Tweet : NotifyPropertyChanged, IEquatable<Tweet>
     {
-        private bool _favorited;
         private string _timeAgo;
-        private string _tweetTypes;
         private string _retweetedBy;
         private bool _retweet;
+        private bool _isHome;
+        private bool _isMention;
+        private bool _isDirectMessage;
+        private bool _isFavorite;
+        private bool _isSearch;
 
         public string StatusId { get; set; }
         public string RetweetStatusId { get; set; }
@@ -31,6 +34,7 @@ namespace tweetz5.Model
         public DateTime CreatedAt { get; set; }
         public string[] MediaLinks { get; set; }
         public bool IsMyTweet { get; set; }
+ 
 
         public bool IsRetweet
         {
@@ -44,32 +48,40 @@ namespace tweetz5.Model
             set { SetProperty(ref _retweetedBy, value); }
         }
 
-        public string TweetTypes
-        {
-            get { return _tweetTypes; }
-            set { SetProperty(ref _tweetTypes, value); }
-        }
-
         public string TimeAgo
         {
             get { return _timeAgo; }
             set { SetProperty(ref _timeAgo, value); }
         }
 
-        public bool Favorited
+        public bool IsHome
         {
-            get { return _favorited; }
-            set { SetPropertyValue(ref _favorited, value); }
+            get { return _isHome; }
+            set {  SetPropertyValue(ref _isHome, value);}
         }
 
-        public bool IsDirectMesssage
+        public bool IsMention
         {
-            get { return TweetTypes.Contains(TweetClassification.DirectMessage); }
+            get { return _isMention; }
+            set { SetPropertyValue(ref _isMention, value); }
         }
 
-        public void AddTweetTypes(string tweetTypes)
+        public bool IsDirectMessage
         {
-            foreach (var tt in tweetTypes.Where(c => TweetTypes.IndexOf(c) == -1)) TweetTypes += tt;
+            get { return _isDirectMessage; }
+            set { SetPropertyValue(ref _isDirectMessage, value); }
+        }
+
+        public bool IsFavorite
+        {
+            get { return _isFavorite; }
+            set { SetPropertyValue(ref _isFavorite, value); }
+        }
+
+        public bool IsSearch
+        {
+            get { return _isSearch; }
+            set { SetPropertyValue(ref _isSearch, value); }
         }
 
         public bool Equals(Tweet other)

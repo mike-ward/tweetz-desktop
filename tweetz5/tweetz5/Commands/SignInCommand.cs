@@ -26,7 +26,7 @@ namespace tweetz5.Commands
                 if (Application.Current != null)
                 {
                     Application.Current.Dispatcher.Invoke(
-                        () => SwitchTimelinesCommand.Command.Execute(Timelines.UnifiedName, Application.Current.MainWindow));
+                        () => SwitchTimelinesCommand.Command.Execute(Timelines.UnifiedTimeline, Application.Current.MainWindow));
                 }
             }
         }

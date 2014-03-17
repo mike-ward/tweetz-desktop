@@ -102,13 +102,13 @@ namespace tweetz5.Controls
 
                 if (_directMessage)
                 {
-                    json = await Task.Run(() => Twitter.SendDirectMessage(text, _directMessageRecipient));
+                    json = await Twitter.SendDirectMessage(text, _directMessageRecipient);
                 }
                 else
                 {
                     json = string.IsNullOrWhiteSpace(Image)
-                        ? await Task.Run(() => Twitter.UpdateStatus(text, _inReplyToId))
-                        : await Task.Run(() => Twitter.UpdateStatusWithMedia(text, Image));
+                        ? await Twitter.UpdateStatus(text, _inReplyToId)
+                        : await Twitter.UpdateStatusWithMedia(text, Image);
                 }
 
                 if (json.Contains("id_str"))

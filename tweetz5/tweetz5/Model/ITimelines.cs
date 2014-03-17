@@ -7,12 +7,12 @@ namespace tweetz5.Model
 {
     public interface ITimelines : INotifyPropertyChanged
     {
-        Task HomeTimeline();
-        Task MentionsTimeline();
-        Task DirectMessagesTimeline();
-        Task FavoritesTimeline();
+        Task UpdateHome();
+        Task UpdateMentions();
+        Task UpdateDirectMessages();
+        Task UpdateFavorites();
         void UpdateTimeStamps();
-        void UpdateStatus(IEnumerable<Status> statuses, string tweetType);
+        void UpdateStatus(IEnumerable<Status> statuses, TweetClassification tweetType);
         void SwitchTimeline(string name);
         void ClearAllTimelines();
         void AddFavorite(Tweet tweet);

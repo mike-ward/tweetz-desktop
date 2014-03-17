@@ -8,16 +8,17 @@ namespace tweetz5.Model
 {
     public static class TweetUtilities
     {
-        public static Tweet CreateTweet(this Status status, string tweetType)
+        public static Tweet CreateTweet(this Status status, TweetClassification tweetType)
         {
-            var tweetTypes = tweetType;
+            var isMention = false;
+            var isDirectMessage = false;
             var username = new OAuth().ScreenName;
             var displayStatus = status.RetweetedStatus ?? status;
 
             // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
             if (displayStatus.User == null)
             {
-                tweetTypes += TweetClassification.DirectMessage;
+                isDirectMessage = true;
                 displayStatus.User = (status.Recipient.ScreenName == username) ? status.Sender : status.Recipient;
             }
 
@@ -25,7 +26,7 @@ namespace tweetz5.Model
                 && status.Entities.Mentions != null
                 && status.Entities.Mentions.Any(m => m.ScreenName == username))
             {
-                tweetTypes += TweetClassification.Mention;
+                isMention = true;
             }
 
             var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
@@ -41,13 +42,16 @@ namespace tweetz5.Model
                 MarkupNodes = BuildMarkupNodes(displayStatus.Text, displayStatus.Entities),
                 CreatedAt = createdAt,
                 TimeAgo = TimeAgo(createdAt),
-                TweetTypes = tweetTypes,
-                Favorited = status.Favorited,
                 IsRetweet = status.Retweeted,
                 RetweetedBy = RetweetedBy(status, username),
                 RetweetStatusId = (status.RetweetedStatus != null) ? status.RetweetedStatus.Id : String.Empty,
                 MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0],
-                IsMyTweet = displayStatus.User.ScreenName == username
+                IsMyTweet = displayStatus.User.ScreenName == username,
+                IsHome = tweetType == TweetClassification.Home,
+                IsMention = tweetType == TweetClassification.Mention | isMention,
+                IsDirectMessage = tweetType == TweetClassification.DirectMessage | isDirectMessage,
+                IsFavorite = tweetType == TweetClassification.Favorite | status.Favorited,
+                IsSearch = tweetType == TweetClassification.Search
             };
 
             return tweet;

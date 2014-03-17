@@ -15,7 +15,7 @@ namespace tweetz5.Commands
             if (string.IsNullOrWhiteSpace(query)) return;
             var mainWindow = (MainWindow) Application.Current.MainWindow;
             mainWindow.Timeline.SearchControl.SetSearchText(query);
-            SwitchTimelinesCommand.Command.Execute(Timelines.SearchName, mainWindow);
+            SwitchTimelinesCommand.Command.Execute(Timelines.SearchTimeline, mainWindow);
             mainWindow.Timeline.Controller.Search(query);
         }
     }

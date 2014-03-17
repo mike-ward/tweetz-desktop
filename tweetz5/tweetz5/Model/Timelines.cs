@@ -20,14 +20,14 @@ namespace tweetz5.Model
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private Visibility _searchVisibility = Visibility.Collapsed;
 
-        public const string UnifiedName = "unified";
-        public const string HomeName = "home";
-        public const string MentionsName = "mentions";
-        public const string MessagesName = "messages";
-        public const string FavoritesName = "favorites";
-        public const string SearchName = "search";
+        public const string UnifiedTimeline = "unified";
+        public const string HomeTimeline = "home";
+        public const string MentionsTimeline = "mentions";
+        public const string MessagesTimeline = "messages";
+        public const string FavoritesTimeline = "favorites";
+        public const string SearchTimeline = "search";
 
-        private bool UpdateTimelines(IEnumerable<Status> statuses, string tweetType)
+        private bool UpdateTimelines(IEnumerable<Status> statuses, TweetClassification tweetType)
         {
             var updated = false;
             foreach (var status in statuses)
@@ -40,9 +40,12 @@ namespace tweetz5.Model
                 }
                 else
                 {
-                    var tweetTypes = tweet.TweetTypes;
-                    tweet = _tweets[index];
-                    tweet.AddTweetTypes(tweetTypes);
+                    var t = _tweets[index];
+                    t.IsHome = t.IsHome | tweet.IsHome;
+                    t.IsMention = t.IsMention | tweet.IsMention;
+                    t.IsDirectMessage = t.IsDirectMessage | tweet.IsDirectMessage;
+                    t.IsFavorite = t.IsFavorite | tweet.IsFavorite;
+                    tweet = t;
                 }
 
                 if (TimelineFilter(tweet) && _timeline.Contains(tweet) == false)
@@ -55,19 +58,19 @@ namespace tweetz5.Model
             return updated;
         }
 
-        public void UpdateStatus(IEnumerable<Status> statuses, string tweetType)
+        public void UpdateStatus(IEnumerable<Status> statuses, TweetClassification tweetType)
         {
             DispatchInvoker(() => { if (UpdateTimelines(statuses, tweetType)) PlayNotification(); });
         }
 
         private readonly Dictionary<string, Predicate<Tweet>> _timelineFilters = new Dictionary<string, Predicate<Tweet>>
         {
-            {UnifiedName, t => t.TweetTypes.Contains(TweetClassification.Search) == false},
-            {HomeName, t => t.TweetTypes.Contains(TweetClassification.Home)},
-            {MentionsName, t => t.TweetTypes.Contains(TweetClassification.Mention)},
-            {MessagesName, t => t.TweetTypes.Contains(TweetClassification.DirectMessage)},
-            {FavoritesName, t => t.TweetTypes.Contains(TweetClassification.Favorite)},
-            {SearchName, t => t.TweetTypes.Contains(TweetClassification.Search)},
+            {UnifiedTimeline, t => true},
+            {HomeTimeline, t => t.IsHome},
+            {MentionsTimeline, t => t.IsMention},
+            {MessagesTimeline, t => t.IsDirectMessage},
+            {FavoritesTimeline, t => t.IsFavorite},
+            {SearchTimeline, t => t.IsSearch},
         };
 
         private Predicate<Tweet> TimelineFilter
@@ -85,8 +88,8 @@ namespace tweetz5.Model
             if (TimelineName == name) return;
             Timeline.Clear();
             TimelineName = name;
-            var tweets = (TimelineName == SearchName) ? _search : _tweets;
-            SearchVisibility = (TimelineName == SearchName) ? Visibility.Visible : Visibility.Collapsed;
+            var tweets = (TimelineName == SearchTimeline) ? _search : _tweets;
+            SearchVisibility = (TimelineName == SearchTimeline) ? Visibility.Visible : Visibility.Collapsed;
             foreach (var tweet in tweets.Where(t => TimelineFilter(t)).OrderByDescending(t => t.CreatedAt).Take(200)) Timeline.Add(tweet);
         }
 
@@ -136,7 +139,7 @@ namespace tweetz5.Model
 
         private ulong _homeSinceId = 1;
 
-        public async Task HomeTimeline()
+        public async Task UpdateHome()
         {
             var statuses = await Twitter.HomeTimeline(_homeSinceId);
             _homeSinceId = MaxSinceId(_homeSinceId, statuses);
@@ -145,7 +148,7 @@ namespace tweetz5.Model
 
         private ulong _mentionsSinceId = 1;
 
-        public async Task MentionsTimeline()
+        public async Task UpdateMentions()
         {
             var statuses = await Twitter.MentionsTimeline(_mentionsSinceId);
             _mentionsSinceId = MaxSinceId(_mentionsSinceId, statuses);
@@ -154,7 +157,7 @@ namespace tweetz5.Model
 
         private ulong _favoritesSinceId = 1;
 
-        public async Task FavoritesTimeline()
+        public async Task UpdateFavorites()
         {
             var statuses = await Twitter.Favorites(_favoritesSinceId);
             _favoritesSinceId = MaxSinceId(_favoritesSinceId, statuses);
@@ -163,7 +166,7 @@ namespace tweetz5.Model
 
         private ulong _directMessagesSinceId = 1;
 
-        public async Task DirectMessagesTimeline()
+        public async Task UpdateDirectMessages()
         {
             var recieved = await Twitter.DirectMessages(_directMessagesSinceId);
             var sent = await Twitter.DirectMessagesSent(_directMessagesSinceId);
@@ -183,30 +186,16 @@ namespace tweetz5.Model
 
         public async void AddFavorite(Tweet tweet)
         {
-            if (tweet.Favorited) return;
+            if (tweet.IsFavorite) return;
             await Twitter.CreateFavorite(tweet.StatusId);
-            tweet.Favorited = true;
-            var index = _tweets.IndexOf(tweet);
-            if (index == -1)
-            {
-                tweet.AddTweetTypes(TweetClassification.Favorite);
-                _tweets.Add(tweet);
-            }
-            else
-            {
-                _tweets[index].AddTweetTypes(TweetClassification.Favorite);
-                _tweets[index].Favorited = true;
-            }
+            tweet.IsFavorite = true;
         }
 
         public async Task RemoveFavorite(Tweet tweet)
         {
-            if (tweet.Favorited == false) return;
+            if (tweet.IsFavorite == false) return;
             await Twitter.DestroyFavorite(tweet.StatusId);
-            var index = _tweets.IndexOf(tweet);
-            var t = _tweets[index];
-            t.Favorited = false;
-            t.TweetTypes = t.TweetTypes.Replace(TweetClassification.Favorite, "");
+            tweet.IsFavorite = false;
         }
 
         private static void SortTweetCollection(ObservableCollection<Tweet> collection)

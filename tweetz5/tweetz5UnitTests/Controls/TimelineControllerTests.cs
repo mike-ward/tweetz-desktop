@@ -41,8 +41,8 @@ namespace tweetz5UnitTests
             checkTimelines.VerifySet(c => c.Interval = 100);
             checkTimelines.VerifySet(c => c.Interval = 70000);
             checkTimelines.Verify(c => c.Start());
-            timelines.Verify(t => t.HomeTimeline());
-            timelines.Verify(t => t.MentionsTimeline());
+            timelines.Verify(t => t.UpdateHome());
+            timelines.Verify(t => t.UpdateMentions());
 
             updateTimelines.VerifySet(u => u.Interval = 100);
             updateTimelines.VerifySet(u => u.Interval = 30000);

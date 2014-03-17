@@ -14,7 +14,7 @@ namespace tweetz5.Commands
             var mainWindow = (MainWindow) Application.Current.MainWindow;
             var tweet = ea.Parameter as Tweet ?? mainWindow.Timeline.GetSelectedTweet;
             if (tweet == null) return;
-            if (tweet.Favorited) mainWindow.Timeline.Controller.RemoveFavorite(tweet);
+            if (tweet.IsFavorite) mainWindow.Timeline.Controller.RemoveFavorite(tweet);
             else mainWindow.Timeline.Controller.AddFavorite(tweet);
         }
     }

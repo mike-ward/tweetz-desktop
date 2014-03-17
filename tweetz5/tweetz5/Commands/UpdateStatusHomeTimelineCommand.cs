@@ -13,7 +13,7 @@ namespace tweetz5.Commands
             ea.Handled = true;
             var statuses = (Status[]) ea.Parameter;
             var mainWindow = (MainWindow) Application.Current.MainWindow;
-            mainWindow.Timeline.Controller.UpdateStatus(statuses, "h");
+            mainWindow.Timeline.Controller.UpdateStatus(statuses, TweetClassification.Home);
         }
     }
 }

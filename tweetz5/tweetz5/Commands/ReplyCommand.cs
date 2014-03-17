@@ -17,7 +17,7 @@ namespace tweetz5.Commands
             var mainWindow = (MainWindow)Application.Current.MainWindow;
             var tweet = ea.Parameter as Tweet ?? mainWindow.Timeline.GetSelectedTweet;
             if (tweet == null) return;
-            if (tweet.IsDirectMesssage)
+            if (tweet.IsDirectMessage)
             {
                 mainWindow.Compose.ShowDirectMessage(tweet.ScreenName);
             }

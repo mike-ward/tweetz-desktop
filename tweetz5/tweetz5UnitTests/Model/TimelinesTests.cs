@@ -33,9 +33,9 @@ namespace tweetz5UnitTests.Model
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
             mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
-            timelines.SwitchTimeline(Timelines.UnifiedName);
+            timelines.SwitchTimeline(Timelines.UnifiedTimeline);
             timelines.Timeline.Count.Should().Be(0);
-            await timelines.HomeTimeline();
+            await timelines.UpdateHome();
             mockWebRequest.VerifyAll();
             mockWebResponse.Verify();
             timelines.Timeline.Count.Should().Be(1);
@@ -53,9 +53,9 @@ namespace tweetz5UnitTests.Model
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
             mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
-            timelines.SwitchTimeline(Timelines.UnifiedName);
+            timelines.SwitchTimeline(Timelines.UnifiedTimeline);
             timelines.Timeline.Count.Should().Be(0);
-            await timelines.MentionsTimeline();
+            await timelines.UpdateMentions();
             mockWebRequest.VerifyAll();
             mockWebResponse.Verify();
             timelines.Timeline.Count.Should().Be(1);
@@ -66,7 +66,7 @@ namespace tweetz5UnitTests.Model
         {
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
             TranslationService.Instance.TranslationProvider = new TranslationProviderNameValueFile();
-            timelines.SwitchTimeline(Timelines.UnifiedName);
+            timelines.SwitchTimeline(Timelines.UnifiedTimeline);
             timelines.Timeline.Add(new Tweet { CreatedAt = DateTime.UtcNow });
             timelines.Timeline[0].TimeAgo.Should().BeNull();
             timelines.UpdateTimeStamps();
@@ -88,13 +88,13 @@ namespace tweetz5UnitTests.Model
                 var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
                 mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
                 var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
-                timelines.SwitchTimeline(Timelines.UnifiedName);
+                timelines.SwitchTimeline(Timelines.UnifiedTimeline);
                 timelines.Timeline.Count.Should().Be(0);
-                await timelines.HomeTimeline();
+                await timelines.UpdateHome();
                 mockWebRequest.VerifyAll();
                 mockWebResponse.Verify();
                 timelines.Timeline.Count.Should().Be(1);
-                timelines.Timeline[0].TweetTypes.Should().Contain("m");
+                timelines.Timeline[0].IsMention.Should().BeTrue();
             }
             finally
             {

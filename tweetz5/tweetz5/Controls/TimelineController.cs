@@ -25,10 +25,10 @@ namespace tweetz5.Controls
             {
                 try
                 {
-                    _timelinesModel.HomeTimeline();
-                    _timelinesModel.MentionsTimeline();
-                    _timelinesModel.DirectMessagesTimeline();
-                    _timelinesModel.FavoritesTimeline();
+                    _timelinesModel.UpdateHome();
+                    _timelinesModel.UpdateMentions();
+                    _timelinesModel.UpdateDirectMessages();
+                    _timelinesModel.UpdateFavorites();
                 }
                 catch (WebException ex)
                 {
@@ -76,7 +76,7 @@ namespace tweetz5.Controls
             return string.Format("https://twitter.com/{0}/status/{1}", tweet.ScreenName, tweet.StatusId);
         }
 
-        public void UpdateStatus(IEnumerable<Status> statuses, string tweetType)
+        public void UpdateStatus(IEnumerable<Status> statuses, TweetClassification tweetType)
         {
             _timelinesModel.UpdateStatus(statuses, tweetType);
         }

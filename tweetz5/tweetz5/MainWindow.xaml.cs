@@ -145,12 +145,12 @@ namespace tweetz5
 
         internal void SetButtonStates(string timelineName)
         {
-            UnifiedButton.IsEnabled = timelineName != Timelines.UnifiedName;
-            HomeButton.IsEnabled = timelineName != Timelines.HomeName;
-            MentionsButton.IsEnabled = timelineName != Timelines.MentionsName;
-            MessagesButton.IsEnabled = timelineName != Timelines.MessagesName;
-            FavoritesButton.IsEnabled = timelineName != Timelines.FavoritesName;
-            SearchButton.IsEnabled = timelineName != Timelines.SearchName;
+            UnifiedButton.IsEnabled = timelineName != Timelines.UnifiedTimeline;
+            HomeButton.IsEnabled = timelineName != Timelines.HomeTimeline;
+            MentionsButton.IsEnabled = timelineName != Timelines.MentionsTimeline;
+            MessagesButton.IsEnabled = timelineName != Timelines.MessagesTimeline;
+            FavoritesButton.IsEnabled = timelineName != Timelines.FavoritesTimeline;
+            SearchButton.IsEnabled = timelineName != Timelines.SearchTimeline;
             SettingsButton.IsEnabled = timelineName != "settings";
         }
 
