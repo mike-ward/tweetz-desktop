@@ -33,7 +33,7 @@ namespace tweetz5UnitTests.Model
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
             mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
-            timelines.SwitchTimeline(Timelines.UnifiedTimeline);
+            timelines.SwitchView(View.Home);
             timelines.Timeline.Count.Should().Be(0);
             await timelines.UpdateHome();
             mockWebRequest.VerifyAll();
@@ -53,7 +53,7 @@ namespace tweetz5UnitTests.Model
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
             mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
-            timelines.SwitchTimeline(Timelines.UnifiedTimeline);
+            timelines.SwitchView(View.Mentions);
             timelines.Timeline.Count.Should().Be(0);
             await timelines.UpdateMentions();
             mockWebRequest.VerifyAll();
@@ -66,7 +66,7 @@ namespace tweetz5UnitTests.Model
         {
             var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
             TranslationService.Instance.TranslationProvider = new TranslationProviderNameValueFile();
-            timelines.SwitchTimeline(Timelines.UnifiedTimeline);
+            timelines.SwitchView(View.Home);
             timelines.Timeline.Add(new Tweet { CreatedAt = DateTime.UtcNow });
             timelines.Timeline[0].TimeAgo.Should().BeNull();
             timelines.UpdateTimeStamps();
@@ -88,7 +88,7 @@ namespace tweetz5UnitTests.Model
                 var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
                 mockWebResponse.Setup(response => response.GetResponseStream()).Returns(stream);
                 var timelines = new Timelines { DispatchInvokerOverride = callback => callback() };
-                timelines.SwitchTimeline(Timelines.UnifiedTimeline);
+                timelines.SwitchView(View.Mentions);
                 timelines.Timeline.Count.Should().Be(0);
                 await timelines.UpdateHome();
                 mockWebRequest.VerifyAll();

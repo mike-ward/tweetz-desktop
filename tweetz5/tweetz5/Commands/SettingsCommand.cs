@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using tweetz5.Model;
 
 namespace tweetz5.Commands
 {
@@ -10,10 +11,10 @@ namespace tweetz5.Commands
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var mainWindow = (MainWindow) Application.Current.MainWindow;
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.SettingsPanel.Visibility = Visibility.Visible;
             mainWindow.Timeline.Visibility = Visibility.Collapsed;
-            mainWindow.SetButtonStates("settings");
+            mainWindow.SetButtonStates(View.Settings);
         }
     }
 }

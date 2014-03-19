@@ -13,19 +13,12 @@ namespace tweetz5.Model
     public sealed class Timelines : NotifyPropertyChanged, ITimelines, IDisposable
     {
         private bool _disposed;
-        private string _timelineName;
+        private View _view;
         private ObservableCollection<Tweet> _timeline = new ObservableCollection<Tweet>();
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
         private readonly Collection<Tweet> _search = new Collection<Tweet>();
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private Visibility _searchVisibility = Visibility.Collapsed;
-
-        public const string UnifiedTimeline = "unified";
-        public const string HomeTimeline = "home";
-        public const string MentionsTimeline = "mentions";
-        public const string MessagesTimeline = "messages";
-        public const string FavoritesTimeline = "favorites";
-        public const string SearchTimeline = "search";
 
         private bool UpdateTimelines(IEnumerable<Status> statuses, TweetClassification tweetType)
         {
@@ -41,10 +34,10 @@ namespace tweetz5.Model
                 else
                 {
                     var t = _tweets[index];
-                    t.IsHome = t.IsHome | tweet.IsHome;
-                    t.IsMention = t.IsMention | tweet.IsMention;
-                    t.IsDirectMessage = t.IsDirectMessage | tweet.IsDirectMessage;
-                    t.IsFavorite = t.IsFavorite | tweet.IsFavorite;
+                    t.IsHome |= tweet.IsHome;
+                    t.IsMention |= tweet.IsMention;
+                    t.IsDirectMessage |= tweet.IsDirectMessage;
+                    t.IsFavorite |= tweet.IsFavorite;
                     tweet = t;
                 }
 
@@ -63,14 +56,14 @@ namespace tweetz5.Model
             DispatchInvoker(() => { if (UpdateTimelines(statuses, tweetType)) PlayNotification(); });
         }
 
-        private readonly Dictionary<string, Predicate<Tweet>> _timelineFilters = new Dictionary<string, Predicate<Tweet>>
+        private readonly Dictionary<View, Predicate<Tweet>> _timelineFilters = new Dictionary<View, Predicate<Tweet>>
         {
-            {UnifiedTimeline, t => true},
-            {HomeTimeline, t => t.IsHome},
-            {MentionsTimeline, t => t.IsMention},
-            {MessagesTimeline, t => t.IsDirectMessage},
-            {FavoritesTimeline, t => t.IsFavorite},
-            {SearchTimeline, t => t.IsSearch},
+            {View.Unified, t => true},
+            {View.Home, t => t.IsHome},
+            {View.Mentions, t => t.IsMention},
+            {View.Messages, t => t.IsDirectMessage},
+            {View.Favorites, t => t.IsFavorite},
+            {View.Search, t => t.IsSearch},
         };
 
         private Predicate<Tweet> TimelineFilter
@@ -78,18 +71,18 @@ namespace tweetz5.Model
             get
             {
                 Predicate<Tweet> filter;
-                if (_timelineFilters.TryGetValue(TimelineName, out filter)) return filter;
+                if (_timelineFilters.TryGetValue(_view, out filter)) return filter;
                 return t => false;
             }
         }
 
-        public void SwitchTimeline(string name)
+        public void SwitchView(View view)
         {
-            if (TimelineName == name) return;
+            if (_view == view) return;
             Timeline.Clear();
-            TimelineName = name;
-            var tweets = (TimelineName == SearchTimeline) ? _search : _tweets;
-            SearchVisibility = (TimelineName == SearchTimeline) ? Visibility.Visible : Visibility.Collapsed;
+            _view = view;
+            var tweets = (_view == View.Search) ? _search : _tweets;
+            SearchVisibility = (_view == View.Search) ? Visibility.Visible : Visibility.Collapsed;
             foreach (var tweet in tweets.Where(t => TimelineFilter(t)).OrderByDescending(t => t.CreatedAt).Take(200)) Timeline.Add(tweet);
         }
 
@@ -97,12 +90,6 @@ namespace tweetz5.Model
         {
             get { return _timeline; }
             set { SetProperty(ref _timeline, value); }
-        }
-
-        private string TimelineName
-        {
-            get { return _timelineName; }
-            set { SetProperty(ref _timelineName, value); }
         }
 
         public Visibility SearchVisibility

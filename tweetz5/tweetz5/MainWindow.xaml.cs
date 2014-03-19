@@ -143,15 +143,15 @@ namespace tweetz5
             if (Compose.IsVisible) Compose.Focus();
         }
 
-        internal void SetButtonStates(string timelineName)
+        internal void SetButtonStates(View view)
         {
-            UnifiedButton.IsEnabled = timelineName != Timelines.UnifiedTimeline;
-            HomeButton.IsEnabled = timelineName != Timelines.HomeTimeline;
-            MentionsButton.IsEnabled = timelineName != Timelines.MentionsTimeline;
-            MessagesButton.IsEnabled = timelineName != Timelines.MessagesTimeline;
-            FavoritesButton.IsEnabled = timelineName != Timelines.FavoritesTimeline;
-            SearchButton.IsEnabled = timelineName != Timelines.SearchTimeline;
-            SettingsButton.IsEnabled = timelineName != "settings";
+            UnifiedButton.IsEnabled = view != View.Unified;
+            HomeButton.IsEnabled = view != View.Home;
+            MentionsButton.IsEnabled = view != View.Mentions;
+            MessagesButton.IsEnabled = view != View.Messages;
+            FavoritesButton.IsEnabled = view != View.Favorites;
+            SearchButton.IsEnabled = view != View.Search;
+            SettingsButton.IsEnabled = view != View.Settings;
         }
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs ea)

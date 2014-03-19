@@ -13,7 +13,7 @@ namespace tweetz5.Model
         Task UpdateFavorites();
         void UpdateTimeStamps();
         void UpdateStatus(IEnumerable<Status> statuses, TweetClassification tweetType);
-        void SwitchTimeline(string name);
+        void SwitchView(View view);
         void ClearAllTimelines();
         void AddFavorite(Tweet tweet);
         Task RemoveFavorite(Tweet tweet);

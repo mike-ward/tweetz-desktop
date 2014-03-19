@@ -126,6 +126,7 @@
       <DependentUpon>ComposeTweet.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Status.cs" />
+    <Compile Include="Model\View.cs" />
     <Compile Include="Utilities\Converters\LengthToColorConverter.cs" />
     <Compile Include="Controls\MarkupService.cs" />
     <Compile Include="Controls\PopupAllowKeyboardInput.cs" />
