@@ -175,7 +175,6 @@
     <Compile Include="Controls\TimelineController.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\Converters\StringContainsConverter.cs" />
     <Compile Include="Utilities\System\BuildInfo.cs" />
     <Compile Include="Utilities\System\NativeMethods.cs" />
     <Compile Include="Utilities\System\SysTimer.cs" />
