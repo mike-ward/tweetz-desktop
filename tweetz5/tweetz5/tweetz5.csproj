@@ -125,6 +125,7 @@
     <Compile Include="Controls\ComposeTweet.xaml.cs">
       <DependentUpon>ComposeTweet.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\RangeObservableCollection.cs" />
     <Compile Include="Model\Status.cs" />
     <Compile Include="Model\View.cs" />
     <Compile Include="Utilities\Converters\LengthToColorConverter.cs" />

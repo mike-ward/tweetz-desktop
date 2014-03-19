@@ -14,7 +14,7 @@ namespace tweetz5.Model
     {
         private bool _disposed;
         private View _view;
-        private ObservableCollection<Tweet> _timeline = new ObservableCollection<Tweet>();
+        private RangeObservableCollection<Tweet> _timeline = new RangeObservableCollection<Tweet>();
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
         private readonly Collection<Tweet> _search = new Collection<Tweet>();
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
@@ -43,11 +43,11 @@ namespace tweetz5.Model
 
                 if (TimelineFilter(tweet) && _timeline.Contains(tweet) == false)
                 {
-                    _timeline.Add(tweet);
+                    Timeline.Add(tweet);
                     updated = true;
                 }
             }
-            if (updated) SortTweetCollection(_timeline);
+            if (updated) SortTweetCollection(Timeline);
             return updated;
         }
 
@@ -79,14 +79,14 @@ namespace tweetz5.Model
         public void SwitchView(View view)
         {
             if (_view == view) return;
-            Timeline.Clear();
             _view = view;
+            Timeline.Clear();
             var tweets = (_view == View.Search) ? _search : _tweets;
             SearchVisibility = (_view == View.Search) ? Visibility.Visible : Visibility.Collapsed;
-            foreach (var tweet in tweets.Where(t => TimelineFilter(t)).OrderByDescending(t => t.CreatedAt).Take(200)) Timeline.Add(tweet);
+            Timeline.AddRange(tweets.Where(t => TimelineFilter(t)).OrderByDescending(t => t.CreatedAt).Take(200));
         }
 
-        public ObservableCollection<Tweet> Timeline
+        public RangeObservableCollection<Tweet> Timeline
         {
             get { return _timeline; }
             set { SetProperty(ref _timeline, value); }
@@ -100,7 +100,8 @@ namespace tweetz5.Model
 
         public void ClearAllTimelines()
         {
-            _timeline.Clear();
+            Timeline.Clear();
+            _tweets.Clear();
             _search.Clear();
         }
 
@@ -202,9 +203,9 @@ namespace tweetz5.Model
             var json = await Twitter.Search(query + "+exclude:retweets");
             var statuses = SearchStatuses.ParseJson(json);
             _search.Clear();
-            _timeline.Clear();
+            Timeline.Clear();
             foreach (var status in statuses) _search.Add(status.CreateTweet(TweetClassification.Search));
-            foreach (var tweet in _search) _timeline.Add(tweet);
+            Timeline.AddRange(_search);
         }
 
         public async Task DeleteTweet(Tweet tweet)
