@@ -13,7 +13,7 @@
     <licenseUrl>http://www.gnu.org/licenses/gpl-3.0.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>http://chocolatey.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
-    <releaseNotes>Update German translation</releaseNotes>
+    <releaseNotes>Update German translation. Many internal improvements. Bug fixes.</releaseNotes>
     <dependencies>
       <dependency id="DotNet4.5.1" />
     </dependencies>
