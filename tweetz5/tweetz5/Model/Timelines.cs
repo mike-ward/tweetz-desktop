@@ -103,6 +103,10 @@ namespace tweetz5.Model
             Timeline.Clear();
             _tweets.Clear();
             _search.Clear();
+            _homeSinceId = 1;
+            _mentionsSinceId = 1;
+            _messagesSinceId = 1;
+            _favoritesSinceId = 1;
         }
 
         private static void PlayNotification()
@@ -152,14 +156,14 @@ namespace tweetz5.Model
             UpdateStatus(statuses, TweetClassification.Favorite);
         }
 
-        private ulong _directMessagesSinceId = 1;
+        private ulong _messagesSinceId = 1;
 
         public async Task UpdateDirectMessages()
         {
-            var recieved = await Twitter.DirectMessages(_directMessagesSinceId);
-            var sent = await Twitter.DirectMessagesSent(_directMessagesSinceId);
+            var recieved = await Twitter.DirectMessages(_messagesSinceId);
+            var sent = await Twitter.DirectMessagesSent(_messagesSinceId);
             var statuses = recieved.Concat(sent).ToArray();
-            _directMessagesSinceId = MaxSinceId(_favoritesSinceId, statuses);
+            _messagesSinceId = MaxSinceId(_favoritesSinceId, statuses);
             UpdateStatus(statuses, TweetClassification.DirectMessage);
         }
 
