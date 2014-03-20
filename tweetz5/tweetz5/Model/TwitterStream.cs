@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -85,6 +86,26 @@ namespace tweetz5.Model
                     catch (InvalidOperationException ex)
                     {
                         Trace.TraceError(ex.ToString());
+                    }
+
+                    catch (AggregateException ae)
+                    {
+                        foreach (var ex in ae.InnerExceptions)
+                        {
+                            if (ex is WebException ||
+                                ex is ArgumentNullException ||
+                                ex is ArgumentException ||
+                                ex is SocketException ||
+                                ex is IOException ||
+                                ex is InvalidOperationException)
+                            {
+                                Trace.TraceError(ex.ToString());
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
                     }
                 }
 
