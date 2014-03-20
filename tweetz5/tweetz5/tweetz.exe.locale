@@ -228,3 +228,78 @@ settings_theme:                 Tema
 settings_theme_dark:            Mörkt
 settings_theme_light:           Ljust
 settings_use_streaming_api:     Använd streaming API
+
+==================== Dutch ======================
+
+TwoLetterLanguageCode: nl
+
+authenticate_instructions:      Druk op de "PIN verkrijgen"-knop om te starten. Deze opent een pagina waar u Tweetz toegang kunt verlenen. Kopieer de PIN-code vanaf de pagina hierheen en druk op "Aanmelden"
+authenticate_get_pin:           PIN verkrijgen
+authenticate_signin:            Aanmelden
+authenticate_about_pins:        PIN-codes kunnen maar één keer gebruikt worden, u hoeft ze dus niet op te slaan.
+                                  
+profile_title:                  Samenvatting Profiel
+profile_tweets:                 Tweets
+profile_friends:                Vrienden
+profile_followers:              Volgers
+profile_follow:                 Volg
+profile_following:              Gevolgden
+profile_unfollow:               Ontvolgen
+profile_follows_you:            volgt u
+                                  
+compose_title_tweet:            Tweet opstellen
+compose_title_general_error:    Fout
+compose_title_shorten_error:    Fout bij verkorten URLs
+compose_send_button_tweet:      Tweet
+compose_send_button_message:    Verzend
+compose_tooltip_photo:          Foto invoegen(Slepen ondersteund)
+compose_tooltip_shorten_links:  Links verkorten
+compose_tooltip_send_button:    Ctrl+Enter
+                                  
+status_reply:                   Beantwoorden
+status_retweet:                 Retweeten
+status_favorite:                Favoriet maken
+status_delete:                  Verwijderen
+status_retweet_classic:         RT (Klassiek)     
+status_copy:                    Kopieer     
+status_copy_link:               Kopieer link     
+
+shortcut_help_close:            Sluiten
+shortcut_help_next:             Volgende Tweet
+shortcut_help_previous:         Vorige Tweet
+shortcut_help_reply:            Beantwoorden
+shortcut_help_retweet:          Retweeten
+shortcut_help_favorite:         Favoriet
+shortcut_help_new_status:       Nieuwe Tweet
+shortcut_help_search:           Zoeken
+shortcut_help_go_top:           Ga naar Boven
+shortcut_help_go_bottom:        Ga naar Beneden
+shortcut_help_send_status:      Verstuur Tweet
+
+time_ago_seconds:               {0}s
+time_ago_minutes:               {0}m
+time_ago_hours:                 {0}u
+time_ago_days:                  {0}d
+time_ago_date:                  MMM d
+                                  
+tooltip_unified_button:         Verenigde tijdlijn (home vermeldingen berichten)
+tooltip_home_button:            Home tijdlijn
+tooltip_mentions_button:        Vermeldingen tijdlijn
+tooltip_messages_button:        Berichten tijdlijn
+tooltip_favorites_button:       Favorieten tijdlijn
+tooltip_search_button:          Zoeken
+tooltip_settings_button:        Instellingen
+tooltip_compose_button:         Opstellen
+                                  
+settings_title:                 Instellingen
+settings_chirp_on_update:       Tsjirp bij tijdlijn updates
+settings_show_media:            Laat media in bericht zien
+settings_spell_check:           Spellingscontrole
+settings_font_size:             Lettergrootte
+settings_sign_out:              Uitloggen
+settings_keyboard_help:         Druk op ? voor sneltoetsen
+settings_run_on_windows_start:  Voer uit bij opstarten Windows
+settings_theme:                 Thema
+settings_theme_dark:            Donker
+settings_theme_light:           Licht
+settings_use_streaming_api:     Gebruik de streaming API
