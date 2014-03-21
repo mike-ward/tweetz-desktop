@@ -12,6 +12,10 @@ namespace tweetz5.Utilities.Translate
         public ITranslationProvider TranslationProvider { get; set; }
         public event EventHandler LanguageChanged;
 
+        private TranslationService()
+        {
+        }
+
         public CultureInfo CurrentLanguage
         {
             get { return Thread.CurrentThread.CurrentUICulture; }
