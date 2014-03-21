@@ -68,7 +68,7 @@ namespace tweetz5.Model
 
         private class MarkupItem
         {
-            public string NodeType { get; set; }
+            public MarkupNodeType MarkupNodeType { get; set; }
             public string Text { get; set; }
             public int Start { get; set; }
             public int End { get; set; }
@@ -82,7 +82,7 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Urls.Select(url => new MarkupItem
                 {
-                    NodeType = "url",
+                    MarkupNodeType = MarkupNodeType.Url,
                     Text = url.Url,
                     Start = url.Indices[0],
                     End = url.Indices[1]
@@ -93,7 +93,7 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Mentions.Select(mention => new MarkupItem
                 {
-                    NodeType = "mention",
+                    MarkupNodeType = MarkupNodeType.Mention,
                     Text = mention.ScreenName,
                     Start = mention.Indices[0],
                     End = mention.Indices[1]
@@ -104,7 +104,7 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.HashTags.Select(hashtag => new MarkupItem
                 {
-                    NodeType = "hashtag",
+                    MarkupNodeType = MarkupNodeType.HashTag,
                     Text = hashtag.Text,
                     Start = hashtag.Indices[0],
                     End = hashtag.Indices[1]
@@ -115,7 +115,7 @@ namespace tweetz5.Model
             {
                 markupItems.AddRange(entities.Media.Select(media => new MarkupItem
                 {
-                    NodeType = "media",
+                    MarkupNodeType = MarkupNodeType.Media,
                     Text = media.Url,
                     Start = media.Indices[0],
                     End = media.Indices[1]
@@ -127,11 +127,11 @@ namespace tweetz5.Model
             markupItems.Sort((l, r) => l.Start - r.Start);
             foreach (var item in markupItems)
             {
-                if (item.Start >= start) nodes.Add(new MarkupNode("text", text.Substring(start, item.Start - start)));
-                nodes.Add(new MarkupNode(item.NodeType, item.Text));
+                if (item.Start >= start) nodes.Add(new MarkupNode(MarkupNodeType.Text, text.Substring(start, item.Start - start)));
+                nodes.Add(new MarkupNode(item.MarkupNodeType, item.Text));
                 start = item.End;
             }
-            if (start < text.Length) nodes.Add(new MarkupNode("text", text.Substring(start)));
+            if (start < text.Length) nodes.Add(new MarkupNode(MarkupNodeType.Text, text.Substring(start)));
             return nodes.ToArray();
         }
 

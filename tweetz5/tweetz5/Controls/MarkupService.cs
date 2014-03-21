@@ -38,21 +38,21 @@ namespace tweetz5.Controls
             var inlines = new List<object>();
             foreach (var node in nodes)
             {
-                switch (node.NodeType)
+                switch (node.MarkupNodeType)
                 {
-                    case "text":
+                    case MarkupNodeType.Text:
                         inlines.Add(Run(node.Text));
                         break;
-                    case "url":
+                    case MarkupNodeType.Url:
                         inlines.Add(Hyperlink("[link]", node.Text));
                         break;
-                    case "mention":
+                    case MarkupNodeType.Mention:
                         inlines.Add(Mention(node.Text));
                         break;
-                    case "hashtag":
+                    case MarkupNodeType.HashTag:
                         inlines.Add(Hashtag(node.Text));
                         break;
-                    case "media":
+                    case MarkupNodeType.Media:
                         inlines.Add(Hyperlink("[link]", node.Text));
                         break;
                 }

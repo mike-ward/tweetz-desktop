@@ -1,13 +1,22 @@
 ﻿namespace tweetz5.Model
 {
+    public enum MarkupNodeType
+    {
+        Text,
+        Url,
+        Mention,
+        HashTag,
+        Media
+    }
+
     public class MarkupNode
     {
-        public string NodeType { get; private set; }
+        public MarkupNodeType MarkupNodeType { get; private set; }
         public string Text { get; private set; }
 
-        public MarkupNode(string nodeType, string text)
+        public MarkupNode(MarkupNodeType markupNodeType, string text)
         {
-            NodeType = nodeType;
+            MarkupNodeType = markupNodeType;
             Text = text;
         }
     }

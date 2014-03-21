@@ -42,10 +42,10 @@ namespace tweetz5UnitTests.Model
             var status = Status.ParseJson(json);
             var tweet = status[0].CreateTweet(TweetClassification.Home);
             tweet.MarkupNodes.Length.Should().Be(4);
-            tweet.MarkupNodes[0].NodeType.Should().Be("text");
-            tweet.MarkupNodes[1].NodeType.Should().Be("mention");
-            tweet.MarkupNodes[2].NodeType.Should().Be("text");
-            tweet.MarkupNodes[3].NodeType.Should().Be("hashtag");
+            tweet.MarkupNodes[0].MarkupNodeType.Should().Be(MarkupNodeType.Text);
+            tweet.MarkupNodes[1].MarkupNodeType.Should().Be(MarkupNodeType.Mention);
+            tweet.MarkupNodes[2].MarkupNodeType.Should().Be(MarkupNodeType.Text);
+            tweet.MarkupNodes[3].MarkupNodeType.Should().Be(MarkupNodeType.HashTag);
         }
     }
 }
