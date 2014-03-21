@@ -33,7 +33,8 @@ namespace tweetz5.Utilities.Translate
         {
             if (LanguageChanged != null)
             {
-                LanguageChanged(this, EventArgs.Empty);
+                var handler = LanguageChanged;
+                handler(this, EventArgs.Empty);
             }
         }
 

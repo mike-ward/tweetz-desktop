@@ -105,7 +105,7 @@ namespace tweetz5.Utilities.Translate
         public class Language
         {
             public string TwoLetterLanguageCode { get; set; }
-            public Dictionary<string, string> Dictionary = new Dictionary<string, string>();
+            public readonly Dictionary<string, string> Dictionary = new Dictionary<string, string>();
         }
     }
 }
