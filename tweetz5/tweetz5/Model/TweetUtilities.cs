@@ -44,6 +44,7 @@ namespace tweetz5.Model
                 TimeAgo = TimeAgo(createdAt),
                 IsRetweet = status.Retweeted,
                 RetweetedBy = RetweetedBy(status, username),
+                RetweetedByScreenName = RetweetedByScreenName(status, username),
                 RetweetStatusId = (status.RetweetedStatus != null) ? status.RetweetedStatus.Id : String.Empty,
                 MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0],
                 IsMyTweet = displayStatus.User.ScreenName == username,
@@ -59,11 +60,14 @@ namespace tweetz5.Model
 
         private static string RetweetedBy(Status status, string username)
         {
-            if (status.RetweetedStatus != null)
-            {
-                return username != status.User.ScreenName ? status.User.Name : string.Empty;
-            }
-            return string.Empty;
+            if (status.RetweetedStatus == null) return string.Empty;
+            return username != status.User.ScreenName ? status.User.Name : string.Empty;
+        }
+
+        private static string RetweetedByScreenName(Status status, string username)
+        {
+            if (status.RetweetedStatus == null) return string.Empty;
+            return username != status.User.ScreenName ? status.User.ScreenName : string.Empty;
         }
 
         private class MarkupItem

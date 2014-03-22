@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using tweetz5.Utilities;
 
 namespace tweetz5.Model
@@ -17,6 +16,7 @@ namespace tweetz5.Model
     {
         private string _timeAgo;
         private string _retweetedBy;
+        private string _retweetedByScreenName;
         private bool _retweet;
         private bool _isHome;
         private bool _isMention;
@@ -34,7 +34,6 @@ namespace tweetz5.Model
         public DateTime CreatedAt { get; set; }
         public string[] MediaLinks { get; set; }
         public bool IsMyTweet { get; set; }
- 
 
         public bool IsRetweet
         {
@@ -48,6 +47,12 @@ namespace tweetz5.Model
             set { SetProperty(ref _retweetedBy, value); }
         }
 
+        public string RetweetedByScreenName
+        {
+            get { return _retweetedByScreenName; }
+            set { SetProperty(ref _retweetedByScreenName, value); }
+        }
+
         public string TimeAgo
         {
             get { return _timeAgo; }
@@ -57,7 +62,7 @@ namespace tweetz5.Model
         public bool IsHome
         {
             get { return _isHome; }
-            set {  SetPropertyValue(ref _isHome, value);}
+            set { SetPropertyValue(ref _isHome, value); }
         }
 
         public bool IsMention

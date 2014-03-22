@@ -143,9 +143,12 @@
               <TextBlock controls:MarkupService.MarkupNodes="{Binding MarkupNodes, Mode=OneTime}"
                          Style="{StaticResource TweetStyle}" />
               <TextBlock Style="{StaticResource TweetRetweetedByStyle}">
-                <Run Style="{StaticResource TweetActionsSymbol}"
-                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}"/>
-                <Run Text="{Binding RetweetedBy}" />
+                <Hyperlink Command="{x:Static commands:ShowUserInformationCommand.Command}" 
+                           CommandParameter="{Binding RetweetedByScreenName}">
+                  <Run Style="{StaticResource TweetActionsSymbol}"
+                       Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}"/>
+                  <Run Text="{Binding RetweetedBy}" />
+                </Hyperlink>
               </TextBlock>
             </StackPanel>
 
