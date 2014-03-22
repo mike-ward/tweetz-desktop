@@ -3,20 +3,17 @@
   <metadata>
     <id>tweetz</id>
     <title>Tweetz</title>
-    <version>0.8.12</version>
+    <version>0.8.13</version>
     <authors>Mike Ward</authors>
     <owners>Mike Ward</owners>
     <summary>Gadget-like Windows Desktop Twitter Client</summary>
-    <description>Tweetz Desktop is a Windows twitter client designed to sit comfortably in the corner of your desktop. It can optionally display attached images inline (as shown below). Tweetz displays your home, mentions and direct messages in a single view reducing the need to switch timelines. Tweetz supports real time updates, posting with media and keyboard shortcuts.</description>
+    <description>Tweetz Desktop is a Windows twitter client designed to sit comfortably in the corner of your desktop. It can optionally display attached images inline. Tweetz displays your home, mentions and direct messages in a single view reducing the need to switch timelines. Tweetz supports real time updates, posting with media and keyboard shortcuts.</description>
     <projectUrl>http://mike-ward.net/tweetz</projectUrl>
     <tags>#twitter #windows</tags>
     <licenseUrl>http://www.gnu.org/licenses/gpl-3.0.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>http://chocolatey.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <releaseNotes>
-      Fix crash on bad PIN. 
-      Click retweeted-by text to show user information. 
-      Show badge for verified accounts
     </releaseNotes>
     <dependencies>
       <dependency id="DotNet4.5.1" />
