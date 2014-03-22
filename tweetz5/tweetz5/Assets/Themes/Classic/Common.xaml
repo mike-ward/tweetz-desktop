@@ -1027,6 +1027,17 @@
     <Setter Property="HorizontalAlignment"
             Value="Center" />
   </Style>
+  
+  <Style x:Key="UserInfoVerified"
+         TargetType="Image">
+    <Setter Property="Height" Value="17"/>
+    <Setter Property="Margin" Value="8 4 0 0" />
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding Verified}" Value="False">
+        <Setter Property="Visibility" Value="Collapsed" />
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
 
   <!-- Search box styles -->
 

@@ -93,6 +93,9 @@ namespace tweetz5.Model
         [DefaultValue("(not specified)")]
         public string Description { get; set; }
 
+        [DataMember(Name = "verified")]
+        public bool Verified { get; set; }
+
         [DataMember(Name = "location")]
         [DefaultValue("(not specified)")]
         public string Location { get; set; }

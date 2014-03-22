@@ -22,6 +22,7 @@ namespace tweetz5.Utilities.Translate
             {"profile_following",               "Following"},
             {"profile_unfollow",                "Unfollow"},
             {"profile_follows_you",             "follows you"},
+            {"profile_verified",                "Verified account"},           
             {"compose_title_tweet",             "Compose a tweet"},
             {"compose_title_general_error",     "Error"},
             {"compose_title_shorten_error",     "Error shortening urls"},

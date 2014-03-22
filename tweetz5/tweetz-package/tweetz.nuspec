@@ -13,7 +13,11 @@
     <licenseUrl>http://www.gnu.org/licenses/gpl-3.0.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>http://chocolatey.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
-    <releaseNotes>Internal improvements</releaseNotes>
+    <releaseNotes>
+      Fix crash on bad PIN. 
+      Click retweeted-by text to show user information. 
+      Show badge for verified accounts
+    </releaseNotes>
     <dependencies>
       <dependency id="DotNet4.5.1" />
     </dependencies>

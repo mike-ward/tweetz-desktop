@@ -282,6 +282,7 @@
     <Resource Include="twitter.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Images\verifiedbadge.png" />
     <Content Include="Resources\notify.wav" />
   </ItemGroup>
   <ItemGroup>

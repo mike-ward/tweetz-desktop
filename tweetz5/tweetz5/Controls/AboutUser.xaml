@@ -23,11 +23,20 @@
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
         <Border  Style="{StaticResource UserInfoProfileImageStyle}">
           <Border.Background>
-            <ImageBrush ImageSource="{Binding ProfileImageUrl}"></ImageBrush>
+            <ImageBrush ImageSource="{Binding ProfileImageUrl, TargetNullValue={x:Null}, Mode=OneTime}"></ImageBrush>
           </Border.Background>
         </Border>
       </TextBlock>
-      <TextBlock Text="{Binding Name}" Style="{StaticResource UserInfoNameStyle}" />
+      <TextBlock Style="{StaticResource UserInfoNameStyle}">
+        <StackPanel Orientation="Horizontal">
+        <TextBlock Text="{Binding Name}"/>
+          <Border>
+          <Image Source="../Assets/Images/verifiedbadge.png"
+                 ToolTip="{t:Translate profile_verified}"
+                 Style="{StaticResource UserInfoVerified}" />
+          </Border>
+      </StackPanel>
+      </TextBlock>
       <TextBlock Style="{StaticResource UserInfoScreenNameStyle}">
         <Hyperlink Command="{x:Static commands:OpenLinkCommand.Command}" 
                    CommandParameter="{Binding ScreenName, Converter={StaticResource ScreenNameToLinkConverter}}">

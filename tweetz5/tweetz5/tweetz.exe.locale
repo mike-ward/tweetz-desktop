@@ -21,6 +21,7 @@ profile_follow:                 Follow
 profile_following:              Following
 profile_unfollow:               Unfollow
 profile_follows_you:            follows you
+profile_verified:               Verified account
                                   
 compose_title_tweet:            Compose a tweet
 compose_title_general_error:    Error
@@ -96,6 +97,7 @@ profile_follow:                 Folgen
 profile_following:              Folge ich
 profile_unfollow:               Entfolgen
 profile_follows_you:            folgt dir
+profile_verified:               Verifiziertes Konto
                                     
 compose_title_tweet:            Verfasse einen tweet
 compose_title_general_error:    Fehler
@@ -171,6 +173,7 @@ profile_follow:                 Följ
 profile_following:              Följer
 profile_unfollow:               Avfölja
 profile_follows_you:            följer dig
+profile_verified:               Verifierat konto
                                     
 compose_title_tweet:            Skriv en tweet
 compose_title_general_error:    Fel
@@ -246,6 +249,7 @@ profile_follow:                 Volg
 profile_following:              Gevolgden
 profile_unfollow:               Ontvolgen
 profile_follows_you:            volgt u
+profile_verified:               Geverifieerde account
                                   
 compose_title_tweet:            Tweet opstellen
 compose_title_general_error:    Fout
