@@ -58,6 +58,7 @@ namespace tweetz5.Utilities.ExceptionHandling
             report.AppendLine();
             report.AppendLine(_divider);
             report.AppendLine("*** Pressing Ctrl+C will copy the contents of this dialog ***");
+            report.AppendLine("*** Email to: mike@mike-ward.net ***");
             report.AppendLine(_divider);
             report.AppendLine();
             report.AppendLine(osInfo);

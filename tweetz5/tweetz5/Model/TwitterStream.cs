@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows;
 using tweetz5.Commands;
+using tweetz5.Utilities.ExceptionHandling;
 
 namespace tweetz5.Model
 {
@@ -39,30 +39,28 @@ namespace tweetz5.Model
                     try
                     {
                         using (var response = request.GetResponse())
+                        using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                         {
-                            using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                            stream.BaseStream.ReadTimeout = 60*1000;
+                            while (true)
                             {
-                                stream.BaseStream.ReadTimeout = 60*1000;
-                                while (true)
+                                var json = stream.ReadLine();
+                                if (json == null)
                                 {
-                                    var json = stream.ReadLine();
-                                    if (json == null)
-                                    {
-                                        Trace.TraceInformation("{ null }");
-                                        break;
-                                    }
-                                    if (cancelationToken.IsCancellationRequested) break;
-                                    Trace.TraceInformation(string.IsNullOrWhiteSpace(json) ? "{ Blankline }" : json);
+                                    Trace.TraceInformation("{ null }");
+                                    break;
+                                }
+                                if (cancelationToken.IsCancellationRequested) break;
+                                Trace.TraceInformation(string.IsNullOrWhiteSpace(json) ? "{ Blankline }" : json);
 
-                                    var serializer = new JavaScriptSerializer();
-                                    var reply = serializer.Deserialize<Dictionary<string, object>>(json);
-                                    if (reply != null && reply.ContainsKey("user"))
-                                    {
-                                        Trace.TraceInformation("{ tweet identified }");
-                                        var statuses = Status.ParseJson("[" + json + "]");
-                                        Application.Current.Dispatcher.InvokeAsync
-                                            (() => UpdateStatusHomeTimelineCommand.Command.Execute(statuses, Application.Current.MainWindow));
-                                    }
+                                var serializer = new JavaScriptSerializer();
+                                var reply = serializer.Deserialize<Dictionary<string, object>>(json);
+                                if (reply != null && reply.ContainsKey("user"))
+                                {
+                                    Trace.TraceInformation("{ tweet identified }");
+                                    var statuses = Status.ParseJson("[" + json + "]");
+                                    Application.Current.Dispatcher.InvokeAsync
+                                        (() => UpdateStatusHomeTimelineCommand.Command.Execute(statuses, Application.Current.MainWindow));
                                 }
                             }
                         }
@@ -87,30 +85,11 @@ namespace tweetz5.Model
                     {
                         Trace.TraceError(ex.ToString());
                     }
-
-                    catch (AggregateException ae)
-                    {
-                        foreach (var ex in ae.InnerExceptions)
-                        {
-                            if (ex is WebException ||
-                                ex is ArgumentNullException ||
-                                ex is ArgumentException ||
-                                ex is SocketException ||
-                                ex is IOException ||
-                                ex is InvalidOperationException)
-                            {
-                                Trace.TraceError(ex.ToString());
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
                 }
 
                 Trace.TraceInformation("{ Stream task ends }");
-            }, cancelationToken);
+            },
+                cancelationToken).LogAggregateExceptions();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using tweetz5.Properties;
+using tweetz5.Utilities.ExceptionHandling;
 
 namespace tweetz5.Commands
 {
@@ -23,7 +24,7 @@ namespace tweetz5.Commands
                 player.PlaySync();
                 Thread.Sleep(200);
                 _playing = false;
-            });
+            }).LogAggregateExceptions();
         }
     }
 }

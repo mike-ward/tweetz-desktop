@@ -11,7 +11,7 @@ namespace tweetz5.Commands
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
-            var mainWindow = (MainWindow) Application.Current.MainWindow;
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.Timeline.Controller.StopTimelines();
             Task.Run(() => mainWindow.Timeline.Controller.StartTimelines());
         }
