@@ -85,6 +85,11 @@ namespace tweetz5.Model
                     {
                         Trace.TraceError(ex.ToString());
                     }
+
+                    catch (IOException ex)
+                    {
+                        Trace.TraceError(ex.ToString());
+                    }
                 }
 
                 Trace.TraceInformation("{ Stream task ends }");
