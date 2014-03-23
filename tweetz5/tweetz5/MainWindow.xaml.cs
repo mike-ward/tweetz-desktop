@@ -69,6 +69,7 @@ namespace tweetz5
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
         {
+            Keyboard.Focus(Timeline.TimelineItems);
             DragMove();
             e.Handled = true;
         }
