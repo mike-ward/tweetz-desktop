@@ -151,11 +151,9 @@ namespace tweetz5.Controls
             get { return _tweetMargin; }
             set
             {
-                if (_tweetMargin != value)
-                {
-                    _tweetMargin = value;
-                    OnPropertyChanged();
-                }
+                if (_tweetMargin == value) return;
+                _tweetMargin = value;
+                OnPropertyChanged();
             }
         }
 

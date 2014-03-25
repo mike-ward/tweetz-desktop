@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows;
 using tweetz5.Commands;
-using tweetz5.Utilities.ExceptionHandling;
 
 namespace tweetz5.Model
 {
@@ -93,8 +92,7 @@ namespace tweetz5.Model
                 }
 
                 Trace.TraceInformation("{ Stream task ends }");
-            },
-                cancelationToken).LogAggregateExceptions();
+            }, cancelationToken);
         }
     }
 }

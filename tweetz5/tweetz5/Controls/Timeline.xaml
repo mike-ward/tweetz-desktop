@@ -122,9 +122,7 @@
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
                   <Image Source="{Binding}"
-                         StretchDirection="DownOnly"
-                         Style="{StaticResource TweetMediaStyle}"
-                         Cursor="Hand">
+                         Style="{StaticResource TweetMediaStyle}">
                     <Image.InputBindings>
                       <MouseBinding MouseAction="LeftClick"
                                     Command="{x:Static commands:OpenLinkCommand.Command}"
