@@ -23,7 +23,7 @@
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
         <Border  Style="{StaticResource UserInfoProfileImageStyle}">
           <Border.Background>
-            <ImageBrush ImageSource="{Binding ProfileImageUrl, TargetNullValue={x:Null}, Mode=OneTime}"></ImageBrush>
+            <ImageBrush ImageSource="{Binding ProfileImageUrl, TargetNullValue={x:Null}, Mode=OneTime, IsAsync=True}" />
           </Border.Background>
         </Border>
       </TextBlock>

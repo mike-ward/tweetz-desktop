@@ -75,7 +75,7 @@
 
             <Rectangle Grid.Column="0" Style="{StaticResource TweetImageStyle}">
               <Rectangle.Fill>
-                <ImageBrush ImageSource="{Binding ProfileImageUrl, TargetNullValue={x:Null}, Mode=OneTime}"
+                <ImageBrush ImageSource="{Binding ProfileImageUrl, TargetNullValue={x:Null}, IsAsync=True, Mode=OneTime}"
                             RenderOptions.BitmapScalingMode="HighQuality"/>
               </Rectangle.Fill>
             </Rectangle>
@@ -121,7 +121,7 @@
                           ItemsSource="{Binding MediaLinks}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                  <Image Source="{Binding}"
+                  <Image Source="{Binding IsAsync=True}"
                          Style="{StaticResource TweetMediaStyle}">
                     <Image.InputBindings>
                       <MouseBinding MouseAction="LeftClick"

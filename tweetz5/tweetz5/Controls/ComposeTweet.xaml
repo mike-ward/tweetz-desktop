@@ -27,7 +27,7 @@
              PreviewKeyDown="TextBoxOnPreviewKeyDown"
              Style="{StaticResource ComposeTweetTextBox}"
              IsVisibleChanged="OnIsVisibleChanged" />
-    <Image Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}}"
+    <Image Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}, IsAsync=True}"
            Style="{StaticResource ComposeImageStyle}" />
     <DockPanel Margin="0 0 0 6">
       <TextBlock x:Name="Counter"
