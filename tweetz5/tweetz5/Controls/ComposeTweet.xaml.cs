@@ -96,6 +96,7 @@ namespace tweetz5.Controls
             try
             {
                 SendButtonText.Visibility = Visibility.Collapsed;
+                SendButtonProgress.IsIndeterminate = true;
                 SendButtonProgress.Visibility = Visibility.Visible;
                 var text = TextBox.Text;
                 string json;
@@ -128,6 +129,7 @@ namespace tweetz5.Controls
                 _isSending = false;
                 SendButtonText.Visibility = Visibility.Visible;
                 SendButtonProgress.Visibility = Visibility.Collapsed;
+                SendButtonProgress.IsIndeterminate = false;
             }
         }
 

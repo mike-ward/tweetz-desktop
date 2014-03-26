@@ -14,6 +14,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>http://chocolatey.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <releaseNotes>
+      Fix CPU usage while idle after sending tweet.
     </releaseNotes>
     <dependencies>
       <dependency id="DotNet4.5.1" />

@@ -67,7 +67,7 @@
             </Style>
           </Button.Style>
           <StackPanel>
-            <ProgressBar x:Name="SendButtonProgress"  Width="40" Height="10" IsIndeterminate="True" Visibility="Collapsed" />
+            <ProgressBar x:Name="SendButtonProgress"  Width="40" Height="10" Visibility="Collapsed" />
             <TextBlock x:Name="SendButtonText" TextAlignment="Center" />
           </StackPanel>
         </Button>
