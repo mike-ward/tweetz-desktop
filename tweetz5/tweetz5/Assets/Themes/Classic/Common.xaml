@@ -516,6 +516,14 @@
             Value="HighQuality" />
     <Setter Property="Margin"
             Value="7 0 7 5" />
+    <Setter Property="MaxHeight"
+            Value="150" />
+    <Setter Property="Stretch"
+            Value="UniformToFill" />
+    <Setter Property="HorizontalAlignment"
+            Value="Center" />
+    <Setter Property="VerticalAlignment"
+            Value="Center" />
     <Style.Triggers>
       <DataTrigger Binding="{Binding Image}"
                    Value="{x:Null}">
