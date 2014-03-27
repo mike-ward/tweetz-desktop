@@ -3,7 +3,7 @@
   <metadata>
     <id>tweetz</id>
     <title>Tweetz</title>
-    <version>0.8.15</version>
+    <version>0.8.16</version>
     <authors>Mike Ward</authors>
     <owners>Mike Ward</owners>
     <summary>Gadget-like Windows Desktop Twitter Client</summary>
@@ -14,8 +14,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>http://chocolatey.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <releaseNotes>
-      Fix CPU usage while idle after sending tweet.
-      Fix crash when searching with multibyte characters.
     </releaseNotes>
     <dependencies>
       <dependency id="DotNet4.5.1" />
