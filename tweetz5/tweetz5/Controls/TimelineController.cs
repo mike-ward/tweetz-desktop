@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Windows;
 using tweetz5.Model;
+using tweetz5.Utilities.ExceptionHandling;
 using Settings = tweetz5.Properties.Settings;
 
 namespace tweetz5.Controls
@@ -88,7 +89,7 @@ namespace tweetz5.Controls
 
         public void DeleteTweet(Tweet tweet)
         {
-            _timelinesModel.DeleteTweet(tweet);
+            _timelinesModel.DeleteTweet(tweet).LogAggregateExceptions();
         }
 
         public void AddFavorite(Tweet tweet)
@@ -98,17 +99,17 @@ namespace tweetz5.Controls
 
         public void RemoveFavorite(Tweet tweet)
         {
-            _timelinesModel.RemoveFavorite(tweet);
+            _timelinesModel.RemoveFavorite(tweet).LogAggregateExceptions();
         }
 
         public void Search(string query)
         {
-            _timelinesModel.Search(query);
+            _timelinesModel.Search(query).LogAggregateExceptions();
         }
 
         public void Retweet(Tweet tweet)
         {
-            _timelinesModel.Retweet(tweet);
+            _timelinesModel.Retweet(tweet).LogAggregateExceptions();
         }
     }
 }

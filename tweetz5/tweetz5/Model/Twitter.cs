@@ -264,7 +264,7 @@ namespace tweetz5.Model
                 var parameters = new[]
                 {
                     new[] {"q", query},
-                    new[] {"count", "50"},
+                    new[] {"count", "100"},
                     new[] {"since_id", sinceId}
                 };
                 return Get("https://api.twitter.com/1.1/search/tweets.json", parameters);

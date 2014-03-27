@@ -204,11 +204,11 @@ namespace tweetz5.Model
 
         public async Task Search(string query)
         {
-            var json = await Twitter.Search(query + "+exclude:retweets");
-            var statuses = SearchStatuses.ParseJson(json);
             _search.Clear();
             Timeline.Clear();
-            foreach (var status in statuses) _search.Add(status.CreateTweet(TweetClassification.Search));
+            var json = await Twitter.Search(query);
+            var statuses = SearchStatuses.ParseJson(json);
+            foreach (var status in statuses.Where(s => s.RetweetedStatus == null)) _search.Add(status.CreateTweet(TweetClassification.Search));
             Timeline.AddRange(_search);
         }
 
