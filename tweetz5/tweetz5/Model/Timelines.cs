@@ -19,6 +19,7 @@ namespace tweetz5.Model
         private readonly Collection<Tweet> _search = new Collection<Tweet>();
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private Visibility _searchVisibility = Visibility.Collapsed;
+        private bool _isSearching;
 
         private bool UpdateTimelines(IEnumerable<Status> statuses, TweetClassification tweetType)
         {
@@ -96,6 +97,14 @@ namespace tweetz5.Model
         {
             get { return _searchVisibility; }
             set { SetPropertyValue(ref _searchVisibility, value); }
+        }
+
+        // ReSharper disable once MemberCanBePrivate.Global
+        public bool IsSearching
+        {
+            // ReSharper disable once UnusedMember.Global
+            get { return _isSearching; }
+            set {  SetPropertyValue(ref _isSearching, value); }
         }
 
         public void ClearAllTimelines()
@@ -204,12 +213,20 @@ namespace tweetz5.Model
 
         public async Task Search(string query)
         {
-            _search.Clear();
-            Timeline.Clear();
-            var json = await Twitter.Search(query);
-            var statuses = SearchStatuses.ParseJson(json);
-            foreach (var status in statuses.Where(s => s.RetweetedStatus == null)) _search.Add(status.CreateTweet(TweetClassification.Search));
-            Timeline.AddRange(_search);
+            try
+            {
+                IsSearching = true;
+                _search.Clear();
+                Timeline.Clear();
+                var json = await Twitter.Search(query);
+                var statuses = SearchStatuses.ParseJson(json);
+                foreach (var status in statuses.Where(s => s.RetweetedStatus == null)) _search.Add(status.CreateTweet(TweetClassification.Search));
+                Timeline.AddRange(_search);
+            }
+            finally
+            {
+                IsSearching = false;
+            }
         }
 
         public async Task DeleteTweet(Tweet tweet)
