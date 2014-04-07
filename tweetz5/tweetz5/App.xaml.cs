@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Animation;
 using tweetz5.Properties;
 using tweetz5.Utilities.ExceptionHandling;
 using tweetz5.Utilities.Translate;

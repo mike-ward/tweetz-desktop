@@ -307,3 +307,79 @@ settings_theme:                 Thema
 settings_theme_dark:            Donker
 settings_theme_light:           Licht
 settings_use_streaming_api:     Gebruik de streaming API
+
+==================== Italian ======================
+
+TwoLetterLanguageCode: it
+
+authenticate_instructions:      Per iniziare clicca sul tasto "Ottieni PIN". Questo aprirà una pagina web dove potrai autorizzare l'accesso all' applicazione. Copiare il PIN generato dalla pagina web e cliccare su "accedi".
+authenticate_get_pin:           Ottieni PIN
+authenticate_signin:            Accedi
+authenticate_about_pins:        Il PIN può essere utilizzato una sola volta, quindi non c'è bisogno di salvarlo
+                                  
+profile_title:                  Sommario profilo
+profile_tweets:                 tweets
+profile_friends:                amici
+profile_followers:              followers
+profile_follow:                 Seguire
+profile_following:              Persone che stai seguendo
+profile_unfollow:               Smetti di seguire
+profile_follows_you:            Persone che ti seguono
+profile_verified:               Account verificato
+                                  
+compose_title_tweet:            Componi un tweet
+compose_title_general_error:    Errore
+compose_title_shorten_error:    Errore di abbreviazione URL
+compose_send_button_tweet:      Tweet
+compose_send_button_message:    Invia
+compose_tooltip_photo:          Includi foto (suopportato il Drag & Drop )
+compose_tooltip_shorten_links:  Abbrevia link 
+compose_tooltip_send_button:    Ctrl+INVIO
+                                  
+status_reply:                   Rispondi
+status_retweet:                 Retweet
+status_favorite:                Preferiti    
+status_delete:                  Elimina   
+status_retweet_classic:         RT (Classico)     
+status_copy:                    Copia
+status_copy_link:               Copia Link     
+
+shortcut_help_close:            Chiudi
+shortcut_help_next:             Prossimo Tweet
+shortcut_help_previous:         Tweet precedente
+shortcut_help_reply:            Rispondi
+shortcut_help_retweet:          Retweet
+shortcut_help_favorite:         Preferiti
+shortcut_help_new_status:       Nuovo Tweet
+shortcut_help_search:           Cerca
+shortcut_help_go_top:           Vai su
+shortcut_help_go_bottom:        Vai giù
+shortcut_help_send_status:      Invia Tweet
+
+time_ago_seconds:               {0}s
+time_ago_minutes:               {0}m
+time_ago_hours:                 {0}h
+time_ago_days:                  {0}g
+time_ago_date:                  MMM g
+                                  
+tooltip_unified_button:         Cronologia unificata (Messaggi menzionati)
+tooltip_home_button:            Home 
+tooltip_mentions_button:        Cronologia menzioni
+tooltip_messages_button:        Cronologia messaggi
+tooltip_favorites_button:       Cronologia preferiti
+tooltip_search_button:          Cerca
+tooltip_settings_button:        Impostazioni
+tooltip_compose_button:         Componi
+                                  
+settings_title:                 Impostazioni
+settings_chirp_on_update:       Tweet su agg. cronologia
+settings_show_media:            Visualizza media
+settings_spell_check:           Controllo ortografico
+settings_font_size:             Dimensioni caratteri
+settings_sign_out:              Esci
+settings_keyboard_help:         Premi ? per le scorciatoie da tastiera
+settings_run_on_windows_start:  Esegui all'avvio di Windows
+settings_theme:                 Tema
+settings_theme_dark:            Scuro
+settings_theme_light:           Chiaro
+settings_use_streaming_api:     Utilizzare lo streaming API

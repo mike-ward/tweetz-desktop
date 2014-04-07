@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Windows.Media;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using tweetz5.Utilities.Translate;
@@ -273,6 +275,19 @@ settings_theme_light:           Licht";
             languages[2].TwoLetterLanguageCode.Should().Be("de");
             languages[2].Dictionary["authenticate_get_pin"].Should().Be("PIN holen");
             languages[2].Dictionary["authenticate_signin"].Should().Be("Anmelden");
+        }
+
+        [TestMethod]
+        public void LocaleFileShouldContainMultipleLanguages()
+        {
+            var text = File.ReadAllText(@"..\..\..\tweetz5\tweetz.exe.locale");
+            var languages = TranslationProviderNameValueFile.Parse(text);
+            languages.Length.Should().Be(5);
+            languages[0].TwoLetterLanguageCode.Should().Be("en");
+            languages[1].TwoLetterLanguageCode.Should().Be("de");
+            languages[2].TwoLetterLanguageCode.Should().Be("sv");
+            languages[3].TwoLetterLanguageCode.Should().Be("nl");
+            languages[4].TwoLetterLanguageCode.Should().Be("it");
         }
     }
 }
