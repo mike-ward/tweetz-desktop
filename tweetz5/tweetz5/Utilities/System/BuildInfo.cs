@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 using tweetz5.Commands;
-using tweetz5.Properties;
 
 #pragma warning disable 169
 #pragma warning disable 649
@@ -66,13 +65,13 @@ namespace tweetz5.Utilities.System
 
         public static bool HasExpired()
         {
+            var now = DateTime.Now;
             var buildDate = GetBuildDateTime();
-            if (DateTime.Now > buildDate.AddMonths(3))
+            if (now > buildDate.AddMonths(0))
             {
-                Settings.Default.AccessToken = string.Empty;
-                Settings.Default.AccessTokenSecret = string.Empty;
                 var mainWindow = (MainWindow) Application.Current.MainWindow;
-                AlertCommand.Command.Execute("Expired", mainWindow);
+                var message = string.Format("Expired\n t: {0:g}\n b: {1:g}\n v: {2}", now, buildDate, Version);
+                AlertCommand.Command.Execute(message, mainWindow);
                 return true;
             }
             return false;
