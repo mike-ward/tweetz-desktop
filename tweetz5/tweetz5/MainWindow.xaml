@@ -14,7 +14,7 @@
         MinWidth="200"
         ResizeMode="NoResize"
         WindowStyle="None"
-        ShowInTaskbar="False"
+        ShowInTaskbar="True"
         Style="{StaticResource WindowStyle}"
         Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
         Width="{Binding Source={x:Static p:Settings.Default}, Path=Width, Mode=TwoWay}"
