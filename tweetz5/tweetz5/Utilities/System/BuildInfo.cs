@@ -67,7 +67,7 @@ namespace tweetz5.Utilities.System
         {
             var now = DateTime.Now;
             var buildDate = GetBuildDateTime();
-            if (now > buildDate.AddMonths(0))
+            if (now > buildDate.AddMonths(3))
             {
                 var mainWindow = (MainWindow) Application.Current.MainWindow;
                 var message = string.Format("Expired\n t: {0:g}\n b: {1:g}\n v: {2}", now, buildDate, Version);
