@@ -14,6 +14,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>http://chocolatey.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <releaseNotes>
+      Spanish and Italian translation.
+      Expired message include times.
+      Bug fixes.
     </releaseNotes>
     <dependencies>
       <dependency id="DotNet4.5.1" />
