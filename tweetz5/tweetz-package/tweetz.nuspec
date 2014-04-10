@@ -3,7 +3,7 @@
   <metadata>
     <id>tweetz</id>
     <title>Tweetz</title>
-    <version>0.8.17</version>
+    <version>0.8.18</version>
     <authors>Mike Ward</authors>
     <owners>Mike Ward</owners>
     <summary>Gadget-like Windows Desktop Twitter Client</summary>
@@ -14,7 +14,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>http://chocolatey.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <releaseNotes>
-      French translation
     </releaseNotes>
     <dependencies>
       <dependency id="DotNet4.5.1" />
