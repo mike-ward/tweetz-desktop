@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Windows.Media;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using tweetz5.Utilities.Translate;
@@ -282,13 +280,14 @@ settings_theme_light:           Licht";
         {
             var text = File.ReadAllText(@"..\..\..\tweetz5\tweetz.exe.locale");
             var languages = TranslationProviderNameValueFile.Parse(text);
-            languages.Length.Should().Be(6);
+            languages.Length.Should().Be(7);
             languages[0].TwoLetterLanguageCode.Should().Be("en");
             languages[1].TwoLetterLanguageCode.Should().Be("de");
             languages[2].TwoLetterLanguageCode.Should().Be("sv");
             languages[3].TwoLetterLanguageCode.Should().Be("nl");
             languages[4].TwoLetterLanguageCode.Should().Be("it");
             languages[5].TwoLetterLanguageCode.Should().Be("es");
+            languages[6].TwoLetterLanguageCode.Should().Be("fr");
         }
     }
 }

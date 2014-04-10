@@ -461,3 +461,79 @@ settings_theme:                 Tema
 settings_theme_dark:            Oscuro
 settings_theme_light:           Claro
 settings_use_streaming_api:     Usar la streaming API
+
+==================== French ======================
+
+TwoLetterLanguageCode: fr
+
+authenticate_instructions:      Pour commencer, cliquez sur le bouton "Get PIN". Cela ouvre une page Web où vous autorisez l'accès. Copiez le code PIN de la page Web ici et cliquez sur "Se connecter"
+authenticate_get_pin:           Obtenez PIN
+authenticate_signin:            Identifiez-vous
+authenticate_about_pins:        NIP ne peuvent être utilisés qu'une seule fois il n'y a donc pas besoin de les sauver.
+                                  
+profile_title:                  Profil Résumé
+profile_tweets:                 Tweets
+profile_friends:                Amis
+profile_followers:              Adeptes
+profile_follow:                 Suivre
+profile_following:              Suivant
+profile_unfollow:               Ne pas suivre
+profile_follows_you:            Vous suit
+profile_verified:               Compte vérifié
+                                  
+compose_title_tweet:            Composez un tweet
+compose_title_general_error:    Erreur
+compose_title_shorten_error:    Erreur de raccourcir les URL
+compose_send_button_tweet:      Tweet
+compose_send_button_message:    Envoyer
+compose_tooltip_photo:          Inclure photo (Drag & Drop pris en charge)
+compose_tooltip_shorten_links:  Raccourcir les liens 
+compose_tooltip_send_button:    Ctrl + Entrée
+                                  
+status_reply:                   Répondre
+status_retweet:                 Retweet
+status_favorite:                Favori     
+status_delete:                  Effacer     
+status_retweet_classic:         RT (classique)     
+status_copy:                    Copie     
+status_copy_link:               Copier le lien     
+
+shortcut_help_close:            Proche
+shortcut_help_next:             Suivant Tweet
+shortcut_help_previous:         Tweet précédent
+shortcut_help_reply:            Répondre
+shortcut_help_retweet:          Retweet
+shortcut_help_favorite:         Favori
+shortcut_help_new_status:       Nouveau Tweet
+shortcut_help_search:           Recherche
+shortcut_help_go_top:           Haut de page
+shortcut_help_go_bottom:        Aller en bas
+shortcut_help_send_status:      Envoyer Tweet
+
+time_ago_seconds:               {0}s
+time_ago_minutes:               {0}m
+time_ago_hours:                 {0}h
+time_ago_days:                  {0}d
+time_ago_date:                  MMM d
+                                  
+tooltip_unified_button:         Chronologie unifiée (la maison mentionne messages)
+tooltip_home_button:            Accueil chronologie
+tooltip_mentions_button:        Mentions chronologie
+tooltip_messages_button:        Messages chronologie
+tooltip_favorites_button:       Favoris chronologie
+tooltip_search_button:          Recherche
+tooltip_settings_button:        Paramètres
+tooltip_compose_button:         Composer
+                                  
+settings_title:                 Paramètres
+settings_chirp_on_update:       Gazouiller sur les mises à jour timeline
+settings_show_media:            Afficher les médias inline
+settings_spell_check:           Correcteur d'orthographe
+settings_font_size:             Taille de la police
+settings_sign_out:              Déconnexion
+settings_keyboard_help:         Appuyez sur ? pour les raccourcis clavier
+settings_run_on_windows_start:  Exécutez le démarrage de Windows
+settings_theme:                 Thème
+settings_theme_dark:            Sombre
+settings_theme_light:           Lumière
+settings_use_streaming_api:     Utilisez le streaming API
