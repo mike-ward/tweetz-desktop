@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using tweetz5.Commands;
@@ -29,22 +31,36 @@ namespace tweetz5.Controls
 
         private async void GetPin_OnClick(object sender, RoutedEventArgs e)
         {
-            Tokens = await Twitter.GetRequestToken();
-            var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + Tokens.OAuthToken;
-            OpenLinkCommand.Command.Execute(url, this);
+            try
+            {
+                Tokens = await Twitter.GetRequestToken();
+                var url = "https://api.twitter.com/oauth/authenticate?oauth_token=" + Tokens.OAuthToken;
+                OpenLinkCommand.Command.Execute(url, this);
+            }
+            catch (AggregateException ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
 
         private async void SignIn_OnClick(object sender, RoutedEventArgs e)
         {
-            var tokens = await Twitter.GetAccessToken(Tokens.OAuthToken, Tokens.OAuthSecret, Pin.Text);
-            Pin.Text = string.Empty;
-            if (tokens == null) return;
-            Settings.Default.AccessToken = tokens.OAuthToken;
-            Settings.Default.AccessTokenSecret = tokens.OAuthSecret;
-            Settings.Default.UserId = tokens.UserId;
-            Settings.Default.ScreenName = tokens.ScreenName;
-            Settings.Default.Save();
-            SignInCommand.Command.Execute(null, this);
+            try
+            {
+                var tokens = await Twitter.GetAccessToken(Tokens.OAuthToken, Tokens.OAuthSecret, Pin.Text);
+                Pin.Text = string.Empty;
+                if (tokens == null) return;
+                Settings.Default.AccessToken = tokens.OAuthToken;
+                Settings.Default.AccessTokenSecret = tokens.OAuthSecret;
+                Settings.Default.UserId = tokens.UserId;
+                Settings.Default.ScreenName = tokens.ScreenName;
+                Settings.Default.Save();
+                SignInCommand.Command.Execute(null, this);
+            }
+            catch (AggregateException ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
