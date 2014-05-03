@@ -73,7 +73,8 @@ namespace tweetz5.Utilities.Translate
             {"settings_theme",                  "Theme"},
             {"settings_theme_dark",             "Dark"},
             {"settings_theme_light",            "Light"},
-            {"settings_use_streaming_api",      "Use streaming API"} 
+            {"settings_use_streaming_api",      "Use streaming API"}, 
+            {"settings_show_in_taskbar",        "Show in taskbar"} 
         };
     }
 }

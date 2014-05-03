@@ -56,6 +56,18 @@ namespace tweetz5.Model
             }
         }
 
+        public bool ShowInTaskbar
+        {
+            get { return Properties.Settings.Default.ShowInTaskbar; }
+            set
+            {
+                if (Properties.Settings.Default.ShowInTaskbar == value) return;
+                Properties.Settings.Default.ShowInTaskbar = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
+            }
+        }
+
         public static string Version
         {
             get { return BuildInfo.Version; }

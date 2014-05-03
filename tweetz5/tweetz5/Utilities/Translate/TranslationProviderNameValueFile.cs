@@ -58,7 +58,6 @@ namespace tweetz5.Utilities.Translate
 
         private Language FindLanguage(CultureInfo culture)
         {
-            if (_language == null) return new Language();
             return _languages.FirstOrDefault(t => t.TwoLetterLanguageCode == culture.TwoLetterISOLanguageName) ?? new Language();
         }
 

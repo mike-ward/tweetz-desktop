@@ -81,6 +81,7 @@ settings_theme:                 Theme
 settings_theme_dark:            Dark
 settings_theme_light:           Light
 settings_use_streaming_api:     Use streaming API
+settings_show_in_taskbar:       Show in taskbar
 
 ==================== German ======================
 
@@ -157,6 +158,7 @@ settings_theme:                 Thema
 settings_theme_dark:            Dunkel
 settings_theme_light:           Hell
 settings_use_streaming_api:     Nutzung der Streaming-API
+settings_show_in_taskbar:       In der Taskleiste anzeigen
 
 ==================== Swedish ======================
 
@@ -233,6 +235,7 @@ settings_theme:                 Tema
 settings_theme_dark:            Mörkt
 settings_theme_light:           Ljust
 settings_use_streaming_api:     Använd streaming API
+settings_show_in_taskbar:       Visa i aktivitetsfältet
 
 ==================== Dutch ======================
 
@@ -309,6 +312,7 @@ settings_theme:                 Thema
 settings_theme_dark:            Donker
 settings_theme_light:           Licht
 settings_use_streaming_api:     Gebruik de streaming API
+settings_show_in_taskbar:       Toon in taakbalk
 
 ==================== Italian ======================
 
@@ -385,6 +389,7 @@ settings_theme:                 Tema
 settings_theme_dark:            Scuro
 settings_theme_light:           Chiaro
 settings_use_streaming_api:     Utilizzare lo streaming API
+settings_show_in_taskbar:       Mostra sulla barra delle applicazioni
 
 ==================== Spanish ======================
 
@@ -461,6 +466,7 @@ settings_theme:                 Tema
 settings_theme_dark:            Oscuro
 settings_theme_light:           Claro
 settings_use_streaming_api:     Usar la streaming API
+settings_show_in_taskbar:       Mostrar en la barra de tareas
 
 ==================== French ======================
 
@@ -537,3 +543,4 @@ settings_theme:                 Thème
 settings_theme_dark:            Sombre
 settings_theme_light:           Lumière
 settings_use_streaming_api:     Utilisez le streaming API
+settings_show_in_taskbar:       Afficher dans la barre des tâches
