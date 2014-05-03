@@ -75,6 +75,10 @@
     <Compile Include="Utilities\Translate\ParseNameValueTextTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\tweetz5\tweetz.exe.locale">
+      <Link>tweetz.exe.locale</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
