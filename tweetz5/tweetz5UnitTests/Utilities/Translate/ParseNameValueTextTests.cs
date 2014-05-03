@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
+using System.Threading;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using tweetz5.Utilities.Translate;
@@ -288,6 +290,22 @@ settings_theme_light:           Licht";
             languages[4].TwoLetterLanguageCode.Should().Be("it");
             languages[5].TwoLetterLanguageCode.Should().Be("es");
             languages[6].TwoLetterLanguageCode.Should().Be("fr");
+
+        }
+
+        [TestMethod]
+        public void FrenchShouldReturnFrench()
+        {
+            try
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
+                TranslationService.Instance.TranslationProvider = new TranslationProviderNameValueFile();
+                TranslationService.Instance.Translate("settings_theme_light").Should().Be("Lumière");
+            }
+            finally
+            {
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+            }
         }
     }
 }
