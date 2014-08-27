@@ -33,7 +33,7 @@ namespace tweetz5
                 // ReSharper disable once PossibleNullReferenceException
                 HwndSource.FromHwnd(new WindowInteropHelper(this).Handle).AddHook(WndProc);
 
-                if (BuildInfo.HasExpired()) return;
+                //if (BuildInfo.HasExpired()) return;
                 SignInCommand.Command.Execute(null, this);
             };
         }

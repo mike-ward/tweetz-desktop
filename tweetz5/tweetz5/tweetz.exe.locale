@@ -621,3 +621,80 @@ settings_theme_dark:            Escuro
 settings_theme_light:           Claro
 settings_use_streaming_api:     Usar streaming API
 settings_show_in_taskbar:       Mostrar na barra de tarefas
+
+==================== Romanian ======================
+
+TwoLetterLanguageCode: ro
+
+authenticate_instructions:      Pentru a folosi clientul click pe "Obtine PIN". Se vad eschide o pagina web unde vei autoriza accesul. Copiaza codul PIN de pe pagina web si lipeste-l in caseta text si click pe Conectare.
+authenticate_get_pin:           Obtine PIN
+authenticate_signin:            Conectare
+authenticate_about_pins:        Codurile PIN pot fi folosite o singura data asa ca nu este nevoie sa le salvezi.
+                                  
+profile_title:                  Profil Sumar
+profile_tweets:                 tweet-uri
+profile_friends:                prieteni
+profile_followers:              urmaritori
+profile_follow:                 Urmareste
+profile_following:              Urmaresc
+profile_unfollow:               Nu mai urmari
+profile_follows_you:            te urmareste
+profile_verified:               Profil verificato
+                                  
+compose_title_tweet:            Compune un tweet
+compose_title_general_error:    Eroare
+compose_title_shorten_error:    Eroare la scurtarea url-ului
+compose_send_button_tweet:      Tweet
+compose_send_button_message:    Trimite
+compose_tooltip_photo:         Include o fotografie (Drag and Drop este suportat)
+compose_tooltip_shorten_links:  Scurteaza link-urile 
+compose_tooltip_send_button:    Ctrl+Enter
+                                  
+status_reply:                   Raspunde
+status_retweet:                 Retweet
+status_favorite:                Favorite     
+status_delete:                  Sterge     
+status_retweet_classic:         RT (Classic)     
+status_copy:                    Copiaza     
+status_copy_link:               Copiaza link-ul     
+
+shortcut_help_close:            Inchide
+shortcut_help_next:             Urmatorul tweet
+shortcut_help_previous:         Tweet-ul anterior
+shortcut_help_reply:            Raspunde
+shortcut_help_retweet:          Retweet
+shortcut_help_favorite:         Favorite
+shortcut_help_new_status:       Tweet nou
+shortcut_help_search:           Cauta
+shortcut_help_go_top:           Mergi sus
+shortcut_help_go_bottom:        Mergi jos
+shortcut_help_send_status:      Trimite tweet
+
+time_ago_seconds:               {0}s
+time_ago_minutes:               {0}m
+time_ago_hours:                 {0}h
+time_ago_days:                  {0}d
+time_ago_date:                  MMM d
+                                  
+tooltip_unified_button:         Timeline unificat (acasa/mentiuni/mesaje)
+tooltip_home_button:            Timeline
+tooltip_mentions_button:        Mentiuni
+tooltip_messages_button:        Mesaje
+tooltip_favorites_button:       Favorite
+tooltip_search_button:          Cauta
+tooltip_settings_button:        Setari
+tooltip_compose_button:         Compune
+                                  
+settings_title:                 Setari
+settings_chirp_on_update:       Ciripeste cand apar noutati
+settings_show_media:            Arata continut media inline
+settings_spell_check:           Verificare ortografie
+settings_font_size:             Dimensiunea fontului
+settings_sign_out:              Delogare
+settings_keyboard_help:         Apasa ? pentru scurtaturi
+settings_run_on_windows_start:  Porneste odata cu Windows
+settings_theme:                 Tema
+settings_theme_dark:            Intunecat
+settings_theme_light:           Luminos
+settings_use_streaming_api:     Foloseste API-ul pentru streaming
+settings_show_in_taskbar:       Arata in taskbar
