@@ -282,7 +282,7 @@ settings_theme_light:           Licht";
         {
             var text = File.ReadAllText(@"..\..\..\tweetz5\tweetz.exe.locale");
             var languages = TranslationProviderNameValueFile.Parse(text);
-            languages.Length.Should().Be(9);
+            languages.Length.Should().Be(12);
             languages[0].TwoLetterLanguageCode.Should().Be("en");
             languages[1].TwoLetterLanguageCode.Should().Be("de");
             languages[2].TwoLetterLanguageCode.Should().Be("sv");
@@ -292,6 +292,9 @@ settings_theme_light:           Licht";
             languages[6].TwoLetterLanguageCode.Should().Be("fr");
             languages[7].TwoLetterLanguageCode.Should().Be("pt");
             languages[8].TwoLetterLanguageCode.Should().Be("ro");
+            languages[9].TwoLetterLanguageCode.Should().Be("ja");
+            languages[10].TwoLetterLanguageCode.Should().Be("ru");
+            languages[11].TwoLetterLanguageCode.Should().Be("ua");
 
         }
 

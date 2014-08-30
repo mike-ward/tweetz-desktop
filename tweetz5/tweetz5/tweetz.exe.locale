@@ -698,3 +698,234 @@ settings_theme_dark:            Intunecat
 settings_theme_light:           Luminos
 settings_use_streaming_api:     Foloseste API-ul pentru streaming
 settings_show_in_taskbar:       Arata in taskbar
+
+==================== Japanese ======================
+
+TwoLetterLanguageCode: ja
+
+authenticate_instructions:      "PINを取得"ボタンをクリックしてブラウザを開きPINを取得してください。取得したPINを入力して"ログイン"ボタンをクリックしてください。
+authenticate_get_pin:           PINを取得
+authenticate_signin:            ログイン
+authenticate_about_pins:        PINは一度のみ使用できます。保存する必要はありません。
+                                  
+profile_title:                  プロフィール詳細
+profile_tweets:                 ツイート
+profile_friends:                フォロー
+profile_followers:              フォロワー
+profile_follow:                 フォロー
+profile_following:              フォロー中
+profile_unfollow:               解除
+profile_follows_you:            フォローされています
+profile_verified:               認証済みアカウント
+                                  
+compose_title_tweet:            ツイートを編集
+compose_title_general_error:    エラー
+compose_title_shorten_error:    短縮URLのエラー
+compose_send_button_tweet:      ツイート
+compose_send_button_message:    送信
+compose_tooltip_photo:          写真を追加(ドラッグアンドドロップも可能です)
+compose_tooltip_shorten_links:  短縮済みURL
+compose_tooltip_send_button:    Ctrl+Enter
+                                  
+status_reply:                   返信
+status_retweet:                 リツイート
+status_favorite:                お気に入り     
+status_delete:                  削除     
+status_retweet_classic:         RT(非公式)     
+status_copy:                    コピー     
+status_copy_link:               リンクをコピー     
+
+shortcut_help_close:            閉じる
+shortcut_help_next:             次のツイート
+shortcut_help_previous:         前のツイート
+shortcut_help_reply:            返信
+shortcut_help_retweet:          リツイート
+shortcut_help_favorite:         お気に入り
+shortcut_help_new_status:       新しいツイート
+shortcut_help_search:           検索
+shortcut_help_go_top:           最上部へ移動
+shortcut_help_go_bottom:        最下部へ移動
+shortcut_help_send_status:      ツイートを送信
+
+time_ago_seconds:               {0}秒
+time_ago_minutes:               {0}分
+time_ago_hours:                 {0}時間
+time_ago_days:                  {0}日
+time_ago_date:                  MMM日
+                                  
+tooltip_unified_button:         すべて表示(ホーム あなた宛 DM)
+tooltip_home_button:            ホーム
+tooltip_mentions_button:        あなた宛のツイート
+tooltip_messages_button:        ダイレクトメッセージ
+tooltip_favorites_button:       お気に入り
+tooltip_search_button:          検索
+tooltip_settings_button:        設定
+tooltip_compose_button:         ツイートを作成
+                                  
+settings_title:                 設定
+settings_chirp_on_update:       タイムライン更新時に音を鳴らす
+settings_show_media:            メディアをインライン表示
+settings_spell_check:           スペルチェック
+settings_font_size:             フォントサイズ
+settings_sign_out:              ログアウト
+settings_keyboard_help:         ?キーでキーヘルプを表示
+settings_run_on_windows_start:  Windows起動時に自動的に起動
+settings_theme:                 テーマ
+settings_theme_dark:            ダーク
+settings_theme_light:           ライト
+settings_use_streaming_api:     Streaming APIを使用
+settings_show_in_taskbar:       タスクバーに表示
+
+==================== Russian ======================
+
+TwoLetterLanguageCode: ru
+
+authenticate_instructions:      Нажмите кнопку "Получить PIN" чтобы приступить к работе. Будет открыта веб-страница где вы авторизуете доступ к своему аккаунту. Скопируйте PIN с веб-страницы и нажмите "Войти".
+authenticate_get_pin:           Получить PIN
+authenticate_signin:            Войти
+authenticate_about_pins:        PIN может быть использован только единократно, потому сохранять его нет необходимости.
+                                  
+profile_title:                  Основной профиль
+profile_tweets:                 Твиты
+profile_friends:                Друзья
+profile_followers:              Читатели
+profile_follow:                 Читать
+profile_following:              Читаемые
+profile_unfollow:               Прекратить читать
+profile_follows_you:            Читает вас
+profile_verified:               Верифицированный профиль
+                                  
+compose_title_tweet:            Написать твит
+compose_title_general_error:    Ошибка
+compose_title_shorten_error:    Ошибка сокращения ссылки
+compose_send_button_tweet:      Твитнуть
+compose_send_button_message:    Отправить
+compose_tooltip_photo:          Прикрепить фото (Drag and Drop поддерживается)
+compose_tooltip_shorten_links:  Короткие ссылки 
+compose_tooltip_send_button:    Ctrl+Enter
+                                  
+status_reply:                   Ответить
+status_retweet:                 Ретвитнуть
+status_favorite:                Избранное     
+status_delete:                  Удалить     
+status_retweet_classic:         RT (классический)     
+status_copy:                    Копировать     
+status_copy_link:               Копировать ссылку     
+
+shortcut_help_close:            Закрыть
+shortcut_help_next:             Следующий твит
+shortcut_help_previous:         Предыдущий твит
+shortcut_help_reply:            Ответить
+shortcut_help_retweet:          Ретвитнуть
+shortcut_help_favorite:         Избранное
+shortcut_help_new_status:       Новый твит
+shortcut_help_search:           Поиск
+shortcut_help_go_top:           Наверх
+shortcut_help_go_bottom:        Вниз
+shortcut_help_send_status:      Отправить твит
+
+time_ago_seconds:               {0}с
+time_ago_minutes:               {0}м
+time_ago_hours:                 {0}ч
+time_ago_days:                  {0}д
+time_ago_date:                  MMM д
+                                  
+tooltip_unified_button:         Общая лента (home mentions messages)
+tooltip_home_button:            Домашняя лента
+tooltip_mentions_button:        Лента упоминаний
+tooltip_messages_button:        Лента сообщений
+tooltip_favorites_button:       Лента избранного
+tooltip_search_button:          Поиск
+tooltip_settings_button:        Настройки
+tooltip_compose_button:         Составить
+                                  
+settings_title:                 Настройки
+settings_chirp_on_update:       Звуковое уведомление про обновлениях
+settings_show_media:            Показывать встроенные медиа
+settings_spell_check:           Проверка орфографии
+settings_font_size:             Размер шрифта
+settings_sign_out:              Выйти
+settings_keyboard_help:         Нажмите ? чтобы увидеть доступные комбинации клавиш
+settings_run_on_windows_start:  Запускать вместе с Windows
+settings_theme:                 Тема
+settings_theme_dark:            Темная
+settings_theme_light:           Светлая
+settings_use_streaming_api:     Использовать потоковый API
+settings_show_in_taskbar:       Показывать в панели приложений
+
+==================== Ukrainian ======================
+
+TwoLetterLanguageCode: ua
+
+authenticate_instructions:      Натисніть кнопку "Отримати PIN" щоб приступити до роботи. Буде відкрита веб-сторінка де ви авторизуете доступ до свого аккаунту. Скопіюйте PIN з веб-сторінки та натисніть "Увійти".
+authenticate_get_pin:           Отримати PIN
+authenticate_signin:            Увійти
+authenticate_about_pins:        PIN може бути використаний лише одноразово, тому зберігати його немає необхідності.
+                                  
+profile_title:                  Основний профіль
+profile_tweets:                 Твіти
+profile_friends:                Друзі
+profile_followers:              Читачі
+profile_follow:                 Читати
+profile_following:              Читаємі
+profile_unfollow:               Припинити читати
+profile_follows_you:            Читає вас
+profile_verified:               Верифікований профіль
+                                  
+compose_title_tweet:            Написати твіт
+compose_title_general_error:    Помилка
+compose_title_shorten_error:    Помилка скорочення посилання
+compose_send_button_tweet:      Твітнути
+compose_send_button_message:    Надіслати
+compose_tooltip_photo:          Прикріпити фото (Drag and Drop підтримується)
+compose_tooltip_shorten_links:  Скорочені посилання 
+compose_tooltip_send_button:    Ctrl+Enter
+                                  
+status_reply:                   Відповісти
+status_retweet:                 Ретвітнути
+status_favorite:                Вибране     
+status_delete:                  Видалити     
+status_retweet_classic:         RT (класичний)     
+status_copy:                    Скопіювати     
+status_copy_link:               Скопіювати посилання     
+
+shortcut_help_close:            Закрити
+shortcut_help_next:             Наступний твіт
+shortcut_help_previous:         Попередній твіт
+shortcut_help_reply:            Відповісти
+shortcut_help_retweet:          Ретвітнути
+shortcut_help_favorite:         Вибране
+shortcut_help_new_status:       Новий твіт
+shortcut_help_search:           Пошук
+shortcut_help_go_top:           Вверх
+shortcut_help_go_bottom:        Вниз
+shortcut_help_send_status:      Надіслати твіт
+
+time_ago_seconds:               {0}с
+time_ago_minutes:               {0}х
+time_ago_hours:                 {0}г
+time_ago_days:                  {0}д
+time_ago_date:                  MMM д
+                                  
+tooltip_unified_button:         Загальна стрічка (home mentions messages)
+tooltip_home_button:            Домашня стрічка
+tooltip_mentions_button:        Стрічка посилань
+tooltip_messages_button:        Стрічка повідомлень
+tooltip_favorites_button:       Стрічка вибраного
+tooltip_search_button:          Пошук
+tooltip_settings_button:        Налаштування
+tooltip_compose_button:         Скласти
+                                  
+settings_title:                 Налаштування
+settings_chirp_on_update:       Звуковий сигнал при оновленнях
+settings_show_media:            Показувати вбудоване медіа
+settings_spell_check:           Перевірка орфографії
+settings_font_size:             Розмір шрифту
+settings_sign_out:              Вийти
+settings_keyboard_help:         Натисніть ? щоб побачити доступні комбинації клавіш
+settings_run_on_windows_start:  Запускати разом з Windows
+settings_theme:                 Тема
+settings_theme_dark:            Темна
+settings_theme_light:           Світла
+settings_use_streaming_api:     Використовувати потоковий API
+settings_show_in_taskbar:       Показувати в панелі програм
