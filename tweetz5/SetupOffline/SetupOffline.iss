@@ -1,5 +1,5 @@
 #define MyAppName "Tweetz Desktop"
-#define MyAppVersion "0.8.21"
+#define MyAppVersion "0.8.22"
 #define MyAppPublisher "Mike Ward"
 #define MyAppURL "http://mike-ward.net"
 #define MyAppExeName "tweetz.exe"
@@ -20,7 +20,7 @@ DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 LicenseFile=..\Setup\tweetz5\setup\license.txt
 OutputDir=.\
-OutputBaseFilename=TweetzSetupOL
+OutputBaseFilename=TweetzSetup
 Compression=lzma
 SolidCompression=yes
 

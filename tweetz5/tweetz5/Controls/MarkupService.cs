@@ -64,7 +64,7 @@ namespace tweetz5.Controls
 
         private static Run Run(string text)
         {
-            return new Run(RemoveLineFeeds(ConvertXmlEntities(text)));
+            return new Run(ConvertXmlEntities(text));
         }
 
         private static string ConvertXmlEntities(string text)
@@ -75,11 +75,6 @@ namespace tweetz5.Controls
                 .Replace("&quot;", "\"")
                 .Replace("&apos;", "'")
                 .Replace("&amp;", "&");
-        }
-
-        private static string RemoveLineFeeds(string text)
-        {
-            return text.Replace("\n", "");
         }
 
         private static Hyperlink Hyperlink(string text, string link)
