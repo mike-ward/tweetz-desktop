@@ -35,9 +35,11 @@
     <Setter Property="Content"
             Value="Aa" />
     <Setter Property="VerticalAlignment"
-            Value="Bottom" />
+            Value="Top" />
     <Setter Property="Foreground"
             Value="{DynamicResource AppForegroundBrush}" />
+    <Setter Property="Height" 
+            Value="19"/>
   </Style>
 
   <Style x:Key="SettingsUniformGrid"
