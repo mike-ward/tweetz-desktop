@@ -1,5 +1,5 @@
-tweetz
-======
+tweetz-desktop
+==============
 
 Desktop Twitter client written in WPF
 
