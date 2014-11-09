@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using tweetz5.Properties;
@@ -17,11 +19,20 @@ namespace tweetz5
 
             TranslationService.Instance.TranslationProvider = new TranslationProviderNameValueFile();
 
-            if (Settings.Default.UpgradeSettings)
+            try
             {
-                Settings.Default.Upgrade();
-                Settings.Default.UpgradeSettings = false;
-                Settings.Default.Save();
+                if (Settings.Default.UpgradeSettings)
+                {
+                    Settings.Default.Upgrade();
+                    Settings.Default.UpgradeSettings = false;
+                    Settings.Default.Save();
+                }
+            }
+            catch (ConfigurationException ex)
+            {
+                System.Windows.MessageBox.Show("User settings are corrupted. Click OK and restart Tweetz-Desktop to correct the problem.");
+                File.Delete(((ConfigurationException)ex.InnerException).Filename);
+                Environment.Exit(1);
             }
         }
 
