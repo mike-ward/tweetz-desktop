@@ -21,6 +21,6 @@
     <Font Include="..\Setup\tweetz5\Setup\fontawesome-webfont.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SetupOffline.iss" />
+    <None Include="Setup.iss" />
   </ItemGroup>
 </Project>
