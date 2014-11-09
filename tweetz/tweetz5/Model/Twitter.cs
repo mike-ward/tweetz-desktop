@@ -124,14 +124,9 @@ namespace tweetz5.Model
                 var statuses = Status.ParseJson(json);
                 return statuses;
             }
-            catch (WebException e)
-            {
-                Console.WriteLine(e);
-                return new Status[0];
-            }
             catch (Exception e)
             {
-                ShowAlert(e.Message);
+                Console.WriteLine(e);
                 return new Status[0];
             }
         }
