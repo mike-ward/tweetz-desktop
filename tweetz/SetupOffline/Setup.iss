@@ -58,7 +58,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 Source: "..\tweetz5\bin\Release\tweetz.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\tweetz5\bin\Release\tweetz.exe.locale"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\tweetz5\bin\Release\tweetz.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Setup\tweetz5\setup\fontawesome-webfont.ttf"; DestDir: "{fonts}"; FontInstall: "FontAwesome"; Flags: onlyifdoesntexist uninsneveruninstall; OnlyBelowVersion: 6.2
+Source: "fontawesome-webfont.ttf"; DestDir: "{fonts}"; FontInstall: "FontAwesome"; Flags: onlyifdoesntexist uninsneveruninstall; OnlyBelowVersion: 6.2
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

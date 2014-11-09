@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\Setup\tweetz5\Setup\license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\Setup\tweetz5\Setup\fontawesome-webfont.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Setup.iss" />
   </ItemGroup>
 </Project>

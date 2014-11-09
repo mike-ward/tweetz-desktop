@@ -53,14 +53,6 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="..\Setup\tweetz5\Setup\license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\Setup\tweetz5\Setup\fontawesome-webfont.ttf">
-      <FileType>Document</FileType>
-    </Font>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Setup.iss" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
