@@ -10,16 +10,14 @@
         Focusable="True"
         AllowDrop="True"
         Title="tweetz"
-        MinHeight="200"
+        MinHeight="300"
         MinWidth="200"
         ResizeMode="NoResize"
         WindowStyle="None"
         ShowInTaskbar="{Binding Source={x:Static p:Settings.Default}, Path=ShowInTaskbar}"
         Style="{StaticResource WindowStyle}"
-        Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
-        Width="{Binding Source={x:Static p:Settings.Default}, Path=Width, Mode=TwoWay}"
-        Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
-        Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}">
+        u:WindowSettings.Save="True"
+  >
   <Window.Resources>
     <u:Win7FontConverter x:Key="Win7FontConverter" />
   </Window.Resources>
