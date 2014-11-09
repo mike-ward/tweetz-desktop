@@ -45,7 +45,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>true</Prefer32Bit>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -189,6 +189,7 @@
     <Compile Include="Utilities\Translate\TranslationProviderJsonFile.cs" />
     <Compile Include="Utilities\Converters\UriToCachedImageConverter.cs" />
     <Compile Include="Utilities\Converters\Win7FontConverter.cs" />
+    <Compile Include="Utilities\WindowSettings.cs" />
     <Page Include="Assets\Themes\Classic\Common.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
