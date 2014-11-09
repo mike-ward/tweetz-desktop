@@ -7,12 +7,14 @@
     <authors>Mike Ward</authors>
     <owners>Mike Ward</owners>
     <summary>Gadget-like Windows Desktop Twitter Client</summary>
-    <description>Tweetz Desktop is a Windows twitter client designed to sit comfortably in the corner of your desktop. It can optionally display attached images inline. Tweetz displays your home, mentions and direct messages in a single view reducing the need to switch timelines. Tweetz supports real time updates, posting with media and keyboard shortcuts.</description>
+    <description>Tweetz Desktop is a Windows twitter client designed to sit comfortably in the corner of your desktop. It can optionally display attached images inline. Tweetz displays your home, mentions and direct messages in a single view reducing the need to switch timelines. Tweetz supports real time updates, posting with media and keyboard shortcuts.
+    If .NET 4.5.2 is not installed, you may have to restart your computer after .NET 4.5.2 installs and then install Tweetz Desktop.
+    </description>
     <projectUrl>http://mike-ward.net/tweetz</projectUrl>
     <tags>#twitter #windows</tags>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <iconUrl>http://chocolatey.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <iconUrl>http://mike-ward.net/cdn/images/twitter.png</iconUrl>
     <releaseNotes>Fix corrupted user config file.</releaseNotes>
     <dependencies>
       <dependency id="DotNet4.5.2" />
