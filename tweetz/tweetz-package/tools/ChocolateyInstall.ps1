@@ -1,1 +1,1 @@
-Install-ChocolateyPackage 'tweetz' 'exe' '/SILENT' 'http://mike-ward.net/content/downloads/tweetzsetup.exe'
+Install-ChocolateyPackage 'tweetz' 'exe' '/SILENT' 'http://mike-ward.net/cdn/downloads/tweetzsetup.exe'
