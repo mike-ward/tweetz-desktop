@@ -1,18 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5", "tweetz5\tweetz5.csproj", "{2A7FFB62-91CD-4498-9F2D-8830B8B597C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5UnitTests", "tweetz5UnitTests\tweetz5UnitTests.csproj", "{0DC800FD-087B-465A-ACA6-C8E4CEF78029}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{42BA029E-77DD-4BA6-96C2-E859144B49C1}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Setup", "Setup\tweetz5\Setup\Setup.vcxproj", "{21AD956C-BE7F-4799-8969-572EF293178A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{2A7FFB62-91CD-4498-9F2D-8830B8B597C2} = {2A7FFB62-91CD-4498-9F2D-8830B8B597C2}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetupOffline", "SetupOffline\SetupOffline.vcxproj", "{4B1C8231-F90F-4EE6-83D3-EE75734516D9}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -27,24 +22,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://blueonionsoftware.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = tweetz5\\tweetz5.csproj
-		SccProjectName1 = tweetz5
-		SccLocalPath1 = tweetz5
-		SccProjectUniqueName2 = tweetz5UnitTests\\tweetz5UnitTests.csproj
-		SccProjectName2 = tweetz5UnitTests
-		SccLocalPath2 = tweetz5UnitTests
-		SccProjectUniqueName3 = Setup\\tweetz5\\Setup\\Setup.vcxproj
-		SccProjectName3 = Setup/tweetz5/Setup
-		SccLocalPath3 = Setup\\tweetz5\\Setup
-		SccProjectUniqueName4 = SetupOffline\\SetupOffline.vcxproj
-		SccProjectName4 = SetupOffline
-		SccLocalPath4 = SetupOffline
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -74,15 +51,6 @@ Global
 		{0DC800FD-087B-465A-ACA6-C8E4CEF78029}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0DC800FD-087B-465A-ACA6-C8E4CEF78029}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0DC800FD-087B-465A-ACA6-C8E4CEF78029}.Release|Win32.ActiveCfg = Release|Any CPU
-		{21AD956C-BE7F-4799-8969-572EF293178A}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{21AD956C-BE7F-4799-8969-572EF293178A}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{21AD956C-BE7F-4799-8969-572EF293178A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{21AD956C-BE7F-4799-8969-572EF293178A}.Debug|Win32.Build.0 = Debug|Win32
-		{21AD956C-BE7F-4799-8969-572EF293178A}.Release|Any CPU.ActiveCfg = Release|Win32
-		{21AD956C-BE7F-4799-8969-572EF293178A}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{21AD956C-BE7F-4799-8969-572EF293178A}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{21AD956C-BE7F-4799-8969-572EF293178A}.Release|Win32.ActiveCfg = Release|Win32
-		{21AD956C-BE7F-4799-8969-572EF293178A}.Release|Win32.Build.0 = Release|Win32
 		{4B1C8231-F90F-4EE6-83D3-EE75734516D9}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{4B1C8231-F90F-4EE6-83D3-EE75734516D9}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{4B1C8231-F90F-4EE6-83D3-EE75734516D9}.Debug|Win32.ActiveCfg = Debug|Win32
