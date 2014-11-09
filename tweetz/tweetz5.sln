@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tweetz5UnitTests", "tweetz5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{42BA029E-77DD-4BA6-96C2-E859144B49C1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetupOffline", "SetupOffline\SetupOffline.vcxproj", "{4B1C8231-F90F-4EE6-83D3-EE75734516D9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Setup", "Setup\Setup.vcxproj", "{4B1C8231-F90F-4EE6-83D3-EE75734516D9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2A7FFB62-91CD-4498-9F2D-8830B8B597C2} = {2A7FFB62-91CD-4498-9F2D-8830B8B597C2}
 	EndProjectSection

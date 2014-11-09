@@ -17,4 +17,10 @@
   <ItemGroup>
     <None Include="Setup.iss" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fontawesome-webfont.ttf" />
+  </ItemGroup>
 </Project>

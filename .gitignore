@@ -18,6 +18,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+TweetzSetup.exe
 
 # Roslyn cache directories
 *.ide/
