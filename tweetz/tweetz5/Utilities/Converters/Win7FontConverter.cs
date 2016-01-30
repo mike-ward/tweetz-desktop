@@ -26,7 +26,8 @@ namespace tweetz5.Utilities
             {"\xE082", "\xF005"},
             {"\xE10C", "\xF142"},
             {"\xE114", "\xF030"},
-            {"\xE167", "\xF0C1"}
+            {"\xE167", "\xF0C1"},
+            {"\xE0A5", "\xF004"}
         };
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

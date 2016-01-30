@@ -157,7 +157,6 @@
         <ControlTemplate TargetType="ListBoxItem">
           <Border Name="Border"
                   Padding="3 6 3 2"
-                  SnapsToDevicePixels="true"
                   Background="Transparent"
                   BorderThickness="0">
             <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
@@ -864,8 +863,6 @@
     </Grid>
   </ControlTemplate>
   <Style TargetType="{x:Type ScrollBar}">
-    <Setter Property="SnapsToDevicePixels"
-            Value="True" />
     <Setter Property="OverridesDefaultStyle"
             Value="true" />
     <Style.Triggers>
@@ -1065,8 +1062,6 @@
 
   <Style x:Key="SearchControlStyle"
          TargetType="UserControl">
-    <Setter Property="SnapsToDevicePixels"
-            Value="True" />
     <Setter Property="Margin"
             Value="4 0" />
     <Setter Property="Height"
@@ -1075,8 +1070,6 @@
 
   <Style x:Key="SearchControlTextBoxStyle"
          TargetType="TextBox">
-    <Setter Property="SnapsToDevicePixels"
-            Value="True" />
     <Setter Property="Foreground"
             Value="{DynamicResource SearchTextBoxForegroundBrush}" />
     <Setter Property="Background"
@@ -1131,8 +1124,6 @@
   </Style>
 
   <Style TargetType="{x:Type ContextMenu}">
-    <Setter Property="SnapsToDevicePixels"
-            Value="True" />
     <Setter Property="OverridesDefaultStyle"
             Value="True" />
     <Setter Property="Grid.IsSharedSizeScope"

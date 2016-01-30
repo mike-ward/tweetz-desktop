@@ -20,7 +20,7 @@
   <SolidColorBrush x:Key="TweetSelectedTweetBackgroundBrush">#f6f6e9</SolidColorBrush>
   <SolidColorBrush x:Key="TweetMetaInfoForegroundBrush">#888888</SolidColorBrush>
   <SolidColorBrush x:Key="TweetActionsForegroundBrush">#666666</SolidColorBrush>
-  <SolidColorBrush x:Key="TweetActionsFavoritesSymbolForegroundBrush">DarkGoldenrod</SolidColorBrush>
+  <SolidColorBrush x:Key="TweetActionsFavoritesSymbolForegroundBrush">Red</SolidColorBrush>
   <SolidColorBrush x:Key="TweetActionsRetweetSymbolForegroundBrush">Green</SolidColorBrush>
 
   <SolidColorBrush x:Key="ComposeBackgroundBrush">#eeeeee</SolidColorBrush>

@@ -38,7 +38,7 @@
     <model:Timelines />
   </UserControl.DataContext>
 
-  <Grid SnapsToDevicePixels="True">
+  <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
@@ -49,7 +49,6 @@
                             Style="{StaticResource SearchControlStyle}" />
     <ListBox x:Name="TimelineItems"
              Grid.Row="1"
-             SnapsToDevicePixels="True"
              ItemsSource="{Binding Timeline}"
              Style="{StaticResource TimelineStyle}"
              VirtualizingStackPanel.VirtualizationMode="Recycling"
@@ -154,7 +153,6 @@
             <Grid Grid.Row="3"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"
-                  SnapsToDevicePixels="True"
                   Style="{StaticResource TweetActions}">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -195,7 +193,7 @@
                   <MouseBinding MouseAction="LeftClick" Command="{x:Static commands:FavoritesCommand.Command}" CommandParameter="{Binding}"/>
                 </TextBlock.InputBindings>
                 <Run Style="{StaticResource TweetActionsFavoritesSymbol}"
-                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE082;', Mode=OneWay}"/> 
+                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE0A5;', Mode=OneWay}"/> 
                 <Run Text="{t:Translate status_favorite}" />
               </TextBlock>
 

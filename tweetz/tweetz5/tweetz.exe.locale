@@ -36,7 +36,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                   
 status_reply:                   Reply
 status_retweet:                 Retweet
-status_favorite:                Favorite     
+status_favorite:                Like     
 status_delete:                  Delete     
 status_retweet_classic:         RT (Classic)     
 status_copy:                    Copy     
@@ -47,7 +47,7 @@ shortcut_help_next:             Next Tweet
 shortcut_help_previous:         Previous Tweet
 shortcut_help_reply:            Reply
 shortcut_help_retweet:          Retweet
-shortcut_help_favorite:         Favorite
+shortcut_help_favorite:         Like
 shortcut_help_new_status:       New Tweet
 shortcut_help_search:           Search
 shortcut_help_go_top:           Go to Top
@@ -64,7 +64,7 @@ tooltip_unified_button:         Unified timeline (home mentions messages)
 tooltip_home_button:            Home timeline
 tooltip_mentions_button:        Mentions timeline
 tooltip_messages_button:        Messages timeline
-tooltip_favorites_button:       Favorites timeline
+tooltip_favorites_button:       Likes timeline
 tooltip_search_button:          Search
 tooltip_settings_button:        Settings
 tooltip_compose_button:         Compose
@@ -113,7 +113,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                     
 status_reply:                   Antworten
 status_retweet:                 Retweeten
-status_favorite:                Favorisieren     
+status_favorite:                Gleichen     
 status_delete:                  Löschen     
 status_retweet_classic:         Retweeten (klassisch)     
 status_copy:                    Kopieren     
@@ -124,7 +124,7 @@ shortcut_help_next:             nächster Tweet
 shortcut_help_previous:         vorheriger Tweet
 shortcut_help_reply:            Antworten
 shortcut_help_retweet:          Weiterleiten
-shortcut_help_favorite:         Favorisieren
+shortcut_help_favorite:         Gleichen
 shortcut_help_new_status:       Neuer Tweet
 shortcut_help_search:           Suche
 shortcut_help_go_top:           zum Anfang
@@ -141,7 +141,7 @@ tooltip_unified_button:         Zusammenfassung (Timeline Erwähnungen Nachricht
 tooltip_home_button:            Timeline
 tooltip_mentions_button:        Erwähnungen
 tooltip_messages_button:        Nachrichten
-tooltip_favorites_button:       Favoriten
+tooltip_favorites_button:       Gleichen
 tooltip_search_button:          Suchen
 tooltip_settings_button:        Einstellungen
 tooltip_compose_button:         Verfassen
@@ -190,7 +190,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                     
 status_reply:                   Svara
 status_retweet:                 Retweeta
-status_favorite:                Favoritmarkera     
+status_favorite:                Gillar     
 status_delete:                  Radera     
 status_retweet_classic:         Retweeta (klassisk)     
 status_copy:                    Kopiera     
@@ -201,7 +201,7 @@ shortcut_help_next:             Nästa Tweet
 shortcut_help_previous:         Förgående Tweet
 shortcut_help_reply:            Svara
 shortcut_help_retweet:          Retweeta
-shortcut_help_favorite:         Favoritmarkera
+shortcut_help_favorite:         Gillar
 shortcut_help_new_status:       Ny Tweet
 shortcut_help_search:           Sök
 shortcut_help_go_top:           Gå till toppen
@@ -218,7 +218,7 @@ tooltip_unified_button:         Sammanfattning (Tidslinje Interaktioner Direktme
 tooltip_home_button:            Hem
 tooltip_mentions_button:        Interaktioner
 tooltip_messages_button:        Direktmeddelanden
-tooltip_favorites_button:       Favoriter
+tooltip_favorites_button:       Gillar
 tooltip_search_button:          Sök
 tooltip_settings_button:        Inställningar
 tooltip_compose_button:         Skriv
@@ -267,7 +267,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                   
 status_reply:                   Beantwoorden
 status_retweet:                 Retweeten
-status_favorite:                Favoriet maken
+status_favorite:                Sympathieën
 status_delete:                  Verwijderen
 status_retweet_classic:         RT (Klassiek)     
 status_copy:                    Kopieer     
@@ -278,7 +278,7 @@ shortcut_help_next:             Volgende Tweet
 shortcut_help_previous:         Vorige Tweet
 shortcut_help_reply:            Beantwoorden
 shortcut_help_retweet:          Retweeten
-shortcut_help_favorite:         Favoriet
+shortcut_help_favorite:         Sympathieën
 shortcut_help_new_status:       Nieuwe Tweet
 shortcut_help_search:           Zoeken
 shortcut_help_go_top:           Ga naar Boven
@@ -295,7 +295,7 @@ tooltip_unified_button:         Verenigde tijdlijn (home vermeldingen berichten)
 tooltip_home_button:            Home tijdlijn
 tooltip_mentions_button:        Vermeldingen tijdlijn
 tooltip_messages_button:        Berichten tijdlijn
-tooltip_favorites_button:       Favorieten tijdlijn
+tooltip_favorites_button:       Sympathieën tijdlijn
 tooltip_search_button:          Zoeken
 tooltip_settings_button:        Instellingen
 tooltip_compose_button:         Opstellen
@@ -344,7 +344,7 @@ compose_tooltip_send_button:    Ctrl+INVIO
                                   
 status_reply:                   Rispondi
 status_retweet:                 Retweet
-status_favorite:                Preferiti    
+status_favorite:                Mi piace    
 status_delete:                  Elimina   
 status_retweet_classic:         RT (Classico)     
 status_copy:                    Copia
@@ -355,7 +355,7 @@ shortcut_help_next:             Prossimo Tweet
 shortcut_help_previous:         Tweet precedente
 shortcut_help_reply:            Rispondi
 shortcut_help_retweet:          Retweet
-shortcut_help_favorite:         Preferiti
+shortcut_help_favorite:         Mi piace
 shortcut_help_new_status:       Nuovo Tweet
 shortcut_help_search:           Cerca
 shortcut_help_go_top:           Vai su
@@ -372,7 +372,7 @@ tooltip_unified_button:         Cronologia unificata (Messaggi menzionati)
 tooltip_home_button:            Home 
 tooltip_mentions_button:        Cronologia menzioni
 tooltip_messages_button:        Cronologia messaggi
-tooltip_favorites_button:       Cronologia preferiti
+tooltip_favorites_button:       Cronologia Mi piace
 tooltip_search_button:          Cerca
 tooltip_settings_button:        Impostazioni
 tooltip_compose_button:         Componi
@@ -421,7 +421,7 @@ compose_tooltip_send_button:    Ctrl+Intro
                                   
 status_reply:                   Contestar
 status_retweet:                 Retwittear
-status_favorite:                Favorito     
+status_favorite:                Gustos     
 status_delete:                  Borrar     
 status_retweet_classic:         RT (Clásico)     
 status_copy:                    Copiar     
@@ -432,7 +432,7 @@ shortcut_help_next:             Siguiente Tweet
 shortcut_help_previous:         Tweet anterior
 shortcut_help_reply:            Contestar
 shortcut_help_retweet:          Retwittear
-shortcut_help_favorite:         Favorito
+shortcut_help_favorite:         Gustos
 shortcut_help_new_status:       Nuevo Tweet
 shortcut_help_search:           Buscar
 shortcut_help_go_top:           Ir al principio
@@ -449,7 +449,7 @@ tooltip_unified_button:         Inicio unificado (inicio, menciones y mensajes)
 tooltip_home_button:            Inicio
 tooltip_mentions_button:        Menciones
 tooltip_messages_button:        Mensajes
-tooltip_favorites_button:       Favoritos
+tooltip_favorites_button:       Gustos
 tooltip_search_button:          Buscar
 tooltip_settings_button:        Opciones
 tooltip_compose_button:         Nuevo Tweet
@@ -498,7 +498,7 @@ compose_tooltip_send_button:    Ctrl + Entrée
                                   
 status_reply:                   Répondre
 status_retweet:                 Retweet
-status_favorite:                Favori     
+status_favorite:                Goûts     
 status_delete:                  Effacer     
 status_retweet_classic:         RT (classique)     
 status_copy:                    Copie     
@@ -509,7 +509,7 @@ shortcut_help_next:             Suivant Tweet
 shortcut_help_previous:         Tweet précédent
 shortcut_help_reply:            Répondre
 shortcut_help_retweet:          Retweet
-shortcut_help_favorite:         Favori
+shortcut_help_favorite:         Goûts
 shortcut_help_new_status:       Nouveau Tweet
 shortcut_help_search:           Recherche
 shortcut_help_go_top:           Haut de page
@@ -526,7 +526,7 @@ tooltip_unified_button:         Chronologie unifiée (la maison mentionne messag
 tooltip_home_button:            Accueil chronologie
 tooltip_mentions_button:        Mentions chronologie
 tooltip_messages_button:        Messages chronologie
-tooltip_favorites_button:       Favoris chronologie
+tooltip_favorites_button:       Aime calendrier
 tooltip_search_button:          Recherche
 tooltip_settings_button:        Paramètres
 tooltip_compose_button:         Composer
@@ -575,7 +575,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                   
 status_reply:                   Responder
 status_retweet:                 Retweetar
-status_favorite:                Curtir     
+status_favorite:                Gostos     
 status_delete:                  Excluir     
 status_retweet_classic:         RT (Clássico)     
 status_copy:                    Copiar     
@@ -586,7 +586,7 @@ shortcut_help_next:             Próximo Tweet
 shortcut_help_previous:         Tweet anterior
 shortcut_help_reply:            Responder
 shortcut_help_retweet:          Retweetar
-shortcut_help_favorite:         Curtir
+shortcut_help_favorite:         Gostos
 shortcut_help_new_status:       Novo Tweet
 shortcut_help_search:           Pesquisar
 shortcut_help_go_top:           Ir ao topo
@@ -603,7 +603,7 @@ tooltip_unified_button:         Início unificado (início menções mensagens)
 tooltip_home_button:            Início
 tooltip_mentions_button:        Menções
 tooltip_messages_button:        Mensagens
-tooltip_favorites_button:       Curtiu
+tooltip_favorites_button:       Gostos
 tooltip_search_button:          Pesquisar
 tooltip_settings_button:        Configurações
 tooltip_compose_button:         Novo Tweet
@@ -652,7 +652,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                   
 status_reply:                   Raspunde
 status_retweet:                 Retweet
-status_favorite:                Favorite     
+status_favorite:                Aprecieri     
 status_delete:                  Sterge     
 status_retweet_classic:         RT (Classic)     
 status_copy:                    Copiaza     
@@ -663,7 +663,7 @@ shortcut_help_next:             Urmatorul tweet
 shortcut_help_previous:         Tweet-ul anterior
 shortcut_help_reply:            Raspunde
 shortcut_help_retweet:          Retweet
-shortcut_help_favorite:         Favorite
+shortcut_help_favorite:         Aprecieri
 shortcut_help_new_status:       Tweet nou
 shortcut_help_search:           Cauta
 shortcut_help_go_top:           Mergi sus
@@ -680,7 +680,7 @@ tooltip_unified_button:         Timeline unificat (acasa/mentiuni/mesaje)
 tooltip_home_button:            Timeline
 tooltip_mentions_button:        Mentiuni
 tooltip_messages_button:        Mesaje
-tooltip_favorites_button:       Favorite
+tooltip_favorites_button:       Aprecieri
 tooltip_search_button:          Cauta
 tooltip_settings_button:        Setari
 tooltip_compose_button:         Compune
@@ -729,7 +729,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                   
 status_reply:                   返信
 status_retweet:                 リツイート
-status_favorite:                お気に入り     
+status_favorite:                好き     
 status_delete:                  削除     
 status_retweet_classic:         RT(非公式)     
 status_copy:                    コピー     
@@ -740,7 +740,7 @@ shortcut_help_next:             次のツイート
 shortcut_help_previous:         前のツイート
 shortcut_help_reply:            返信
 shortcut_help_retweet:          リツイート
-shortcut_help_favorite:         お気に入り
+shortcut_help_favorite:         好き
 shortcut_help_new_status:       新しいツイート
 shortcut_help_search:           検索
 shortcut_help_go_top:           最上部へ移動
@@ -757,7 +757,7 @@ tooltip_unified_button:         すべて表示(ホーム あなた宛 DM)
 tooltip_home_button:            ホーム
 tooltip_mentions_button:        あなた宛のツイート
 tooltip_messages_button:        ダイレクトメッセージ
-tooltip_favorites_button:       お気に入り
+tooltip_favorites_button:       好き
 tooltip_search_button:          検索
 tooltip_settings_button:        設定
 tooltip_compose_button:         ツイートを作成
@@ -806,7 +806,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                   
 status_reply:                   Ответить
 status_retweet:                 Ретвитнуть
-status_favorite:                Избранное     
+status_favorite:                Понравилось     
 status_delete:                  Удалить     
 status_retweet_classic:         RT (классический)     
 status_copy:                    Копировать     
@@ -817,7 +817,7 @@ shortcut_help_next:             Следующий твит
 shortcut_help_previous:         Предыдущий твит
 shortcut_help_reply:            Ответить
 shortcut_help_retweet:          Ретвитнуть
-shortcut_help_favorite:         Избранное
+shortcut_help_favorite:         Понравилось
 shortcut_help_new_status:       Новый твит
 shortcut_help_search:           Поиск
 shortcut_help_go_top:           Наверх
@@ -834,7 +834,7 @@ tooltip_unified_button:         Общая лента (home mentions messages)
 tooltip_home_button:            Домашняя лента
 tooltip_mentions_button:        Лента упоминаний
 tooltip_messages_button:        Лента сообщений
-tooltip_favorites_button:       Лента избранного
+tooltip_favorites_button:       Любит график
 tooltip_search_button:          Поиск
 tooltip_settings_button:        Настройки
 tooltip_compose_button:         Составить
@@ -883,7 +883,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                   
 status_reply:                   Відповісти
 status_retweet:                 Ретвітнути
-status_favorite:                Вибране     
+status_favorite:                Cподобалося     
 status_delete:                  Видалити     
 status_retweet_classic:         RT (класичний)     
 status_copy:                    Скопіювати     
@@ -894,7 +894,7 @@ shortcut_help_next:             Наступний твіт
 shortcut_help_previous:         Попередній твіт
 shortcut_help_reply:            Відповісти
 shortcut_help_retweet:          Ретвітнути
-shortcut_help_favorite:         Вибране
+shortcut_help_favorite:         Cподобалося
 shortcut_help_new_status:       Новий твіт
 shortcut_help_search:           Пошук
 shortcut_help_go_top:           Вверх
@@ -911,7 +911,7 @@ tooltip_unified_button:         Загальна стрічка (home mentions m
 tooltip_home_button:            Домашня стрічка
 tooltip_mentions_button:        Стрічка посилань
 tooltip_messages_button:        Стрічка повідомлень
-tooltip_favorites_button:       Стрічка вибраного
+tooltip_favorites_button:       Пюбить графік
 tooltip_search_button:          Пошук
 tooltip_settings_button:        Налаштування
 tooltip_compose_button:         Скласти
@@ -929,3 +929,158 @@ settings_theme_dark:            Темна
 settings_theme_light:           Світла
 settings_use_streaming_api:     Використовувати потоковий API
 settings_show_in_taskbar:       Показувати в панелі програм
+
+==================== Turkish ======================
+
+TwoLetterLanguageCode: tr
+
+authenticate_instructions:      Başlamak için "Pin Kodu Al" tuşuna basın. Bu tarayıcınızda yeni bir sayfa açacak. Bu sayfada çıkacak erişim kodunu aşağıdaki kutucuğa girip "Giriş Yap" tuşuna basmalısınız.
+authenticate_get_pin:           Pin Kodu Al
+authenticate_signin:            Giriş Yap
+authenticate_about_pins:        Pin kodları sadece bir sefer kullanılabilir, bu nedenle saklamanıza gerek yoktur.
+                                  
+profile_title:                  Profil Bilgileri
+profile_tweets:                 tweetleri
+profile_friends:                arkadaşlar
+profile_followers:              takipçlieri
+profile_follow:                 Takip Et
+profile_following:              Takip Editor
+profile_unfollow:               Takibi bırak
+profile_follows_you:            seni takip ediyor
+profile_verified:               Doğrulanmış Hesap
+                                  
+compose_title_tweet:            Tweet yaz.
+compose_title_general_error:    Hata
+compose_title_shorten_error:    Link kısaltmada hata
+compose_send_button_tweet:      Tweet
+compose_send_button_message:    Gönder
+compose_tooltip_photo:          Resim ekle (Sürükle ve Bırak destekleniyor)
+compose_tooltip_shorten_links:  Linkleri kısalt
+compose_tooltip_send_button:    Ctrl+Enter
+                                  
+status_reply:                   Cevapla
+status_retweet:                 Retweet
+status_favorite:                Seviyor     
+status_delete:                  Sil     
+status_retweet_classic:         Retweet (Klasik)     
+status_copy:                    Kopyala     
+status_copy_link:               Linki Kopyala     
+
+shortcut_help_close:            Kapat
+shortcut_help_next:             Sonraki Tweet
+shortcut_help_previous:         Önceki Tweet
+shortcut_help_reply:            Cevapla
+shortcut_help_retweet:          Retweet
+shortcut_help_favorite:         Seviyor
+shortcut_help_new_status:       Yeni Tweet
+shortcut_help_search:           Ara
+shortcut_help_go_top:           En yukarı çık
+shortcut_help_go_bottom:        En aşağı in
+shortcut_help_send_status:      Tweet Gönder
+
+time_ago_seconds:               {0}sn
+time_ago_minutes:               {0}dk
+time_ago_hours:                 {0}sa
+time_ago_days:                  {0}gün
+time_ago_date:                  MMM d
+                                  
+tooltip_unified_button:         Birleşik timeline (ana sayfa, mention, mesaj)
+tooltip_home_button:            Ana sayfa
+tooltip_mentions_button:        Mentionlar
+tooltip_messages_button:        Messajlar
+tooltip_favorites_button:       Zaman çizelgesi seviyor
+tooltip_search_button:          Arama
+tooltip_settings_button:        Ayarlar
+tooltip_compose_button:         Yeni
+                                  
+settings_title:                 Ayarlar
+settings_chirp_on_update:       Güncelleme gelirse cıvıltıyla uyar
+settings_show_media:            Resim ve diğer medyaları dahili görüntüle
+settings_spell_check:           Yazım kılavuzu
+settings_font_size:             Font boyutu
+settings_sign_out:              Çıkış yap
+settings_keyboard_help:         Klavye kısayolları için ? tuşuna basın
+settings_run_on_windows_start:  Windows açıldığında çalıştır
+settings_theme:                 Tema
+settings_theme_dark:            Karanlık
+settings_theme_light:           Aydınlık
+settings_use_streaming_api:     Streaming API kullan
+settings_show_in_taskbar:       Görev çubuğunda görüntüle
+
+ 
+==================== Greek ======================
+
+TwoLetterLanguageCode: el
+
+authenticate_instructions:      Για να ξεκινήσετε, κάντε κλικ στο κουμπί «Λήψη PIN». Αυτό ανοίγει μια ιστοσελίδα όπου θα σας επιτρέψει την πρόσβαση. Αντιγράψτε εδώ το ΡΙΝ από την ιστοσελίδα και κάντε κλικ στο κουμπί «Σύνδεση».
+authenticate_get_pin:           Λήψη PIN
+authenticate_signin:            Σύνδεση
+authenticate_about_pins:        Τα ΡΙΝ μπορούν να χρησιμοποιηθούν μόνο μία φορά, ώστε να μην υπάρχει ανάγκη αποθήκευσής τους.
+                                  
+profile_title:                  Σύνοψη προφίλ
+profile_tweets:                 tweets
+profile_friends:                φίλοι
+profile_followers:              ακόλουθοι
+profile_follow:                 Ακολούθησε
+profile_following:              Ακολουθούνται
+profile_unfollow:               Άρση ακολούθησης
+profile_follows_you:            σας ακολουθούν
+profile_verified:               Ο λογαριασμός  επαληθεύτηκε
+                                  
+compose_title_tweet:            Σύνταξη νέου tweet
+compose_title_general_error:    Σφάλμα
+compose_title_shorten_error:    Σφάλμα σύντμησης urls
+compose_send_button_tweet:      Tweet
+compose_send_button_message:    Αποστολή
+compose_tooltip_photo:          Προσθήκη φωτογραφίας (Υποστηρίζεται η Μεταφορά & Απόθεση)
+compose_tooltip_shorten_links:  Σύντομοι σύνδεσμοι 
+compose_tooltip_send_button:    Ctrl+Enter
+                                  
+status_reply:                   Απάντηση
+status_retweet:                 Προώθ.
+status_favorite:                συμπαθεί.     
+status_delete:                  Διαγραφή     
+status_retweet_classic:         Προώθηση (Κλασική)     
+status_copy:                    Αντιγραφή     
+status_copy_link:               Αντιγραφή συνδέσμου     
+
+shortcut_help_close:            Κλείσιμο
+shortcut_help_next:             Επόμενο Tweet
+shortcut_help_previous:         Προηγ. Tweet
+shortcut_help_reply:            Απάντηση
+shortcut_help_retweet:          Προώθηση
+shortcut_help_favorite:         συμπαθεί
+shortcut_help_new_status:       Νέο Tweet
+shortcut_help_search:           Αναζήτηση
+shortcut_help_go_top:           Μετάβαση κορυφή
+shortcut_help_go_bottom:        Μετάβαση τέλος
+shortcut_help_send_status:      Αποστολή Tweet
+
+time_ago_seconds:               {0} δ
+time_ago_minutes:               {0} λ
+time_ago_hours:                 {0} ώ
+time_ago_days:                  {0} μ
+time_ago_date:                  d MMM
+                                  
+tooltip_unified_button:         Ενιαίο χρονολόγιο (αναφορές, αρχικό, μηνύματα)
+tooltip_home_button:            Αρχικό χρονολόγιο
+tooltip_mentions_button:        Χρονολόγιο αναφορών
+tooltip_messages_button:        Χρονολόγιο μηνυμάτων
+tooltip_favorites_button:       συμπαθεί
+tooltip_search_button:          Αναζήτηση
+tooltip_settings_button:        Ρυθμίσεις
+tooltip_compose_button:         Σύνταξη
+                                  
+settings_title:                 Ρυθμίσεις
+settings_chirp_on_update:       Ήχος στις ενημερώσεις
+settings_show_media:            Εμφ. ενσωμ/νων πολυμέσων
+settings_spell_check:           Ορθογραφικός έλεγχος
+settings_font_size:             Μέγεθος γραμματοσειράς
+settings_sign_out:              Αποσύνδεση
+settings_keyboard_help:         Πιέστε ? για συντομεύσεις πληκτρολογίου
+settings_run_on_windows_start:  Εκκίνηση μαζί με τα Windows
+settings_theme:                 Θέμα
+settings_theme_dark:            Σκούρο
+settings_theme_light:           Φωτεινό
+settings_use_streaming_api:     Χρήση ροής API
+settings_show_in_taskbar:       Εμφ. στη γραμμή εργασιών

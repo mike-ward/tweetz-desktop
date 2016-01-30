@@ -14,6 +14,7 @@
         MinWidth="200"
         ResizeMode="NoResize"
         WindowStyle="None"
+        UseLayoutRounding="True"
         ShowInTaskbar="{Binding Source={x:Static p:Settings.Default}, Path=ShowInTaskbar}"
         Style="{StaticResource WindowStyle}"
         u:WindowSettings.Save="True"
@@ -93,7 +94,7 @@
               <Button x:Name="FavoritesButton"
                       Style="{StaticResource NavBarButton}"
                       ToolTip="{t:Translate tooltip_favorites_button}"
-                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE113;'}"
+                      Content="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE0A5;'}"
                       Command="{x:Static commands:SwitchTimelinesCommand.Command}"
                       CommandParameter="{x:Static model:View.Favorites}" />
               <Button x:Name="SearchButton"
