@@ -34,7 +34,6 @@ namespace tweetz5UnitTests.Model
             timeline.Should().HaveCount(1);
 
             stream.Dispose();
-            mockWebRequest.VerifyAll();
             mockWebResponse.VerifyAll();
         }
 
@@ -54,7 +53,6 @@ namespace tweetz5UnitTests.Model
             timeline.Should().HaveCount(1);
 
             stream.Dispose();
-            mockWebRequest.VerifyAll();
             mockWebResponse.VerifyAll();            
         }
     }

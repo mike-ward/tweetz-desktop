@@ -36,7 +36,6 @@ namespace tweetz5UnitTests.Model
             timelines.SwitchView(View.Home);
             timelines.Timeline.Count.Should().Be(0);
             await timelines.UpdateHome();
-            mockWebRequest.VerifyAll();
             mockWebResponse.Verify();
             timelines.Timeline.Count.Should().Be(1);
         }
@@ -56,7 +55,6 @@ namespace tweetz5UnitTests.Model
             timelines.SwitchView(View.Mentions);
             timelines.Timeline.Count.Should().Be(0);
             await timelines.UpdateMentions();
-            mockWebRequest.VerifyAll();
             mockWebResponse.Verify();
             timelines.Timeline.Count.Should().Be(1);
         }
@@ -91,7 +89,6 @@ namespace tweetz5UnitTests.Model
                 timelines.SwitchView(View.Mentions);
                 timelines.Timeline.Count.Should().Be(0);
                 await timelines.UpdateHome();
-                mockWebRequest.VerifyAll();
                 mockWebResponse.Verify();
                 timelines.Timeline.Count.Should().Be(1);
                 timelines.Timeline[0].IsMention.Should().BeTrue();

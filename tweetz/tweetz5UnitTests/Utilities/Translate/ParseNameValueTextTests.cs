@@ -282,7 +282,7 @@ settings_theme_light:           Licht";
         {
             var text = File.ReadAllText(@"..\..\..\tweetz5\tweetz.exe.locale");
             var languages = TranslationProviderNameValueFile.Parse(text);
-            languages.Length.Should().Be(12);
+            languages.Length.Should().Be(14);
             languages[0].TwoLetterLanguageCode.Should().Be("en");
             languages[1].TwoLetterLanguageCode.Should().Be("de");
             languages[2].TwoLetterLanguageCode.Should().Be("sv");
