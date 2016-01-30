@@ -113,7 +113,7 @@ compose_tooltip_send_button:    Ctrl+Enter
                                     
 status_reply:                   Antworten
 status_retweet:                 Retweeten
-status_favorite:                Gleichen     
+status_favorite:                Gefällt mir     
 status_delete:                  Löschen     
 status_retweet_classic:         Retweeten (klassisch)     
 status_copy:                    Kopieren     
@@ -124,7 +124,7 @@ shortcut_help_next:             nächster Tweet
 shortcut_help_previous:         vorheriger Tweet
 shortcut_help_reply:            Antworten
 shortcut_help_retweet:          Weiterleiten
-shortcut_help_favorite:         Gleichen
+shortcut_help_favorite:         Gefällt mir
 shortcut_help_new_status:       Neuer Tweet
 shortcut_help_search:           Suche
 shortcut_help_go_top:           zum Anfang
@@ -141,7 +141,7 @@ tooltip_unified_button:         Zusammenfassung (Timeline Erwähnungen Nachricht
 tooltip_home_button:            Timeline
 tooltip_mentions_button:        Erwähnungen
 tooltip_messages_button:        Nachrichten
-tooltip_favorites_button:       Gleichen
+tooltip_favorites_button:       Gefällt mir
 tooltip_search_button:          Suchen
 tooltip_settings_button:        Einstellungen
 tooltip_compose_button:         Verfassen
