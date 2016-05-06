@@ -107,7 +107,8 @@
                          Grid.Column="1">
                 <Hyperlink Style="{StaticResource TweetTimeStyle}"
                            Command="{x:Static commands:OpenTweetLinkCommand.Command}"
-                           CommandParameter="{Binding}">
+                           CommandParameter="{Binding}"
+                           ToolTip="{Binding CreatedAt}">
                   <Run Text="{Binding TimeAgo}"/>
                 </Hyperlink>
               </TextBlock>

@@ -74,7 +74,7 @@ namespace tweetz5.Controls
 
         public static string TweetLink(Tweet tweet)
         {
-            return string.Format("https://twitter.com/{0}/status/{1}", tweet.ScreenName, tweet.StatusId);
+            return $"https://twitter.com/{tweet.ScreenName}/status/{tweet.StatusId}";
         }
 
         public void UpdateStatus(IEnumerable<Status> statuses, TweetClassification tweetType)
