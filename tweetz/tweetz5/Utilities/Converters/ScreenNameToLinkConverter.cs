@@ -11,7 +11,7 @@ namespace tweetz5.Utilities
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return string.Format("https://twitter.com/{0}", value);
+            return $"https://twitter.com/{value}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

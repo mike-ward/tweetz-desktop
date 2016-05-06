@@ -39,10 +39,7 @@ namespace tweetz5.Utilities.System
         {
             try
             {
-                if (Elapsed != null)
-                {
-                    Elapsed(this, EventArgs.Empty);
-                }
+                Elapsed?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception e)
             {

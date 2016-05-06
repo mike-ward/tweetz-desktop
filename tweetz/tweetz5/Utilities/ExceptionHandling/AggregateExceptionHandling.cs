@@ -9,8 +9,11 @@ namespace tweetz5.Utilities.ExceptionHandling
         {
             task.ContinueWith(t =>
             {
-                var aggregateException = t.Exception.Flatten();
-                foreach (var ex in aggregateException.InnerExceptions) Trace.TraceError(ex.ToString());
+                if (t.Exception != null)
+                {
+                    var aggregateException = t.Exception.Flatten();
+                    foreach (var ex in aggregateException.InnerExceptions) Trace.TraceError(ex.ToString());
+                }
             },
                 TaskContinuationOptions.OnlyOnFaulted);
         }

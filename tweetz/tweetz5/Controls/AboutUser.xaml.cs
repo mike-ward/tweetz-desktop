@@ -21,7 +21,7 @@ namespace tweetz5.Controls
                 var friendship = await Twitter.Friendship(ScreenName);
                 user.Following = friendship.Following;
                 user.FollowedBy = friendship.FollowedBy;
-                if (user.Entities != null && user.Entities.Url != null && user.Entities.Url.Urls != null && user.Entities.Url.Urls[0] != null)
+                if (user.Entities?.Url?.Urls?[0] != null)
                 {
                     user.Url = user.Entities.Url.Urls[0].ExpandedUrl;
                 }

@@ -35,9 +35,7 @@ namespace tweetz5.Utilities.Translate
         {
             get
             {
-                return (_languages != null)
-                    ? _languages.Select(t => new CultureInfo(t.TwoLetterLanguageCode))
-                    : Enumerable.Empty<CultureInfo>();
+                return _languages?.Select(t => new CultureInfo(t.TwoLetterLanguageCode)) ?? Enumerable.Empty<CultureInfo>();
             }
         }
 
@@ -96,7 +94,7 @@ namespace tweetz5.Utilities.Translate
 
         private static string ErrorMessage(string message, string line)
         {
-            return string.Format("{0}: {1}", message, line);
+            return $"{message}: {line}";
         }
 
         public class Language

@@ -152,10 +152,7 @@ namespace tweetz5.Utilities
         }
 
         [Browsable(false)]
-        internal WindowApplicationSettings Settings
-        {
-            get { return _windowApplicationSettings ?? (_windowApplicationSettings = CreateWindowApplicationSettingsInstance()); }
-        }
+        internal WindowApplicationSettings Settings => _windowApplicationSettings ?? (_windowApplicationSettings = CreateWindowApplicationSettingsInstance());
     }
 
     [Serializable]

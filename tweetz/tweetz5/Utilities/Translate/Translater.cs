@@ -22,10 +22,7 @@ namespace tweetz5.Utilities.Translate
 
         private void OnLanguageChanged(object sender, EventArgs e)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("Value"));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Value"));
         }
 
         public bool ReceiveWeakEvent(Type managerType, object sender, EventArgs e)

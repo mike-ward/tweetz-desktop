@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
+using Microsoft.Win32;
 using tweetz5.Commands;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
@@ -26,6 +27,7 @@ namespace tweetz5
                 MouseLeftButtonDown += DragMoveWindow;
                 ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
+                SystemEvents.PowerModeChanged += SystemEventsOnPowerModeChanged;  
 
                 // WPF HACK: Compose.Toggle does not work the first time unless the control is initially visible.
                 Compose.Visibility = Visibility.Collapsed;
@@ -65,6 +67,12 @@ namespace tweetz5
             CommandBindings.Add(new CommandBinding(ShortcutHelpCommand.Command, ShortcutHelpCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(ChirpCommand.Command, ChirpCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(RestartTimelinesCommand.Command, RestartTimelinesCommand.CommandHandler));
+        }
+
+        private void SystemEventsOnPowerModeChanged(object sender, PowerModeChangedEventArgs ea)
+        {
+            if (ea.Mode == PowerModes.Suspend) Timeline.Controller.StopTimelines();
+            if (ea.Mode == PowerModes.Resume) Timeline.Controller.StartTimelines();
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
@@ -184,7 +192,7 @@ namespace tweetz5
             public int y;
             public int cx;
             public int cy;
-            public UInt32 flags;
+            public uint flags;
         };
         // ReSharper restore UnusedField.Compiler
         // ReSharper restore UnusedMember.Global

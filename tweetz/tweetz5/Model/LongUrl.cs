@@ -14,7 +14,7 @@ namespace tweetz5.Model
     {
         private static readonly ConcurrentDictionary<string, string> ShortToLongUrl = new ConcurrentDictionary<string, string>();
 
-        public async static Task<string> Lookup(string link)
+        public static async Task<string> Lookup(string link)
         {
             try
             {

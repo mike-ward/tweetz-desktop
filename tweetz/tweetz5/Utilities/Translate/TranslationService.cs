@@ -8,7 +8,7 @@ namespace tweetz5.Utilities.Translate
 {
     public class TranslationService
     {
-        public readonly static TranslationService Instance = new TranslationService();
+        public static readonly TranslationService Instance = new TranslationService();
         public ITranslationProvider TranslationProvider { get; set; }
         public event EventHandler LanguageChanged;
 
@@ -38,22 +38,14 @@ namespace tweetz5.Utilities.Translate
             }
         }
 
-        public IEnumerable<CultureInfo> Languages
-        {
-            get { return (TranslationProvider != null) ? TranslationProvider.Languages : Enumerable.Empty<CultureInfo>(); }
-        }
+        public IEnumerable<CultureInfo> Languages => (TranslationProvider != null) 
+            ? TranslationProvider.Languages 
+            : Enumerable.Empty<CultureInfo>();
 
         public object Translate(string key)
         {
-            if (TranslationProvider != null)
-            {
-                var translatedValue = TranslationProvider.Translate(key);
-                if (translatedValue != null)
-                {
-                    return translatedValue;
-                }
-            }
-            return string.Format("!{0}!", key);
+            var translatedValue = TranslationProvider?.Translate(key);
+            return translatedValue ?? $"!{key}!";
         }
     }
 }

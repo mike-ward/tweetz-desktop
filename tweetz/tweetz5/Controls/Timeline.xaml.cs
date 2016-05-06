@@ -31,10 +31,7 @@ namespace tweetz5.Controls
         private void TimelineItemsOnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             var dpd = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof (ListBox));
-            if (dpd != null)
-            {
-                dpd.AddValueChanged(TimelineItems, OnItemsSourceChanged);
-            }
+            dpd?.AddValueChanged(TimelineItems, OnItemsSourceChanged);
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
@@ -111,10 +108,7 @@ namespace tweetz5.Controls
             return null;
         }
 
-        public Tweet GetSelectedTweet
-        {
-            get { return TimelineItems.SelectedItem as Tweet; }
-        }
+        public Tweet GetSelectedTweet => TimelineItems.SelectedItem as Tweet;
 
         private void SelectItemCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
@@ -166,8 +160,7 @@ namespace tweetz5.Controls
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

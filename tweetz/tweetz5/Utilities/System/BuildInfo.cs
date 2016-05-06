@@ -70,7 +70,7 @@ namespace tweetz5.Utilities.System
             if (now > buildDate.AddMonths(3))
             {
                 var mainWindow = (MainWindow) Application.Current.MainWindow;
-                var message = string.Format("Expired\n t: {0:g}\n b: {1:g}\n v: {2}", now, buildDate, Version);
+                var message = $"Expired\n t: {now:g}\n b: {buildDate:g}\n v: {Version}";
                 AlertCommand.Command.Execute(message, mainWindow);
                 return true;
             }
@@ -82,7 +82,7 @@ namespace tweetz5.Utilities.System
             get
             {
                 var version = Assembly.GetExecutingAssembly().GetName().Version;
-                return string.Format("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
+                return $"{version.Major}.{version.Minor}.{version.Build}";
             }
         }
     }

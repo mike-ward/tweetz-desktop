@@ -41,7 +41,7 @@ namespace tweetz5.Utilities.ExceptionHandling
                 const string subKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion";
                 var key = Registry.LocalMachine;
                 var skey = key.OpenSubKey(subKey);
-                return skey.GetValue("ProductName").ToString();
+                return skey?.GetValue("ProductName")?.ToString() ?? string.Empty;
             }
             catch (Exception)
             {

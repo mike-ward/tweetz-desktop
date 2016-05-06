@@ -16,24 +16,24 @@ namespace tweetz5.Model
 {
     public static class Twitter
     {
-        private async static Task<string> Get(string url, IEnumerable<string[]> parameters)
+        private static async Task<string> Get(string url, IEnumerable<string[]> parameters)
         {
             return await WebRequest(url, parameters);
         }
 
-        private async static Task<string> Post(string url, IEnumerable<string[]> parameters)
+        private static async Task<string> Post(string url, IEnumerable<string[]> parameters)
         {
             return await WebRequest(url, parameters, true);
         }
 
-        private async static Task<string> WebRequest(string url, IEnumerable<string[]> parameters, bool post = false)
+        private static async Task<string> WebRequest(string url, IEnumerable<string[]> parameters, bool post = false)
         {
             var oauth = new OAuth();
             var nonce = OAuth.Nonce();
             var timestamp = OAuth.TimeStamp();
             var signature = OAuth.Signature(post ? "POST" : "GET", url, nonce, timestamp, oauth.AccessToken, oauth.AccessTokenSecret, parameters);
             var authorizeHeader = OAuth.AuthorizationHeader(nonce, timestamp, oauth.AccessToken, signature);
-            var parameterStrings = parameters.Select(p => string.Format("{0}={1}", OAuth.UrlEncode(p[0]), OAuth.UrlEncode(p[1]))).ToList();
+            var parameterStrings = parameters.Select(p => $"{OAuth.UrlEncode(p[0])}={OAuth.UrlEncode(p[1])}").ToList();
             if (!post) url += "?" + string.Join("&", parameterStrings);
 
             var request = WebRequestWrapper.Create(new Uri(url));
@@ -63,7 +63,7 @@ namespace tweetz5.Model
             }
         }
 
-        public async static Task<Status[]> HomeTimeline(ulong sinceId)
+        public static async Task<Status[]> HomeTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -75,7 +75,7 @@ namespace tweetz5.Model
             return await GetStatus("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters);
         }
 
-        public async static Task<Status[]> MentionsTimeline(ulong sinceId)
+        public static async Task<Status[]> MentionsTimeline(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -86,7 +86,7 @@ namespace tweetz5.Model
             return await GetStatus("https://api.twitter.com/1.1/statuses/mentions_timeline.json", parameters);
         }
 
-        public async static Task<Status[]> DirectMessages(ulong sinceId)
+        public static async Task<Status[]> DirectMessages(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -96,7 +96,7 @@ namespace tweetz5.Model
             return await GetStatus("https://api.twitter.com/1.1/direct_messages.json", parameters);
         }
 
-        public async static Task<Status[]> DirectMessagesSent(ulong sinceId)
+        public static async Task<Status[]> DirectMessagesSent(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -106,7 +106,7 @@ namespace tweetz5.Model
             return await GetStatus("https://api.twitter.com/1.1/direct_messages/sent.json", parameters);
         }
 
-        public async static Task<Status[]> Favorites(ulong sinceId)
+        public static async Task<Status[]> Favorites(ulong sinceId)
         {
             var parameters = new[]
             {
@@ -116,7 +116,7 @@ namespace tweetz5.Model
             return await GetStatus("https://api.twitter.com/1.1/favorites/list.json", parameters);
         }
 
-        private async static Task<Status[]> GetStatus(string url, IEnumerable<string[]> parameters)
+        private static async Task<Status[]> GetStatus(string url, IEnumerable<string[]> parameters)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace tweetz5.Model
             }
         }
 
-        public async static Task<string> UpdateStatus(string message, string replyToStatusId = null)
+        public static async Task<string> UpdateStatus(string message, string replyToStatusId = null)
         {
             var parameters = string.IsNullOrWhiteSpace(replyToStatusId)
                 ? new[] {new[] {"status", message}}
@@ -142,7 +142,7 @@ namespace tweetz5.Model
                 () => string.Empty);
         }
 
-        public async static Task CreateFavorite(string id)
+        public static async Task CreateFavorite(string id)
         {
             var parameters = new[] {new[] {"id", id}};
             await RequestHandler(
@@ -150,7 +150,7 @@ namespace tweetz5.Model
                 () => string.Empty);
         }
 
-        public async static Task DestroyFavorite(string id)
+        public static async Task DestroyFavorite(string id)
         {
             var parameters = new[] {new[] {"id", id}};
             await RequestHandler(
@@ -158,21 +158,21 @@ namespace tweetz5.Model
                 () => string.Empty);
         }
 
-        public async static Task RetweetStatus(string id)
+        public static async Task RetweetStatus(string id)
         {
             await RequestHandler(
-                () => Post(string.Format("https://api.twitter.com/1.1/statuses/retweet/{0}.json", id), new string[0][]),
+                () => Post($"https://api.twitter.com/1.1/statuses/retweet/{id}.json", new string[0][]),
                 () => string.Empty);
         }
 
-        public async static Task DestroyStatus(string id)
+        public static async Task DestroyStatus(string id)
         {
             await RequestHandler(
-                () => Post(string.Format("https://api.twitter.com/1.1/statuses/destroy/{0}.json", id), new string[0][]),
+                () => Post($"https://api.twitter.com/1.1/statuses/destroy/{id}.json", new string[0][]),
                 () => string.Empty);
         }
 
-        public async static Task<string> GetTweet(string id)
+        public static async Task<string> GetTweet(string id)
         {
             var parameters = new[]
             {
@@ -184,7 +184,7 @@ namespace tweetz5.Model
                 () => string.Empty);
         }
 
-        public async static Task<User> GetUserInformation(string screenName)
+        public static async Task<User> GetUserInformation(string screenName)
         {
             return await RequestHandler(async () =>
             {
@@ -196,13 +196,13 @@ namespace tweetz5.Model
                 var json = await Get("https://api.twitter.com/1.1/users/show.json", parameters);
                 using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
                 {
-                    var serializer = new DataContractJsonSerializer(typeof (User));
-                    return (User) serializer.ReadObject(stream);
+                    var serializer = new DataContractJsonSerializer(typeof(User));
+                    return (User)serializer.ReadObject(stream);
                 }
             }, () => new User {Name = "Error!"});
         }
 
-        public async static Task<Friendship> Friendship(string screenName)
+        public static async Task<Friendship> Friendship(string screenName)
         {
             return await RequestHandler(async () =>
             {
@@ -213,9 +213,9 @@ namespace tweetz5.Model
             }, () => new Friendship());
         }
 
-        public async static Task<bool> Follow(string screenName)
+        public static async Task<bool> Follow(string screenName)
         {
-            return await RequestHandler(async() =>
+            return await RequestHandler(async () =>
             {
                 var parameters = new[]
                 {
@@ -227,7 +227,7 @@ namespace tweetz5.Model
             });
         }
 
-        public async static Task<bool> Unfollow(string screenName)
+        public static async Task<bool> Unfollow(string screenName)
         {
             return await RequestHandler(async () =>
             {
@@ -237,7 +237,7 @@ namespace tweetz5.Model
             });
         }
 
-        public async static Task<string> SendDirectMessage(string text, string screenName)
+        public static async Task<string> SendDirectMessage(string text, string screenName)
         {
             return await RequestHandler(async () =>
             {
@@ -252,7 +252,7 @@ namespace tweetz5.Model
             }, () => string.Empty);
         }
 
-        public async static Task<string> Search(string query, string sinceId = "1")
+        public static async Task<string> Search(string query, string sinceId = "1")
         {
             return await RequestHandler(() =>
             {
@@ -274,7 +274,7 @@ namespace tweetz5.Model
             public string ScreenName { get; set; }
         }
 
-        public async static Task<OAuthTokens> GetRequestToken()
+        public static async Task<OAuthTokens> GetRequestToken()
         {
             return await RequestHandler(async () =>
             {
@@ -305,7 +305,7 @@ namespace tweetz5.Model
             });
         }
 
-        public async static Task<OAuthTokens> GetAccessToken(string accessToken, string accessTokenSecret, string oauthVerifier)
+        public static async Task<OAuthTokens> GetAccessToken(string accessToken, string accessTokenSecret, string oauthVerifier)
         {
             return await RequestHandler(async () =>
             {
@@ -338,7 +338,7 @@ namespace tweetz5.Model
             });
         }
 
-        public async static Task<string> UpdateStatusWithMedia(string message, string filename)
+        public static async Task<string> UpdateStatusWithMedia(string message, string filename)
         {
             return await RequestHandler(async () =>
             {
@@ -356,21 +356,19 @@ namespace tweetz5.Model
                 request.Headers.Add("Authorization", authorizeHeader);
                 request.Method = "POST";
 
-                var formDataBoundary = String.Format("{0:N}", Guid.NewGuid());
+                var formDataBoundary = $"{Guid.NewGuid():N}";
                 var contentType = "multipart/form-data; boundary=" + formDataBoundary;
                 request.ContentType = contentType;
 
                 using (var requestStream = request.GetRequestStream())
                 {
-                    var header = string.Format("--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n", formDataBoundary, "status");
-                    var footer = string.Format("\r\n--{0}--\r\n", formDataBoundary);
+                    var header = $"--{formDataBoundary}\r\nContent-Disposition: form-data; name=\"status\"\r\n\r\n";
+                    var footer = $"\r\n--{formDataBoundary}--\r\n";
                     WriteStream(requestStream, header);
                     WriteStream(requestStream, message);
 
-                    header = string.Format(
-                        "\r\n--{0}\r\nContent-Type: application/octet-stream\r\n" +
-                        "Content-Disposition: form-data; name=\"media[]\"; filename=\"{1}\"\r\n\r\n",
-                        formDataBoundary, mediaName);
+                    header = $"\r\n--{formDataBoundary}\r\nContent-Type: application/octet-stream\r\n" 
+                        + $"Content-Disposition: form-data; name=\"media[]\"; filename=\"{mediaName}\"\r\n\r\n";
                     WriteStream(requestStream, header);
                     requestStream.Write(media, 0, media.Length);
                     WriteStream(requestStream, footer);
@@ -387,7 +385,7 @@ namespace tweetz5.Model
             }, () => string.Empty);
         }
 
-        private async static Task<T> RequestHandler<T>(Func<Task<T>> request, Func<T> onError = null)
+        private static async Task<T> RequestHandler<T>(Func<Task<T>> request, Func<T> onError = null)
         {
             try
             {
@@ -414,7 +412,7 @@ namespace tweetz5.Model
                     var serializer = new JavaScriptSerializer();
                     var json = stream.ReadToEnd();
                     var errors = serializer.Deserialize<TwitterErrors>(json);
-                    return String.Join("\n", errors.Errors.Select(e => string.Format("code: {0}, message: {1}", e.Code, e.Message)));
+                    return string.Join("\n", errors.Errors.Select(e => $"code: {e.Code}, message: {e.Message}"));
                 }
             }
             catch (Exception)

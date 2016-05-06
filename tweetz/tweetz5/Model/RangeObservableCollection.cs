@@ -16,7 +16,7 @@ namespace tweetz5.Model
 
         public void AddRange(IEnumerable<T> list)
         {
-            if (list == null) throw new ArgumentNullException("list");
+            if (list == null) throw new ArgumentNullException(nameof(list));
 
             _suppressNotification = true;
 

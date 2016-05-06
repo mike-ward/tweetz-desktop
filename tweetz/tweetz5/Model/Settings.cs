@@ -68,10 +68,7 @@ namespace tweetz5.Model
             }
         }
 
-        public static string Version
-        {
-            get { return BuildInfo.Version; }
-        }
+        public static string Version => BuildInfo.Version;
 
         public bool IsRegisteredInStartup
         {
@@ -112,8 +109,7 @@ namespace tweetz5.Model
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

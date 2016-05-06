@@ -7,7 +7,7 @@ namespace tweetz5.Utilities.System
 {
     public static class RegistryHelper
     {
-        const string ApplicationName = "Tweetz Desktop";
+        private const string ApplicationName = "Tweetz Desktop";
 
         private static RegistryKey OpenStartupSubKey()
         {
@@ -20,7 +20,7 @@ namespace tweetz5.Utilities.System
             {
                 if (register)
                 {
-                    var path = string.Format("\"{0}\"", Assembly.GetExecutingAssembly().Location);
+                    var path = $"\"{Assembly.GetExecutingAssembly().Location}\"";
                     registryKey.SetValue(ApplicationName, path);
                 }
                 else

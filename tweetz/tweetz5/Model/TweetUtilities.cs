@@ -22,9 +22,7 @@ namespace tweetz5.Model
                 displayStatus.User = (status.Recipient.ScreenName == username) ? status.Sender : status.Recipient;
             }
 
-            if (status.Entities != null
-                && status.Entities.Mentions != null
-                && status.Entities.Mentions.Any(m => m.ScreenName == username))
+            if (status.Entities?.Mentions != null && status.Entities.Mentions.Any(m => m.ScreenName == username))
             {
                 isMention = true;
             }
@@ -46,7 +44,7 @@ namespace tweetz5.Model
                 RetweetedBy = RetweetedBy(status, username),
                 RetweetedByScreenName = RetweetedByScreenName(status, username),
                 RetweetStatusId = (status.RetweetedStatus != null) ? status.RetweetedStatus.Id : String.Empty,
-                MediaLinks = status.Entities.Media != null ? status.Entities.Media.Select(m => m.MediaUrl).ToArray() : new string[0],
+                MediaLinks = status.Entities?.Media?.Select(m => m.MediaUrl).ToArray() ?? new string[0],
                 IsMyTweet = displayStatus.User.ScreenName == username,
                 IsHome = tweetType == TweetClassification.Home,
                 IsMention = tweetType == TweetClassification.Mention | isMention,

@@ -37,10 +37,7 @@ namespace tweetz5.Model
                 : new WebRequestWrapper(address);
         }
 
-        public WebHeaderCollection Headers
-        {
-            get { return _request.Headers; }
-        }
+        public WebHeaderCollection Headers => _request.Headers;
 
         public IWebResponse GetResponse()
         {
