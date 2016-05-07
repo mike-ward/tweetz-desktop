@@ -13,7 +13,8 @@ namespace tweetz5.Commands
         {
             ea.Handled = true;
             var mainWindow = (MainWindow) Application.Current.MainWindow;
-            var tweet = (Tweet) ea.Parameter ?? mainWindow.Timeline.GetSelectedTweet;
+            var tweet = ea.Parameter as Tweet ?? mainWindow.Timeline.GetSelectedTweet;
+            if (tweet == null) return;
             var link = TimelineController.TweetLink(tweet);
             OpenLinkCommand.Command.Execute(link, mainWindow);
         }

@@ -33,6 +33,7 @@ namespace tweetz5.Model
         public MarkupNode[] MarkupNodes { get; set; }
         public DateTime CreatedAt { get; set; }
         public string[] MediaLinks { get; set; }
+        public string[] Urls { get; set; }
         public bool IsMyTweet { get; set; }
 
         public bool IsRetweet

@@ -100,6 +100,7 @@
     <Compile Include="Commands\FollowUserCommand.cs" />
     <Compile Include="Commands\OpenComposeCommand.cs" />
     <Compile Include="Commands\OpenLinkCommand.cs" />
+    <Compile Include="Commands\OpenFirstLinkInTweetCommand.cs" />
     <Compile Include="Commands\OpenTweetLinkCommand.cs" />
     <Compile Include="Commands\ReplyCommand.cs" />
     <Compile Include="Commands\RetweetClassicCommand.cs" />
