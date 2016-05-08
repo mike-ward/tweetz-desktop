@@ -26,6 +26,8 @@ namespace tweetz5.Controls
             new KeyboardShortcut {Shortcut = "T", Description = TranslationService.Instance.Translate("shortcut_help_retweet") as string},
             new KeyboardShortcut {Shortcut = "F", Description = TranslationService.Instance.Translate("shortcut_help_favorite") as string},
             new KeyboardShortcut {Shortcut = "N", Description = TranslationService.Instance.Translate("shortcut_help_new_status") as string},
+            new KeyboardShortcut {Shortcut = "O", Description = TranslationService.Instance.Translate("shortcut_help_open_tweet") as string},
+            new KeyboardShortcut {Shortcut = "L", Description = TranslationService.Instance.Translate("shortcut_help_open_link") as string},
             new KeyboardShortcut {Shortcut = "/", Description = TranslationService.Instance.Translate("shortcut_help_search") as string},
             new KeyboardShortcut {Shortcut = "Ctrl+Home", Description = TranslationService.Instance.Translate("shortcut_help_go_top") as string},
             new KeyboardShortcut {Shortcut = "Ctrl+End", Description = TranslationService.Instance.Translate("shortcut_help_go_bottom") as string},
