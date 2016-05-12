@@ -23,6 +23,7 @@ namespace tweetz5.Model
         private bool _isDirectMessage;
         private bool _isFavorite;
         private bool _isSearch;
+        private DateTime _createdAt;
 
         public string StatusId { get; set; }
         public string RetweetStatusId { get; set; }
@@ -31,7 +32,13 @@ namespace tweetz5.Model
         public string ProfileImageUrl { get; set; }
         public string Text { get; set; }
         public MarkupNode[] MarkupNodes { get; set; }
-        public DateTime CreatedAt { get; set; }
+
+        public DateTime CreatedAt
+        {
+            get { return _createdAt; }
+            set { SetPropertyValue(ref _createdAt, value); }
+        }
+
         public string[] MediaLinks { get; set; }
         public string[] Urls { get; set; }
         public bool IsMyTweet { get; set; }
