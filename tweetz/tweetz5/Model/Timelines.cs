@@ -96,7 +96,7 @@ namespace tweetz5.Model
         public Visibility SearchVisibility
         {
             get { return _searchVisibility; }
-            set { SetPropertyValue(ref _searchVisibility, value); }
+            set { SetProperty(ref _searchVisibility, value); }
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -104,7 +104,7 @@ namespace tweetz5.Model
         {
             // ReSharper disable once UnusedMember.Global
             get { return _isSearching; }
-            set {  SetPropertyValue(ref _isSearching, value); }
+            set {  SetProperty(ref _isSearching, value); }
         }
 
         public void ClearAllTimelines()

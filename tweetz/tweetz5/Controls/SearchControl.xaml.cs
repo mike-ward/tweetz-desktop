@@ -20,7 +20,7 @@ namespace tweetz5.Controls
         private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             // It was the only way
-            Run.Later(100, () => SearchText.Focus());
+            Run.Later(() => SearchText.Focus());
         }
     }
 }

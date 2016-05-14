@@ -10,8 +10,8 @@ namespace tweetz5.Model
 {
     public class OAuth
     {
-        private static string ConsumerKey { get; set; }
-        private static string ConsumerSecret { get; set; }
+        private static string ConsumerKey { get; }
+        private static string ConsumerSecret { get; }
         public string AccessTokenSecret { get; private set; }
         public string AccessToken { get; private set; }
         public string ScreenName { get; private set; }
@@ -50,10 +50,10 @@ namespace tweetz5.Model
         public static string Signature(string httpMethod, string url, string nonce, string timestamp, string accessToken, string accessTokenSecret, IEnumerable<string[]> parameters)
         {
             var parameterList = OrderedParameters(nonce, timestamp, accessToken, null, parameters);
-            var parameterStrings = parameterList.Select(p => string.Format("{0}={1}", p.Item1, p.Item2));
+            var parameterStrings = parameterList.Select(p => $"{p.Item1}={p.Item2}");
             var parameterString = string.Join("&", parameterStrings);
-            var signatureBaseString = string.Format("{0}&{1}&{2}", httpMethod, UrlEncode(url), UrlEncode(parameterString));
-            var compositeKey = string.Format("{0}&{1}", UrlEncode(ConsumerSecret), UrlEncode(accessTokenSecret));
+            var signatureBaseString = $"{httpMethod}&{UrlEncode(url)}&{UrlEncode(parameterString)}";
+            var compositeKey = $"{UrlEncode(ConsumerSecret)}&{UrlEncode(accessTokenSecret)}";
             using (var hmac = new HMACSHA1(Encoding.UTF8.GetBytes(compositeKey)))
             {
                 return Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(signatureBaseString)));
@@ -63,7 +63,7 @@ namespace tweetz5.Model
         public static string AuthorizationHeader(string nonce, string timestamp, string accessToken, string signature, IEnumerable<string[]> parameters = null)
         {
             var parameterList = OrderedParameters(nonce, timestamp, accessToken, signature, parameters);
-            var parameterStrings = parameterList.Select(p => string.Format("{0}=\"{1}\"", p.Item1, p.Item2));
+            var parameterStrings = parameterList.Select(p => $"{p.Item1}=\"{p.Item2}\"");
             var header = "OAuth " + string.Join(",", parameterStrings);
             return header;
         }

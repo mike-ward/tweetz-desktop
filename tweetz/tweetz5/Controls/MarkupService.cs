@@ -55,6 +55,8 @@ namespace tweetz5.Controls
                     case MarkupNodeType.Media:
                         inlines.Add(Hyperlink("[link]", node.Text));
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             textBlock.Inlines.Clear();
@@ -69,21 +71,14 @@ namespace tweetz5.Controls
 
         private static string ConvertXmlEntities(string text)
         {
-            return text
-                .Replace("&lt;", "<")
-                .Replace("&gt;", ">")
-                .Replace("&quot;", "\"")
-                .Replace("&apos;", "'")
-                .Replace("&amp;", "&");
+            return text.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&quot;", "\"").Replace("&apos;", "'").Replace("&amp;", "&");
         }
 
         private static Hyperlink Hyperlink(string text, string link)
         {
             var hyperlink = new Hyperlink(new Run(text))
             {
-                Command = OpenLinkCommand.Command,
-                CommandParameter = link,
-                ToolTip = link
+                Command = OpenLinkCommand.Command, CommandParameter = link, ToolTip = link
             };
             ToolTipService.SetInitialShowDelay(hyperlink, 0);
             ToolTipService.SetShowDuration(hyperlink, 30000);
@@ -95,8 +90,7 @@ namespace tweetz5.Controls
         {
             return new Hyperlink(new Run("@" + text))
             {
-                Command = ShowUserInformationCommand.Command,
-                CommandParameter = text
+                Command = ShowUserInformationCommand.Command, CommandParameter = text
             };
         }
 
@@ -104,8 +98,7 @@ namespace tweetz5.Controls
         {
             return new Hyperlink(new Run("#" + text))
             {
-                Command = SearchCommand.Command,
-                CommandParameter = text
+                Command = SearchCommand.Command, CommandParameter = text
             };
         }
     }

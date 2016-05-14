@@ -44,7 +44,7 @@ namespace tweetz5.Controls
         {
             if (TimelineItems.Items.Count > 0)
             {
-                Run.Later(100, () =>
+                Run.Later(() =>
                 {
                     var item = TimelineItems.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
                     if (item != null)

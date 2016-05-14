@@ -36,7 +36,7 @@ namespace tweetz5.Model
         public DateTime CreatedAt
         {
             get { return _createdAt; }
-            set { SetPropertyValue(ref _createdAt, value); }
+            set { SetProperty(ref _createdAt, value); }
         }
 
         public string[] MediaLinks { get; set; }
@@ -46,7 +46,7 @@ namespace tweetz5.Model
         public bool IsRetweet
         {
             get { return _retweet; }
-            set { SetPropertyValue(ref _retweet, value); }
+            set { SetProperty(ref _retweet, value); }
         }
 
         public string RetweetedBy
@@ -70,31 +70,31 @@ namespace tweetz5.Model
         public bool IsHome
         {
             get { return _isHome; }
-            set { SetPropertyValue(ref _isHome, value); }
+            set { SetProperty(ref _isHome, value); }
         }
 
         public bool IsMention
         {
             get { return _isMention; }
-            set { SetPropertyValue(ref _isMention, value); }
+            set { SetProperty(ref _isMention, value); }
         }
 
         public bool IsDirectMessage
         {
             get { return _isDirectMessage; }
-            set { SetPropertyValue(ref _isDirectMessage, value); }
+            set { SetProperty(ref _isDirectMessage, value); }
         }
 
         public bool IsFavorite
         {
             get { return _isFavorite; }
-            set { SetPropertyValue(ref _isFavorite, value); }
+            set { SetProperty(ref _isFavorite, value); }
         }
 
         public bool IsSearch
         {
             get { return _isSearch; }
-            set { SetPropertyValue(ref _isSearch, value); }
+            set { SetProperty(ref _isSearch, value); }
         }
 
         public bool Equals(Tweet other)

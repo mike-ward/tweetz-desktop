@@ -60,6 +60,7 @@ namespace tweetz5.Controls
             if (_disposed) return;
             _disposed = true;
             _timers.Dispose();
+            _timers = null;
         }
 
         public static void CopyTweetToClipboard(Tweet tweet)

@@ -34,10 +34,7 @@ namespace tweetz5.Controls
             new KeyboardShortcut {Shortcut = "Ctrl+Return", Description = TranslationService.Instance.Translate("shortcut_help_send_status") as string}
         };
 
-        public IEnumerable<KeyboardShortcut> KeyboardShortcuts
-        {
-            get { return _keyboardShortcuts; }
-        }
+        public IEnumerable<KeyboardShortcut> KeyboardShortcuts => _keyboardShortcuts;
 
         private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
         {
