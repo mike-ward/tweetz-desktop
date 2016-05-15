@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace tweetz5.Utilities.Translate
             }
             catch (FileNotFoundException ex)
             {
-                Console.WriteLine(ex.ToString());
+                Trace.TraceError(ex.Message);
             }
         }
 

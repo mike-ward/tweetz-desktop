@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace tweetz5.Utilities.System
@@ -30,8 +31,9 @@ namespace tweetz5.Utilities.System
                 GetVersionEx(ref os);
                 return (os.szCSDVersion == "") ? "No Service Pack detected" : os.szCSDVersion;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Trace.TraceError(ex.Message);
                 return "Service pack version unavailable";
             }
         }

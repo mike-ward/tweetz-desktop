@@ -26,24 +26,12 @@ namespace tweetz5.Utilities.System
             return transformToDevice;
         }
 
-        public static double HorizontalDpiToPixel(UIElement element, double x)
-        {
-            return x * GetSizeFactors(element).M11;
-        }
+        public static double HorizontalDpiToPixel(UIElement element, double x) => x * GetSizeFactors(element).M11;
 
-        public static double VerticalDpiToPixel(UIElement element, double y)
-        {
-            return y * GetSizeFactors(element).M22;
-        }
+        public static double VerticalDpiToPixel(UIElement element, double y) => y * GetSizeFactors(element).M22;
 
-        public static double HorizontalPixelToDpi(UIElement element, double x)
-        {
-            return x / GetSizeFactors(element).M11;
-        }
+        public static double HorizontalPixelToDpi(UIElement element, double x) => x / GetSizeFactors(element).M11;
 
-        public static double VerticalPixelToDpi(UIElement element, double y)
-        {
-            return y / GetSizeFactors(element).M22;
-        }
+        public static double VerticalPixelToDpi(UIElement element, double y) => y / GetSizeFactors(element).M22;
     }
 }

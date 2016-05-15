@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;

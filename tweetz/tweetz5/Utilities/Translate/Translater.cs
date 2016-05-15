@@ -15,10 +15,7 @@ namespace tweetz5.Utilities.Translate
             LanguageChangedEventManager.AddListener(TranslationService.Instance, this);
         }
 
-        public object Value
-        {
-            get { return TranslationService.Instance.Translate(_key); }
-        }
+        public object Value => TranslationService.Instance.Translate(_key);
 
         private void OnLanguageChanged(object sender, EventArgs e)
         {

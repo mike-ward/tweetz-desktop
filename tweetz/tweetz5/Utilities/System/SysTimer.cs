@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using System.Threading;
 using System.Timers;
 using Timer = System.Timers.Timer;

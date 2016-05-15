@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -65,8 +66,9 @@ namespace tweetz5.Utilities.System
                         webClient.DownloadFileAsync(uri, filename);
                         ea.Handled = true;
                     }
-                    catch (WebException)
+                    catch (WebException ex)
                     {
+                        Trace.TraceError(ex.Message);
                     }
                 }
             }

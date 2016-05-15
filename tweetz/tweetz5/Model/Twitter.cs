@@ -126,7 +126,7 @@ namespace tweetz5.Model
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Trace.TraceError(e.Message);
                 return new Status[0];
             }
         }
@@ -134,8 +134,8 @@ namespace tweetz5.Model
         public static async Task<string> UpdateStatus(string message, string replyToStatusId = null)
         {
             var parameters = string.IsNullOrWhiteSpace(replyToStatusId)
-                ? new[] {new[] {"status", message}}
-                : new[] {new[] {"status", message}, new[] {"in_reply_to_status_id", replyToStatusId}};
+                ? new[] { new[] { "status", message } }
+                : new[] { new[] { "status", message }, new[] { "in_reply_to_status_id", replyToStatusId } };
 
             return await RequestHandler(
                 () => Post("https://api.twitter.com/1.1/statuses/update.json", parameters),
@@ -144,7 +144,7 @@ namespace tweetz5.Model
 
         public static async Task CreateFavorite(string id)
         {
-            var parameters = new[] {new[] {"id", id}};
+            var parameters = new[] { new[] { "id", id } };
             await RequestHandler(
                 () => Post("https://api.twitter.com/1.1/favorites/create.json", parameters),
                 () => string.Empty);
@@ -152,7 +152,7 @@ namespace tweetz5.Model
 
         public static async Task DestroyFavorite(string id)
         {
-            var parameters = new[] {new[] {"id", id}};
+            var parameters = new[] { new[] { "id", id } };
             await RequestHandler(
                 () => Post("https://api.twitter.com/1.1/favorites/destroy.json", parameters),
                 () => string.Empty);
@@ -199,16 +199,16 @@ namespace tweetz5.Model
                     var serializer = new DataContractJsonSerializer(typeof(User));
                     return (User)serializer.ReadObject(stream);
                 }
-            }, () => new User {Name = "Error!"});
+            }, () => new User { Name = "Error!" });
         }
 
         public static async Task<Friendship> Friendship(string screenName)
         {
             return await RequestHandler(async () =>
             {
-                var parameters = new[] {new[] {"screen_name", screenName}};
+                var parameters = new[] { new[] { "screen_name", screenName } };
                 var json = await Get("https://api.twitter.com/1.1/friendships/lookup.json", parameters);
-                var friendship = new Friendship {Following = json.Contains("\"following\""), FollowedBy = json.Contains("\"followed_by\"")};
+                var friendship = new Friendship { Following = json.Contains("\"following\""), FollowedBy = json.Contains("\"followed_by\"") };
                 return friendship;
             }, () => new Friendship());
         }
@@ -231,7 +231,7 @@ namespace tweetz5.Model
         {
             return await RequestHandler(async () =>
             {
-                var parameters = new[] {new[] {"screen_name", screenName}};
+                var parameters = new[] { new[] { "screen_name", screenName } };
                 var json = await Post("https://api.twitter.com/1.1/friendships/destroy.json", parameters);
                 return json.Contains(screenName);
             });
@@ -281,7 +281,7 @@ namespace tweetz5.Model
                 const string requestTokenUrl = "https://api.twitter.com/oauth/request_token";
                 var nonce = OAuth.Nonce();
                 var timestamp = OAuth.TimeStamp();
-                var parameters = new[] {new[] {"oauth_callback", "oob"}};
+                var parameters = new[] { new[] { "oauth_callback", "oob" } };
                 var signature = OAuth.Signature("POST", requestTokenUrl, nonce, timestamp, "", "", parameters);
                 var authorizationHeader = OAuth.AuthorizationHeader(nonce, timestamp, null, signature, parameters);
 
@@ -289,18 +289,16 @@ namespace tweetz5.Model
                 request.Method = "POST";
                 request.Headers.Add("Authorization", authorizationHeader);
                 using (var response = await request.GetResponseAsync())
+                using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
-                    using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-                    {
-                        var body = stream.ReadToEnd();
-                        var tokens = body.Split('&');
-                        var oauthToken = Token(tokens[0]);
-                        var oauthSecret = Token(tokens[1]);
-                        var callbackConfirmed = Token(tokens[2]);
+                    var body = stream.ReadToEnd();
+                    var tokens = body.Split('&');
+                    var oauthToken = Token(tokens[0]);
+                    var oauthSecret = Token(tokens[1]);
+                    var callbackConfirmed = Token(tokens[2]);
 
-                        if (callbackConfirmed != "true") throw new InvalidProgramException("callback token not confirmed");
-                        return new OAuthTokens {OAuthToken = oauthToken, OAuthSecret = oauthSecret};
-                    }
+                    if (callbackConfirmed != "true") throw new InvalidProgramException("callback token not confirmed");
+                    return new OAuthTokens { OAuthToken = oauthToken, OAuthSecret = oauthSecret };
                 }
             });
         }
@@ -312,7 +310,7 @@ namespace tweetz5.Model
                 const string requestTokenUrl = "https://api.twitter.com/oauth/access_token";
                 var nonce = OAuth.Nonce();
                 var timestamp = OAuth.TimeStamp();
-                var parameters = new[] {new[] {"oauth_verifier", oauthVerifier}};
+                var parameters = new[] { new[] { "oauth_verifier", oauthVerifier } };
                 var signature = OAuth.Signature("POST", requestTokenUrl, nonce, timestamp, accessToken, accessTokenSecret, parameters);
                 var authorizationHeader = OAuth.AuthorizationHeader(nonce, timestamp, accessToken, signature, parameters);
 
@@ -321,19 +319,17 @@ namespace tweetz5.Model
                 request.Headers.Add("Authorization", authorizationHeader);
 
                 using (var response = await request.GetResponseAsync())
+                using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
-                    using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    var tokens = stream.ReadToEnd().Split('&');
+                    var oauthTokens = new OAuthTokens
                     {
-                        var tokens = stream.ReadToEnd().Split('&');
-                        var oauthTokens = new OAuthTokens
-                        {
-                            OAuthToken = Token(tokens[0]),
-                            OAuthSecret = Token(tokens[1]),
-                            UserId = Token(tokens[2]),
-                            ScreenName = Token(tokens[3])
-                        };
-                        return oauthTokens;
-                    }
+                        OAuthToken = Token(tokens[0]),
+                        OAuthSecret = Token(tokens[1]),
+                        UserId = Token(tokens[2]),
+                        ScreenName = Token(tokens[3])
+                    };
+                    return oauthTokens;
                 }
             });
         }
@@ -367,7 +363,7 @@ namespace tweetz5.Model
                     WriteStream(requestStream, header);
                     WriteStream(requestStream, message);
 
-                    header = $"\r\n--{formDataBoundary}\r\nContent-Type: application/octet-stream\r\n" 
+                    header = $"\r\n--{formDataBoundary}\r\nContent-Type: application/octet-stream\r\n"
                         + $"Content-Disposition: form-data; name=\"media[]\"; filename=\"{mediaName}\"\r\n\r\n";
                     WriteStream(requestStream, header);
                     requestStream.Write(media, 0, media.Length);

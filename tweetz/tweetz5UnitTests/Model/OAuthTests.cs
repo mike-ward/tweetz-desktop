@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using tweetz5.Model;

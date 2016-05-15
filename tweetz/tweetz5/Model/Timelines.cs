@@ -254,10 +254,7 @@ namespace tweetz5.Model
             }
         }
 
-        public CancellationToken CancellationToken
-        {
-            get { return _cancellationTokenSource.Token; }
-        }
+        public CancellationToken CancellationToken => _cancellationTokenSource.Token;
 
         public void SignalCancel()
         {

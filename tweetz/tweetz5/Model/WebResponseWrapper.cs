@@ -7,10 +7,12 @@ namespace tweetz5.Model
     public interface IWebResponse : IDisposable
     {
         Stream GetResponseStream();
+        Uri ResponseUri { get; }
     }
 
     public sealed class WebResponseWrapper : IWebResponse
     {
+        private bool _disposed;
         private WebResponse _response;
 
         public WebResponseWrapper(WebResponse response)
@@ -18,12 +20,9 @@ namespace tweetz5.Model
             _response = response;
         }
 
-        public Stream GetResponseStream()
-        {
-            return _response.GetResponseStream();
-        }
+        public Stream GetResponseStream() => _response.GetResponseStream();
 
-        private bool _disposed;
+        public Uri ResponseUri => _response.ResponseUri;
 
         public void Dispose()
         {

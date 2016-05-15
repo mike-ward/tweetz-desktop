@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2012 Blue Onion Software - All rights reserved
+﻿
 
 using System;
 using System.IO;
@@ -39,11 +39,7 @@ namespace tweetz5.Model
 
         public WebHeaderCollection Headers => _request.Headers;
 
-        public IWebResponse GetResponse()
-        {
-            return new WebResponseWrapper(_request.GetResponse());
-        }
-
+        public IWebResponse GetResponse() => new WebResponseWrapper(_request.GetResponse());
 
         public string Method
         {
@@ -55,10 +51,7 @@ namespace tweetz5.Model
             set { _request.ContentType = value; }
         }
 
-        public Stream GetRequestStream()
-        {
-            return _request.GetRequestStream();
-        }
+        public Stream GetRequestStream() => _request.GetRequestStream();
 
         public string UserAgent
         {
@@ -70,9 +63,6 @@ namespace tweetz5.Model
             set { _request.Timeout = value; }
         }
 
-        public async Task<IWebResponse> GetResponseAsync()
-        {
-            return new WebResponseWrapper(await _request.GetResponseAsync());
-        }
+        public async Task<IWebResponse> GetResponseAsync() => new WebResponseWrapper(await _request.GetResponseAsync());
     }
 }

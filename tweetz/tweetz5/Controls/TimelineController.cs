@@ -1,7 +1,6 @@
-﻿// Copyright (c) 2013 Blue Onion Software - All rights reserved
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using tweetz5.Model;
@@ -33,7 +32,7 @@ namespace tweetz5.Controls
                 }
                 catch (WebException ex)
                 {
-                    Console.WriteLine(ex);
+                    Trace.TraceError(ex.Message);
                 }
             });
 
@@ -73,10 +72,7 @@ namespace tweetz5.Controls
             Clipboard.SetText(TweetLink(tweet));
         }
 
-        public static string TweetLink(Tweet tweet)
-        {
-            return $"https://twitter.com/{tweet.ScreenName}/status/{tweet.StatusId}";
-        }
+        public static string TweetLink(Tweet tweet) => $"https://twitter.com/{tweet.ScreenName}/status/{tweet.StatusId}";
 
         public void UpdateStatus(IEnumerable<Status> statuses, TweetClassification tweetType)
         {

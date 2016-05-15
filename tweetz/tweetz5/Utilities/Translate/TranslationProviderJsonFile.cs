@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace tweetz5.Utilities.Translate
             }
             catch (FileNotFoundException ex)
             {
-                global::System.Console.WriteLine(ex.ToString());
+                Trace.TraceError(ex.Message);
             }
         }
 
@@ -71,6 +72,7 @@ namespace tweetz5.Utilities.Translate
         {
             [DataMember]
             public string Name { get; set; }
+
             [DataMember]
             public Dictionary<string, string> Dictionary = new Dictionary<string, string>();
         }
