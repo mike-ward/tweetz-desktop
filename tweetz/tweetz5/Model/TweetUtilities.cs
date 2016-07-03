@@ -130,7 +130,12 @@ namespace tweetz5.Model
             markupItems.Sort((l, r) => l.Start - r.Start);
             foreach (var item in markupItems)
             {
-                if (item.Start >= start) nodes.Add(new MarkupNode(MarkupNodeType.Text, text.Substring(start, item.Start - start)));
+                if (item.Start >= start)
+                {
+                    var len = item.Start - start;
+                    if (start + len > text.Length) len = text.Length - start;
+                    nodes.Add(new MarkupNode(MarkupNodeType.Text, text.Substring(len)));
+                }
                 nodes.Add(new MarkupNode(item.MarkupNodeType, item.Text));
                 start = item.End;
             }
