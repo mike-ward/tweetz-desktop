@@ -126,7 +126,7 @@ namespace tweetz5.Model
                 {
                     var len = item.Start - start;
                     if (start + len > text.Length) len = text.Length - start;
-                    nodes.Add(new MarkupNode(MarkupNodeType.Text, text.Substring(len)));
+                    nodes.Add(new MarkupNode(MarkupNodeType.Text, text.Substring(start, len)));
                 }
                 nodes.Add(new MarkupNode(item.MarkupNodeType, item.Text));
                 start = item.End;
