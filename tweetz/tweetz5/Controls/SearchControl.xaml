@@ -1,50 +1,54 @@
-﻿<UserControl x:Class="tweetz5.Controls.SearchControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:u="clr-namespace:tweetz5.Utilities"
-             xmlns:c="clr-namespace:tweetz5.Controls"
-             xmlns:commands="clr-namespace:tweetz5.Commands"
-             IsVisibleChanged="OnIsVisibleChanged"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" 
-             d:DesignWidth="300">
+﻿<UserControl
+  x:Class="tweetz5.Controls.SearchControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:c="clr-namespace:tweetz5.Controls"
+  xmlns:commands="clr-namespace:tweetz5.Commands"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:u="clr-namespace:tweetz5.Utilities"
+  d:DesignHeight="300"
+  d:DesignWidth="300"
+  IsVisibleChanged="OnIsVisibleChanged"
+  mc:Ignorable="d">
   <UserControl.Resources>
     <u:Win7FontConverter x:Key="Win7FontConverter" />
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
   </UserControl.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="8*"/>
-      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="8*" />
+      <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <TextBox Grid.Column="0"
-               Grid.Row="0"
-               FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
-               x:Name="SearchText"
-               Style="{StaticResource SearchControlTextBoxStyle}"
-               Margin="0 0 5 0">
+    <TextBox
+      x:Name="SearchText"
+      Grid.Row="0"
+      Grid.Column="0"
+      Margin="0,0,5,0"
+      Style="{StaticResource SearchControlTextBoxStyle}"
+      FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}">
       <TextBox.InputBindings>
-        <KeyBinding Key="Enter"
-                      Command="{x:Static commands:SearchCommand.Command}" 
-                      CommandParameter="{Binding ElementName=SearchText, Path=Text}"/>
+        <KeyBinding
+          Key="Enter"
+          Command="{x:Static commands:SearchCommand.Command}"
+          CommandParameter="{Binding ElementName=SearchText, Path=Text}" />
       </TextBox.InputBindings>
     </TextBox>
-    <TextBlock Grid.Column="1"
-               Grid.Row="0"
-               KeyboardNavigation.TabNavigation="None"
-               FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}" 
-               FontSize="13">
-        <Hyperlink Command="{x:Static commands:SearchCommand.Command}"
-                   CommandParameter="{Binding ElementName=SearchText, Path=Text}">
-          <Run Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE11A;', Mode=OneWay}"/>
-        </Hyperlink>
+    <TextBlock
+      Grid.Row="0"
+      Grid.Column="1"
+      FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
+      FontSize="13"
+      KeyboardNavigation.TabNavigation="None">
+      <Hyperlink Command="{x:Static commands:SearchCommand.Command}" CommandParameter="{Binding ElementName=SearchText, Path=Text}">
+        <Run Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE11A;', Mode=OneWay}" />
+      </Hyperlink>
     </TextBlock>
-    <ProgressBar Grid.Row="0" 
-                 Grid.Column="1" 
-                 Height="13"
-                 IsIndeterminate="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:Timeline}}, Path=DataContext.IsSearching}"
-                 Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:Timeline}}, Path=DataContext.IsSearching, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    <ProgressBar
+      Grid.Row="0"
+      Grid.Column="1"
+      Height="13"
+      IsIndeterminate="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:Timeline}}, Path=DataContext.IsSearching}"
+      Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:Timeline}}, Path=DataContext.IsSearching, Converter={StaticResource BooleanToVisibilityConverter}}" />
   </Grid>
 </UserControl>

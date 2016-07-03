@@ -11,12 +11,22 @@ namespace tweetz5.Controls
 {
     public sealed class TimelineController : IDisposable
     {
-        private Timers _timers = new Timers();
         private readonly ITimelines _timelinesModel;
+
+        private bool _disposed;
+        private Timers _timers = new Timers();
 
         public TimelineController(ITimelines timelinesModel)
         {
             _timelinesModel = timelinesModel;
+        }
+
+        public void Dispose()
+        {
+            if (_disposed) return;
+            _disposed = true;
+            _timers.Dispose();
+            _timers = null;
         }
 
         public void StartTimelines()
@@ -50,16 +60,6 @@ namespace tweetz5.Controls
             _timers = new Timers();
             _timelinesModel.SignalCancel();
             _timelinesModel.ClearAllTimelines();
-        }
-
-        private bool _disposed;
-
-        public void Dispose()
-        {
-            if (_disposed) return;
-            _disposed = true;
-            _timers.Dispose();
-            _timers = null;
         }
 
         public static void CopyTweetToClipboard(Tweet tweet)

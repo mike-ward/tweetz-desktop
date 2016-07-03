@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -10,31 +8,23 @@ namespace tweetz5.Model
     public interface IWebRequest
     {
         WebHeaderCollection Headers { get; }
-        IWebResponse GetResponse();
         string Method { set; }
         string ContentType { set; }
-        Stream GetRequestStream();
         string UserAgent { set; }
         int Timeout { set; }
+        IWebResponse GetResponse();
+        Stream GetRequestStream();
         Task<IWebResponse> GetResponseAsync();
     }
 
     public class WebRequestWrapper : IWebRequest
     {
+        public static Func<Uri, IWebRequest> OverrideImplementation;
         private readonly WebRequest _request;
 
         private WebRequestWrapper(Uri address)
         {
             _request = WebRequest.Create(address);
-        }
-
-        public static Func<Uri, IWebRequest> OverrideImplementation;
-
-        public static IWebRequest Create(Uri address)
-        {
-            return (OverrideImplementation != null)
-                ? OverrideImplementation(address)
-                : new WebRequestWrapper(address);
         }
 
         public WebHeaderCollection Headers => _request.Headers;
@@ -55,7 +45,7 @@ namespace tweetz5.Model
 
         public string UserAgent
         {
-            set { ((HttpWebRequest) _request).UserAgent = value; }
+            set { ((HttpWebRequest)_request).UserAgent = value; }
         }
 
         public int Timeout
@@ -64,5 +54,12 @@ namespace tweetz5.Model
         }
 
         public async Task<IWebResponse> GetResponseAsync() => new WebResponseWrapper(await _request.GetResponseAsync());
+
+        public static IWebRequest Create(Uri address)
+        {
+            return OverrideImplementation != null
+                ? OverrideImplementation(address)
+                : new WebRequestWrapper(address);
+        }
     }
 }

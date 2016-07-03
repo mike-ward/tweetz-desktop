@@ -1,64 +1,66 @@
-﻿<UserControl x:Class="tweetz5.Controls.ComposeTweet"
-             x:Name="Root"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:c="clr-namespace:tweetz5.Controls"
-             xmlns:u="clr-namespace:tweetz5.Utilities"
-             xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}"
-             mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="190"
-             Focusable="True"
-             Height="Auto">
+﻿<UserControl
+  x:Class="tweetz5.Controls.ComposeTweet"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:c="clr-namespace:tweetz5.Controls"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
+  xmlns:u="clr-namespace:tweetz5.Utilities"
+  x:Name="Root"
+  Height="Auto"
+  d:DesignHeight="300"
+  d:DesignWidth="190"
+  DataContext="{Binding RelativeSource={RelativeSource Self}}"
+  Focusable="True"
+  mc:Ignorable="d">
   <UserControl.Resources>
     <c:LengthToColorConverter x:Key="LengthToColorConverter" />
     <u:UriToCachedImageConverter x:Key="UriToCachedImageConverter" />
     <u:Win7FontConverter x:Key="Win7FontConverter" />
   </UserControl.Resources>
   <StackPanel Style="{StaticResource ComposeTweet}">
-    <TextBlock x:Name="ComposeTitle"
-               Style="{StaticResource ComposeTweetTitleBlock}" />
-    <TextBox x:Name="TextBox"
-             AcceptsReturn="True"
-             TextWrapping="Wrap"
-             PreviewKeyDown="TextBoxOnPreviewKeyDown"
-             Style="{StaticResource ComposeTweetTextBox}"
-             IsVisibleChanged="OnIsVisibleChanged" />
-    <Image Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}, IsAsync=True}"
-           Style="{StaticResource ComposeImageStyle}" />
-    <DockPanel Margin="0 0 0 6">
-      <TextBlock x:Name="Counter"
-                 DockPanel.Dock="Left"
-                 Style="{StaticResource ComposeCharCounter}"
-                 Text="{Binding ElementName=TextBox, Path=Text.Length}"
-                 Foreground="{Binding ElementName=TextBox, Path=Text.Length, Converter={StaticResource LengthToColorConverter}}">
-      </TextBlock>
-      <StackPanel Orientation="Horizontal"
-                  HorizontalAlignment="Right"
-                  DockPanel.Dock="Right">
-        <Button x:Name="Photo"
-                Style="{StaticResource ComposeTweetButton}"
-                ToolTip="{t:Translate compose_tooltip_photo}"
-                Click="OnPhoto">
-          <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
-               Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE114;', Mode=OneWay}"/>
+    <TextBlock x:Name="ComposeTitle" Style="{StaticResource ComposeTweetTitleBlock}" />
+    <TextBox
+      x:Name="TextBox"
+      Style="{StaticResource ComposeTweetTextBox}"
+      AcceptsReturn="True"
+      IsVisibleChanged="OnIsVisibleChanged"
+      PreviewKeyDown="TextBoxOnPreviewKeyDown"
+      TextWrapping="Wrap" />
+    <Image Style="{StaticResource ComposeImageStyle}" Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}, IsAsync=True}" />
+    <DockPanel Margin="0,0,0,6">
+      <TextBlock
+        x:Name="Counter"
+        Style="{StaticResource ComposeCharCounter}"
+        Foreground="{Binding ElementName=TextBox, Path=Text.Length, Converter={StaticResource LengthToColorConverter}}"
+        DockPanel.Dock="Left"
+        Text="{Binding ElementName=TextBox, Path=Text.Length}" />
+      <StackPanel
+        HorizontalAlignment="Right"
+        DockPanel.Dock="Right"
+        Orientation="Horizontal">
+        <Button
+          x:Name="Photo"
+          Style="{StaticResource ComposeTweetButton}"
+          Click="OnPhoto"
+          ToolTip="{t:Translate compose_tooltip_photo}">
+          <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE114;', Mode=OneWay}" />
         </Button>
-        <Button x:Name="Shorten"
-                Style="{StaticResource ComposeTweetButton}"
-                ToolTip="{t:Translate compose_tooltip_shorten_links}"
-                Click="OnShorten">
-          <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
-               Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE167;', Mode=OneWay}"/>
+        <Button
+          x:Name="Shorten"
+          Style="{StaticResource ComposeTweetButton}"
+          Click="OnShorten"
+          ToolTip="{t:Translate compose_tooltip_shorten_links}">
+          <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE167;', Mode=OneWay}" />
         </Button>
-        <Button x:Name="Send"
-                Click="OnSend"
-                Width="55"
-                ToolTip="{t:Translate compose_tooltip_send_button}">
+        <Button
+          x:Name="Send"
+          Width="55"
+          Click="OnSend"
+          ToolTip="{t:Translate compose_tooltip_send_button}">
           <Button.Style>
-            <Style TargetType="Button" BasedOn="{StaticResource ComposeTweetButton}">
+            <Style BasedOn="{StaticResource ComposeTweetButton}" TargetType="Button">
               <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=TextBox, Path=Text.Length}" Value="0">
                   <Setter Property="Button.IsEnabled" Value="False" />
@@ -67,7 +69,11 @@
             </Style>
           </Button.Style>
           <StackPanel>
-            <ProgressBar x:Name="SendButtonProgress"  Width="40" Height="10" Visibility="Collapsed" />
+            <ProgressBar
+              x:Name="SendButtonProgress"
+              Width="40"
+              Height="10"
+              Visibility="Collapsed" />
             <TextBlock x:Name="SendButtonText" TextAlignment="Center" />
           </StackPanel>
         </Button>

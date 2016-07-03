@@ -48,7 +48,7 @@ namespace tweetz5.Model
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
-                var serializer = new DataContractJsonSerializer(typeof (Status[]));
+                var serializer = new DataContractJsonSerializer(typeof(Status[]));
                 return (Status[])serializer.ReadObject(stream);
             }
         }
@@ -64,7 +64,7 @@ namespace tweetz5.Model
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
-                var serializer = new DataContractJsonSerializer(typeof (SearchStatuses));
+                var serializer = new DataContractJsonSerializer(typeof(SearchStatuses));
                 var searchStatuses = (SearchStatuses)serializer.ReadObject(stream);
                 return searchStatuses.Statuses;
             }
@@ -74,8 +74,8 @@ namespace tweetz5.Model
     [DataContract]
     public sealed class User : INotifyPropertyChanged
     {
-        private bool _following;
         private bool _followedBy;
+        private bool _following;
 
         [DataMember(Name = "id")]
         public ulong Id { get; set; }

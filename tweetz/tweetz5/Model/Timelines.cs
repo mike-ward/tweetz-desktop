@@ -12,50 +12,7 @@ namespace tweetz5.Model
 {
     public sealed class Timelines : NotifyPropertyChanged, ITimelines, IDisposable
     {
-        private bool _disposed;
-        private View _view;
-        private RangeObservableCollection<Tweet> _timeline = new RangeObservableCollection<Tweet>();
-        private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
         private readonly Collection<Tweet> _search = new Collection<Tweet>();
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private Visibility _searchVisibility = Visibility.Collapsed;
-        private bool _isSearching;
-
-        private bool UpdateTimelines(IEnumerable<Status> statuses, TweetClassification tweetType)
-        {
-            var updated = false;
-            foreach (var status in statuses)
-            {
-                var tweet = status.CreateTweet(tweetType);
-                var index = _tweets.IndexOf(tweet);
-                if (index == -1)
-                {
-                    _tweets.Add(tweet);
-                }
-                else
-                {
-                    var t = _tweets[index];
-                    t.IsHome |= tweet.IsHome;
-                    t.IsMention |= tweet.IsMention;
-                    t.IsDirectMessage |= tweet.IsDirectMessage;
-                    t.IsFavorite |= tweet.IsFavorite;
-                    tweet = t;
-                }
-
-                if (TimelineFilter(tweet) && _timeline.Contains(tweet) == false)
-                {
-                    Timeline.Add(tweet);
-                    updated = true;
-                }
-            }
-            if (updated) SortTweetCollection(Timeline);
-            return updated;
-        }
-
-        public void UpdateStatus(IEnumerable<Status> statuses, TweetClassification tweetType)
-        {
-            DispatchInvoker(() => { if (UpdateTimelines(statuses, tweetType)) PlayNotification(); });
-        }
 
         private readonly Dictionary<View, Predicate<Tweet>> _timelineFilters = new Dictionary<View, Predicate<Tweet>>
         {
@@ -64,8 +21,24 @@ namespace tweetz5.Model
             {View.Mentions, t => t.IsMention},
             {View.Messages, t => t.IsDirectMessage},
             {View.Favorites, t => t.IsFavorite},
-            {View.Search, t => t.IsSearch},
+            {View.Search, t => t.IsSearch}
         };
+
+        private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private bool _disposed;
+
+        private ulong _favoritesSinceId = 1;
+
+        private ulong _homeSinceId = 1;
+        private bool _isSearching;
+
+        private ulong _mentionsSinceId = 1;
+
+        private ulong _messagesSinceId = 1;
+        private Visibility _searchVisibility = Visibility.Collapsed;
+        private RangeObservableCollection<Tweet> _timeline = new RangeObservableCollection<Tweet>();
+        private View _view;
 
         private Predicate<Tweet> TimelineFilter
         {
@@ -75,16 +48,6 @@ namespace tweetz5.Model
                 if (_timelineFilters.TryGetValue(_view, out filter)) return filter;
                 return t => false;
             }
-        }
-
-        public void SwitchView(View view)
-        {
-            if (_view == view) return;
-            _view = view;
-            Timeline.Clear();
-            var tweets = (_view == View.Search) ? _search : _tweets;
-            SearchVisibility = (_view == View.Search) ? Visibility.Visible : Visibility.Collapsed;
-            Timeline.AddRange(tweets.Where(t => TimelineFilter(t)).OrderByDescending(t => t.CreatedAt).Take(200));
         }
 
         public RangeObservableCollection<Tweet> Timeline
@@ -104,7 +67,36 @@ namespace tweetz5.Model
         {
             // ReSharper disable once UnusedMember.Global
             get { return _isSearching; }
-            set {  SetProperty(ref _isSearching, value); }
+            set { SetProperty(ref _isSearching, value); }
+        }
+
+        public Action<Action> DispatchInvokerOverride { private get; set; }
+
+        public void Dispose()
+        {
+            if (_disposed) return;
+            _disposed = true;
+            if (_cancellationTokenSource == null) return;
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
+        }
+
+        public void UpdateStatus(IEnumerable<Status> statuses, TweetClassification tweetType)
+        {
+            DispatchInvoker(() =>
+            {
+                if (UpdateTimelines(statuses, tweetType)) PlayNotification();
+            });
+        }
+
+        public void SwitchView(View view)
+        {
+            if (_view == view) return;
+            _view = view;
+            Timeline.Clear();
+            var tweets = _view == View.Search ? _search : _tweets;
+            SearchVisibility = _view == View.Search ? Visibility.Visible : Visibility.Collapsed;
+            Timeline.AddRange(tweets.Where(t => TimelineFilter(t)).OrderByDescending(t => t.CreatedAt).Take(200));
         }
 
         public void ClearAllTimelines()
@@ -118,36 +110,12 @@ namespace tweetz5.Model
             _favoritesSinceId = 1;
         }
 
-        private static void PlayNotification()
-        {
-            if (Application.Current != null) ChirpCommand.Command.Execute(string.Empty, Application.Current.MainWindow);
-        }
-
-        public Action<Action> DispatchInvokerOverride { private get; set; }
-
-        private void DispatchInvoker(Action callback)
-        {
-            var invoker = DispatchInvokerOverride ?? (action => Application.Current.Dispatcher.InvokeAsync(action));
-            invoker(callback);
-        }
-
-        private static ulong MaxSinceId(ulong currentSinceId, ICollection<Status> statuses)
-        {
-            return (statuses.Count > 0)
-                ? Math.Max(currentSinceId, statuses.Max(s => ulong.Parse(s.Id)))
-                : currentSinceId;
-        }
-
-        private ulong _homeSinceId = 1;
-
         public async Task UpdateHome()
         {
             var statuses = await Twitter.HomeTimeline(_homeSinceId);
             _homeSinceId = MaxSinceId(_homeSinceId, statuses);
             UpdateStatus(statuses, TweetClassification.Home);
         }
-
-        private ulong _mentionsSinceId = 1;
 
         public async Task UpdateMentions()
         {
@@ -156,16 +124,12 @@ namespace tweetz5.Model
             UpdateStatus(statuses, TweetClassification.Mention);
         }
 
-        private ulong _favoritesSinceId = 1;
-
         public async Task UpdateFavorites()
         {
             var statuses = await Twitter.Favorites(_favoritesSinceId);
             _favoritesSinceId = MaxSinceId(_favoritesSinceId, statuses);
             UpdateStatus(statuses, TweetClassification.Favorite);
         }
-
-        private ulong _messagesSinceId = 1;
 
         public async Task UpdateDirectMessages()
         {
@@ -197,18 +161,6 @@ namespace tweetz5.Model
             if (tweet.IsFavorite == false) return;
             await Twitter.DestroyFavorite(tweet.StatusId);
             tweet.IsFavorite = false;
-        }
-
-        private static void SortTweetCollection(ObservableCollection<Tweet> collection)
-        {
-            var i = 0;
-            foreach (var item in collection.OrderByDescending(s => s.CreatedAt))
-            {
-                // Move will trigger a properychanged event even if the indexes are the same.
-                var indexOfItem = collection.IndexOf(item);
-                if (indexOfItem != i) collection.Move(indexOfItem, i);
-                i += 1;
-            }
         }
 
         public async Task Search(string query)
@@ -262,13 +214,65 @@ namespace tweetz5.Model
             _cancellationTokenSource = new CancellationTokenSource();
         }
 
-        public void Dispose()
+        private bool UpdateTimelines(IEnumerable<Status> statuses, TweetClassification tweetType)
         {
-            if (_disposed) return;
-            _disposed = true;
-            if (_cancellationTokenSource == null) return;
-            _cancellationTokenSource.Dispose();
-            _cancellationTokenSource = null;
+            var updated = false;
+            foreach (var status in statuses)
+            {
+                var tweet = status.CreateTweet(tweetType);
+                var index = _tweets.IndexOf(tweet);
+                if (index == -1)
+                {
+                    _tweets.Add(tweet);
+                }
+                else
+                {
+                    var t = _tweets[index];
+                    t.IsHome |= tweet.IsHome;
+                    t.IsMention |= tweet.IsMention;
+                    t.IsDirectMessage |= tweet.IsDirectMessage;
+                    t.IsFavorite |= tweet.IsFavorite;
+                    tweet = t;
+                }
+
+                if (TimelineFilter(tweet) && _timeline.Contains(tweet) == false)
+                {
+                    Timeline.Add(tweet);
+                    updated = true;
+                }
+            }
+            if (updated) SortTweetCollection(Timeline);
+            return updated;
+        }
+
+        private static void PlayNotification()
+        {
+            if (Application.Current != null) ChirpCommand.Command.Execute(string.Empty, Application.Current.MainWindow);
+        }
+
+        private void DispatchInvoker(Action callback)
+        {
+            var invoker = DispatchInvokerOverride ?? (action => Application.Current.Dispatcher.InvokeAsync(action));
+            invoker(callback);
+        }
+
+        private static ulong MaxSinceId(ulong currentSinceId, ICollection<Status> statuses)
+        {
+            return statuses.Count > 0
+                ? Math.Max(currentSinceId, statuses.Max(s => ulong.Parse(s.Id)))
+                : currentSinceId;
+        }
+
+        private static void SortTweetCollection(ObservableCollection<Tweet> collection)
+        {
+            var i = 0;
+            foreach (var item in collection.OrderByDescending(s => s.CreatedAt))
+            {
+                // Move will trigger a properychanged event even if the indexes are the same.
+                var indexOfItem = collection.IndexOf(item);
+                if (indexOfItem != i) collection.Move(indexOfItem, i);
+                i += 1;
+            }
         }
     }
 }

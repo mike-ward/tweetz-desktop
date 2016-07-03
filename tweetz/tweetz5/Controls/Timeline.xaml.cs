@@ -14,21 +14,39 @@ namespace tweetz5.Controls
     {
         // ReSharper disable once MemberCanBePrivate.Global
         public static readonly RoutedCommand SelectItemCommand = new RoutedUICommand();
-        public TimelineController Controller { get; private set; }
+
+        private Thickness _tweetMargin;
 
         public Timeline()
         {
             InitializeComponent();
-            Controller = new TimelineController((Timelines) DataContext);
+            Controller = new TimelineController((Timelines)DataContext);
             TimelineItems.PreviewMouseWheel += TimelineItemsOnPreviewMouseWheel;
             TimelineItems.Loaded += TimelineItemsOnLoaded;
             TimelineItems.SizeChanged += TimelineItemsOnSizeChanged;
             Unloaded += (sender, args) => Controller.Dispose();
         }
 
+        public TimelineController Controller { get; }
+
+        public Tweet GetSelectedTweet => TimelineItems.SelectedItem as Tweet;
+
+        public Thickness TweetMargin
+        {
+            get { return _tweetMargin; }
+            set
+            {
+                if (_tweetMargin == value) return;
+                _tweetMargin = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private void TimelineItemsOnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            var dpd = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof (ListBox));
+            var dpd = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof(ListBox));
             dpd?.AddValueChanged(TimelineItems, OnItemsSourceChanged);
         }
 
@@ -56,7 +74,7 @@ namespace tweetz5.Controls
 
         private void MoreOnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var frameworkElement = (FrameworkElement) sender;
+            var frameworkElement = (FrameworkElement)sender;
             frameworkElement.ContextMenu.PlacementTarget = this;
             frameworkElement.ContextMenu.DataContext = frameworkElement.DataContext;
             frameworkElement.ContextMenu.IsOpen = true;
@@ -70,8 +88,8 @@ namespace tweetz5.Controls
         private static void TimelineItemsOnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             // Modify listbox to scroll one line at a time.
-            var scrollHost = (DependencyObject) sender;
-            var scrollViewer = (ScrollViewer) GetScrollViewer(scrollHost);
+            var scrollHost = (DependencyObject)sender;
+            var scrollViewer = (ScrollViewer)GetScrollViewer(scrollHost);
             var offset = scrollViewer.VerticalOffset - (e.Delta > 0 ? 1 : -1);
             if (offset < 0)
             {
@@ -106,8 +124,6 @@ namespace tweetz5.Controls
             return null;
         }
 
-        public Tweet GetSelectedTweet => TimelineItems.SelectedItem as Tweet;
-
         private void SelectItemCommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             var updated = false;
@@ -136,25 +152,10 @@ namespace tweetz5.Controls
             }
         }
 
-        private Thickness _tweetMargin;
-
-        public Thickness TweetMargin
-        {
-            get { return _tweetMargin; }
-            set
-            {
-                if (_tweetMargin == value) return;
-                _tweetMargin = value;
-                OnPropertyChanged();
-            }
-        }
-
         private void TimelineItemsOnSizeChanged(object sender, SizeChangedEventArgs sizeChangedEventArgs)
         {
-            TweetMargin = (sizeChangedEventArgs.NewSize.Width > 260) ? new Thickness(40, 0, 0, 0) : new Thickness();
+            TweetMargin = sizeChangedEventArgs.NewSize.Width > 260 ? new Thickness(40, 0, 0, 0) : new Thickness();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

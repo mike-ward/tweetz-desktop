@@ -9,6 +9,15 @@ namespace tweetz5.Model
         private bool _disposed;
         private List<ITimer> _timers = new List<ITimer>();
 
+        public void Dispose()
+        {
+            if (_disposed) return;
+            _disposed = true;
+            _timers.ForEach(timer => timer.Dispose());
+            _timers.Clear();
+            _timers = null;
+        }
+
         public void Add(int seconds, EventHandler handler)
         {
             if (_disposed) throw new ObjectDisposedException(string.Empty);
@@ -20,15 +29,6 @@ namespace tweetz5.Model
                 handler(s, e);
             };
             timer.Start();
-        }
-
-        public void Dispose()
-        {
-            if (_disposed) return;
-            _disposed = true;
-            _timers.ForEach(timer => timer.Dispose());
-            _timers.Clear();
-            _timers = null;
         }
     }
 }

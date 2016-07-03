@@ -14,16 +14,16 @@ namespace tweetz5.Model
 
     public sealed class Tweet : NotifyPropertyChanged, IEquatable<Tweet>
     {
-        private string _timeAgo;
-        private string _retweetedBy;
-        private string _retweetedByScreenName;
-        private bool _retweet;
-        private bool _isHome;
-        private bool _isMention;
+        private DateTime _createdAt;
         private bool _isDirectMessage;
         private bool _isFavorite;
+        private bool _isHome;
+        private bool _isMention;
         private bool _isSearch;
-        private DateTime _createdAt;
+        private bool _retweet;
+        private string _retweetedBy;
+        private string _retweetedByScreenName;
+        private string _timeAgo;
 
         public string StatusId { get; set; }
         public string RetweetStatusId { get; set; }

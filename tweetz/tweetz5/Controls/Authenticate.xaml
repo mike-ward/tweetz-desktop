@@ -1,44 +1,48 @@
-﻿<UserControl x:Class="tweetz5.Controls.Authenticate"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
-             Padding="20"
-             HorizontalAlignment="Center"
-             d:DesignWidth="200"
-             mc:Ignorable="d"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+﻿<UserControl
+  x:Class="tweetz5.Controls.Authenticate"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
+  Padding="20"
+  HorizontalAlignment="Center"
+  d:DesignWidth="200"
+  DataContext="{Binding RelativeSource={RelativeSource Self}}"
+  mc:Ignorable="d">
   <StackPanel Width="155">
-    <TextBlock TextWrapping="Wrap" 
-               Text="{t:Translate authenticate_instructions}" />
+    <TextBlock Text="{t:Translate authenticate_instructions}" TextWrapping="Wrap" />
 
-    <StackPanel Margin="20 10">
-      <Button Click="GetPin_OnClick"
-              Content="{t:Translate authenticate_get_pin}" FontSize="16"
-              Padding="0 0 0 2"
-              Margin="5" />
+    <StackPanel Margin="20,10">
+      <Button
+        Margin="5"
+        Padding="0,0,0,2"
+        FontSize="16"
+        Click="GetPin_OnClick"
+        Content="{t:Translate authenticate_get_pin}" />
 
-      <TextBox x:Name="Pin"
-               FontSize="18"
-               FontWeight="Bold"
-               TextAlignment="Center"
-               Margin="10 20">
+      <TextBox
+        x:Name="Pin"
+        Margin="10,20"
+        FontSize="18"
+        FontWeight="Bold"
+        TextAlignment="Center">
         <TextBox.Style>
           <Style>
-          <Style.Triggers>
-            <DataTrigger Binding="{Binding Tokens}" Value="{x:Null}">
-              <Setter Property="UIElement.IsEnabled" Value="False" />
-            </DataTrigger>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Tokens}" Value="{x:Null}">
+                <Setter Property="UIElement.IsEnabled" Value="False" />
+              </DataTrigger>
             </Style.Triggers>
           </Style>
         </TextBox.Style>
       </TextBox>
 
-      <Button Click="SignIn_OnClick"
-                    Content="{t:Translate authenticate_signin}"
-                    FontSize="16"
-                    Margin="5">
+      <Button
+        Margin="5"
+        FontSize="16"
+        Click="SignIn_OnClick"
+        Content="{t:Translate authenticate_signin}">
         <Button.Style>
           <Style>
             <Style.Triggers>
@@ -51,7 +55,6 @@
       </Button>
     </StackPanel>
 
-    <TextBlock TextWrapping="Wrap"
-               Text="{t:Translate authenticate_about_pins}" />
+    <TextBlock Text="{t:Translate authenticate_about_pins}" TextWrapping="Wrap" />
   </StackPanel>
 </UserControl>

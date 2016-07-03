@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 
 // ReSharper disable AssignNullToNotNullAttribute

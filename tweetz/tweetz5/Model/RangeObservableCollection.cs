@@ -7,7 +7,7 @@ namespace tweetz5.Model
 {
     public class RangeObservableCollection<T> : ObservableCollection<T>
     {
-        private bool _suppressNotification = false;
+        private bool _suppressNotification;
 
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {

@@ -112,5 +112,8 @@
     </TextBlock>
     <TextBlock TextAlignment="Center">Copyright 2016, Mike Ward</TextBlock>
     <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="{t:Translate settings_keyboard_help}" />
+    <TextBlock TextAlignment="Center" Margin="0, 10, 0, 0">
+      <Hyperlink NavigateUri="http://mike-ward.net/donate" RequestNavigate="DonateHyperLink" FontWeight="Bold" FontSize="14">Donate</Hyperlink>
+    </TextBlock>
   </StackPanel>
 </UserControl>

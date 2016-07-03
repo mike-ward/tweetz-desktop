@@ -1,38 +1,46 @@
-﻿<Popup x:Class="tweetz5.Controls.StatusAlert"
-       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       xmlns:utilities="clr-namespace:tweetz5.Utilities"
-       PopupAnimation="Fade"
-       AllowsTransparency="True"
-       StaysOpen="True"
-       Height="Auto" 
-       Width="190"
-       TextOptions.TextFormattingMode="Display">
+﻿<Popup
+  x:Class="tweetz5.Controls.StatusAlert"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:utilities="clr-namespace:tweetz5.Utilities"
+  Width="190"
+  Height="Auto"
+  AllowsTransparency="True"
+  PopupAnimation="Fade"
+  StaysOpen="True"
+  TextOptions.TextFormattingMode="Display">
   <Popup.Resources>
     <utilities:Win7FontConverter x:Key="Win7FontConverter" />
   </Popup.Resources>
   <Popup.CommandBindings>
-    <CommandBinding Command="Close" Executed="CloseCommandHandler"/>
+    <CommandBinding Command="Close" Executed="CloseCommandHandler" />
   </Popup.CommandBindings>
-  <Border Padding="5" CornerRadius="8" Background="Black" BorderThickness="2" BorderBrush="DarkGoldenrod">
-      <StackPanel>
-      <TextBlock Foreground="#bbbbbb" 
-                   FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
-                   Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;', Mode=OneWay}"
-                   HorizontalAlignment="Right" 
-                   Cursor="Hand">
+  <Border
+    Padding="5"
+    Background="Black"
+    BorderBrush="DarkGoldenrod"
+    BorderThickness="2"
+    CornerRadius="8">
+    <StackPanel>
+      <TextBlock
+        HorizontalAlignment="Right"
+        Foreground="#bbbbbb"
+        FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
+        Cursor="Hand"
+        Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10A;', Mode=OneWay}">
         <TextBlock.InputBindings>
-            <MouseBinding MouseAction="LeftClick" Command="Close" />
-          </TextBlock.InputBindings>
-        </TextBlock>
-        <TextBlock Foreground="#bbbbbb"
-                   FontSize="14"
-                   FontWeight="Heavy"
-                   TextAlignment="Center"
-                   TextWrapping="Wrap"
-                   Margin="15 5 15 15" 
-                   x:Name="Message" 
-                   Text="No Message for You" />
-      </StackPanel>
+          <MouseBinding Command="Close" MouseAction="LeftClick" />
+        </TextBlock.InputBindings>
+      </TextBlock>
+      <TextBlock
+        x:Name="Message"
+        Margin="15,5,15,15"
+        Foreground="#bbbbbb"
+        FontSize="14"
+        FontWeight="Heavy"
+        Text="No Message for You"
+        TextAlignment="Center"
+        TextWrapping="Wrap" />
+    </StackPanel>
   </Border>
 </Popup>

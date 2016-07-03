@@ -19,7 +19,7 @@ namespace tweetz5.Model
             if (displayStatus.User == null)
             {
                 isDirectMessage = true;
-                displayStatus.User = (status.Recipient.ScreenName == username) ? status.Sender : status.Recipient;
+                displayStatus.User = status.Recipient.ScreenName == username ? status.Sender : status.Recipient;
             }
 
             if (status.Entities?.Mentions != null && status.Entities.Mentions.Any(m => m.ScreenName == username))
@@ -43,7 +43,7 @@ namespace tweetz5.Model
                 IsRetweet = status.Retweeted,
                 RetweetedBy = RetweetedBy(status, username),
                 RetweetedByScreenName = RetweetedByScreenName(status, username),
-                RetweetStatusId = (status.RetweetedStatus != null) ? status.RetweetedStatus.Id : String.Empty,
+                RetweetStatusId = status.RetweetedStatus != null ? status.RetweetedStatus.Id : string.Empty,
                 MediaLinks = status.Entities?.Media?.Select(m => m.MediaUrl).ToArray() ?? new string[0],
                 Urls = status.Entities?.Urls.Select(u => u.ExpandedUrl).ToArray() ?? new string[0],
                 IsMyTweet = displayStatus.User.ScreenName == username,
@@ -67,14 +67,6 @@ namespace tweetz5.Model
         {
             if (status.RetweetedStatus == null) return string.Empty;
             return username != status.User.ScreenName ? status.User.ScreenName : string.Empty;
-        }
-
-        private class MarkupItem
-        {
-            public MarkupNodeType MarkupNodeType { get; set; }
-            public string Text { get; set; }
-            public int Start { get; set; }
-            public int End { get; set; }
         }
 
         private static MarkupNode[] BuildMarkupNodes(string text, Entities entities)
@@ -146,12 +138,20 @@ namespace tweetz5.Model
         public static string TimeAgo(this DateTime time)
         {
             var timespan = DateTime.UtcNow - time;
-            Func<string, double, string> format = (s, t) => String.Format((string)TranslationService.Instance.Translate(s), (int)t);
+            Func<string, double, string> format = (s, t) => string.Format((string)TranslationService.Instance.Translate(s), (int)t);
             if (timespan.TotalSeconds < 60) return format("time_ago_seconds", timespan.TotalSeconds);
             if (timespan.TotalMinutes < 60) return format("time_ago_minutes", timespan.TotalMinutes);
             if (timespan.TotalHours < 24) return format("time_ago_hours", timespan.TotalHours);
             if (timespan.TotalDays < 3) return format("time_ago_days", timespan.TotalDays);
             return time.ToString((string)TranslationService.Instance.Translate("time_ago_date"));
+        }
+
+        private class MarkupItem
+        {
+            public MarkupNodeType MarkupNodeType { get; set; }
+            public string Text { get; set; }
+            public int Start { get; set; }
+            public int End { get; set; }
         }
     }
 }

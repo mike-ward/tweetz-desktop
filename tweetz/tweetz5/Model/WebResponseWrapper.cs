@@ -6,8 +6,8 @@ namespace tweetz5.Model
 {
     public interface IWebResponse : IDisposable
     {
-        Stream GetResponseStream();
         Uri ResponseUri { get; }
+        Stream GetResponseStream();
     }
 
     public sealed class WebResponseWrapper : IWebResponse
