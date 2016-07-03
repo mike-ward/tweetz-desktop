@@ -285,8 +285,9 @@
 
   <Style x:Key="TweetMediaStyle" TargetType="Image">
     <Setter Property="Margin" Value="0,6,0,3" />
-    <Setter Property="StretchDirection" Value="DownOnly" />
-    <Setter Property="Stretch" Value="UniformToFill" />
+    <Setter Property="MaxWidth" Value="300" />
+    <Setter Property="MaxHeight" Value="200" />
+    <Setter Property="Stretch" Value="Uniform" />
     <Setter Property="HorizontalAlignment" Value="Center" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="Cursor" Value="Hand" />
