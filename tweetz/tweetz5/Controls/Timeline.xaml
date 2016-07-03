@@ -1,32 +1,40 @@
-﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:controls="clr-namespace:tweetz5.Controls"
-             xmlns:model="clr-namespace:tweetz5.Model"
-             xmlns:u="clr-namespace:tweetz5.Utilities"
-             xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
-             xmlns:commands="clr-namespace:tweetz5.Commands"
-             x:Class="tweetz5.Controls.Timeline"
-             FocusVisualStyle="{x:Null}"
-             mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="190">
+﻿<UserControl
+  x:Class="tweetz5.Controls.Timeline"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:commands="clr-namespace:tweetz5.Commands"
+  xmlns:controls="clr-namespace:tweetz5.Controls"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:model="clr-namespace:tweetz5.Model"
+  xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
+  xmlns:u="clr-namespace:tweetz5.Utilities"
+  d:DesignHeight="300"
+  d:DesignWidth="190"
+  FocusVisualStyle="{x:Null}"
+  mc:Ignorable="d">
   <UserControl.Resources>
     <ContextMenu x:Key="MoreMenu">
-      <MenuItem Header="{t:Translate status_retweet_classic}"
-                Command="{x:Static commands:RetweetClassicCommand.Command}"
-                CommandParameter="{Binding}" />
-      <MenuItem Header="{t:Translate status_copy}"
-                Command="{x:Static commands:CopyCommand.Command}"
-                CommandParameter="{Binding}" />
-      <MenuItem Header="{t:Translate status_copy_link}"
-                Command="{x:Static commands:CopyLinkCommand.Command}"
-                CommandParameter="{Binding}"/>
+      <MenuItem
+        Command="{x:Static commands:RetweetClassicCommand.Command}"
+        CommandParameter="{Binding}"
+        Header="{t:Translate status_retweet_classic}" />
+      <MenuItem
+        Command="{x:Static commands:CopyCommand.Command}"
+        CommandParameter="{Binding}"
+        Header="{t:Translate status_copy}" />
+      <MenuItem
+        Command="{x:Static commands:CopyLinkCommand.Command}"
+        CommandParameter="{Binding}"
+        Header="{t:Translate status_copy_link}" />
     </ContextMenu>
 
     <Storyboard x:Key="LoadItemAnimation">
-      <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1"/>
+      <DoubleAnimation
+        Duration="0:0:1"
+        From="0"
+        Storyboard.TargetProperty="Opacity"
+        To="1" />
     </Storyboard>
 
     <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
@@ -40,19 +48,21 @@
 
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition/>
+      <RowDefinition Height="Auto" />
+      <RowDefinition />
     </Grid.RowDefinitions>
-    <controls:SearchControl Grid.Row="0"
-                            x:Name="SearchControl"
-                            Visibility="{Binding SearchVisibility}"
-                            Style="{StaticResource SearchControlStyle}" />
-    <ListBox x:Name="TimelineItems"
-             Grid.Row="1"
-             ItemsSource="{Binding Timeline}"
-             Style="{StaticResource TimelineStyle}"
-             VirtualizingStackPanel.VirtualizationMode="Recycling"
-             ItemContainerStyle="{StaticResource TweetListBoxItemStyle}">
+    <controls:SearchControl
+      x:Name="SearchControl"
+      Grid.Row="0"
+      Style="{StaticResource SearchControlStyle}"
+      Visibility="{Binding SearchVisibility}" />
+    <ListBox
+      x:Name="TimelineItems"
+      Grid.Row="1"
+      Style="{StaticResource TimelineStyle}"
+      ItemContainerStyle="{StaticResource TweetListBoxItemStyle}"
+      ItemsSource="{Binding Timeline}"
+      VirtualizingStackPanel.VirtualizationMode="Recycling">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <DataTemplate.Triggers>
@@ -60,7 +70,7 @@
               <BeginStoryboard Storyboard="{StaticResource LoadItemAnimation}" />
             </EventTrigger>
           </DataTemplate.Triggers>
-          
+
           <Grid MouseLeftButtonDown="DragMoveWindow">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Style="{StaticResource TweetImageColumnStyle}" />
@@ -75,13 +85,11 @@
 
             <Rectangle Grid.Column="0" Style="{StaticResource TweetImageStyle}">
               <Rectangle.Fill>
-                <ImageBrush ImageSource="{Binding ProfileImageUrl, TargetNullValue={x:Null}, IsAsync=True, Mode=OneTime}"
-                            RenderOptions.BitmapScalingMode="HighQuality"/>
+                <ImageBrush ImageSource="{Binding ProfileImageUrl, TargetNullValue={x:Null}, IsAsync=True, Mode=OneTime}" RenderOptions.BitmapScalingMode="HighQuality" />
               </Rectangle.Fill>
             </Rectangle>
 
-            <Grid Grid.Row="0" 
-                  Grid.Column="1">
+            <Grid Grid.Row="0" Grid.Column="1">
               <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -90,71 +98,68 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
               </Grid.ColumnDefinitions>
-              <TextBlock Grid.Column="0"
-                          Grid.Row="0"
-                          Margin="1 2 0 0">
-                <Hyperlink Command="{x:Static commands:ShowUserInformationCommand.Command}"
-                           CommandParameter="{Binding ScreenName, Mode=OneTime}">
-                  <Run Text="{Binding Name, Mode=OneTime}" FontWeight="Bold" />
+              <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="1,2,0,0">
+                <Hyperlink Command="{x:Static commands:ShowUserInformationCommand.Command}" CommandParameter="{Binding ScreenName, Mode=OneTime}">
+                  <Run FontWeight="Bold" Text="{Binding Name, Mode=OneTime}" />
                 </Hyperlink>
               </TextBlock>
-              <TextBlock Grid.Column="0"
-                          Grid.Row="1">
-                <Run Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}"
-                      Style="{StaticResource TweetScreenNameStyle}"/>
+              <TextBlock Grid.Row="1" Grid.Column="0">
+                <Run Style="{StaticResource TweetScreenNameStyle}" Text="{Binding ScreenName, Converter={StaticResource ScreenNameConverter}}" />
               </TextBlock>
-              <TextBlock Grid.Row="0" 
-                         Grid.Column="1">
-                <Hyperlink Style="{StaticResource TweetTimeStyle}"
-                           Command="{x:Static commands:OpenTweetLinkCommand.Command}"
-                           CommandParameter="{Binding}"
-                           ToolTip="{Binding CreatedAt}">
-                  <Run Text="{Binding TimeAgo}"/>
+              <TextBlock Grid.Row="0" Grid.Column="1">
+                <Hyperlink
+                  Style="{StaticResource TweetTimeStyle}"
+                  Command="{x:Static commands:OpenTweetLinkCommand.Command}"
+                  CommandParameter="{Binding}"
+                  ToolTip="{Binding CreatedAt}">
+                  <Run Text="{Binding TimeAgo}" />
                 </Hyperlink>
               </TextBlock>
             </Grid>
 
-            <ItemsControl Grid.Row="1"
-                          Grid.Column="0"
-                          Grid.ColumnSpan="2" 
-                          Margin="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=TweetMargin}"
-                          Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}"
-                          ItemsSource="{Binding MediaLinks}">
+            <ItemsControl
+              Grid.Row="1"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Margin="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=TweetMargin}"
+              ItemsSource="{Binding MediaLinks}"
+              Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                  <Image Source="{Binding IsAsync=True}"
-                         Style="{StaticResource TweetMediaStyle}">
+                  <Image Style="{StaticResource TweetMediaStyle}" Source="{Binding IsAsync=True}">
                     <Image.InputBindings>
-                      <MouseBinding MouseAction="LeftClick"
-                                    Command="{x:Static commands:OpenLinkCommand.Command}"
-                                    CommandParameter="{Binding}">
-                      </MouseBinding>
+                      <MouseBinding
+                        Command="{x:Static commands:OpenLinkCommand.Command}"
+                        CommandParameter="{Binding}"
+                        MouseAction="LeftClick" />
                     </Image.InputBindings>
                   </Image>
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <StackPanel Grid.Row="2"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=TweetMargin}">
-              <TextBlock controls:MarkupService.MarkupNodes="{Binding MarkupNodes, Mode=OneTime}"
-                         Style="{StaticResource TweetStyle}" />
+            <StackPanel
+              Grid.Row="2"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Margin="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=TweetMargin}">
+              <TextBlock Style="{StaticResource TweetStyle}" controls:MarkupService.MarkupNodes="{Binding MarkupNodes, Mode=OneTime}" />
               <TextBlock Style="{StaticResource TweetRetweetedByStyle}">
-                <Hyperlink Command="{x:Static commands:ShowUserInformationCommand.Command}" 
-                           CommandParameter="{Binding RetweetedByScreenName}">
-                  <Run Style="{StaticResource TweetActionsSymbol}"
-                       Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}"/>
+                <Hyperlink Command="{x:Static commands:ShowUserInformationCommand.Command}" CommandParameter="{Binding RetweetedByScreenName}">
+                  <Run Style="{StaticResource TweetActionsSymbol}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}" />
                   <Run Text="{Binding RetweetedBy}" />
                 </Hyperlink>
               </TextBlock>
             </StackPanel>
 
-            <Grid Grid.Row="3"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="2"
-                  Style="{StaticResource TweetActions}">
+            <Grid
+              Grid.Row="3"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Style="{StaticResource TweetActions}">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -162,69 +167,101 @@
                 <ColumnDefinition Width="Auto" />
               </Grid.ColumnDefinitions>
 
-              <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="0">
+              <TextBlock Grid.Column="0" Style="{StaticResource TweetActionsItem}">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static commands:ReplyCommand.Command}" CommandParameter="{Binding}"/>
+                  <MouseBinding
+                    Command="{x:Static commands:ReplyCommand.Command}"
+                    CommandParameter="{Binding}"
+                    MouseAction="LeftClick" />
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsSymbol}" 
-                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE248;', Mode=OneWay}"/> 
+                <Run Style="{StaticResource TweetActionsSymbol}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE248;', Mode=OneWay}" />
                 <Run Text="{t:Translate status_reply}" />
               </TextBlock>
 
-              <TextBlock Style="{StaticResource TweetActionsItemRetweet}" Grid.Column="1">
+              <TextBlock Grid.Column="1" Style="{StaticResource TweetActionsItemRetweet}">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static commands:RetweetCommand.Command}" CommandParameter="{Binding}"/>
+                  <MouseBinding
+                    Command="{x:Static commands:RetweetCommand.Command}"
+                    CommandParameter="{Binding}"
+                    MouseAction="LeftClick" />
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsRetweetSymbol}"
-                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}"/> 
+                <Run Style="{StaticResource TweetActionsRetweetSymbol}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}" />
                 <Run Text="{t:Translate status_retweet}" />
               </TextBlock>
 
-              <TextBlock Style="{StaticResource TweetActionsItemDelete}" Grid.Column="1">
+              <TextBlock Grid.Column="1" Style="{StaticResource TweetActionsItemDelete}">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static commands:DeleteTweetCommand.Command}" CommandParameter="{Binding}"/>
+                  <MouseBinding
+                    Command="{x:Static commands:DeleteTweetCommand.Command}"
+                    CommandParameter="{Binding}"
+                    MouseAction="LeftClick" />
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsSymbol}" 
-                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE107;', Mode=OneWay}"/>
+                <Run Style="{StaticResource TweetActionsSymbol}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE107;', Mode=OneWay}" />
                 <Run Text="{t:Translate status_delete}" />
               </TextBlock>
 
-              <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="2">
+              <TextBlock Grid.Column="2" Style="{StaticResource TweetActionsItem}">
                 <TextBlock.InputBindings>
-                  <MouseBinding MouseAction="LeftClick" Command="{x:Static commands:FavoritesCommand.Command}" CommandParameter="{Binding}"/>
+                  <MouseBinding
+                    Command="{x:Static commands:FavoritesCommand.Command}"
+                    CommandParameter="{Binding}"
+                    MouseAction="LeftClick" />
                 </TextBlock.InputBindings>
-                <Run Style="{StaticResource TweetActionsFavoritesSymbol}"
-                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE0A5;', Mode=OneWay}"/> 
+                <Run Style="{StaticResource TweetActionsFavoritesSymbol}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE0A5;', Mode=OneWay}" />
                 <Run Text="{t:Translate status_favorite}" />
               </TextBlock>
 
-              <TextBlock Style="{StaticResource TweetActionsItem}" Grid.Column="3"
-                         ContextMenu="{StaticResource MoreMenu}"
-                         PreviewMouseLeftButtonDown="MoreOnMouseDown">
-                <Run Style="{StaticResource TweetActionsSymbol}"
-                     Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10C;', Mode=OneWay}"/> 
+              <TextBlock
+                Grid.Column="3"
+                Style="{StaticResource TweetActionsItem}"
+                ContextMenu="{StaticResource MoreMenu}"
+                PreviewMouseLeftButtonDown="MoreOnMouseDown">
+                <Run Style="{StaticResource TweetActionsSymbol}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10C;', Mode=OneWay}" />
               </TextBlock>
             </Grid>
           </Grid>
         </DataTemplate>
       </ListBox.ItemTemplate>
       <ListBox.InputBindings>
-        <KeyBinding Key="X" Modifiers="Control" Command="Close" />
-        <KeyBinding Key="R" Command="{x:Static commands:ReplyCommand.Command}"/>
-        <KeyBinding Key="T" Command="{x:Static commands:RetweetCommand.Command}"/>
-        <KeyBinding Key="F" Command="{x:Static commands:FavoritesCommand.Command}"/>
-        <KeyBinding Key="J" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="True"/>
-        <KeyBinding Key="K" Command="{x:Static controls:Timeline.SelectItemCommand}" CommandParameter="False"/>
-        <KeyBinding Key="N" Command="{x:Static commands:OpenComposeCommand.Command}"/>
-        <KeyBinding Key="O" Command="{x:Static commands:OpenTweetLinkCommand.Command}" CommandParameter="{Binding Timeline }" />
-        <KeyBinding Key="L" Command="{x:Static commands:OpenFirstLinkInTweetCommand.Command}" CommandParameter="{Binding Timeline }" />
-        <KeyBinding Key="Divide" Command="{x:Static commands:SwitchTimelinesCommand.Command}" CommandParameter="{x:Static model:View.Search}"/>
-        <KeyBinding Key="OemQuestion" Command="{x:Static commands:SwitchTimelinesCommand.Command}" CommandParameter="{x:Static model:View.Search}"/>
-        <KeyBinding Key="OemQuestion" Modifiers="Shift" Command="{x:Static commands:ShortcutHelpCommand.Command}"/>
+        <KeyBinding
+          Key="X"
+          Command="Close"
+          Modifiers="Control" />
+        <KeyBinding Key="R" Command="{x:Static commands:ReplyCommand.Command}" />
+        <KeyBinding Key="T" Command="{x:Static commands:RetweetCommand.Command}" />
+        <KeyBinding Key="F" Command="{x:Static commands:FavoritesCommand.Command}" />
+        <KeyBinding
+          Key="J"
+          Command="{x:Static controls:Timeline.SelectItemCommand}"
+          CommandParameter="True" />
+        <KeyBinding
+          Key="K"
+          Command="{x:Static controls:Timeline.SelectItemCommand}"
+          CommandParameter="False" />
+        <KeyBinding Key="N" Command="{x:Static commands:OpenComposeCommand.Command}" />
+        <KeyBinding
+          Key="O"
+          Command="{x:Static commands:OpenTweetLinkCommand.Command}"
+          CommandParameter="{Binding Timeline}" />
+        <KeyBinding
+          Key="L"
+          Command="{x:Static commands:OpenFirstLinkInTweetCommand.Command}"
+          CommandParameter="{Binding Timeline}" />
+        <KeyBinding
+          Key="Divide"
+          Command="{x:Static commands:SwitchTimelinesCommand.Command}"
+          CommandParameter="{x:Static model:View.Search}" />
+        <KeyBinding
+          Key="OemQuestion"
+          Command="{x:Static commands:SwitchTimelinesCommand.Command}"
+          CommandParameter="{x:Static model:View.Search}" />
+        <KeyBinding
+          Key="OemQuestion"
+          Command="{x:Static commands:ShortcutHelpCommand.Command}"
+          Modifiers="Shift" />
       </ListBox.InputBindings>
       <ListBox.CommandBindings>
-        <CommandBinding Command="{x:Static controls:Timeline.SelectItemCommand}" 
-                        Executed="SelectItemCommandHandler" />
+        <CommandBinding Command="{x:Static controls:Timeline.SelectItemCommand}" Executed="SelectItemCommandHandler" />
       </ListBox.CommandBindings>
     </ListBox>
   </Grid>

@@ -1,15 +1,17 @@
-﻿<Popup x:Class="tweetz5.Controls.AboutUser"
-       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-       xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
-       xmlns:controls="clr-namespace:tweetz5.Controls"
-       xmlns:utilities="clr-namespace:tweetz5.Utilities"
-       xmlns:commands="clr-namespace:tweetz5.Commands"
-       mc:Ignorable="d"
-       Width="300"
-       d:DesignHeight="300" d:DesignWidth="300">
+﻿<Popup
+  x:Class="tweetz5.Controls.AboutUser"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:commands="clr-namespace:tweetz5.Commands"
+  xmlns:controls="clr-namespace:tweetz5.Controls"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
+  xmlns:utilities="clr-namespace:tweetz5.Utilities"
+  Width="300"
+  d:DesignHeight="300"
+  d:DesignWidth="300"
+  mc:Ignorable="d">
   <Popup.Resources>
     <utilities:NumberValueCommaConverter x:Key="NumberValueCommaConverter" />
     <controls:BoolToFollowingConverter x:Key="BoolToFollowingConverter" />
@@ -18,10 +20,10 @@
     <utilities:ScreenNameToLinkConverter x:Key="ScreenNameToLinkConverter" />
   </Popup.Resources>
   <Border Style="{StaticResource UserInfoPopupStyle}">
-    <StackPanel HorizontalAlignment="Stretch" Margin="10">
+    <StackPanel Margin="10" HorizontalAlignment="Stretch">
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">Profile Summary</TextBlock>
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
-        <Border  Style="{StaticResource UserInfoProfileImageStyle}">
+        <Border Style="{StaticResource UserInfoProfileImageStyle}">
           <Border.Background>
             <ImageBrush ImageSource="{Binding ProfileImageUrl, TargetNullValue={x:Null}, Mode=OneTime, IsAsync=True}" />
           </Border.Background>
@@ -29,51 +31,54 @@
       </TextBlock>
       <TextBlock Style="{StaticResource UserInfoNameStyle}">
         <StackPanel Orientation="Horizontal">
-        <TextBlock Text="{Binding Name}"/>
+          <TextBlock Text="{Binding Name}" />
           <Border>
-          <Image Source="../Assets/Images/verifiedbadge.png"
-                 ToolTip="{t:Translate profile_verified}"
-                 Style="{StaticResource UserInfoVerified}" />
+            <Image
+              Style="{StaticResource UserInfoVerified}"
+              Source="../Assets/Images/verifiedbadge.png"
+              ToolTip="{t:Translate profile_verified}" />
           </Border>
-      </StackPanel>
+        </StackPanel>
       </TextBlock>
       <TextBlock Style="{StaticResource UserInfoScreenNameStyle}">
-        <Hyperlink Command="{x:Static commands:OpenLinkCommand.Command}" 
-                   CommandParameter="{Binding ScreenName, Converter={StaticResource ScreenNameToLinkConverter}}">
+        <Hyperlink Command="{x:Static commands:OpenLinkCommand.Command}" CommandParameter="{Binding ScreenName, Converter={StaticResource ScreenNameToLinkConverter}}">
           @<Run Text="{Binding ScreenName}" />
         </Hyperlink>
-        <LineBreak/>
-        <Run Style="{StaticResource UserInfoFollowsYouStyle}"
-             Text="{Binding FollowedBy, Converter={StaticResource BoolToFollowedByConverter}}" />
+        <LineBreak />
+        <Run Style="{StaticResource UserInfoFollowsYouStyle}" Text="{Binding FollowedBy, Converter={StaticResource BoolToFollowedByConverter}}" />
       </TextBlock>
-      <TextBlock Text="{Binding Description}" Style="{StaticResource UserInfoTextBlockStyle}" />
+      <TextBlock Style="{StaticResource UserInfoTextBlockStyle}" Text="{Binding Description}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}" Text="{Binding Location}" />
       <TextBlock Style="{StaticResource UserInfoTextBlockStyle}">
         <Hyperlink Command="{x:Static commands:OpenLinkCommand.Command}" CommandParameter="{Binding Url}"><Run Text="{Binding Url}" /></Hyperlink>
       </TextBlock>
-      <Separator Margin="0 10" />
+      <Separator Margin="0,10" />
       <DockPanel LastChildFill="True">
-        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Tweets, Converter={StaticResource NumberValueCommaConverter}}"></Run>
-          <LineBreak/>
+        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left">
+          <Run Text="{Binding Tweets, Converter={StaticResource NumberValueCommaConverter}}" />
+          <LineBreak />
           <Run Text="{t:Translate profile_tweets}" />
         </TextBlock>
-        <Border Style="{StaticResource VerticalSeparatorStyle}"/>
-        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Friends, Converter={StaticResource NumberValueCommaConverter}}"></Run>
-          <LineBreak/>
-          <Run  Text="{t:Translate profile_friends}" />
+        <Border Style="{StaticResource VerticalSeparatorStyle}" />
+        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left">
+          <Run Text="{Binding Friends, Converter={StaticResource NumberValueCommaConverter}}" />
+          <LineBreak />
+          <Run Text="{t:Translate profile_friends}" />
         </TextBlock>
-        <Border Style="{StaticResource VerticalSeparatorStyle}"/>
-        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Followers, Converter={StaticResource NumberValueCommaConverter}}"></Run>
-          <LineBreak/>
-          <Run Text="{t:Translate profile_followers}"/>
+        <Border Style="{StaticResource VerticalSeparatorStyle}" />
+        <TextBlock Style="{StaticResource UserInfoNumberStyle}" DockPanel.Dock="Left"><Run Text="{Binding Followers, Converter={StaticResource NumberValueCommaConverter}}" />
+          <LineBreak />
+          <Run Text="{t:Translate profile_followers}" />
         </TextBlock>
-        <Button DockPanel.Dock="Right"
-                Width="70" Height="23"
-                Command="{x:Static commands:FollowUserCommand.Command}"
-                CommandParameter="{Binding}">
+        <Button
+          Width="70"
+          Height="23"
+          Command="{x:Static commands:FollowUserCommand.Command}"
+          CommandParameter="{Binding}"
+          DockPanel.Dock="Right">
           <Button.Style>
             <Style TargetType="Button">
-              <Setter Property="Content" Value="{Binding Following, Converter={StaticResource BoolToFollowingConverter}}"/>
+              <Setter Property="Content" Value="{Binding Following, Converter={StaticResource BoolToFollowingConverter}}" />
               <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                   <Setter Property="Content" Value="{Binding Following, Converter={StaticResource BoolToUnfollowConverter}}" />
