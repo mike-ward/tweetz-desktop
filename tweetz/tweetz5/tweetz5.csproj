@@ -98,6 +98,7 @@
     <Compile Include="Commands\DeleteTweetCommand.cs" />
     <Compile Include="Commands\FavoritesCommand.cs" />
     <Compile Include="Commands\FollowUserCommand.cs" />
+    <Compile Include="Commands\ImageViewCommand.cs" />
     <Compile Include="Commands\OpenComposeCommand.cs" />
     <Compile Include="Commands\OpenLinkCommand.cs" />
     <Compile Include="Commands\OpenFirstLinkInTweetCommand.cs" />

@@ -132,7 +132,7 @@
                   <Image Style="{StaticResource TweetMediaStyle}" Source="{Binding IsAsync=True}">
                     <Image.InputBindings>
                       <MouseBinding
-                        Command="{x:Static commands:OpenLinkCommand.Command}"
+                        Command="{x:Static commands:ImageViewCommand.Command}"
                         CommandParameter="{Binding}"
                         MouseAction="LeftClick" />
                     </Image.InputBindings>

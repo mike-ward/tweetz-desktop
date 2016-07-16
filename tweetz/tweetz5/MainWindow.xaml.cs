@@ -68,6 +68,7 @@ namespace tweetz5
             CommandBindings.Add(new CommandBinding(ChirpCommand.Command, ChirpCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(RestartTimelinesCommand.Command, RestartTimelinesCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(OpenFirstLinkInTweetCommand.Command, OpenFirstLinkInTweetCommand.CommandHandler));
+            CommandBindings.Add(new CommandBinding(ImageViewCommand.Command, ImageViewCommand.CommandHandler));
         }
 
         private void SystemEventsOnPowerModeChanged(object sender, PowerModeChangedEventArgs ea)
