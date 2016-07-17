@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using tweetz5.Utilities.System;
 
 namespace tweetz5.Commands
 {
@@ -13,15 +13,15 @@ namespace tweetz5.Commands
     {
         private static Popup _popup;
         public static readonly RoutedCommand Command = new RoutedUICommand();
-        
+
         public static void CommandHandler(object sender, ExecutedRoutedEventArgs ea)
         {
             ea.Handled = true;
             if (_popup != null) _popup.IsOpen = false;
-            _popup = CreatePopup(ea);
+            _popup = CreatePopup(sender as Window, ea);
         }
 
-        private static Popup CreatePopup(ExecutedRoutedEventArgs ea)
+        private static Popup CreatePopup(Window window, ExecutedRoutedEventArgs ea)
         {
             var popup = new Popup
             {
@@ -29,7 +29,7 @@ namespace tweetz5.Commands
                 Child = new Border
                 {
                     BorderBrush = Brushes.Black,
-                    BorderThickness = new Thickness(1),
+                    BorderThickness = new Thickness(2),
                     Child = new Image
                     {
                         Source = new BitmapImage(new Uri((string)ea.Parameter)),
@@ -37,7 +37,7 @@ namespace tweetz5.Commands
                     }
                 },
                 Placement = PlacementMode.Center,
-                PlacementRectangle = new Rect(ScreenRect()),
+                PlacementRectangle = new Rect(Screen.ScreenSizeFromWindow(window)),
                 PopupAnimation = PopupAnimation.Fade
             };
 
@@ -45,18 +45,6 @@ namespace tweetz5.Commands
             popup.MouseDown += (o, args) => popup.IsOpen = false;
             popup.IsOpen = true;
             return popup;
-        }
-
-        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        private static Size ScreenRect()
-        {
-            var mainWindowPresentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
-            var m = mainWindowPresentationSource.CompositionTarget.TransformToDevice;
-            var dpiWidthFactor = m.M11;
-            var dpiHeightFactor = m.M22;
-            var screenWidth = SystemParameters.PrimaryScreenWidth * dpiWidthFactor;
-            var screenHeight = SystemParameters.PrimaryScreenHeight * dpiHeightFactor;
-            return new Size(screenWidth, screenHeight);
         }
     }
 }

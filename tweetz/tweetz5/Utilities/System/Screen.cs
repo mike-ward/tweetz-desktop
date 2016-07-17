@@ -33,5 +33,13 @@ namespace tweetz5.Utilities.System
         public static double HorizontalPixelToDpi(UIElement element, double x) => x / GetSizeFactors(element).M11;
 
         public static double VerticalPixelToDpi(UIElement element, double y) => y / GetSizeFactors(element).M22;
+
+        public static Size ScreenSizeFromWindow(Window window)
+        {
+            var size = WpfScreen.GetScreenFrom(window).DisplaySize;
+            var screenWidth = HorizontalPixelToDpi(window, size.Width);
+            var screenHeight = VerticalPixelToDpi(window, size.Height);
+            return new Size(screenWidth, screenHeight);
+        }
     }
 }
