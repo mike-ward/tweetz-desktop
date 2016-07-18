@@ -1,5 +1,6 @@
 if EXIST TweetzSetup.exe del TweetzSetup.exe
 pushd tweetz
+nuget restore
 msbuild tweetz5.sln "/p:configuration=Release;platform=Any CPU" /t:rebuild
 if ERRORLEVEL 1 GOTO END
 cd Setup
