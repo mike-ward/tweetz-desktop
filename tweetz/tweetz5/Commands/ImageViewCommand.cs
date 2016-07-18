@@ -37,7 +37,7 @@ namespace tweetz5.Commands
                     }
                 },
                 Placement = PlacementMode.Center,
-                PlacementRectangle = new Rect(Screen.ScreenSizeFromWindow(window)),
+                PlacementRectangle = Screen.ScreenRectFromWindow(window),
                 PopupAnimation = PopupAnimation.Fade
             };
 
