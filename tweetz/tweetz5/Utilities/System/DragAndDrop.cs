@@ -21,8 +21,7 @@ namespace tweetz5.Utilities.System
             }
             else if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
             {
-                var filenames = ea.Data.GetData(DataFormats.FileDrop, true) as string[];
-                if (filenames != null && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
+                if (ea.Data.GetData(DataFormats.FileDrop, true) is string[] filenames && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
                 {
                     ea.Effects = DragDropEffects.Copy;
                 }
@@ -35,9 +34,9 @@ namespace tweetz5.Utilities.System
             {
                 var html = String.Empty;
                 var data = ea.Data.GetData("text/html");
-                if (data is string)
+                if (data is string s)
                 {
-                    html = (string) data;
+                    html = s;
                 }
                 else if (data is MemoryStream)
                 {
@@ -59,8 +58,11 @@ namespace tweetz5.Utilities.System
                         webClient.DownloadFileCompleted += (o, args) =>
                         {
                             var mainWindow = (MainWindow) Application.Current.MainWindow;
-                            mainWindow.Compose.Visibility = Visibility.Visible;
-                            mainWindow.Compose.Image = filename;
+                            if (mainWindow != null)
+                            {
+                                mainWindow.Compose.Visibility = Visibility.Visible;
+                                mainWindow.Compose.Image = filename;
+                            }
                             webClient.Dispose();
                         };
                         webClient.DownloadFileAsync(uri, filename);
@@ -74,12 +76,14 @@ namespace tweetz5.Utilities.System
             }
             else if (ea.Data.GetDataPresent(DataFormats.FileDrop, true))
             {
-                var filenames = ea.Data.GetData(DataFormats.FileDrop, true) as string[];
-                if (filenames != null && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
+                if (ea.Data.GetData(DataFormats.FileDrop, true) is string[] filenames && filenames.Length == 1 && IsValidImageExtension(filenames[0]))
                 {
                     var mainWindow = (MainWindow) Application.Current.MainWindow;
-                    mainWindow.Compose.Visibility = Visibility.Visible;
-                    mainWindow.Compose.Image = filenames[0];
+                    if (mainWindow != null)
+                    {
+                        mainWindow.Compose.Visibility = Visibility.Visible;
+                        mainWindow.Compose.Image = filenames[0];
+                    }
                     ea.Handled = true;
                 }
             }

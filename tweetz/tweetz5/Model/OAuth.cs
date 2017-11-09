@@ -26,9 +26,9 @@ namespace tweetz5.Model
 
         private static string ConsumerKey { get; }
         private static string ConsumerSecret { get; }
-        public string AccessTokenSecret { get; private set; }
-        public string AccessToken { get; private set; }
-        public string ScreenName { get; private set; }
+        public string AccessTokenSecret { get; }
+        public string AccessToken { get; }
+        public string ScreenName { get; }
         public static string TestUserName { private get; set; }
 
         public static string UrlEncode(string value)

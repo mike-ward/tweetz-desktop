@@ -12,7 +12,7 @@ namespace tweetz5.Controls
         {
             var length = (int) value;
             var brush = (Brush) Application.Current.FindResource("ComposeCharacterCounterForegroundBrush");
-            return length > 140 ? Brushes.Red : (length > 134 ? Brushes.SandyBrown : brush);
+            return length > 280 ? Brushes.Red : (length > 270 ? Brushes.SandyBrown : brush);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

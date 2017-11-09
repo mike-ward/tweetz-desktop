@@ -10,7 +10,7 @@ namespace tweetz5.Model
 
         public bool Chirp
         {
-            get { return Properties.Settings.Default.Chirp; }
+            get => Properties.Settings.Default.Chirp;
             set
             {
                 if (Properties.Settings.Default.Chirp == value) return;
@@ -22,7 +22,7 @@ namespace tweetz5.Model
 
         public bool ShowMedia
         {
-            get { return Properties.Settings.Default.ShowMedia; }
+            get => Properties.Settings.Default.ShowMedia;
             set
             {
                 if (Properties.Settings.Default.ShowMedia == value) return;
@@ -34,7 +34,7 @@ namespace tweetz5.Model
 
         public string FontSize
         {
-            get { return Properties.Settings.Default.FontSize; }
+            get => Properties.Settings.Default.FontSize;
             set
             {
                 if (Properties.Settings.Default.FontSize == value) return;
@@ -46,7 +46,7 @@ namespace tweetz5.Model
 
         public bool SpellCheck
         {
-            get { return Properties.Settings.Default.SpellCheck; }
+            get => Properties.Settings.Default.SpellCheck;
             set
             {
                 if (Properties.Settings.Default.SpellCheck == value) return;
@@ -58,7 +58,7 @@ namespace tweetz5.Model
 
         public bool ShowInTaskbar
         {
-            get { return Properties.Settings.Default.ShowInTaskbar; }
+            get => Properties.Settings.Default.ShowInTaskbar;
             set
             {
                 if (Properties.Settings.Default.ShowInTaskbar == value) return;
@@ -72,7 +72,7 @@ namespace tweetz5.Model
 
         public bool IsRegisteredInStartup
         {
-            get { return RegistryHelper.IsRegisteredInStartup(); }
+            get => RegistryHelper.IsRegisteredInStartup();
             set
             {
                 if (IsRegisteredInStartup == value) return;
@@ -83,7 +83,7 @@ namespace tweetz5.Model
 
         public string Theme
         {
-            get { return Properties.Settings.Default.Theme; }
+            get => Properties.Settings.Default.Theme;
             set
             {
                 if (Properties.Settings.Default.Theme == value) return;
@@ -95,7 +95,7 @@ namespace tweetz5.Model
 
         public bool UseStreamingApi
         {
-            get { return Properties.Settings.Default.UseStreamingApi; }
+            get => Properties.Settings.Default.UseStreamingApi;
             set
             {
                 if (Properties.Settings.Default.UseStreamingApi == value) return;

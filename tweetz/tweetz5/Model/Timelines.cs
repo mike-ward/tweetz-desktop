@@ -44,30 +44,29 @@ namespace tweetz5.Model
         {
             get
             {
-                Predicate<Tweet> filter;
-                if (_timelineFilters.TryGetValue(_view, out filter)) return filter;
+                if (_timelineFilters.TryGetValue(_view, out var filter)) return filter;
                 return t => false;
             }
         }
 
         public RangeObservableCollection<Tweet> Timeline
         {
-            get { return _timeline; }
-            set { SetProperty(ref _timeline, value); }
+            get => _timeline;
+            set => SetProperty(ref _timeline, value);
         }
 
         public Visibility SearchVisibility
         {
-            get { return _searchVisibility; }
-            set { SetProperty(ref _searchVisibility, value); }
+            get => _searchVisibility;
+            set => SetProperty(ref _searchVisibility, value);
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
         public bool IsSearching
         {
             // ReSharper disable once UnusedMember.Global
-            get { return _isSearching; }
-            set { SetProperty(ref _isSearching, value); }
+            get => _isSearching;
+            set => SetProperty(ref _isSearching, value);
         }
 
         public Action<Action> DispatchInvokerOverride { private get; set; }

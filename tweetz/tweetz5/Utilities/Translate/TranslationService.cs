@@ -18,7 +18,7 @@ namespace tweetz5.Utilities.Translate
 
         public CultureInfo CurrentLanguage
         {
-            get { return Thread.CurrentThread.CurrentUICulture; }
+            get => Thread.CurrentThread.CurrentUICulture;
             set
             {
                 if (value.Equals(Thread.CurrentThread.CurrentUICulture) == false)

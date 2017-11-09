@@ -118,7 +118,7 @@ namespace tweetz5.Model
 
         public bool Following
         {
-            get { return _following; }
+            get => _following;
             set
             {
                 if (_following == value) return;
@@ -130,7 +130,7 @@ namespace tweetz5.Model
         public bool FollowedBy
         {
             // ReSharper disable once UnusedMember.Global
-            get { return _followedBy; }
+            get => _followedBy;
             set
             {
                 if (_followedBy == value) return;

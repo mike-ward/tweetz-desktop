@@ -36,8 +36,8 @@ namespace tweetz5.Utilities
             [UserScopedSetting]
             public WINDOWPLACEMENT? Placement
             {
-                get { return (WINDOWPLACEMENT?)this["Placement"]; }
-                set { this["Placement"] = value; }
+                get => (WINDOWPLACEMENT?)this["Placement"];
+                set => this["Placement"] = value;
             }
         }
 
@@ -65,8 +65,7 @@ namespace tweetz5.Utilities
         /// </summary>
         private static void OnSaveInvalidated(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            var window = dependencyObject as Window;
-            if (window == null || !((bool)e.NewValue)) return;
+            if (!(dependencyObject is Window window) || !((bool)e.NewValue)) return;
             var settings = new WindowSettings(window);
             settings.Attach();
         }
@@ -117,9 +116,8 @@ namespace tweetz5.Utilities
         /// </summary>
         protected virtual void SaveWindowState()
         {
-            WINDOWPLACEMENT wp;
             var hwnd = new WindowInteropHelper(_window).Handle;
-            GetWindowPlacement(hwnd, out wp);
+            GetWindowPlacement(hwnd, out var wp);
             Settings.Placement = wp;
             Settings.Save();
         }
@@ -175,10 +173,8 @@ namespace tweetz5.Utilities
 
         public override bool Equals(object obj)
         {
-            if (obj is RECT)
+            if (obj is RECT rect)
             {
-                var rect = (RECT)obj;
-
                 return rect._bottom == _bottom &&
                        rect._left == _left &&
                        rect._right == _right &&
@@ -212,26 +208,26 @@ namespace tweetz5.Utilities
 
         public int Left
         {
-            get { return _left; }
-            set { _left = value; }
+            get => _left;
+            set => _left = value;
         }
 
         public int Top
         {
-            get { return _top; }
-            set { _top = value; }
+            get => _top;
+            set => _top = value;
         }
 
         public int Right
         {
-            get { return _right; }
-            set { _right = value; }
+            get => _right;
+            set => _right = value;
         }
 
         public int Bottom
         {
-            get { return _bottom; }
-            set { _bottom = value; }
+            get => _bottom;
+            set => _bottom = value;
         }
     }
 
@@ -251,22 +247,20 @@ namespace tweetz5.Utilities
 
         public int X
         {
-            get { return _x; }
-            set { _x = value; }
+            get => _x;
+            set => _x = value;
         }
 
         public int Y
         {
-            get { return _y; }
-            set { _y = value; }
+            get => _y;
+            set => _y = value;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is POINT)
+            if (obj is POINT point)
             {
-                var point = (POINT)obj;
-
                 return point._x == _x && point._y == _y;
             }
             return base.Equals(obj);

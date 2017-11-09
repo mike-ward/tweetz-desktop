@@ -20,7 +20,7 @@ namespace tweetz5.Controls
 
         public Twitter.OAuthTokens Tokens
         {
-            get { return _tokens; }
+            get => _tokens;
             set
             {
                 if (_tokens == value) return;

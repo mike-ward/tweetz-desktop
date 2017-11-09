@@ -23,34 +23,34 @@
     <TextBlock x:Name="ComposeTitle" Style="{StaticResource ComposeTweetTitleBlock}" />
     <TextBox
       x:Name="TextBox"
-      Style="{StaticResource ComposeTweetTextBox}"
       AcceptsReturn="True"
       IsVisibleChanged="OnIsVisibleChanged"
       PreviewKeyDown="TextBoxOnPreviewKeyDown"
+      Style="{StaticResource ComposeTweetTextBox}"
       TextWrapping="Wrap" />
-    <Image Style="{StaticResource ComposeImageStyle}" Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}, IsAsync=True}" />
+    <Image Source="{Binding Image, Converter={StaticResource UriToCachedImageConverter}, IsAsync=True}" Style="{StaticResource ComposeImageStyle}" />
     <DockPanel Margin="0,0,0,6">
       <TextBlock
         x:Name="Counter"
-        Style="{StaticResource ComposeCharCounter}"
-        Foreground="{Binding ElementName=TextBox, Path=Text.Length, Converter={StaticResource LengthToColorConverter}}"
         DockPanel.Dock="Left"
-        Text="{Binding ElementName=TextBox, Path=Text.Length}" />
+        Foreground="{Binding TextLength, Converter={StaticResource LengthToColorConverter}}"
+        Style="{StaticResource ComposeCharCounter}"
+        Text="{Binding TextLength}" />
       <StackPanel
         HorizontalAlignment="Right"
         DockPanel.Dock="Right"
         Orientation="Horizontal">
         <Button
           x:Name="Photo"
-          Style="{StaticResource ComposeTweetButton}"
           Click="OnPhoto"
+          Style="{StaticResource ComposeTweetButton}"
           ToolTip="{t:Translate compose_tooltip_photo}">
           <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE114;', Mode=OneWay}" />
         </Button>
         <Button
           x:Name="Shorten"
-          Style="{StaticResource ComposeTweetButton}"
           Click="OnShorten"
+          Style="{StaticResource ComposeTweetButton}"
           ToolTip="{t:Translate compose_tooltip_shorten_links}">
           <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE167;', Mode=OneWay}" />
         </Button>

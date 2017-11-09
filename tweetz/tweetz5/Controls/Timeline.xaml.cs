@@ -33,7 +33,7 @@ namespace tweetz5.Controls
 
         public Thickness TweetMargin
         {
-            get { return _tweetMargin; }
+            get => _tweetMargin;
             set
             {
                 if (_tweetMargin == value) return;
@@ -52,7 +52,7 @@ namespace tweetz5.Controls
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.DragMove();
+            Application.Current.MainWindow?.DragMove();
             e.Handled = false; // listbox item needs this to select item
         }
 
@@ -62,8 +62,7 @@ namespace tweetz5.Controls
             {
                 Run.Later(() =>
                 {
-                    var item = TimelineItems.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem;
-                    if (item != null)
+                    if (TimelineItems.ItemContainerGenerator.ContainerFromIndex(0) is ListBoxItem item)
                     {
                         Keyboard.Focus(item);
                         TimelineItems.SelectedItem = null;
@@ -75,9 +74,12 @@ namespace tweetz5.Controls
         private void MoreOnMouseDown(object sender, MouseButtonEventArgs e)
         {
             var frameworkElement = (FrameworkElement)sender;
-            frameworkElement.ContextMenu.PlacementTarget = this;
-            frameworkElement.ContextMenu.DataContext = frameworkElement.DataContext;
-            frameworkElement.ContextMenu.IsOpen = true;
+            if (frameworkElement.ContextMenu != null)
+            {
+                frameworkElement.ContextMenu.PlacementTarget = this;
+                frameworkElement.ContextMenu.DataContext = frameworkElement.DataContext;
+                frameworkElement.ContextMenu.IsOpen = true;
+            }
         }
 
         public void ScrollToTop()

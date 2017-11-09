@@ -33,24 +33,24 @@ namespace tweetz5.Model
 
         public string Method
         {
-            set { _request.Method = value; }
+            set => _request.Method = value;
         }
 
         public string ContentType
         {
-            set { _request.ContentType = value; }
+            set => _request.ContentType = value;
         }
 
         public Stream GetRequestStream() => _request.GetRequestStream();
 
         public string UserAgent
         {
-            set { ((HttpWebRequest)_request).UserAgent = value; }
+            set => ((HttpWebRequest)_request).UserAgent = value;
         }
 
         public int Timeout
         {
-            set { _request.Timeout = value; }
+            set => _request.Timeout = value;
         }
 
         public async Task<IWebResponse> GetResponseAsync() => new WebResponseWrapper(await _request.GetResponseAsync());

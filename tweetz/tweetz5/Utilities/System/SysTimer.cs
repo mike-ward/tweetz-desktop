@@ -28,7 +28,7 @@ namespace tweetz5.Utilities.System
 
         public double Interval
         {
-            set { _timer.Interval = value; }
+            set => _timer.Interval = value;
         }
 
         public event EventHandler Elapsed;
@@ -42,7 +42,7 @@ namespace tweetz5.Utilities.System
             catch (Exception e)
             {
                 // Timers eat exceptions. We don't
-                ThreadPool.QueueUserWorkItem(_ => { throw e; });
+                ThreadPool.QueueUserWorkItem(_ => throw e);
             }
         }
 

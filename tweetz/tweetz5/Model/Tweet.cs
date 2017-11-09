@@ -35,8 +35,8 @@ namespace tweetz5.Model
 
         public DateTime CreatedAt
         {
-            get { return _createdAt; }
-            set { SetProperty(ref _createdAt, value); }
+            get => _createdAt;
+            set => SetProperty(ref _createdAt, value);
         }
 
         public string[] MediaLinks { get; set; }
@@ -45,56 +45,56 @@ namespace tweetz5.Model
 
         public bool IsRetweet
         {
-            get { return _retweet; }
-            set { SetProperty(ref _retweet, value); }
+            get => _retweet;
+            set => SetProperty(ref _retweet, value);
         }
 
         public string RetweetedBy
         {
-            get { return _retweetedBy; }
-            set { SetProperty(ref _retweetedBy, value); }
+            get => _retweetedBy;
+            set => SetProperty(ref _retweetedBy, value);
         }
 
         public string RetweetedByScreenName
         {
-            get { return _retweetedByScreenName; }
-            set { SetProperty(ref _retweetedByScreenName, value); }
+            get => _retweetedByScreenName;
+            set => SetProperty(ref _retweetedByScreenName, value);
         }
 
         public string TimeAgo
         {
-            get { return _timeAgo; }
-            set { SetProperty(ref _timeAgo, value); }
+            get => _timeAgo;
+            set => SetProperty(ref _timeAgo, value);
         }
 
         public bool IsHome
         {
-            get { return _isHome; }
-            set { SetProperty(ref _isHome, value); }
+            get => _isHome;
+            set => SetProperty(ref _isHome, value);
         }
 
         public bool IsMention
         {
-            get { return _isMention; }
-            set { SetProperty(ref _isMention, value); }
+            get => _isMention;
+            set => SetProperty(ref _isMention, value);
         }
 
         public bool IsDirectMessage
         {
-            get { return _isDirectMessage; }
-            set { SetProperty(ref _isDirectMessage, value); }
+            get => _isDirectMessage;
+            set => SetProperty(ref _isDirectMessage, value);
         }
 
         public bool IsFavorite
         {
-            get { return _isFavorite; }
-            set { SetProperty(ref _isFavorite, value); }
+            get => _isFavorite;
+            set => SetProperty(ref _isFavorite, value);
         }
 
         public bool IsSearch
         {
-            get { return _isSearch; }
-            set { SetProperty(ref _isSearch, value); }
+            get => _isSearch;
+            set => SetProperty(ref _isSearch, value);
         }
 
         public bool Equals(Tweet other)

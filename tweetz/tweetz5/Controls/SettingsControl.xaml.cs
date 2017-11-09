@@ -24,12 +24,12 @@ namespace tweetz5.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.Equals(parameter);
+            return value != null && value.Equals(parameter);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.Equals(true) ? parameter : "";
+            return value != null && value.Equals(true) ? parameter : "";
         }
     }
 }

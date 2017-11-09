@@ -31,8 +31,7 @@ namespace tweetz5
             catch (ConfigurationException ex)
             {
                 MessageBox.Show("Tweetz User settings are corrupted. Click OK and restart Tweetz-Desktop to correct the problem.");
-                var configurationException = ex.InnerException as ConfigurationException;
-                if (configurationException != null) File.Delete(configurationException.Filename);
+                if (ex.InnerException is ConfigurationException configurationException) File.Delete(configurationException.Filename);
                 else MessageBox.Show("Tweetz could not correct the problem. Settings file must be manually deleted");
                 Environment.Exit(1);
             }

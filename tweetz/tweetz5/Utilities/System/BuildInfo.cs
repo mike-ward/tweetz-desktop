@@ -13,7 +13,7 @@ namespace tweetz5.Utilities.System
 {
     internal static class BuildInfo
     {
-        public static bool IsWindows8OrNewer { get; private set; }
+        public static bool IsWindows8OrNewer { get; }
 
         static BuildInfo()
         {

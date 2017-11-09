@@ -138,11 +138,11 @@ namespace tweetz5.Model
         public static string TimeAgo(this DateTime time)
         {
             var timespan = DateTime.UtcNow - time;
-            Func<string, double, string> format = (s, t) => string.Format((string)TranslationService.Instance.Translate(s), (int)t);
-            if (timespan.TotalSeconds < 60) return format("time_ago_seconds", timespan.TotalSeconds);
-            if (timespan.TotalMinutes < 60) return format("time_ago_minutes", timespan.TotalMinutes);
-            if (timespan.TotalHours < 24) return format("time_ago_hours", timespan.TotalHours);
-            if (timespan.TotalDays < 3) return format("time_ago_days", timespan.TotalDays);
+            string Format(string s, double t) => string.Format((string)TranslationService.Instance.Translate(s), (int)t);
+            if (timespan.TotalSeconds < 60) return Format("time_ago_seconds", timespan.TotalSeconds);
+            if (timespan.TotalMinutes < 60) return Format("time_ago_minutes", timespan.TotalMinutes);
+            if (timespan.TotalHours < 24) return Format("time_ago_hours", timespan.TotalHours);
+            if (timespan.TotalDays < 3) return Format("time_ago_days", timespan.TotalDays);
             return time.ToString((string)TranslationService.Instance.Translate("time_ago_date"));
         }
 

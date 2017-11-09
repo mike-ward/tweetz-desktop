@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -31,9 +32,10 @@ namespace tweetz5.Model
             var oauth = new OAuth();
             var nonce = OAuth.Nonce();
             var timestamp = OAuth.TimeStamp();
-            var signature = OAuth.Signature(post ? "POST" : "GET", url, nonce, timestamp, oauth.AccessToken, oauth.AccessTokenSecret, parameters);
+            var parray = parameters as string[][] ?? parameters.ToArray();
+            var signature = OAuth.Signature(post ? "POST" : "GET", url, nonce, timestamp, oauth.AccessToken, oauth.AccessTokenSecret, parray);
             var authorizeHeader = OAuth.AuthorizationHeader(nonce, timestamp, oauth.AccessToken, signature);
-            var parameterStrings = parameters.Select(p => $"{OAuth.UrlEncode(p[0])}={OAuth.UrlEncode(p[1])}").ToList();
+            var parameterStrings = parray.Select(p => $"{OAuth.UrlEncode(p[0])}={OAuth.UrlEncode(p[1])}").ToList();
             if (!post) url += "?" + string.Join("&", parameterStrings);
 
             var request = WebRequestWrapper.Create(new Uri(url));
@@ -44,12 +46,9 @@ namespace tweetz5.Model
             {
                 Trace.TraceInformation(string.Join("&", parameterStrings));
                 request.ContentType = "application/x-www-form-urlencoded";
-                if (parameters != null)
+                using (var requestStream = request.GetRequestStream())
                 {
-                    using (var requestStream = request.GetRequestStream())
-                    {
-                        WriteStream(requestStream, string.Join("&", parameterStrings));
-                    }
+                    WriteStream(requestStream, string.Join("&", parameterStrings));
                 }
             }
 
@@ -266,6 +265,7 @@ namespace tweetz5.Model
             }, () => string.Empty);
         }
 
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         public static async Task<OAuthTokens> GetRequestToken()
         {
             return await RequestHandler(async () =>
@@ -295,6 +295,7 @@ namespace tweetz5.Model
             });
         }
 
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         public static async Task<OAuthTokens> GetAccessToken(string accessToken, string accessTokenSecret, string oauthVerifier)
         {
             return await RequestHandler(async () =>
@@ -326,6 +327,7 @@ namespace tweetz5.Model
             });
         }
 
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         public static async Task<string> UpdateStatusWithMedia(string message, string filename)
         {
             return await RequestHandler(async () =>
@@ -395,7 +397,7 @@ namespace tweetz5.Model
         {
             try
             {
-                using (var stream = new StreamReader(ex.Response.GetResponseStream(), Encoding.UTF8))
+                using (var stream = new StreamReader(ex.Response.GetResponseStream() ?? throw new InvalidOperationException(), Encoding.UTF8))
                 {
                     var serializer = new JavaScriptSerializer();
                     var json = stream.ReadToEnd();

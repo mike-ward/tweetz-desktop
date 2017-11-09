@@ -33,15 +33,7 @@ namespace tweetz5.Utilities.Translate
             }
         }
 
-        public IEnumerable<CultureInfo> Languages
-        {
-            get
-            {
-                return (_languages != null)
-                    ? _languages.Select(t => new CultureInfo(t.Name))
-                    : Enumerable.Empty<CultureInfo>();
-            }
-        }
+        public IEnumerable<CultureInfo> Languages => _languages?.Select(t => new CultureInfo(t.Name)) ?? Enumerable.Empty<CultureInfo>();
 
         public object Translate(string key)
         {
@@ -50,8 +42,7 @@ namespace tweetz5.Utilities.Translate
                 _cultureInfo = Thread.CurrentThread.CurrentUICulture;
                 _language = FindLanguage(_cultureInfo);
             }
-            string value;
-            if (_language.Dictionary.TryGetValue(key, out value) == false)
+            if (_language.Dictionary.TryGetValue(key, out var value) == false)
             {
                 Fallback.English.TryGetValue(key, out value);
             }

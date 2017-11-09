@@ -20,21 +20,34 @@ namespace tweetz5.Controls
         private string _image;
         private IInputElement _previousFocusedElement;
         private bool _isSending;
+        private int _tweetLength;
 
         public ComposeTweet()
         {
             InitializeComponent();
             DataContext = this;
-            SizeChanged += (sender, args) => UpdateLayoutCommand.Command.Execute(null, this);
+            SizeChanged += (sd, ea) => UpdateLayoutCommand.Command.Execute(null, this);
+            TextBox.TextChanged += (sd, ea) => TextLength = TextBox.Text.Length;
         }
 
         public string Image
         {
-            get { return _image; }
+            get => _image;
             set
             {
                 if (_image == value) return;
                 _image = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int TextLength
+        {
+            get => TextBox.Text.Length;
+            set
+            {
+                if (_tweetLength == value) return;
+                _tweetLength = value;
                 OnPropertyChanged();
             }
         }

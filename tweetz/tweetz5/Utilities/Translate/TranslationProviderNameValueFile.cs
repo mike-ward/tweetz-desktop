@@ -47,8 +47,7 @@ namespace tweetz5.Utilities.Translate
                 _cultureInfo = Thread.CurrentThread.CurrentUICulture;
                 _language = FindLanguage(_cultureInfo);
             }
-            string value;
-            if (_language.Dictionary.TryGetValue(key, out value) == false)
+            if (_language.Dictionary.TryGetValue(key, out var value) == false)
             {
                 Fallback.English.TryGetValue(key, out value);
             }
@@ -87,7 +86,7 @@ namespace tweetz5.Utilities.Translate
                 }
                 else
                 {
-                    language.Dictionary.Add(name, value);
+                    language?.Dictionary.Add(name, value);
                 }
             }
             return languages.ToArray();
