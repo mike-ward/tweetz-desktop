@@ -37,7 +37,7 @@ namespace tweetz5.Model
                 ScreenName = displayStatus.User.ScreenName,
                 ProfileImageUrl = displayStatus.User.ProfileImageUrl,
                 Text = displayStatus.Text,
-                MarkupNodes = BuildMarkupNodes(displayStatus.FullText ?? displayStatus.Text, displayStatus.Entities),
+                MarkupNodes = BuildMarkupNodes(displayStatus?.ExtendedTweet?.FullText ?? displayStatus.FullText ?? displayStatus.Text, displayStatus.Entities),
                 CreatedAt = createdAt,
                 TimeAgo = TimeAgo(createdAt),
                 IsRetweet = status.Retweeted,

@@ -47,6 +47,9 @@ namespace tweetz5.Model
         [DataMember(Name = "current_user_retweet")]
         public CurrentUserRetweet CurrentUserRetweet { get; set; }
 
+        [DataMember(Name = "extended_tweet")]
+        public ExtendedTweet ExtendedTweet { get; set; }
+
         public static Status[] ParseJson(string json)
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
@@ -239,6 +242,13 @@ namespace tweetz5.Model
 
         [DataMember(Name = "indices")]
         public int[] Indices { get; set; }
+    }
+
+    [DataContract]
+    public class ExtendedTweet
+    {
+        [DataMember(Name = "full_text")]
+        public string FullText { get; set; }
     }
 
     [DataContract]
