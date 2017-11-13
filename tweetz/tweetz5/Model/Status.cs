@@ -17,6 +17,9 @@ namespace tweetz5.Model
         [DataMember(Name = "text")]
         public string Text { get; set; }
 
+        [DataMember(Name = "full_text")]
+        public string FullText { get; set; }
+
         [DataMember(Name = "user")]
         public User User { get; set; }
 
