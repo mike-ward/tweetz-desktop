@@ -14,6 +14,8 @@ namespace tweetz5.Model
             var isDirectMessage = false;
             var username = new OAuth().ScreenName;
             var displayStatus = status.RetweetedStatus ?? status;
+            var entities = displayStatus.ExtendedTweet?.Entities ?? displayStatus.Entities;
+            var text = displayStatus?.ExtendedTweet?.FullText ?? displayStatus.FullText ?? displayStatus.Text;
 
             // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
             if (displayStatus.User == null)
@@ -22,13 +24,14 @@ namespace tweetz5.Model
                 displayStatus.User = status.Recipient.ScreenName == username ? status.Sender : status.Recipient;
             }
 
-            if (status.Entities?.Mentions != null && status.Entities.Mentions.Any(m => m.ScreenName == username))
+            if (entities?.Mentions != null && entities.Mentions.Any(m => m.ScreenName == username))
             {
                 isMention = true;
             }
 
             var createdAt = DateTime.ParseExact(status.CreatedAt, "ddd MMM dd HH:mm:ss zzz yyyy",
                 CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+
 
             var tweet = new Tweet
             {
@@ -37,15 +40,15 @@ namespace tweetz5.Model
                 ScreenName = displayStatus.User.ScreenName,
                 ProfileImageUrl = displayStatus.User.ProfileImageUrl,
                 Text = displayStatus.Text,
-                MarkupNodes = BuildMarkupNodes(displayStatus?.ExtendedTweet?.FullText ?? displayStatus.FullText ?? displayStatus.Text, displayStatus.Entities),
+                MarkupNodes = BuildMarkupNodes(text, entities),
                 CreatedAt = createdAt,
                 TimeAgo = TimeAgo(createdAt),
                 IsRetweet = status.Retweeted,
                 RetweetedBy = RetweetedBy(status, username),
                 RetweetedByScreenName = RetweetedByScreenName(status, username),
                 RetweetStatusId = status.RetweetedStatus != null ? status.RetweetedStatus.Id : string.Empty,
-                MediaLinks = status.Entities?.Media?.Select(m => m.MediaUrl).ToArray() ?? new string[0],
-                Urls = status.Entities?.Urls.Select(u => u.ExpandedUrl).ToArray() ?? new string[0],
+                MediaLinks = entities?.Media?.Select(m => m.MediaUrl).ToArray() ?? new string[0],
+                Urls = entities?.Urls.Select(u => u.ExpandedUrl).ToArray() ?? new string[0],
                 IsMyTweet = displayStatus.User.ScreenName == username,
                 IsHome = tweetType == TweetClassification.Home,
                 IsMention = tweetType == TweetClassification.Mention | isMention,

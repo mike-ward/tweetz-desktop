@@ -76,6 +76,7 @@
     <Compile Include="Model\OAuthTests.cs" />
     <Compile Include="Model\TweetTests.cs" />
     <Compile Include="Model\TimelinesTests.cs" />
+    <Compile Include="Model\TweetUtilities.cs" />
     <Compile Include="Model\TwitterTests.cs" />
     <Compile Include="Controls\TimelineControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

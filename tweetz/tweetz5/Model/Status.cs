@@ -249,6 +249,9 @@ namespace tweetz5.Model
     {
         [DataMember(Name = "full_text")]
         public string FullText { get; set; }
+
+        [DataMember(Name = "entities")]
+        public Entities Entities { get; set; }
     }
 
     [DataContract]
