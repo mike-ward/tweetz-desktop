@@ -39,7 +39,7 @@ namespace tweetz5.Model
                 Name = displayStatus.User.Name,
                 ScreenName = displayStatus.User.ScreenName,
                 ProfileImageUrl = displayStatus.User.ProfileImageUrl,
-                Text = displayStatus.Text,
+                Text = text,
                 MarkupNodes = BuildMarkupNodes(text, entities),
                 CreatedAt = createdAt,
                 TimeAgo = TimeAgo(createdAt),
