@@ -112,7 +112,7 @@ namespace tweetz5.Model
 
             if (entities.Media != null)
             {
-                markupItems.Add(entities.Media
+                var mediaEntities = entities.Media
                     .Select(media => new MarkupItem
                     {
                         MarkupNodeType = MarkupNodeType.Media,
@@ -120,7 +120,9 @@ namespace tweetz5.Model
                         Start = media.Indices[0],
                         End = media.Indices[1]
                     })
-                    .First());
+                    .FirstOrDefault();
+
+                if (mediaEntities != null) markupItems.Add(mediaEntities);
             }
 
             var start = 0;
