@@ -112,13 +112,15 @@ namespace tweetz5.Model
 
             if (entities.Media != null)
             {
-                markupItems.AddRange(entities.Media.Select(media => new MarkupItem
-                {
-                    MarkupNodeType = MarkupNodeType.Media,
-                    Text = media.Url,
-                    Start = media.Indices[0],
-                    End = media.Indices[1]
-                }));
+                markupItems.Add(entities.Media
+                    .Select(media => new MarkupItem
+                    {
+                        MarkupNodeType = MarkupNodeType.Media,
+                        Text = media.Url,
+                        Start = media.Indices[0],
+                        End = media.Indices[1]
+                    })
+                    .First());
             }
 
             var start = 0;
