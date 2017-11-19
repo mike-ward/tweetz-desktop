@@ -136,8 +136,8 @@ namespace tweetz5.Model
         public static async Task<string> UpdateStatus(string message, string replyToStatusId = null)
         {
             var parameters = string.IsNullOrWhiteSpace(replyToStatusId)
-                ? new[] { new[] { "status", message } }
-                : new[] { new[] { "status", message }, new[] { "in_reply_to_status_id", replyToStatusId } };
+                ? new[] { new[] { "status", message }, new[] { "tweet_mode", "extended" } }
+                : new[] { new[] { "status", message }, new[] { "tweet_mode", "extended" }, new[] { "in_reply_to_status_id", replyToStatusId } };
 
             return await RequestHandler(
                 () => Post("https://api.twitter.com/1.1/statuses/update.json", parameters),
