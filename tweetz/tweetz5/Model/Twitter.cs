@@ -179,6 +179,7 @@ namespace tweetz5.Model
             var parameters = new[]
             {
                 new[] {"id", id},
+                new[] {"tweet_mode", "extended"},
                 new[] {"include_my_retweet", "true"}
             };
             return await RequestHandler(
@@ -193,6 +194,7 @@ namespace tweetz5.Model
                 var parameters = new[]
                 {
                     new[] {"screen_name", screenName},
+                    new[] {"tweet_mode", "extended"},
                     new[] {"include_entities", "true"}
                 };
                 var json = await Get("https://api.twitter.com/1.1/users/show.json", parameters);
@@ -246,6 +248,7 @@ namespace tweetz5.Model
                 var parameters = new[]
                 {
                     new[] {"screen_name", screenName},
+                    new[] {"tweet_mode", "extended"},
                     new[] {"text", text}
                 };
 
@@ -261,8 +264,9 @@ namespace tweetz5.Model
                 var parameters = new[]
                 {
                     new[] {"q", query},
-                    new[] {"count", "100"},
-                    new[] {"since_id", sinceId}
+                    new[] {"count", "200"},
+                    new[] {"since_id", sinceId},
+                    new[] {"tweet_mode", "extended"}
                 };
                 return Get("https://api.twitter.com/1.1/search/tweets.json", parameters);
             }, () => string.Empty);
