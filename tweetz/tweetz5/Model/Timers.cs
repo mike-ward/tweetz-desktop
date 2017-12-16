@@ -30,5 +30,10 @@ namespace tweetz5.Model
             };
             timer.Start();
         }
+
+        public bool IsIntialized()
+        {
+            return _timers.Count > 0;
+        }
     }
 }

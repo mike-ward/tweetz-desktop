@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
-using Microsoft.Win32;
 using tweetz5.Commands;
 using tweetz5.Model;
+using tweetz5.Utilities.PowerManagment;
 using tweetz5.Utilities.System;
 using Settings = tweetz5.Properties.Settings;
 
@@ -27,7 +28,7 @@ namespace tweetz5
                 MouseLeftButtonDown += DragMoveWindow;
                 ChangeTheme.Command.Execute(Settings.Default.Theme, this);
                 SetFontSizeCommand.Command.Execute(Settings.Default.FontSize, this);
-                SystemEvents.PowerModeChanged += SystemEventsOnPowerModeChanged;  
+                PowerManager.RegisterMonitorStatusChange(this);
 
                 // WPF HACK: Compose.Toggle does not work the first time unless the control is initially visible.
                 Compose.Visibility = Visibility.Collapsed;
@@ -69,12 +70,6 @@ namespace tweetz5
             CommandBindings.Add(new CommandBinding(RestartTimelinesCommand.Command, RestartTimelinesCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(OpenFirstLinkInTweetCommand.Command, OpenFirstLinkInTweetCommand.CommandHandler));
             CommandBindings.Add(new CommandBinding(ImageViewCommand.Command, ImageViewCommand.CommandHandler));
-        }
-
-        private void SystemEventsOnPowerModeChanged(object sender, PowerModeChangedEventArgs ea)
-        {
-            if (ea.Mode == PowerModes.Suspend) Timeline.Controller.StopTimelines();
-            if (ea.Mode == PowerModes.Resume) Timeline.Controller.StartTimelines();
         }
 
         private void DragMoveWindow(object sender, MouseButtonEventArgs e)
@@ -181,13 +176,13 @@ namespace tweetz5
         // ReSharper disable UnusedMember.Global
         // ReSharper disable UnusedField.Compiler
         // ReSharper disable once MemberCanBePrivate.Global
-        #pragma warning disable 649 
+#pragma warning disable 649
         private struct WINDOWPOS
         {
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
+            [SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
             public IntPtr hwnd;
 
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
+            [SuppressMessage("Microsoft.Security", "CA2111:PointersShouldNotBeVisible")]
             public IntPtr hwndInsertAfter;
 
             public int x;
@@ -195,17 +190,18 @@ namespace tweetz5
             public int cx;
             public int cy;
             public uint flags;
-        };
+        }
         // ReSharper restore UnusedField.Compiler
         // ReSharper restore UnusedMember.Global
-
-        private static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            const int WM_WINDOWPOSCHANGING = 0x46;
+
             switch (msg)
             {
                 // Allow window to move above top of screen
                 // http://stackoverflow.com/questions/328127/how-do-i-move-a-wpf-window-into-a-negative-top-value
-                case 0x46: //WM_WINDOWPOSCHANGING
+                case WM_WINDOWPOSCHANGING:
                     if (Mouse.LeftButton != MouseButtonState.Pressed)
                     {
                         var wp = (WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(WINDOWPOS));
@@ -213,9 +209,18 @@ namespace tweetz5
                         Marshal.StructureToPtr(wp, lParam, false);
                     }
                     break;
+
+                case (int)PowerManagementNativeMethods.PowerBroadcastMessage:
+                    if ((int)wParam == PowerManagementNativeMethods.PowerSettingChangeMessage)
+                    {
+                        var monitorStatus = PowerManager.MonitorStatus(wParam, lParam);
+                        if (monitorStatus == 0) Timeline.Controller.StopTimelines();
+                        if (monitorStatus == 1) Timeline.Controller.StartTimelines();
+                    }
+                    break;
             }
             return IntPtr.Zero;
         }
-        #pragma warning restore 649
+#pragma warning restore 649
     }
 }

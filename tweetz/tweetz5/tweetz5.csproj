@@ -159,7 +159,10 @@
     <Compile Include="Utilities\ExceptionHandling\AggregateExceptionHandling.cs" />
     <Compile Include="Utilities\ExceptionHandling\CrashReport.cs" />
     <Compile Include="Utilities\NotifyPropertyChanged.cs" />
+    <Compile Include="Utilities\PowerManagment\ExecutionStates.cs" />
+    <Compile Include="Utilities\PowerManagment\PowerManager.cs" />
     <Compile Include="Utilities\System\DragAndDrop.cs" />
+    <Compile Include="Utilities\PowerManagment\PowerManagementNativeMethods.cs" />
     <Compile Include="Utilities\System\RegistryHelper.cs" />
     <Compile Include="Utilities\System\Screen.cs" />
     <Compile Include="Utilities\Converters\Win7FontFamilyConverter.cs" />
