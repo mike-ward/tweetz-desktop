@@ -91,7 +91,7 @@ namespace tweetz5.Model
                     }
                 }
 
-                Trace.TraceInformation("{ Stream task ends }");
+                Trace.TraceInformation("{ !Stop Twitter User Stream }");
             }, cancelationToken);
         }
     }

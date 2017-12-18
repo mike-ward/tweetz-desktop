@@ -58,10 +58,10 @@ namespace tweetz5.Controls
 
         public void StopTimelines()
         {
-            _timers.Dispose();
+            if (_timers != null) _timers.Dispose();
             _timers = new Timers();
             _timelinesModel.SignalCancel();
-            _timelinesModel.ClearAllTimelines();
+            //_timelinesModel.ClearAllTimelines();
         }
 
         public static void CopyTweetToClipboard(Tweet tweet)
