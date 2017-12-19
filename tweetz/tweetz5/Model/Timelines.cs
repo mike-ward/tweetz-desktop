@@ -206,6 +206,7 @@ namespace tweetz5.Model
         }
 
         public CancellationToken CancellationToken => _cancellationTokenSource.Token;
+        public bool ApiIsRunning { get; set; }
 
         public void SignalCancel()
         {

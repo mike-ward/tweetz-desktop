@@ -22,6 +22,7 @@ namespace tweetz5.Model
         {
             if (_disposed) throw new ObjectDisposedException(string.Empty);
             var timer = SysTimer.Factory();
+            _timers.Add(timer);
             timer.Interval = 100;
             timer.Elapsed += (s, e) =>
             {

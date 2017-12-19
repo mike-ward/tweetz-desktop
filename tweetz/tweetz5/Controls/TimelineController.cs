@@ -25,7 +25,7 @@ namespace tweetz5.Controls
         {
             if (_disposed) return;
             _disposed = true;
-            _timers.Dispose();
+            _timers?.Dispose();
             _timers = null;
         }
 
@@ -47,21 +47,33 @@ namespace tweetz5.Controls
                     Trace.TraceError(ex.Message);
                 }
             });
-
             _timers.Add(30, (s, e) => _timelinesModel.UpdateTimeStamps());
-
-            if (Settings.Default.UseStreamingApi)
-            {
-                TwitterStream.User(_timelinesModel.CancellationToken);
-            }
+            StartStreamingApi();
         }
 
         public void StopTimelines()
         {
-            if (_timers != null) _timers.Dispose();
+            _timers?.Dispose();
             _timers = new Timers();
+            StopStreamingApi();
+        }
+
+        public void StartStreamingApi()
+        {
+            if (Settings.Default.UseStreamingApi)
+            {
+                if (!_timelinesModel.ApiIsRunning)
+                {
+                   _timelinesModel.ApiIsRunning = true;
+                    TwitterStream.User(_timelinesModel.CancellationToken);
+                }
+            }
+        }
+
+        public void StopStreamingApi()
+        {
+            _timelinesModel.ApiIsRunning = false;
             _timelinesModel.SignalCancel();
-            //_timelinesModel.ClearAllTimelines();
         }
 
         public static void CopyTweetToClipboard(Tweet tweet)

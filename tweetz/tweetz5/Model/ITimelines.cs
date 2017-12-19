@@ -22,5 +22,6 @@ namespace tweetz5.Model
         Task Retweet(Tweet tweet);
         void SignalCancel();
         CancellationToken CancellationToken { get; }
+        bool ApiIsRunning { get; set; }
     }
 }

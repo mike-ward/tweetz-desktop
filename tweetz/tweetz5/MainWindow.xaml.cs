@@ -214,8 +214,8 @@ namespace tweetz5
                     if ((int)wParam == PowerManagementNativeMethods.PowerSettingChangeMessage)
                     {
                         var monitorStatus = PowerManager.MonitorStatus(wParam, lParam);
-                        if (monitorStatus == 0) Timeline.Controller.StopTimelines();
-                        if (monitorStatus == 1) Timeline.Controller.StartTimelines();
+                        if (monitorStatus == 0) Timeline.Controller.StopStreamingApi();
+                        if (monitorStatus == 1) Timeline.Controller.StartStreamingApi();
                     }
                     break;
             }
