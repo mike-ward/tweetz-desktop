@@ -58,7 +58,7 @@ namespace tweetz5.Controls
             StopStreamingApi();
         }
 
-        public void StartStreamingApi()
+        private void StartStreamingApi()
         {
             if (Settings.Default.UseStreamingApi)
             {
@@ -70,7 +70,7 @@ namespace tweetz5.Controls
             }
         }
 
-        public void StopStreamingApi()
+        private void StopStreamingApi()
         {
             _timelinesModel.ApiIsRunning = false;
             _timelinesModel.SignalCancel();
