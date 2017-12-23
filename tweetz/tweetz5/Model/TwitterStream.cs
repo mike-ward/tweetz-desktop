@@ -12,16 +12,20 @@ using tweetz5.Commands;
 
 namespace tweetz5.Model
 {
-    public static class TwitterStream
+    public class TwitterStream : IDisposable
     {
-        public static void User(CancellationToken cancelationToken)
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
+        public void Run()
         {
+            var token = _cancellationTokenSource.Token;
+
             Task.Run(() =>
             {
-                while (cancelationToken.IsCancellationRequested == false)
+                while (_cancellationTokenSource.IsCancellationRequested == false)
                 {
-                    var delay = Task.Delay(30*1000, cancelationToken);
-                    delay.Wait(cancelationToken);
+                    var delay = Task.Delay(30 * 1000, token);
+                    delay.Wait(token);
                     if (delay.IsCanceled || delay.IsFaulted) break;
 
                     Trace.TraceInformation("{ Start Twitter User Stream }");
@@ -40,7 +44,7 @@ namespace tweetz5.Model
                         using (var response = request.GetResponse())
                         using (var stream = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                         {
-                            stream.BaseStream.ReadTimeout = 60*1000;
+                            stream.BaseStream.ReadTimeout = 60 * 1000;
                             while (true)
                             {
                                 var json = stream.ReadLine();
@@ -49,7 +53,8 @@ namespace tweetz5.Model
                                     Trace.TraceInformation("{ null }");
                                     break;
                                 }
-                                if (cancelationToken.IsCancellationRequested) break;
+
+                                if (_cancellationTokenSource.IsCancellationRequested) break;
                                 Trace.TraceInformation(string.IsNullOrWhiteSpace(json) ? "{ Blankline }" : json);
 
                                 var serializer = new JavaScriptSerializer();
@@ -91,8 +96,18 @@ namespace tweetz5.Model
                     }
                 }
 
-                Trace.TraceInformation("{ !Stop Twitter User Stream }");
-            }, cancelationToken);
+                Trace.TraceInformation("{ Stop Twitter User Stream }");
+            }, token);
+        }
+
+        private bool _disposed;
+
+        public void Dispose()
+        {
+            if (_disposed) return;
+            _disposed = true;
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
     }
 }

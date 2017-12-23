@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using tweetz5.Commands;
@@ -10,7 +9,7 @@ using tweetz5.Utilities;
 
 namespace tweetz5.Model
 {
-    public sealed class Timelines : NotifyPropertyChanged, ITimelines, IDisposable
+    public sealed class Timelines : NotifyPropertyChanged, ITimelines
     {
         private readonly Collection<Tweet> _search = new Collection<Tweet>();
 
@@ -25,9 +24,6 @@ namespace tweetz5.Model
         };
 
         private readonly Collection<Tweet> _tweets = new Collection<Tweet>();
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private bool _disposed;
-
         private ulong _favoritesSinceId = 1;
 
         private ulong _homeSinceId = 1;
@@ -70,15 +66,6 @@ namespace tweetz5.Model
         }
 
         public Action<Action> DispatchInvokerOverride { private get; set; }
-
-        public void Dispose()
-        {
-            if (_disposed) return;
-            _disposed = true;
-            if (_cancellationTokenSource == null) return;
-            _cancellationTokenSource.Dispose();
-            _cancellationTokenSource = null;
-        }
 
         public void UpdateStatus(IEnumerable<Status> statuses, TweetClassification tweetType)
         {
@@ -203,15 +190,6 @@ namespace tweetz5.Model
                 await Twitter.RetweetStatus(tweet.StatusId);
                 tweet.IsRetweet = true;
             }
-        }
-
-        public CancellationToken CancellationToken => _cancellationTokenSource.Token;
-        public bool ApiIsRunning { get; set; }
-
-        public void SignalCancel()
-        {
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource = new CancellationTokenSource();
         }
 
         private bool UpdateTimelines(IEnumerable<Status> statuses, TweetClassification tweetType)

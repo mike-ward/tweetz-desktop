@@ -15,6 +15,7 @@ namespace tweetz5.Controls
 
         private bool _disposed;
         private Timers _timers = new Timers();
+        private TwitterStream _twitterStream;
 
         public TimelineController(ITimelines timelinesModel)
         {
@@ -33,6 +34,7 @@ namespace tweetz5.Controls
         {
             if (_timers == null) _timers = new Timers();
             if (_timers.IsIntialized()) return;
+            Trace.TraceInformation("{ StartTimelines }");
             _timers.Add(Settings.Default.UseStreamingApi ? 180 : 70, (s, e) =>
             {
                 try
@@ -53,6 +55,7 @@ namespace tweetz5.Controls
 
         public void StopTimelines()
         {
+            Trace.TraceInformation("{ StopTimelines }");
             _timers?.Dispose();
             _timers = new Timers();
             StopStreamingApi();
@@ -60,20 +63,18 @@ namespace tweetz5.Controls
 
         private void StartStreamingApi()
         {
-            if (Settings.Default.UseStreamingApi)
+            if (Settings.Default.UseStreamingApi && _twitterStream == null)
             {
-                if (!_timelinesModel.ApiIsRunning)
-                {
-                   _timelinesModel.ApiIsRunning = true;
-                    TwitterStream.User(_timelinesModel.CancellationToken);
-                }
+                _twitterStream = new TwitterStream();
+                _twitterStream.Run();
             }
         }
 
         private void StopStreamingApi()
         {
-            _timelinesModel.ApiIsRunning = false;
-            _timelinesModel.SignalCancel();
+            if (_twitterStream == null) return;
+            _twitterStream.Dispose();
+            _twitterStream = null;
         }
 
         public static void CopyTweetToClipboard(Tweet tweet)

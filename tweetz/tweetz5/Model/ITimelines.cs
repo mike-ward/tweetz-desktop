@@ -20,8 +20,5 @@ namespace tweetz5.Model
         Task Search(string query);
         Task DeleteTweet(Tweet tweet);
         Task Retweet(Tweet tweet);
-        void SignalCancel();
-        CancellationToken CancellationToken { get; }
-        bool ApiIsRunning { get; set; }
     }
 }
