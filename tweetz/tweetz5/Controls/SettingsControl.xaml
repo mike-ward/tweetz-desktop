@@ -1,119 +1,161 @@
-﻿<UserControl x:Class="tweetz5.Controls.SettingsControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:model="clr-namespace:tweetz5.Model"
-             xmlns:utilities="clr-namespace:tweetz5.Utilities"
-             xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
-             xmlns:commands="clr-namespace:tweetz5.Commands"
-             xmlns:controls="clr-namespace:tweetz5.Controls"
-             DataContext="{x:Static model:Settings.ApplicationSettings}"
-             HorizontalAlignment="Center"
-             Padding="10"
-             mc:Ignorable="d"
-             d:DesignWidth="185">
+﻿<UserControl
+  x:Class="tweetz5.Controls.SettingsControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:commands="clr-namespace:tweetz5.Commands"
+  xmlns:controls="clr-namespace:tweetz5.Controls"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:model="clr-namespace:tweetz5.Model"
+  xmlns:t="clr-namespace:tweetz5.Utilities.Translate"
+  xmlns:utilities="clr-namespace:tweetz5.Utilities"
+  Padding="10"
+  HorizontalAlignment="Center"
+  d:DesignWidth="185"
+  DataContext="{x:Static model:Settings.ApplicationSettings}"
+  mc:Ignorable="d">
   <UserControl.Resources>
     <utilities:FontSizeToBoolConverter x:Key="FontSizeToBoolConverter" />
     <utilities:Win7FontConverter x:Key="Win7FontConverter" />
-    <controls:ThemeToBooleanConverter x:Key="ThemeToBooleanConverter"/>
+    <controls:ThemeToBooleanConverter x:Key="ThemeToBooleanConverter" />
   </UserControl.Resources>
   <StackPanel Width="180">
-    <TextBlock HorizontalAlignment="Center"
-               FontWeight="Bold">
-      <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}"
-           Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE115;', Mode=OneWay}"/>
+    <TextBlock HorizontalAlignment="Center" FontWeight="Bold">
+      <Run FontFamily="{Binding Converter={StaticResource Win7FontFamilyConverter}}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE115;', Mode=OneWay}" />
       <Run Text="{t:Translate settings_title}" />
     </TextBlock>
 
-    <StackPanel Orientation="Horizontal"
-                VerticalAlignment="Center">
-      <CheckBox VerticalAlignment="Center"
-                IsChecked="{Binding Chirp}" />
-      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_chirp_on_update}"></Label>
+    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+      <CheckBox VerticalAlignment="Center" IsChecked="{Binding Chirp}" />
+      <Label Content="{t:Translate settings_chirp_on_update}" Style="{StaticResource SettingsPanelLabelStyle}" />
     </StackPanel>
 
-    <StackPanel Orientation="Horizontal"
-                VerticalAlignment="Center">
-      <CheckBox VerticalAlignment="Center"
-                IsChecked="{Binding ShowMedia}" />
-      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_show_media}" />
+    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+      <CheckBox VerticalAlignment="Center" IsChecked="{Binding ShowMedia}" />
+      <Label Content="{t:Translate settings_show_media}" Style="{StaticResource SettingsPanelLabelStyle}" />
     </StackPanel>
 
-    <StackPanel Orientation="Horizontal"
-                VerticalAlignment="Center">
-      <CheckBox VerticalAlignment="Center"
-                IsChecked="{Binding SpellCheck}" />
-      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_spell_check}" />
+    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+      <CheckBox VerticalAlignment="Center" IsChecked="{Binding SpellCheck}" />
+      <Label Content="{t:Translate settings_spell_check}" Style="{StaticResource SettingsPanelLabelStyle}" />
     </StackPanel>
 
-    <StackPanel Orientation="Horizontal"
-                VerticalAlignment="Center">
-      <CheckBox VerticalAlignment="Center"
-                IsChecked="{Binding IsRegisteredInStartup}" />
-      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_run_on_windows_start}" />
+    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+      <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsRegisteredInStartup}" />
+      <Label Content="{t:Translate settings_run_on_windows_start}" Style="{StaticResource SettingsPanelLabelStyle}" />
     </StackPanel>
 
-    <StackPanel Orientation="Horizontal"
-                VerticalAlignment="Center">
-      <CheckBox VerticalAlignment="Center"
-                IsChecked="{Binding UseStreamingApi}"
-                Command="{x:Static commands:RestartTimelinesCommand.Command}"/>
-      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_use_streaming_api}" />
+    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" />
+
+    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+      <CheckBox VerticalAlignment="Center" IsChecked="{Binding ShowInTaskbar}" />
+      <Label Content="{t:Translate settings_show_in_taskbar}" Style="{StaticResource SettingsPanelLabelStyle}" />
     </StackPanel>
 
-    <StackPanel Orientation="Horizontal"
-                VerticalAlignment="Center">
-      <CheckBox VerticalAlignment="Center"
-                IsChecked="{Binding ShowInTaskbar}" />
-      <Label Style="{StaticResource SettingsPanelLabelStyle}" Content="{t:Translate settings_show_in_taskbar}" />
-    </StackPanel>
-
-    <TextBlock Text="{t:Translate settings_font_size}" Margin="0 10 0 0" />
+    <TextBlock Margin="0,10,0,0" Text="{t:Translate settings_font_size}" />
     <Separator />
-    <UniformGrid Style="{StaticResource SettingsUniformGrid}" Columns="4">
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}" FontSize="10" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="10" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=11}" FontSize="11" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="11" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=12}" FontSize="12" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="12" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=13}" FontSize="13" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="13" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=14}" FontSize="14" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="14" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=15}" FontSize="15" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="15" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=16}" FontSize="16" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="16" />
-      <RadioButton IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=17}" FontSize="17" GroupName="fs" Style="{StaticResource SettingsRadioButton}" Command="{x:Static commands:SetFontSizeCommand.Command}" CommandParameter="17" />
+    <UniformGrid Columns="4" Style="{StaticResource SettingsUniformGrid}">
+      <RadioButton
+        Command="{x:Static commands:SetFontSizeCommand.Command}"
+        CommandParameter="10"
+        FontSize="10"
+        GroupName="fs"
+        IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=10}"
+        Style="{StaticResource SettingsRadioButton}" />
+      <RadioButton
+        Command="{x:Static commands:SetFontSizeCommand.Command}"
+        CommandParameter="11"
+        FontSize="11"
+        GroupName="fs"
+        IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=11}"
+        Style="{StaticResource SettingsRadioButton}" />
+      <RadioButton
+        Command="{x:Static commands:SetFontSizeCommand.Command}"
+        CommandParameter="12"
+        FontSize="12"
+        GroupName="fs"
+        IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=12}"
+        Style="{StaticResource SettingsRadioButton}" />
+      <RadioButton
+        Command="{x:Static commands:SetFontSizeCommand.Command}"
+        CommandParameter="13"
+        FontSize="13"
+        GroupName="fs"
+        IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=13}"
+        Style="{StaticResource SettingsRadioButton}" />
+      <RadioButton
+        Command="{x:Static commands:SetFontSizeCommand.Command}"
+        CommandParameter="14"
+        FontSize="14"
+        GroupName="fs"
+        IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=14}"
+        Style="{StaticResource SettingsRadioButton}" />
+      <RadioButton
+        Command="{x:Static commands:SetFontSizeCommand.Command}"
+        CommandParameter="15"
+        FontSize="15"
+        GroupName="fs"
+        IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=15}"
+        Style="{StaticResource SettingsRadioButton}" />
+      <RadioButton
+        Command="{x:Static commands:SetFontSizeCommand.Command}"
+        CommandParameter="16"
+        FontSize="16"
+        GroupName="fs"
+        IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=16}"
+        Style="{StaticResource SettingsRadioButton}" />
+      <RadioButton
+        Command="{x:Static commands:SetFontSizeCommand.Command}"
+        CommandParameter="17"
+        FontSize="17"
+        GroupName="fs"
+        IsChecked="{Binding Path=FontSize, Converter={StaticResource FontSizeToBoolConverter}, ConverterParameter=17}"
+        Style="{StaticResource SettingsRadioButton}" />
     </UniformGrid>
 
-    <TextBlock Text="{t:Translate settings_theme}" Margin="0 10 0 0" />
+    <TextBlock Margin="0,10,0,0" Text="{t:Translate settings_theme}" />
     <Separator />
     <UniformGrid Style="{StaticResource SettingsUniformGrid}">
-      <RadioButton GroupName="th" 
-                   Content="{t:Translate settings_theme_light}"
-                   IsChecked="{Binding Theme, Converter={StaticResource ThemeToBooleanConverter}, ConverterParameter=Light}"
-                   Style="{StaticResource SettingsRadioButton}" 
-                   Command="{x:Static commands:ChangeTheme.Command}" 
-                   CommandParameter="Light" />
-      <RadioButton GroupName="th" 
-                   Content="{t:Translate settings_theme_dark}"
-                   IsChecked="{Binding Theme, Converter={StaticResource ThemeToBooleanConverter}, ConverterParameter=Dark}"
-                   Style="{StaticResource SettingsRadioButton}" 
-                   Command="{x:Static commands:ChangeTheme.Command}" 
-                   CommandParameter="Dark" />
+      <RadioButton
+        Command="{x:Static commands:ChangeTheme.Command}"
+        CommandParameter="Light"
+        Content="{t:Translate settings_theme_light}"
+        GroupName="th"
+        IsChecked="{Binding Theme, Converter={StaticResource ThemeToBooleanConverter}, ConverterParameter=Light}"
+        Style="{StaticResource SettingsRadioButton}" />
+      <RadioButton
+        Command="{x:Static commands:ChangeTheme.Command}"
+        CommandParameter="Dark"
+        Content="{t:Translate settings_theme_dark}"
+        GroupName="th"
+        IsChecked="{Binding Theme, Converter={StaticResource ThemeToBooleanConverter}, ConverterParameter=Dark}"
+        Style="{StaticResource SettingsRadioButton}" />
     </UniformGrid>
 
-    <Button Margin="40 20"
-            Content="{t:Translate settings_sign_out}"
-            Command="commands:SignOutCommand.Command" />
+    <Button
+      Margin="40,20"
+      Command="commands:SignOutCommand.Command"
+      Content="{t:Translate settings_sign_out}" />
 
     <TextBlock TextAlignment="Center">
-      tweetz Desktop, v: <Run Text="{Binding Version, Mode=OneTime}"></Run>
+      tweetz Desktop, v:<Run Text="{Binding Version, Mode=OneTime}" />
     </TextBlock>
     <TextBlock TextAlignment="Center">
-      <Hyperlink Command="commands:OpenLinkCommand.Command"
-                 CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink>
+      <Hyperlink Command="commands:OpenLinkCommand.Command" CommandParameter="http://mike-ward.net">http://Mike-Ward.Net</Hyperlink>
     </TextBlock>
     <TextBlock TextAlignment="Center">Copyright 2017, Mike Ward</TextBlock>
-    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="{t:Translate settings_keyboard_help}" />
-    <TextBlock TextAlignment="Center" Margin="0, 10, 0, 0">
-      <Hyperlink NavigateUri="http://mike-ward.net/donate" RequestNavigate="DonateHyperLink" FontWeight="Bold" FontSize="14">Donate</Hyperlink>
+    <TextBlock
+      Text="{t:Translate settings_keyboard_help}"
+      TextAlignment="Center"
+      TextWrapping="Wrap" />
+    <TextBlock Margin="0,10,0,0" TextAlignment="Center">
+      <Hyperlink
+        FontSize="14"
+        FontWeight="Bold"
+        NavigateUri="http://mike-ward.net/donate"
+        RequestNavigate="DonateHyperLink">
+        Donate
+      </Hyperlink>
     </TextBlock>
   </StackPanel>
 </UserControl>

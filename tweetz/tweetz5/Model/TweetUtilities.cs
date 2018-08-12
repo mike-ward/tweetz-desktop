@@ -47,7 +47,7 @@ namespace tweetz5.Model
                 RetweetedBy = RetweetedBy(status, username),
                 RetweetedByScreenName = RetweetedByScreenName(status, username),
                 RetweetStatusId = status.RetweetedStatus != null ? status.RetweetedStatus.Id : string.Empty,
-                MediaLinks = entities?.Media?.Select(m => m.MediaUrl).Take(1).ToArray() ?? new string[0],
+                MediaLinks = entities?.Media?.Select(m => m).Take(1).ToArray() ?? new Media[0],
                 Urls = entities?.Urls.Select(u => u.ExpandedUrl).ToArray() ?? new string[0],
                 IsMyTweet = displayStatus.User.ScreenName == username,
                 IsHome = tweetType == TweetClassification.Home,

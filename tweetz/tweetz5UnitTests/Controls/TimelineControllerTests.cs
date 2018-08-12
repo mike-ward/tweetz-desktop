@@ -21,7 +21,6 @@ namespace tweetz5UnitTests
         [TestMethod]
         public void ConstructingControllerStartsTimelines()
         {
-            Settings.ApplicationSettings.UseStreamingApi = false;
             var checkTimelines = new Mock<ITimer>();
             var updateTimelines = new Mock<ITimer>();
             var friendsBlockedTimelines = new Mock<ITimer>();

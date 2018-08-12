@@ -31,10 +31,10 @@
 
     <Storyboard x:Key="LoadItemAnimation">
       <DoubleAnimation
-        Duration="0:0:1"
-        From="0"
         Storyboard.TargetProperty="Opacity"
-        To="1" />
+        From="0"
+        To="1"
+        Duration="0:0:1" />
     </Storyboard>
 
     <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
@@ -59,9 +59,9 @@
     <ListBox
       x:Name="TimelineItems"
       Grid.Row="1"
-      Style="{StaticResource TimelineStyle}"
       ItemContainerStyle="{StaticResource TweetListBoxItemStyle}"
       ItemsSource="{Binding Timeline}"
+      Style="{StaticResource TimelineStyle}"
       VirtualizingStackPanel.VirtualizationMode="Recycling">
       <ListBox.ItemTemplate>
         <DataTemplate>
@@ -111,9 +111,9 @@
               </TextBlock>
               <TextBlock Grid.Row="0" Grid.Column="1">
                 <Hyperlink
-                  Style="{StaticResource TweetTimeStyle}"
                   Command="{x:Static commands:OpenTweetLinkCommand.Command}"
                   CommandParameter="{Binding}"
+                  Style="{StaticResource TweetTimeStyle}"
                   ToolTip="{Binding CreatedAt}">
                   <Run Text="{Binding TimeAgo}" />
                 </Hyperlink>
@@ -129,11 +129,11 @@
               Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                  <Image Style="{StaticResource TweetMediaStyle}" Source="{Binding IsAsync=True}">
+                  <Image Source="{Binding MediaUrl, IsAsync=True}" Style="{StaticResource TweetMediaStyle}">
                     <Image.InputBindings>
                       <MouseBinding
                         Command="{x:Static commands:ImageViewCommand.Command}"
-                        CommandParameter="{Binding}"
+                        CommandParameter="{Binding MediaUrl}"
                         MouseAction="LeftClick" />
                     </Image.InputBindings>
                   </Image>
@@ -146,7 +146,7 @@
               Grid.Column="0"
               Grid.ColumnSpan="2"
               Margin="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=TweetMargin}">
-              <TextBlock Style="{StaticResource TweetStyle}" controls:MarkupService.MarkupNodes="{Binding MarkupNodes, Mode=OneTime}" />
+              <TextBlock controls:MarkupService.MarkupNodes="{Binding MarkupNodes, Mode=OneTime}" Style="{StaticResource TweetStyle}" />
               <TextBlock Style="{StaticResource TweetRetweetedByStyle}">
                 <Hyperlink Command="{x:Static commands:ShowUserInformationCommand.Command}" CommandParameter="{Binding RetweetedByScreenName}">
                   <Run Style="{StaticResource TweetActionsSymbol}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE1CA;', Mode=OneWay}" />
@@ -213,9 +213,9 @@
 
               <TextBlock
                 Grid.Column="3"
-                Style="{StaticResource TweetActionsItem}"
                 ContextMenu="{StaticResource MoreMenu}"
-                PreviewMouseLeftButtonDown="MoreOnMouseDown">
+                PreviewMouseLeftButtonDown="MoreOnMouseDown"
+                Style="{StaticResource TweetActionsItem}">
                 <Run Style="{StaticResource TweetActionsSymbol}" Text="{Binding Converter={StaticResource Win7FontConverter}, ConverterParameter='&#xE10C;', Mode=OneWay}" />
               </TextBlock>
             </Grid>

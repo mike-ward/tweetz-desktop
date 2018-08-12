@@ -32,9 +32,6 @@
     <Setting Name="Theme" Type="System.String" Scope="User">
       <Value Profile="(Default)">Light</Value>
     </Setting>
-    <Setting Name="UseStreamingApi" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="ShowInTaskbar" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>

@@ -2,10 +2,11 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using tweetz5.Utilities.System;
+using Screen = tweetz5.Utilities.System.Screen;
 
 namespace tweetz5.Commands
 {
@@ -30,10 +31,11 @@ namespace tweetz5.Commands
                 {
                     BorderBrush = Brushes.Black,
                     BorderThickness = new Thickness(2),
-                    Child = new Image
+                    Child = new MediaElement
                     {
-                        Source = new BitmapImage(new Uri((string)ea.Parameter)),
-                        Stretch = Stretch.UniformToFill
+                        Source = new Uri((string)ea.Parameter),
+                        Stretch = Stretch.UniformToFill,
+                        LoadedBehavior = MediaState.Play
                     }
                 },
                 Placement = PlacementMode.Center,

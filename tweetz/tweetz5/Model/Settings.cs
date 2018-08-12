@@ -93,18 +93,6 @@ namespace tweetz5.Model
             }
         }
 
-        public bool UseStreamingApi
-        {
-            get => Properties.Settings.Default.UseStreamingApi;
-            set
-            {
-                if (Properties.Settings.Default.UseStreamingApi == value) return;
-                Properties.Settings.Default.UseStreamingApi = value;
-                Properties.Settings.Default.Save();
-                OnPropertyChanged();
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

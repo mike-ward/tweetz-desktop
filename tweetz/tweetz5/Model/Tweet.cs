@@ -39,7 +39,7 @@ namespace tweetz5.Model
             set => SetProperty(ref _createdAt, value);
         }
 
-        public string[] MediaLinks { get; set; }
+        public Media[] MediaLinks { get; set; }
         public string[] Urls { get; set; }
         public bool IsMyTweet { get; set; }
 
