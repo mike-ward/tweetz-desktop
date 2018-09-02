@@ -35,6 +35,9 @@ namespace tweetz5.Model
         [DataMember(Name = "entities")]
         public Entities Entities { get; set; }
 
+        [DataMember(Name = "extended_entities")]
+        public Entities ExtendedEntities { get; set; }
+
         [DataMember(Name = "retweeted_status")]
         public Status RetweetedStatus { get; set; }
 
@@ -242,6 +245,23 @@ namespace tweetz5.Model
 
         [DataMember(Name = "indices")]
         public int[] Indices { get; set; }
+
+        [DataMember(Name = "video_info")]
+        public VideoInfo  VideoInfo { get; set; }
+    }
+
+    [DataContract]
+    public class VideoInfo
+    {
+        [DataMember(Name = "variants")]
+        public Variant[] Variants { get; set; }
+    }
+
+    [DataContract]
+    public class Variant
+    {
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
     }
 
     [DataContract]
@@ -252,6 +272,9 @@ namespace tweetz5.Model
 
         [DataMember(Name = "entities")]
         public Entities Entities { get; set; }
+
+        [DataMember(Name = "extended_entities")]
+        public Entities ExtendedEntities { get; set; }
     }
 
     [DataContract]

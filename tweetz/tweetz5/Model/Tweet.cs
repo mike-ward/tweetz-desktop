@@ -40,6 +40,7 @@ namespace tweetz5.Model
         }
 
         public Media[] MediaLinks { get; set; }
+        public Media[] ExtendedMediaLinks { get; set; }
         public string[] Urls { get; set; }
         public bool IsMyTweet { get; set; }
 

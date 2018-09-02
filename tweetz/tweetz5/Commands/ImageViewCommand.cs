@@ -1,12 +1,14 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Screen = tweetz5.Utilities.System.Screen;
+using tweetz5.Model;
+using tweetz5.Utilities.System;
 
 namespace tweetz5.Commands
 {
@@ -24,6 +26,10 @@ namespace tweetz5.Commands
 
         private static Popup CreatePopup(Window window, ExecutedRoutedEventArgs ea)
         {
+            var media = (Media)ea.Parameter;
+            var uri = MediaSource(media);
+            var mediaElement = CreateMediaElement(uri);
+
             var popup = new Popup
             {
                 AllowsTransparency = true,
@@ -31,22 +37,46 @@ namespace tweetz5.Commands
                 {
                     BorderBrush = Brushes.Black,
                     BorderThickness = new Thickness(2),
-                    Child = new MediaElement
-                    {
-                        Source = new Uri((string)ea.Parameter),
-                        Stretch = Stretch.UniformToFill,
-                        LoadedBehavior = MediaState.Play
-                    }
+                    Child = mediaElement
                 },
                 Placement = PlacementMode.Center,
                 PlacementRectangle = Screen.ScreenRectFromWindow(window),
-                PopupAnimation = PopupAnimation.Fade
+                PopupAnimation = PopupAnimation.Fade,
             };
 
             popup.KeyDown += (o, args) => popup.IsOpen = false;
             popup.MouseDown += (o, args) => popup.IsOpen = false;
             popup.IsOpen = true;
             return popup;
+        }
+
+        private static MediaElement CreateMediaElement(Uri uri)
+        {
+            var mediaElement = new MediaElement
+            {
+                Source = uri,
+                Stretch = Stretch.UniformToFill,
+                LoadedBehavior = MediaState.Play
+            };
+
+            mediaElement.MediaFailed += (s, e) => MessageBox.Show(e.ErrorException.Message);
+            return mediaElement;
+        }
+
+        private static Uri MediaSource(Media media)
+        {
+
+            if (media.VideoInfo?.Variants?[0] == null)
+            {
+                return new Uri(media.MediaUrl);
+            }
+
+            var url = media.VideoInfo.Variants
+                .Where(variant => variant.Url.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase))
+                .Select(variant => variant.Url)
+                .FirstOrDefault() ?? "null.mp4";
+
+            return new Uri(url.Replace("https://", "http://"));
         }
     }
 }

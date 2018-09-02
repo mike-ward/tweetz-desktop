@@ -125,7 +125,7 @@
               Grid.Column="0"
               Grid.ColumnSpan="2"
               Margin="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=TweetMargin}"
-              ItemsSource="{Binding MediaLinks}"
+              ItemsSource="{Binding ExtendedMediaLinks}"
               Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -133,7 +133,7 @@
                     <Image.InputBindings>
                       <MouseBinding
                         Command="{x:Static commands:ImageViewCommand.Command}"
-                        CommandParameter="{Binding MediaUrl}"
+                        CommandParameter="{Binding}"
                         MouseAction="LeftClick" />
                     </Image.InputBindings>
                   </Image>

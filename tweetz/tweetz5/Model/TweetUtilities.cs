@@ -15,6 +15,7 @@ namespace tweetz5.Model
             var username = new OAuth().ScreenName;
             var displayStatus = status.RetweetedStatus ?? status;
             var entities = displayStatus.ExtendedTweet?.Entities ?? displayStatus.Entities;
+            var extendedEntities = displayStatus.ExtendedTweet?.ExtendedEntities ?? displayStatus.ExtendedEntities;
             var text = displayStatus?.ExtendedTweet?.FullText ?? displayStatus.FullText ?? displayStatus.Text;
 
             // Direct messages don't have a User. Instead, dm's use sender and recipient collections.
@@ -47,7 +48,8 @@ namespace tweetz5.Model
                 RetweetedBy = RetweetedBy(status, username),
                 RetweetedByScreenName = RetweetedByScreenName(status, username),
                 RetweetStatusId = status.RetweetedStatus != null ? status.RetweetedStatus.Id : string.Empty,
-                MediaLinks = entities?.Media?.Select(m => m).Take(1).ToArray() ?? new Media[0],
+                MediaLinks = entities?.Media?.Select(m => m).ToArray() ?? new Media[0],
+                ExtendedMediaLinks = extendedEntities?.Media?.Select(m => m).ToArray() ?? new Media[0],
                 Urls = entities?.Urls.Select(u => u.ExpandedUrl).ToArray() ?? new string[0],
                 IsMyTweet = displayStatus.User.ScreenName == username,
                 IsHome = tweetType == TweetClassification.Home,
