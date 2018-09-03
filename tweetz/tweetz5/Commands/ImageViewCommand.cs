@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -29,10 +28,10 @@ namespace tweetz5.Commands
             var media = (Media)ea.Parameter;
             var uri = MediaSource(media);
             var mediaElement = CreateMediaElement(uri);
+            mediaElement.MediaFailed += (s, e) => mediaElement.Source = new Uri(media.MediaUrl);
 
             var popup = new Popup
             {
-                AllowsTransparency = true,
                 Child = new Border
                 {
                     BorderBrush = Brushes.Black,
@@ -42,6 +41,8 @@ namespace tweetz5.Commands
                 Placement = PlacementMode.Center,
                 PlacementRectangle = Screen.ScreenRectFromWindow(window),
                 PopupAnimation = PopupAnimation.Fade,
+                RenderTransform = new ScaleTransform(1.25, 1.25),
+                SnapsToDevicePixels = true
             };
 
             popup.KeyDown += (o, args) => popup.IsOpen = false;
@@ -55,28 +56,37 @@ namespace tweetz5.Commands
             var mediaElement = new MediaElement
             {
                 Source = uri,
-                Stretch = Stretch.UniformToFill,
                 LoadedBehavior = MediaState.Play
             };
 
-            mediaElement.MediaFailed += (s, e) => MessageBox.Show(e.ErrorException.Message);
             return mediaElement;
         }
 
         private static Uri MediaSource(Media media)
         {
-
             if (media.VideoInfo?.Variants?[0] == null)
             {
                 return new Uri(media.MediaUrl);
             }
 
             var url = media.VideoInfo.Variants
-                .Where(variant => variant.Url.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase))
+                .Where(variant => IsMp4(variant.Url))
                 .Select(variant => variant.Url)
-                .FirstOrDefault() ?? "null.mp4";
+                .FirstOrDefault();
 
-            return new Uri(url.Replace("https://", "http://"));
+            return url != null
+                ? new Uri(url.Replace("https://", "http://"))
+                : new Uri(media.MediaUrl);
+        }
+
+        private static bool IsMp4(string url)
+        {
+            var findExtension = new Regex(@".+(\.\w{3})\?*.*");
+            var result = findExtension.Match(url);
+
+            return result.Success && 
+                   result.Groups.Count > 1 &&
+                   string.Equals(result.Groups[1].Value, ".mp4", StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }
