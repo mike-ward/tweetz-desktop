@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
 
@@ -53,11 +54,24 @@ namespace tweetz5.Commands
 
         private static MediaElement CreateMediaElement(Uri uri)
         {
-            var mediaElement = new MediaElement
+            // All this to make a video loop
+
+            var mediaTimeline = new MediaTimeline
             {
                 Source = uri,
-                LoadedBehavior = MediaState.Play
+                RepeatBehavior = RepeatBehavior.Forever
             };
+
+            var storyboard = new Storyboard();
+            storyboard.Children.Add(mediaTimeline);
+
+            var beginStoryboard = new BeginStoryboard {Storyboard = storyboard};
+
+            var eventTrigger = new EventTrigger {RoutedEvent = FrameworkElement.LoadedEvent};
+            eventTrigger.Actions.Add(beginStoryboard);
+
+            var mediaElement = new MediaElement();
+            mediaElement.Triggers.Add(eventTrigger);
 
             return mediaElement;
         }
