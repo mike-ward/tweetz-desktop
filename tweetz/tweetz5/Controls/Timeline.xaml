@@ -40,6 +40,7 @@
     <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     <u:ScreenNameConverter x:Key="ScreenNameConverter" />
     <u:Win7FontConverter x:Key="Win7FontConverter" />
+    <u:UniformGridRowConverter x:Key="GridRowConverter" />
   </UserControl.Resources>
 
   <UserControl.DataContext>
@@ -144,7 +145,7 @@
               </ItemsControl.ItemTemplate>
               <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                  <UniformGrid />
+                  <UniformGrid Rows="{Binding ExtendedMediaLinks, Converter={StaticResource GridRowConverter}}" />
                 </ItemsPanelTemplate>
               </ItemsControl.ItemsPanel>
             </ItemsControl>

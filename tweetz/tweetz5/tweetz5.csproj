@@ -156,6 +156,7 @@
     <Compile Include="Model\TweetUtilities.cs" />
     <Compile Include="Model\TwitterError.cs" />
     <Compile Include="Model\TwitterStream.cs" />
+    <Compile Include="Utilities\Converters\UniformGridRowConverter.cs" />
     <Compile Include="Utilities\ExceptionHandling\AggregateExceptionHandling.cs" />
     <Compile Include="Utilities\ExceptionHandling\CrashReport.cs" />
     <Compile Include="Utilities\NotifyPropertyChanged.cs" />
