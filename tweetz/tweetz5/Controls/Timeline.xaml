@@ -130,14 +130,16 @@
               Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                  <Image Source="{Binding MediaUrl, IsAsync=True}" Style="{StaticResource TweetMediaStyle}">
-                    <Image.InputBindings>
-                      <MouseBinding
-                        Command="{x:Static commands:ImageViewCommand.Command}"
-                        CommandParameter="{Binding}"
-                        MouseAction="LeftClick" />
-                    </Image.InputBindings>
-                  </Image>
+                  <Border Margin="0,0,1,1">
+                    <Image Source="{Binding MediaUrl, IsAsync=True}" Style="{StaticResource TweetMediaStyle}">
+                      <Image.InputBindings>
+                        <MouseBinding
+                          Command="{x:Static commands:ImageViewCommand.Command}"
+                          CommandParameter="{Binding}"
+                          MouseAction="LeftClick" />
+                      </Image.InputBindings>
+                    </Image>
+                  </Border>
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
               <ItemsControl.ItemsPanel>

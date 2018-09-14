@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using tweetz5.Model;
 using tweetz5.Utilities.System;
 
@@ -59,7 +62,7 @@ namespace tweetz5.Commands
             var mediaTimeline = new MediaTimeline
             {
                 Source = uri,
-                RepeatBehavior = RepeatBehavior.Forever
+                RepeatBehavior = RepeatBehavior.Forever,
             };
 
             var storyboard = new Storyboard();
@@ -73,8 +76,35 @@ namespace tweetz5.Commands
             var mediaElement = new MediaElement();
             mediaElement.Triggers.Add(eventTrigger);
 
+            mediaElement.MediaOpened += (sender, args) => Task
+                .Delay(TimeSpan.FromMilliseconds(100))
+                .ContinueWith(t => mediaElement.Dispatcher.Invoke(() => CopyUIElementToClipboard(mediaElement)));
+
             return mediaElement;
         }
+
+        private static void CopyUIElementToClipboard(FrameworkElement element)
+        {
+            try
+            {
+                var width = element.ActualWidth;
+                var height = element.ActualHeight;
+                var bmpCopied = new RenderTargetBitmap((int)Math.Round(width), (int)Math.Round(height), 96, 96, PixelFormats.Default);
+                var dv = new DrawingVisual();
+                using (var dc = dv.RenderOpen())
+                {
+                    var vb = new VisualBrush(element);
+                    dc.DrawRectangle(vb, null, new Rect(new Point(), new Size(width, height)));
+                }
+                bmpCopied.Render(dv);
+                Clipboard.SetImage(bmpCopied);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
 
         private static Uri MediaSource(Media media)
         {
