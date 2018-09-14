@@ -124,6 +124,7 @@
               Grid.Row="1"
               Grid.Column="0"
               Grid.ColumnSpan="2"
+              MaxHeight="200"
               Margin="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=TweetMargin}"
               ItemsSource="{Binding ExtendedMediaLinks}"
               Visibility="{Binding Source={x:Static model:Settings.ApplicationSettings}, Path=ShowMedia, Converter={StaticResource BoolToVisibility}}">
@@ -139,6 +140,11 @@
                   </Image>
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <UniformGrid />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
             </ItemsControl>
 
             <StackPanel
