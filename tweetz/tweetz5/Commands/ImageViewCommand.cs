@@ -31,28 +31,35 @@ namespace tweetz5.Commands
         {
             var media = (Media)ea.Parameter;
             var uri = MediaSource(media);
-            var mediaElement = CreateMediaElement(uri);
-            mediaElement.MediaFailed += (s, e) => mediaElement.Source = new Uri(media.MediaUrl);
+            var popupChild = CreatePopupChild(uri);
 
             var popup = new Popup
             {
-                Child = new Border
-                {
-                    BorderBrush = Brushes.Black,
-                    BorderThickness = new Thickness(2),
-                    Child = mediaElement
-                },
+                Child = popupChild,
                 Placement = PlacementMode.Center,
                 PlacementRectangle = Screen.ScreenRectFromWindow(window),
                 PopupAnimation = PopupAnimation.Fade,
                 RenderTransform = new ScaleTransform(1.25, 1.25),
-                SnapsToDevicePixels = true
+                SnapsToDevicePixels = true,
+                UseLayoutRounding = true
             };
 
             popup.KeyDown += (o, args) => popup.IsOpen = false;
             popup.MouseDown += (o, args) => popup.IsOpen = false;
             popup.IsOpen = true;
             return popup;
+        }
+
+        private static UIElement CreatePopupChild(Uri uri)
+        {
+            var popupChild = new Border
+            {
+                BorderBrush = Brushes.Black,
+                BorderThickness = new Thickness(1),
+                Child = CreateMediaElement(uri)
+            };
+
+            return popupChild;
         }
 
         private static MediaElement CreateMediaElement(Uri uri)
@@ -79,6 +86,12 @@ namespace tweetz5.Commands
             mediaElement.MediaOpened += (sender, args) => Task
                 .Delay(TimeSpan.FromMilliseconds(100))
                 .ContinueWith(t => mediaElement.Dispatcher.Invoke(() => CopyUIElementToClipboard(mediaElement)));
+
+            mediaElement.MediaFailed += (sender, args) =>
+            {
+                ((Popup)((Border)mediaElement.Parent).Parent).IsOpen = false;
+                mediaElement.Dispatcher.Invoke(() => MessageBox.Show(args.ErrorException.Message, "Tweetz"));
+            };
 
             return mediaElement;
         }
