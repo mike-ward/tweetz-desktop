@@ -13,6 +13,7 @@ namespace tweetz5
     {
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
+            System.Net.ServicePointManager.SecurityProtocol |= System.Net.SecurityProtocolType.Tls12;
             AppDomain.CurrentDomain.UnhandledException += (o, args) => ShowCrashReport((Exception)args.ExceptionObject);
             Current.DispatcherUnhandledException += (o, args) => ShowCrashReport(args.Exception);
             TaskScheduler.UnobservedTaskException += (o, args) => ShowCrashReport(args.Exception);
