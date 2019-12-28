@@ -1,6 +1,9 @@
 tweetz-desktop
 ==============
 
+This version is retired. New version can be found at <https://github.com/mike-ward/tweetz>
+---
+
 Desktop Twitter client written in WPF
 
 See http://mike-ward.net/tweetz for more information.
